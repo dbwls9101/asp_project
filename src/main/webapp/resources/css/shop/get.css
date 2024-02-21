@@ -1,0 +1,133 @@
+#menu-title{
+	margin-top: 50px;
+	margin-bottom: 30px;
+}
+
+#category{
+	font-size: 22px;
+}
+
+#makeparty{
+	position: absolute;
+	right: 0;
+	font-size: 15px;
+	border-radius: 17px;
+    width: 116px;
+    height: 32px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+#title-container{
+	padding: 20px 0px;
+	height: 110px;
+}
+
+#servicelogo{
+	width: 70px;
+	display: flex;
+	float:left;
+}
+
+#etclogo{
+	width: 70px;
+	display: flex;
+	float:left;
+	filter: grayscale(100%);
+}
+
+#title-area{
+	margin-left: 100px;
+}
+
+#servicename{
+	display: block;
+}
+
+#title{
+	font-size: 28px;
+}
+
+#pidx{
+	color: gray;
+	position: absolute;
+	right:0;
+}
+
+#partyinfo{
+	padding: 20px 0px;
+}
+
+#partyinfo div{
+	position: absolute;
+	right: 0;
+	display: inline;
+}
+
+hr{
+	background: lightgray;
+	height: 1px;
+	border: 0;
+}
+
+.participation{
+	width: 110px; 
+	height:110px; 
+	background: lightgray; 
+	display:inline-block;
+	margin: 20px 40px;
+}
+
+.non-participation{
+	width: 110px; 
+	height:110px; 
+	border: 1px solid lightgray;
+	display:inline-block;
+	margin: 20px 40px;
+}
+
+#partystatus{
+	width: 900px;
+	padding: 80px 0px;
+}
+
+#announcement{
+	border: 1px solid lightgray;
+	padding: 30px;
+	background-color: #f9f9f9;
+}
+
+.rule{
+	margin-right: 10px;
+	padding: 5px 15px;
+	border-radius: 20px;
+	background-color: #E6E6E6;
+}
+
+#comment{
+	margin-top: 30px;
+}
+
+#checkform{
+	border: 1px solid lightgray;
+	border-top: 0px;
+	padding: 30px;
+	background-color: #f9f9f9;
+	text-align: center;
+}
+
+#btnarea{
+	padding: 40px;
+	text-align: center;
+}
+
+#btnarea input[type="button"]{
+	width: 150px;
+	height: 70px;
+	font-size: 18px;
+}
+
+#reply-title{
+	margin-top: 30px;
+	font-size: 22px;
+}

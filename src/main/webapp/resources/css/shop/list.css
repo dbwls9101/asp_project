@@ -1,0 +1,86 @@
+#menu-title{
+	margin-top: 50px;
+	margin-bottom: 30px;
+}
+
+#category{
+	font-size: 22px;
+}
+
+#makeparty{
+	position: absolute;
+	right: 0;
+	font-size: 15px;
+	border-radius: 17px;
+    width: 116px;
+    height: 32px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+#partyinfo{
+	border: 1px solid lightgray;
+	width: 300px;
+	height: 210px;
+	border-radius: 20px;
+	padding: 30px;
+	position: relative;
+	cursor: pointer;
+	display: inline-block;
+	margin: 10px 8px;
+}
+
+#partyinfo:hover{
+	border: 1px solid #258e75;
+}
+
+#partyinfo:hover > #service{
+	color: #258e75;
+}
+
+#service{
+	font-size: 22px;
+	margin-bottom: 5px;
+}
+
+#title{
+	font-size: 15px;
+	color: gray;
+	margin-bottom: 20px;
+}
+
+#curr-party{
+	height: 40px;
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+
+.participation{
+	width: 40px; 
+	height:40px;
+	display:inline-block;
+}
+
+.non-participation{
+	width: 40px; 
+	height: 40px;
+	display:inline-block;
+	filter: grayscale(100%);
+}
+
+#enddate{
+	font-size: 14px;
+	color: gray;
+	display: inline;
+}
+
+#period{
+	font-weight: bold;
+}
+
+#price{
+	font-weight: bold;
+	display: inline;
+	position: absolute;
+	right:30px;
+}

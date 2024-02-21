@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.prj.mapper.InquiryMapper">
+	
+	<!-- 1. 게시판 내용 불러오기 -->
+	<select id="getList" resultType="org.prj.domain.InquiryVO">
+		<![CDATA[
+		SELECT i_idx, m_idx, inquiry_type, writer, phone, title, content, password, status, reg_date, update_date
+		FROM (
+		SELECT ROWNUM rn, i_idx, m_idx, inquiry_type, writer, phone, title, content, password, status, reg_date, update_date
+		FROM 
+		(SELECT * FROM inquiry_board ORDER BY i_idx desc)
+		WHERE ROWNUM <= #{pageNum} * #{amount}
+		ORDER BY i_idx desc)
+		WHERE rn > ( #{pageNum}-1) * #{amount}
+		]]>
+	</select>
+	
+	<!-- 2. 게시판 페이지 번호 -->
+	<select id="getTotal" resultType="int">
+		SELECT COUNT(*) FROM inquiry_board
+	</select>
+	
+	<!-- 3. 게시판 글 등록 -->
+	<insert id="insert" parameterType="org.prj.domain.InquiryVO">
+		INSERT INTO inquiry_board(i_idx, m_idx, inquiry_type, writer, content, password, status, reg_date, phone, title)
+		VALUES(SEQ_INQUIRY.nextval, 22, #{inquiry_type }, #{writer }, #{content }, 
+				#{password }, #{status }, sysdate, #{phone }, #{title })
+	</insert>
+	
+	<!-- 4. 게시된 글을 가지고 온다. -->
+	<select id="read" parameterType="int" resultType="org.prj.domain.InquiryVO">
+		SELECT * FROM inquiry_board WHERE i_idx = #{i_idx }
+	</select>
+	
+	<!-- 5. 게시글 수정 -->
+	<update id="update" parameterType="org.prj.domain.InquiryVO">
+		UPDATE inquiry_board
+		SET
+			TITLE = #{title },
+			CONTENT = #{content }
+		WHERE
+			I_IDX = #{i_idx}
+	</update>
+	
+	<!-- 6. 게시글 삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM inquiry_board WHERE I_IDX = #{i_idx }
+	</delete>
+	
+	<!-- 7. 데이터 게시에 해당하는 번호 가지고 오기 -->
+	<select id="getIdx" resultType="int">
+		SELECT SEQ_INQUIRY.CURRVAL FROM DUAL
+	</select>
+	
+<!-- 	<update id="updateReplyCnt">
+		UPDATE inquiry_board
+		SET
+			REPLYCNT = REPLYCNT + #{amount }
+		WHERE
+			I_IDX = #{i_idx }	
+	</update> -->
+	
+	
+	
+</mapper>

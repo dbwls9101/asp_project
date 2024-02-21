@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.prj.mapper.PartyBoardMapper">
+	<!-- 파티 등록 -->
+	<insert id="registerParty" parameterType="org.prj.domain.PartyBoardVO">
+		insert into party_board
+		values(to_number(TO_CHAR(SYSDATE, 'YYYYMMDD') || seq_party.nextval), #{m_idx}, 
+		#{codeone}, #{codetwo}, #{title}, #{name}, #{nickname}, #{id}, #{party_num}, #{share_id}, #{share_pw}, #{phone},
+		#{start_date}, #{end_date}, #{price}, #{rule, jdbcType=VARCHAR}, #{comment}, 'Y', sysdate, sysdate, 0)
+	</insert>
+	
+	<!-- 파티 리스트 -->
+	<select id="getPartyList" resultType="org.prj.domain.PartyBoardVO">
+		select p.p_idx, p.m_idx, p.codeone, p.codetwo, p.title, p."NAME", p.nickname, p.id, p.party_num
+		, p.share_id, p.share_pw, p.phone, p.start_date, p.end_date, p.price, p."RULE", p."COMMENT", p.status
+		, p.reg_date, p.update_date, p.curr_party, c.c_primary, c.c_secondary
+		from party_board p inner join category c 
+		on p.codeone=c.codeone and p.codetwo=c.codetwo
+		where m_idx=#{m_idx} 
+		order by p_idx desc
+	</select>
+	
+	<!-- 파티 수정 페이지 -->
+	<select id="getParty" parameterType="int" resultType="org.prj.domain.PartyBoardVO">
+		select p.p_idx, p.m_idx, p.codeone, p.codetwo, p.title, p."NAME", p.nickname, p.id, p.party_num
+		, p.share_id, p.share_pw, p.phone, p.start_date, p.end_date, p.price, p."RULE", p."COMMENT", p.status
+		, p.reg_date, p.update_date, p.curr_party, c.c_primary, c.c_secondary
+		from party_board p inner join category c 
+		on p.codeone=c.codeone and p.codetwo=c.codetwo
+		where p_idx=#{p_idx}
+	</select>
+	
+	<!-- 파티 수정 -->
+	<update id="updateParty" parameterType="org.prj.domain.PartyBoardVO">
+		update party_board 
+		set title=#{title}, share_id=#{share_id}, share_pw=#{share_pw}, phone=#{phone}, "RULE"=#{rule, jdbcType=VARCHAR}, "COMMENT"=#{comment}, update_date=sysdate
+		where p_idx=#{p_idx}
+	</update>
+	
+	<!-- 카테고리별 파티 리스트 -->
+	<select id="getListbycategory" parameterType="int" resultType="org.prj.domain.PartyBoardVO">
+		select p.p_idx, p.m_idx, p.codeone, p.codetwo, p.title, p."NAME", p.nickname, p.id, p.party_num
+		, p.share_id, p.share_pw, p.phone, p.start_date, p.end_date, p.price, p."RULE", p."COMMENT", p.status
+		, p.reg_date, p.update_date, p.curr_party, c.c_primary, c.c_secondary
+		from party_board p inner join category c 
+		on p.codeone=c.codeone and p.codetwo=c.codetwo
+		where p.codeone=#{codeone}
+		order by p_idx desc
+	</select>
+	
+	<!-- 게시글 상세 -->
+	<select id="getDetailParty" parameterType="int" resultType="org.prj.domain.PartyBoardVO">
+		select p.p_idx, p.m_idx, p.codeone, p.codetwo, p.title, p."NAME", p.nickname, p.id, p.party_num
+		, p.share_id, p.share_pw, p.phone, p.start_date, p.end_date, p.price, p."RULE", p."COMMENT", p.status
+		, p.reg_date, p.update_date, p.curr_party, c.c_primary, c.c_secondary
+		from party_board p inner join category c 
+		on p.codeone=c.codeone and p.codetwo=c.codetwo
+		where p_idx=#{p_idx}
+	</select>
+	
+	<!-- 참여인원 업데이트 -->
+	<update id="updateCurrNum" parameterType="int">
+		update party_board set curr_party=curr_party+1 where p_idx=#{p_idx}
+	</update>
+	
+	<!-- 결제취소 참여인원 업데이트 -->
+	<update id="cancleUpdateCurrNum" parameterType="int">
+		update party_board set curr_party=curr_party-1 where p_idx=#{p_idx}
+	</update>
+</mapper>

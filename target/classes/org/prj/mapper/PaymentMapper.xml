@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.prj.mapper.PaymentMapper">
+	<!-- 결제내역 등록 -->	
+	<insert id="order" parameterType="org.prj.domain.PaymentVO">
+		insert into payment
+			(order_no, p_idx, m_idx, id, name, phone, service_amount, pay_amount, point, commission, pay_method, pay_status, approved_at, title, imp_uid, token)
+		values 
+			(#{order_no}, #{p_idx}, 1, #{id}, #{name}, #{phone}, #{service_amount}, #{pay_amount}, #{point}, #{commission}, #{pay_method}, #{pay_status}, SYSDATE, #{title}, #{imp_uid}, #{token})
+	</insert>
+	
+	<!-- 결제정보 -->
+	<select id="orderList" resultType="org.prj.domain.PaymentVO">
+		SELECT * FROM payment where m_idx=#{m_idx} order by approved_at desc
+	</select>
+	
+	<!-- 결제조회 -->
+	<select id="orderGet" resultType="org.prj.domain.PaymentVO">
+		SELECT * FROM payment where order_no=#{order_no}
+	</select>
+	
+	<!-- 결제취소 상태변경 -->
+	<update id="cancelStatus">
+		update payment set pay_status='D' where order_no=#{order_no}
+	</update>
+</mapper>
