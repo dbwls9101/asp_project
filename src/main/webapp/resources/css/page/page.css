@@ -1,0 +1,44 @@
+/* privacy.jsp */
+
+.page-content {
+	line-height: 22px;
+    word-break: keep-all;
+    word-wrap: break-word;
+    text-align: center;
+}
+
+.title {
+	position: relative;
+    margin-top: 60px;
+    margin-bottom: 30px;
+    font-size: 22px;
+    font-weight: 600;
+    color: #333333;
+    line-height: 32px;
+}
+
+.title-point {
+	color: #43a051;
+}
+
+.page-wrap .article-title {
+	color: #258e75;
+    font-weight: bold;
+    padding-top: 30px;
+    padding-bottom: 10px;
+}
+
+.page-wrap ol {
+	margin-top: 0px;
+    margin-bottom: 0px;
+    list-style-type: decimal;
+    padding-left: 40px;
+}
+
+.page-wrap ol > li > ol li {
+	list-style: disc;
+}
+
+.text-box {
+	font-size: 14px;
+}
