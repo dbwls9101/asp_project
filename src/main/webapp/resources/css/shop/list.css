@@ -18,16 +18,22 @@
     cursor: pointer;
 }
 
+#partyinfo-container {
+	width: calc(100% + 26px);
+    margin-left: -13px;
+    font-size: 0;
+}
+
 #partyinfo{
 	border: 1px solid lightgray;
-	width: 300px;
+	width: calc(25% - 26px);
 	height: 210px;
 	border-radius: 20px;
 	padding: 30px;
 	position: relative;
 	cursor: pointer;
 	display: inline-block;
-	margin: 10px 8px;
+	margin: 13px;
 }
 
 #partyinfo:hover{
