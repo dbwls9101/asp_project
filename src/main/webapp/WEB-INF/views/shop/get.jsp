@@ -16,8 +16,6 @@
 		<input type="button" id="makeparty" value="파티 만들기"> 
 	</div>
 	
-	<hr>
-	
 	<div id="title-container">
 		<c:set var="servicecode" value="${vo.codeone }${vo.codetwo}" />
 		<c:choose>
@@ -35,8 +33,6 @@
 		</div>
 	</div>
 	
-	<hr>
-	
 	<div id="partyinfo">
 		<span id="nick">${vo.nickname }</span>
 		<div>
@@ -46,22 +42,20 @@
 		</div>
 	</div>
 	
-	<hr>
-	
 	<div id="partystatus">
 		<c:if test="${vo.curr_party > 0 }">
 			<c:forEach var="i" begin="0" end="${vo.curr_party - 1}">
-				<div class="participation"></div>
+				<img src="/resources/images/get_sun.png" class="participation">
 			</c:forEach>
 			<c:forEach var="i" begin="0" end="${vo.party_num - vo.curr_party - 1}">
-				<div class="non-participation"></div>
+				<img src="/resources/images/get_sun.png" class="non-participation">
 			</c:forEach>
 		</c:if>
 		<c:if test="${vo.curr_party == 0 }">
 			<c:forEach var="i" begin="0" end="${vo.party_num -1}">
-				<div class="non-participation"></div>
+				<img src="/resources/images/get_sun.png" class="non-participation">
 			</c:forEach>
-		</c:if>
+		</c:if>	
 	</div>
 	
 	<div id="announcement">
@@ -76,8 +70,8 @@
 		<div id="btnarea">
 			<input type="hidden" name="pn" value="${vo.p_idx }">
 			
-			<input type="button" value="목록" id="getpartylist">
 			<input type="button" value="참여" id="participate">
+			<input type="button" value="목록" id="getpartylist">
 		</div>
 	</form>
 	

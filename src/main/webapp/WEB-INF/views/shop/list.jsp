@@ -18,7 +18,9 @@
 	<div id="partyinfo-container">
 		<c:forEach var="vo" items="${list }">
 			<div id="partyinfo" codeone=${vo.codeone } codetwo=${vo.codetwo } p_idx=${vo.p_idx }>
-				<div id="service">${vo.c_secondary }</div>
+				<div id="service">
+					${vo.c_secondary }
+				</div>
 				<div id="title">${vo.title }</div>
 				<div id="curr-party">
 					<c:if test="${vo.curr_party > 0 }">

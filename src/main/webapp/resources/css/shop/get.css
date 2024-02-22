@@ -1,26 +1,33 @@
 #menu-title{
 	margin-top: 50px;
-	margin-bottom: 30px;
+	margin-bottom: 20px;
 }
 
 #category{
 	font-size: 22px;
+	font-weight: 600;
 }
 
 #makeparty{
 	position: absolute;
-	right: 0;
-	font-size: 15px;
-	border-radius: 17px;
+    right: 0;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 17px;
     width: 116px;
     height: 32px;
     background-color: #fff;
     cursor: pointer;
+    border: 1px solid #258e75;
+    color: #258e75;
+    line-height: 18px;
 }
 
 #title-container{
 	padding: 20px 0px;
 	height: 110px;
+	border-top: 2px solid #43a051;
+	border-bottom: 1px solid #ececec;
 }
 
 #servicelogo{
@@ -56,6 +63,7 @@
 
 #partyinfo{
 	padding: 20px 0px;
+	border-bottom: 1px solid #ececec;
 }
 
 #partyinfo div{
@@ -64,35 +72,25 @@
 	display: inline;
 }
 
-hr{
-	background: lightgray;
-	height: 1px;
-	border: 0;
-}
-
 .participation{
-	width: 110px; 
-	height:110px; 
-	background: lightgray; 
+	width: 150px; 
 	display:inline-block;
-	margin: 20px 40px;
+	margin: 20px;
 }
 
 .non-participation{
-	width: 110px; 
-	height:110px; 
-	border: 1px solid lightgray;
+	width: 150px; 
 	display:inline-block;
-	margin: 20px 40px;
+	margin: 20px;
+	filter: grayscale(100%);
 }
 
 #partystatus{
-	width: 900px;
-	padding: 80px 0px;
+	padding: 50px 20px;
 }
 
 #announcement{
-	border: 1px solid lightgray;
+	border: 1px solid #ececec;
 	padding: 30px;
 	background-color: #f9f9f9;
 }
@@ -109,27 +107,54 @@ hr{
 }
 
 #checkform{
-	border: 1px solid lightgray;
+	border: 1px solid #ececec;
 	border-top: 0px;
-	padding: 30px;
+	padding: 25px 0;
 	background-color: #f9f9f9;
 	text-align: center;
 }
 
 #btnarea{
-	padding: 40px;
+	padding: 60px 0;
 	text-align: center;
 }
 
 #btnarea input[type="button"]{
 	width: 150px;
 	height: 70px;
-	font-size: 18px;
+	font-size: 20px;
+}
+
+#participate{
+	border: 0px;
+	background-color: #43a051;
+	color: white;
+    line-height: 70px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#getpartylist{
+	border: 0px;
+    background-color: #333;
+	color: white;
+    line-height: 70px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#participate:hover{
+	background-color: #FFE05C;
+}
+
+#getpartylist:hover {
+	background-color: #111;
 }
 
 #reply-title{
 	margin-top: 30px;
 	font-size: 22px;
+	font-weight: 600;
 }
 
 #commentArea{
