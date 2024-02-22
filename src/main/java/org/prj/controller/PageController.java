@@ -18,4 +18,11 @@ public class PageController {
 		return "/page/privacy";
 	}
 	
+	// 서비스 이용약관 페이지
+	@GetMapping("/provision")
+	public String moveProvision() {
+		log.info("moveProvision...");
+		return "/page/provision";
+	}
+	
 }

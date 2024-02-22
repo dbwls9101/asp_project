@@ -68,6 +68,8 @@ a {
 }
 .logo {
 	display: inline-block;
+	position: absolute;
+	z-index: 1;
 }
 .logo a img {
 	width: 200px;

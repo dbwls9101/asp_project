@@ -22,7 +22,7 @@
 	    <div class="header-menu">
 	   		<div class="width-menu">
 	   			<div class="logo">
-	   				<a href="#">
+	   				<a href="/">
 	   					<img alt="메인로고" src="/resources/images/prj_logo.png">
 	   				</a>
 	   			</div>

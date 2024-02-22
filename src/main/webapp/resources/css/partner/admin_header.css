@@ -55,7 +55,7 @@ a {
 }
 
 #partner-menu li:hover a{
-	background: #f9f9f9 url(../images/admin_arrow.png) no-repeat calc(100% - 10px) 50%;
+	background: #f9f9f9 url(/resources/images/admin_arrow.png) no-repeat calc(100% - 10px) 50%;
 	color: #43a051 !important;
 }
 

@@ -7,14 +7,14 @@
 	      	<div class="width-container">
 	      		<div class="footer-left">
 		      		<div class="footer-logo logo">
-		   				<a href="#">
+		   				<a href="/">
 		   					<img alt="메인로고" src="/resources/images/prj_footer_logo.png">
 		   				</a>
 		   			</div>
 		      		<div class="footer-a">
 		      			<a href="#">1:1문의하기</a>
-		      			<a href="#">개인정보처리방침</a>
-		      			<a href="#">서비스 이용약관</a>
+		      			<a href="/page/privacy">개인정보처리방침</a>
+		      			<a href="/page/provision">서비스 이용약관</a>
 		      			<a href="#">FAQ</a>
 		      		</div><br><br>
 		      		<div class="footer-span">
