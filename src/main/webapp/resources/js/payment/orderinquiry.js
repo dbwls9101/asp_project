@@ -4,7 +4,7 @@ IMP.init("imp45030755");   /* imp~ : 가맹점 식별코드*/
 const f = document.forms[0];
 
 //list 가져오기
-getList(1);
+getList(principal.member.m_idx);
 function getList(m_idx){
 	msg = "";
 	

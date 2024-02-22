@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "sec" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +11,8 @@
 </head>
 <body>
 	<jsp:include page="../layout/header.jsp"/>
+	
+	<sec:authentication property="principal" var="principal"/>
 	
 	<form method="post">
 		<div class="title-div">
@@ -50,16 +53,16 @@
 				<ul>
 					<li>
 						<div class="subject">ㆍ 아이디</div>
-						<div class="right">asdasd</div>
-						<input type="hidden" name="id" value="asdasd">
+						<div class="right">${principal.member.id }</div>
+						<input type="hidden" name="id" value="${principal.member.id }">
 					</li>
 					<li>
 						<div class="subject">ㆍ 이름</div>
 						<div class="right fill">
-							<input type="text" name="name" value="홍길동" maxlength="20" style="text-align: right;">
+							<input type="text" name="name" value="${principal.member.name }" maxlength="20" style="text-align: right;">
 						</div>
-						<input type="hidden" name="phone" value="010-1111-1111">
-						<input type="hidden" name="m_idx" value="1">
+						<input type="hidden" name="phone" value="${principal.member.phone }">
+						<input type="hidden" name="m_idx" value="${principal.member.m_idx }">
 						<input type="hidden" name="title" value="${vo.c_secondary }">
 						<input type="hidden" name="p_idx" value="${vo.p_idx }">
 						<input type="hidden" name="codeone" value="${vo.codeone }">

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "sec" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,8 @@
 </head>
 <body>
 	<jsp:include page="../layout/admin_header.jsp"/>
+
+	<sec:authentication property="principal" var="principal"/>
 	
 	<div id="content-container">
 		<div id="service-container">
@@ -67,7 +70,7 @@
 						<tr>
 							<th>연락처(문의처)</th>
 							<td>
-								<input class="form-control" type="text" name="phone" placeholder="전화번호" aria-label="default input example">
+								<input class="form-control" type="text" name="phone" placeholder="전화번호" value="${principal.member.phone }" aria-label="default input example">
 							</td>
 						</tr>
 						<tr>
@@ -123,10 +126,10 @@
 						</tr>
 						<tr>
 							<td id="registerBtn" colspan="2">
-								<input type="hidden" name="m_idx" value="101">	
-								<input type="hidden" name="name" value="홍길동">	
-								<input type="hidden" name="nickname" value="길동이">	
-								<input type="hidden" name="id" value="gildong123">
+								<input type="hidden" name="m_idx" value="${principal.member.m_idx }">	
+								<input type="hidden" name="name" value="${principal.member.name }">	
+								<input type="hidden" name="nickname" value="${principal.member.nickname }">	
+								<input type="hidden" name="id" value="${principal.member.id }">
 								
 								<input type="button" id="myPartyList" value="목록">
 								<input type="button" id="myPartyRegister" value="등록">

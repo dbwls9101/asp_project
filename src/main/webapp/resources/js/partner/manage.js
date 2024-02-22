@@ -4,7 +4,8 @@ document.querySelector("#makeparty").addEventListener('click', ()=>{
 })
 
 //list 가져오기
-getList(101); //파라미터 > 인증된 사용자 회원번호
+getList(principal.member.m_idx);
+
 function getList(m_idx){
 	msg = "";
 	

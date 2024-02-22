@@ -187,6 +187,7 @@ public class MemberController {
 		log.info("logout");
 		return "/member/logout";
 	}
+	
 	@ResponseBody
 	@GetMapping("/api/currentUser")
 	public Authentication getCurrentUser() {

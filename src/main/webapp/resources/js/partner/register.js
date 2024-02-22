@@ -98,6 +98,12 @@ document.querySelector("#priceCheck").addEventListener('click', ()=>{
 
 //파티 등록
 document.querySelector("#myPartyRegister").addEventListener('click', () => {
+	if(principal == 'anonymousUser'){
+		alert('로그인 후 이용가능한 서비스입니다.');
+		location.href = '/member/login';
+		return;
+	}
+	
 	if(f.codeone.value == 0 || f.codetwo.value == 0){
 		alert('서비스를 선택하세요.');
 		f.codeone.focus();
