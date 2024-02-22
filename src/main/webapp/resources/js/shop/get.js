@@ -53,6 +53,11 @@ function getrule(){
 
 //파티 만들기
 document.querySelector("#makeparty").addEventListener('click', ()=>{
+	if(principal == 'anonymousUser'){
+		alert('로그인 후 이용가능한 서비스입니다.');
+		location.href = '/member/login';
+		return;
+	}
 	location.href = '/partner/register';
 })
 
