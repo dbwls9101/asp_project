@@ -131,3 +131,28 @@ hr{
 	margin-top: 30px;
 	font-size: 22px;
 }
+
+#commentArea{
+	margin-top: 30px;
+	height: 110px;
+	border: 1px solid #000;
+}
+
+#comment-select{
+	border: 1px solid #000;
+	width: 180px;
+	height: 110px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+#replycontainer{
+	border: 1px solid #000;
+	width: 700px;
+	height: 110px;
+	display: inline-block;
+}
+
+#commentform{
+	font-size:0;
+}

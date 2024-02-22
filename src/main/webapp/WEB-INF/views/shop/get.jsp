@@ -83,10 +83,20 @@
 	
 	<hr>
 	
-	<!-- 댓글톡 영역 -->
+	<!-- 댓글 영역 -->
 	<div id="reply-title">댓글</div>
-	
-	
+	<div id="commentArea">
+		<form id="commentform">
+		<div id="comment-select">
+			<select id="comment-to" name="comment_to" class="form-select" aria-label="Default select example">
+			  <option value="0" selected>파티장에게</option>
+			</select>
+		</div>
+		<div id="replycontainer">
+		
+		</div>
+		</form>
+	</div>
 	
 	
 	<jsp:include page="../layout/footer.jsp"/>
