@@ -50,12 +50,13 @@ public class InquiryServiceImpl implements InquiryService {
 		int i_idx = mapper.getIdx();
 				
 		// 3. 파일 업로드
-		if(vo.getAttachList() != null || vo.getAttachList().size() > 0) {
-			for(FileInfoVO attachVO : vo.getAttachList()) {
-				attachVO.setIdx(i_idx);
-				AttachMapper.insert(attachVO);
-			}
-		} 
+		if (vo.getAttachList() == null || vo.getAttachList().size() <= 0) {
+			return;
+		}
+		vo.getAttachList().forEach(attach -> {
+			attach.setIdx(i_idx);
+			AttachMapper.insert(attach);
+		});
 	}
 	
 	// 4. 게시글 가지고 오기!!

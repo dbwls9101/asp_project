@@ -66,6 +66,10 @@ a {
     border-bottom: 1px solid #FFE05C;
     z-index: 1000;
 }
+.header-menu.fixed {
+	position: fixed;
+    top: 0;
+}
 .logo {
 	display: inline-block;
 	position: absolute;
@@ -96,6 +100,10 @@ a {
     font-weight: bold;
 }
 .menu ul li:hover .menu-a {
+	color: #333333;
+    border-bottom: 3px solid #43a051;
+}
+.menu ul li .menu-a.hover {
 	color: #333333;
     border-bottom: 3px solid #43a051;
 }

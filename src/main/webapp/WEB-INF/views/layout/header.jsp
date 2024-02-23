@@ -14,7 +14,7 @@
     	<div class="top">
 		    <div class="width-menu">
 			    <div class="top-menu">
-				    <a href="#">1:1 문의</a>
+				    <a href="/inquiry_board/Inquiryregister">1:1 문의</a>
 				    <a href="#">이벤트</a>
 				    <a href="#">공지사항</a>
 			    </div>

@@ -33,22 +33,22 @@
 	</c:if>
     <div class="form-check text-start my-3">
 		<input class="form-check-input" type="checkbox" id="remember-me" name="remember-me">
-		<label class="form-check-label" for="save_id">자동 로그인</label>
+		<label class="form-check-label" for="remember-me">자동 로그인</label>
 		<span class="float-end">
 			<a href="/member/joinAgree" class="find-info-text" >회원가입</a> &nbsp;|&nbsp;
 			<a href="/member/find_id" class="find-info-text">아이디 찾기</a> &nbsp;|&nbsp;
 			<a href="/member/find_pw" class="find-info-text">패스워드 찾기</a>
 		</span>
     </div>
-    <button class="btn btn-primary w-100 py-3 fs-3" id="login_button" type="submit">로그인</button>
+    <button class="btn btn-primary w-100 py-2 fs-3" id="login_button" type="submit" style="font-size: 22px !important;">로그인</button>
 	<div class="form-text fs-6">
-		회원이 아닌가요? 첫가입 시 500포인트! <span class="text-purple">추천인 등록 시 추가 500포인트!</span>
+		회원이 아닌가요? 첫가입 시 500포인트! <br><span class="text-point">추천인 등록 시 추가 500포인트!</span>
 	</div>	
 	<div class="form-sns-join">
-		<a href="javascrip:;" onclick="nwindow('https://buts.co.kr/plugin/social/popup.php?provider=naver&amp;url=https://buts.co.kr/bbs/login.php')" style="margin-top:20px; width:100%;" class="naver sns-naver" title="네이버">
+		<a href="javascrip:;" onclick="nwindow('https://buts.co.kr/plugin/social/popup.php?provider=naver&amp;url=https://buts.co.kr/bbs/login.php')" style="margin-top:20px; width:100%; font-weight: 500;" class="naver sns-naver" title="네이버">
 			<img src="/resources/images/naver_logo.png" alt="">네이버 계정으로 로그인 하기
 		</a>
-		<a href="javascrip:;" onclick="nwindow('https://buts.co.kr/plugin/social/popup.php?provider=kakao&amp;url=https://buts.co.kr/bbs/login.php')" style="margin-left:0px; margin-top:5px; width:100%;" class="kakao sns-kakao" title="카카오">
+		<a href="javascrip:;" onclick="nwindow('https://buts.co.kr/plugin/social/popup.php?provider=kakao&amp;url=https://buts.co.kr/bbs/login.php')" style="margin-left:0px; margin-top:5px; width:100%; font-weight: 500;" class="kakao sns-kakao" title="카카오">
 			<img src="/resources/images/kakao_logo.png" alt="">카카오 계정으로 로그인 하기			
 		</a>
 	</div>
