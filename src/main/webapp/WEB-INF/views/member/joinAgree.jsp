@@ -6,9 +6,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/resources/css/member/joinAgree.css"> 
-<style type="text/css">
- 
-  </style>
 </head>
 <body>
 <jsp:include page="../layout/header.jsp"/>
@@ -272,7 +269,9 @@
 
 </div>
 <br>
-<input type="checkbox" name="agree1" value="agree1">&nbsp;회원가입 약관의 내용에 동의 합니다.
+<label>
+<span><input type="checkbox" name="agree1" value="agree1">&nbsp;회원가입 약관의 내용에 동의 합니다.</span>
+</label>
 <div class="h3">개인정보 처리방침</div>
 <div class="page-content">
 	
@@ -422,11 +421,13 @@
 	</li></ol>
 
 </div>
-		<br>
-		<input type="checkbox" name="agree2" value="agree2">&nbsp;개인정보 처리방침 안내 내용에 동의 합니다.
+<br>
+<label>
+<span><input type="checkbox" name="agree2" value="agree2">&nbsp;개인정보 처리방침 안내 내용에 동의 합니다.</span>
+</label>		
 <div class="button-align center">
 	<a href="/" class="button">취소</a>
-	<button type="submit" id="btn_submit" class="button button-purple" accesskey="s" onclick="agree(this.form)">회원 가입</button>
+	<button type="submit" id="btn_submit" class="button button-purple" accesskey="s" onclick="agree(this.form)" >회원 가입</button>
 </div>
 </form>
 <br><br>

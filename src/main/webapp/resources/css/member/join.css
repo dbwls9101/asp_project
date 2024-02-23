@@ -37,14 +37,15 @@
 	border:none;
 	font-size:28px;
 }
-/* 중복 아이디 존재하지 않는 경우 */
+/* 아이디 정규식 불일치 */
 .id_input_1{
-	color : blue;
+	color : black;
 	display : none;
 }
-/* 중복 아이디 존재하는 경우 */
-.id_input_2{
-	color : red;
+
+/* 비밀번호 정규식 불일치 */
+.pw_input_3{
+	color : black;
 	display : none;
 }
 
@@ -80,7 +81,12 @@
 	color : red;
 	display : none;
 }
-
+.input_red{
+	color : red;
+}
+.input_blue{
+	color : blue;
+}
 /* 비밀번호 확인 영역 */
 .pwck_wrap{
 	width: 100%;
@@ -147,16 +153,12 @@
 	font-size:28px;
 }
 
-/* 중복 닉네임 존재하지 않는 경우 */
+/* 닉네임 정규식 불일치 */
 .nickname_input_1{
-	color : blue;
+	color : black;
 	display : none;
 }
-/* 중복 닉네임 존재하는 경우 */
-.nickname_input_2{
-	color : red;
-	display : none;
-}
+
 
 /* 휴대폰 영역 */
 .phone_wrap{
@@ -260,17 +262,18 @@
     box-sizing: border-box
 }
  .h3 {
-    margin-top: 20px;
+    margin-top: 75px;
     margin-bottom: 12px;
-    font-size: 13px;
+    font-size: 30px;
+    
   }
   .h3 {
   position: relative;
-  margin-top: 56px;
+  margin-top: 75px;
   margin-bottom: 20px;
-  font-size: 18px;
+  font-size: 30px;
   font-weight: 400;
-  color: #333333;
+  color: #43a051;
 }
    .form-round {
     padding: 10px 15px;
@@ -279,7 +282,7 @@
   .form-round {
   position: relative;
   padding: 25px 40px;
-  border: solid 1px #cec8f1;
+  border: solid 1px #ade2b7;
   border-radius: 20px;
 }
 ul {
@@ -287,28 +290,24 @@ ul {
   padding: 0;
   list-style: none;
 }
-.form-list li {
-    min-height: 28px;
-    padding-left: 90px;
-    font-size: 11px;
-  }
+
   .form-list li {
   position: relative;
   min-height: 42px;
-  padding: 2px 0 2px 120px;
-  font-size: 14px;
+  padding: 15px 0 2px 155px;
+  font-size: 20px;
   color: #333333;
 }
 .form-list .subject {
-    width: 90px;
+    width: 160px;
     padding: 6px 0;
   }
   .form-list .subject {
   position: absolute;
-  top: 0;
+  top: 10;
   left: 0;
   display: inline-block;
-  width: 120px;
+  width: 160px;
   padding: 10px 0;
 }
  .form-list input[type='text'],
@@ -318,19 +317,19 @@ ul {
   }
   .form-list input[type='text'],
 .form-list input[type='password'] {
-  width: 180px;
+  width: 230px;
   margin-right: 10px;
 }
  input[type='text'],
   input[type='password'] {
-    height: 28px;
+    height: 45px;
     padding: 0 8px;
     font-size: 11px;
   }
   input[type='text'],
 input[type='password'] {
   width: 100%;
-  height: 38px;
+  height: 45px;
   font-size: 14px;
   padding: 0 15px;
   font-size: 14px;
@@ -344,7 +343,7 @@ input[type='password'] {
     margin: 6px 0 6px 0;
   }
    .form-list .lightgrey {
-    font-size: 10px;
+    font-size: 15px;
     line-height: 14px;
   }
   .button-align.center {
@@ -361,7 +360,8 @@ input[type='password'] {
   text-decoration: none;
 }
 .button.button-purple {
-  background-color: #43a051;;
+  background-color: #43a051;
+  cursor: pointer;
 }
 .button-align {
   position: relative;
@@ -415,7 +415,8 @@ input[type='password'] {
   background-color: #43a051;;
 }
   .form-list .lightgrey {
-    font-size: 11px;
+  	margin: 6px 0 6px 0;
+    font-size: 15px;
     line-height: 14px;
   }
   

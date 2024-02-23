@@ -81,12 +81,6 @@
 		select count(*) from member where email = #{email}
 	</select>
 	
-	<!--로그인 ( 로그인 후 메인화면에 보여질 닉네임, 포인트로 조회 )
-	<select id="memberLogin" resultType="org.prj.domain.MemberVO">
-		select m_idx, name, point from member where id = #{id} and password = #{password}	
-	</select>
-	-->
-	
 	<!-- 아이디 찾기 -->
 	<select id="findId" parameterType="String" resultType="String">
 		select id from member where name = #{name} and email = #{email}

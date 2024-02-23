@@ -1,5 +1,6 @@
 package org.prj.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.prj.domain.MemberVO;
 
 public interface MemberMapper {
@@ -16,13 +17,10 @@ public interface MemberMapper {
 	//이메일 중복 검사
 	public int emailCheck(String email);
 	
-//	//로그인
-//	public MemberVO memberLogin(MemberVO member);
-	
 	//로그인
 	public MemberVO memberRead(MemberVO member);
 	
 	//아이디 찾기
-	public String findId(String id);
+	public String findId(@Param("name") String name, @Param("email") String email);
 	
 }
