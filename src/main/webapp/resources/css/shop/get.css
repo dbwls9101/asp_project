@@ -157,27 +157,95 @@
 	font-weight: 600;
 }
 
-#commentArea{
+#replyArea{
 	margin-top: 30px;
-	height: 110px;
-	border: 1px solid #000;
+	height: 100px;
+	border: 1px solid lightgray;
+	display: table;
+	border-radius: 20px;
 }
 
-#comment-select{
-	border: 1px solid #000;
-	width: 180px;
-	height: 110px;
-	display: inline-block;
+#reply-select{
+	border: 1px solid lightgray;
+	width: 200px;
+	height: 100px;
 	vertical-align: top;
+	background-color: #f9f9f9;
+	display: table-cell;
+	border-radius: 20px 0px 0px 20px;
+	font-size: 14px;
+}
+
+#comment-to {
+	background-color: #f9f9f9;
+	border-color: #f9f9f9;
+	margin-top: 10px;
+	margin-left: 15px;
+	width: 170px;
+}
+
+#comment-to:focus {
+	box-shadow: none !important; 
+	border-color: #f9f9f9;
 }
 
 #replycontainer{
-	border: 1px solid #000;
-	width: 700px;
-	height: 110px;
-	display: inline-block;
+	border: 1px solid lightgray;
+	width: 940px;
+	height: 100px;
+	vertical-align: top;
+	display: table-cell;
 }
 
-#commentform{
+#replycontainer textarea{
+	resize: none;
+	width: 940px;
+	height: 100px;
+	background-color: #f9f9f9;
+	border-color: #f9f9f9;
+	font-size: 13px;
+}
+
+#replycontainer textarea:focus{
+	box-shadow: none !important; 
+	border-color: #f9f9f9;
+}
+
+#replyform{
 	font-size:0;
 }
+
+#replybtn{
+	display: table-cell;
+	width: 140px;
+}
+
+#replyregister{
+	width: 140px;
+	height: 102px;
+	font-size: 20px;
+	border: 0;
+	background-color: #43a051;
+	color: #fff;
+	border-radius: 0px 20px 20px 0px;
+}
+
+#checkprivate{
+	margin-top: 13px;
+	margin-left: 120px;
+}
+
+#checkprivate input{
+	box-shadow: none !important; 
+	border-color: lightgray;
+}
+
+#chatarea{
+	margin-top: 30px;
+	margin-left: 20px;
+}
+
+#replynick{
+	font-size: 20px;
+}
+
