@@ -67,15 +67,7 @@ public class MemberController {
 		log.info("패스워드 찾기 페이지 진입");
 		
 	}	
-	// 로그인 페이지 이동
-/*
- * @RequestMapping(value = "login", method = RequestMethod.GET) public void
- * loginGET(HttpServletRequest request) { HttpSession session =
- * request.getSession(); session.removeAttribute("member");
- * log.info("로그인 페이지 진입"); }
- */
-	
-	
+		
 	// 아이디 중복 검사
 	@RequestMapping(value = "/memberIdChk", method = RequestMethod.GET)
 	@ResponseBody
@@ -136,27 +128,6 @@ public class MemberController {
 		}
 	}	// memberEmailChkGET() 종료
 	
-	
-    //로그인 
-
-//	  @RequestMapping(value="login", method=RequestMethod.POST) 
-//	  public String loginPOST(HttpServletRequest request, MemberVO member, RedirectAttributes rttr) throws Exception{
-//	  
-//	  System.out.println("login 메서드 진입"); System.out.println("전달된 데이터 : " + member);
-//	  
-//	  HttpSession session = request.getSession();
-//	  MemberVO lvo  =  memberservice.memberLogin(member);
-//	  
-//	  if(lvo == null) { //불일치 하는 아이디, 비밀번호(로그인 실패)
-//		  int result = 0; 
-//		  rttr.addFlashAttribute("result", result); 
-//		  return "redirect:/member/login"; 
-//	  }
-//	  
-//	  session.setAttribute("member", lvo); //일치하는 아이디, 비밀번호(로그인 성공)
-//	  
-//	  return "redirect:/"; 
-//	  }
  
 	// security 로그인 로그아웃
 	@GetMapping("/accessError")
@@ -194,25 +165,25 @@ public class MemberController {
 		return SecurityContextHolder.getContext().getAuthentication();
 	}
 
-//	// 아이디 찾기
-//	@RequestMapping(value="find_id", method=RequestMethod.GET)
-//	public String find_id(@RequestParam("id") String id) throws Exception{
-//
-//		log.info("find_id() 진입");
-//		
-//		MemberVO lvo  =  memberservice.memberfindId(member);
-//		
-//		int result = memberservice.findId(Integer.parseInt(id));
-//		
-//		if(result == null) { 
-//			model.addAttribute("check", 1);
-//		} else { 
-//			model.addAttribute("check", 0);
-//			model.addAttribute("id", user.getId());
-//		}
-//		
-//		return "member/findId";
-//	}	
+	// 아이디 찾기
+	@RequestMapping(value="find_id2", method=RequestMethod.POST)
+	public String find_id(@RequestParam("name") String name, @RequestParam("email") String email, Model model) throws Exception{
+
+		log.info("find_id() 진입");
+		
+		String result = memberservice.findId(name, email);
+		
+		if(result != null && !"".equals(result)) {
+			model.addAttribute("result", "1");
+			model.addAttribute("resultId", result);
+		}else {
+			model.addAttribute("result", "0");
+		}
+		
+		
+		
+		return "/member/find_id";
+	}	
 	    
 	
 }

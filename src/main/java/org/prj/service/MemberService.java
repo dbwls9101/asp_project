@@ -16,10 +16,7 @@ public interface MemberService {
 	//이메일 중복 검사
 	public int emailCheck(String email) throws Exception;
 	
-//	//로그인
-//	public MemberVO memberLogin(MemberVO member) throws Exception;
-	
 	//아이디 찾기
-	public String findId(String id) throws Exception;
+	public String findId(String name, String email) throws Exception;
 	
 }
