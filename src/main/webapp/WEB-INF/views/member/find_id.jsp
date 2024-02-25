@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Insert title here </title>
 <link rel="stylesheet" href="/resources/css/member/find_id.css">
 </head>
 <body>
