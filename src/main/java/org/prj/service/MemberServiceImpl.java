@@ -39,18 +39,11 @@ public class MemberServiceImpl implements MemberService{
 		return membermapper.emailCheck(email);
 	}
 	
-//	//로그인
-//	@Override
-//	public MemberVO memberLogin(MemberVO member) throws Exception {
-//
-//		return membermapper.memberLogin(member);
-//	}
-	
 	//아이디 찾기
 	@Override
-	public String findId(String id) throws Exception {
+		public String findId(String name, String email) throws Exception {
 
-		return membermapper.findId(id);
-	}
+			return membermapper.findId(name, email);
+		}
 	
 }

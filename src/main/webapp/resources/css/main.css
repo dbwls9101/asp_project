@@ -12,8 +12,12 @@ ul {
 }
 
 a {
+<<<<<<< HEAD
     text-decoration: none;
     color : #666666;
+=======
+    text-decoration: none !important;
+>>>>>>> 134d12c0c30e1f12dd492fc2a0d0566f333d9a8a
 }
 
 .wrap {

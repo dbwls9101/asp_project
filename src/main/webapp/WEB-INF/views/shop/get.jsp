@@ -1,15 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "sec" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/resources/css/shop/get.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 <body>
 	<jsp:include page="../layout/header.jsp"/>
+	<sec:authentication property="principal" var="principal"/>
 	
 	<div id="menu-title">
 		<span id="category">${vo.c_primary }</span>
@@ -77,13 +80,44 @@
 	
 	<hr>
 	
-	<!-- 댓글톡 영역 -->
+	<!-- 댓글 영역 -->
 	<div id="reply-title">댓글</div>
+	<div id="replyArea">
+		<form id="replyform" method="post">
+		<div id="reply-select">
+			<select id="comment-to" name="comment_to" class="form-select">
+			  <option value="${vo.nickname }" selected>@파티장</option>
+			</select>
+			
+			<div id="checkprivate">
+				<input class="form-check-input" type="checkbox" name="private_chk" value="Y" id="private">
+				<label class="form-check-label" for="private"> 비밀글</label>
+			</div>
+		</div>
+		<div id="replycontainer">
+			<textarea class="form-control" name="comment"></textarea>
+		</div>
+		<div id="replybtn">
+			<input type="hidden" name="p_idx" value="${vo.p_idx }">
+			<input type="hidden" name="writer" value="${principal.member.nickname }">
+			<input type="button" value="등록" id="replyregister">
+		</div>
+		</form>
+	</div>
 	
-	
+	<div id="chatarea">
+		<div id="chat">
+			<span id="replynick">닉네임!</span>
+			<span id="replyregdate">24/02/23 15:44</span>
+			<div id="replycontent">
+				@뫄뫄  안녕하세요
+			</div>
+		</div>
+	</div>
 	
 	
 	<jsp:include page="../layout/footer.jsp"/>
 </body>
+<script type="text/javascript" src="/resources/js/shop/partyreply.js"></script>
 <script type="text/javascript" src="/resources/js/shop/get.js"></script>
 </html>
