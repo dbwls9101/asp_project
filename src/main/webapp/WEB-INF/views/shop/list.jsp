@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,8 +38,16 @@
 						</c:forEach>
 					</c:if>
 				</div>
-				<div id="enddate">~ ${vo.end_date } <span id="period" enddate="${vo.end_date }"></span></div>
-				<div id="price" price="${vo.price }"></div>
+				<c:choose>
+					<c:when test="${vo.datediff > 0 }">
+						<div id="enddate">~ ${vo.end_date } <span id="period">(${vo.datediff }일)</span></div>
+						<div id="price"><fmt:formatNumber value="${vo.totalprice }" pattern="#,###" />원</div>
+					</c:when>
+					<c:otherwise>
+						<div id="enddate">~ ${vo.end_date } <span id="period"></span></div>
+						<div id="price">마감</div>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</c:forEach>
 	</div>
