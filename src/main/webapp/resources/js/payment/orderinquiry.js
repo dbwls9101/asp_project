@@ -33,7 +33,7 @@ function getList(m_idx){
 			
 			msg += '<tr>';
 			msg += '<td>' + vo.approved_at + '</td>';
-			msg += '<td><a href="/payment/orderdetail?' + vo.order_no + '">' + vo.title + '</a></td>';
+			msg += '<td><a  href="javascript:detailBtn(' + vo.order_no + ');">' + vo.title + '</a></td>';
 			msg += '<td>' + vo.pay_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
 			msg += '<td>' + (vo.pay_amount - vo.point).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
 			msg += '<td>' + vo.point.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
@@ -64,5 +64,10 @@ function cancelBtn(order_no) {
 		alert('결제 취소를 실패하였습니다.');
 		return;
 	}
+}
+
+//상세내역 이동
+function detailBtn(order_no) {
+	location.href = '/payment/orderdetail?order_no=' + order_no;
 }
 	

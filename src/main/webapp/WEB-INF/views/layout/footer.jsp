@@ -15,7 +15,7 @@
 		      			<a href="/inquiry_board/Inquiryregister">1:1문의하기</a>
 		      			<a href="/page/privacy">개인정보처리방침</a>
 		      			<a href="/page/provision">서비스 이용약관</a>
-		      			<a href="#">FAQ</a>
+		      			<a href="/page/faq?i_type=A">FAQ</a>
 		      		</div><br><br>
 		      		<div class="footer-span">
 		      			<span>상호 : 구트아카데미</span><br>

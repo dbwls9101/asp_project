@@ -1,5 +1,4 @@
-/* privacy.jsp */
-
+/* privacy.jsp, provision.jsp */
 .page-content {
 	line-height: 22px;
     word-break: keep-all;
@@ -41,4 +40,40 @@
 
 .text-box {
 	font-size: 14px;
+}
+
+/* faq.jsp */
+.faq-title {
+	text-align: center;
+    padding: 0 10px;
+    font-size: 28px;
+    font-weight: 600;
+    color: #333333;
+    margin: 70px 0 16px 0;
+}
+
+.faq-img {
+	width: 130px;
+    vertical-align: -10px;
+}
+
+.faq-tab {
+	margin: 30px 0;
+}
+
+.faq-tab a {
+	display: inline-block;
+    padding: 8px 20px;
+    font-size: 22px;
+    font-weight: 600;
+    color: #aaaaaa;
+}
+
+.faq-tab a.active {
+	color: #43a051;
+}
+
+.faq-content {
+	width: 800px;
+	margin: 0 auto;
 }

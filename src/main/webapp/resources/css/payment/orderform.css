@@ -65,6 +65,20 @@ table {
     letter-spacing: -1px;
 }
 
+.list-payment table .title-td {
+	padding-left: 50px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #333333;
+    text-align: left;
+    line-height: 18px;
+}
+
+.list-payment table .sub-title {
+	font-size: 13px;
+    color: #aaaaaa;
+}
+
 .form-half {
 	display: inline-block;
     width: calc(50% - 22px);
@@ -234,7 +248,6 @@ table {
 /* orderinquiry.jsp */
 .inquiry-list {
 	border-top: 0;
-    border-bottom: 1px solid #ececec;
 }
 
 .cancel-btn {
