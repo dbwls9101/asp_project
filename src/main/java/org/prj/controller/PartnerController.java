@@ -6,9 +6,12 @@ import org.prj.controller.PartnerController;
 import org.prj.domain.CategoryVO;
 import org.prj.domain.PartyBoardVO;
 import org.prj.domain.PaymentVO;
+import org.prj.domain.WithdrawVO;
 import org.prj.service.CategoryService;
 import org.prj.service.PartyBoardService;
+import org.prj.service.WithdrawService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -32,6 +35,11 @@ public class PartnerController {
 	
 	@Autowired 
 	private PartyBoardService pService;
+	
+	// 출근 관리
+	@Autowired
+	private WithdrawService wService;
+		// 출근관리
 	
 	//파티관리
 	@GetMapping("/manage")
@@ -94,6 +102,43 @@ public class PartnerController {
 		log.info("movePartyinfo...");
 		return "/partner/partyinfo";
 	}
+	
+	// ------------- 민병우 담당 부분 -----------------------
+	
+	//출금관리
+	@GetMapping("/withdraw")
+	public void movewithdraw() {
+		log.info("movewithdraw...");
+	}
+	
+	//출금관리 리스트 
+	@ResponseBody
+	@PostMapping(value = "/withList", 
+			consumes = "application/json", 
+			produces = MediaType.TEXT_PLAIN_VALUE)
+	public List<WithdrawVO>	withList(@RequestBody int m_idx){
+		log.info("withList..." + m_idx);
+		
+		return wService.getWithList(m_idx);
+	}
+	
+	//출금관리 - 출금신청
+	@ResponseBody
+	@PostMapping(value = "/withNew",
+			consumes = "application/json", 
+			produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<String> makeWithdraw(@RequestBody WithdrawVO vo) {
+		log.info("makeWithdraw..." + vo);
+		
+		int insertCount = wService.register(vo);
+		
+		log.info("insertCount : " + insertCount);
+		
+		return insertCount == 1 ?
+				new ResponseEntity<String>("success", HttpStatus.OK) :
+					new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);		
+	}
+	
 	
 	/*
 	 * @ResponseBody

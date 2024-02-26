@@ -17,7 +17,7 @@
 }
 
 #withdraw-search input[type="text"]{
-	width: 500px;
+	width: 350px;
 	font-size: 13px;
 	display: inline;
 }
@@ -32,7 +32,7 @@
     border: 0;
 }
 
-#withdraw-search input[type="button"]#makeparty{
+#withdraw-search input[type="button"]#withDrawal{
 	background-color: #258e75;
 }
 
@@ -72,8 +72,6 @@
     line-height: 16px;
     border-top: 1px solid #ececec;
 }
-
-
 
 #partymodify, #partydelete{
 	font-size: 13px;
