@@ -1,41 +1,6 @@
 window.onload = function(){
-	//일 /금액 계산
-	totalperiodprice();
 	//공지사항 규칙
 	getrule();
-}
-
-
-function totalperiodprice(){
-	let perEle = document.querySelector("#period");
-	let priEle = document.querySelector("#price");
-	
-	//오늘날짜
-	let sArr = new Date().toISOString().slice(0, 10);
-	let sArr2 = sArr.split('-');
-	let sDate = new Date(sArr2[0], sArr2[1], sArr2[2]);
-	
-	//종료날짜
-	let eArr = myTime(perEle.getAttribute("enddate")).split('-');
-	let eDate = new Date(eArr[0], eArr[1], eArr[2]);
-	
-	let diffDate = Math.abs((sDate - eDate) / (1000*60*60*24));
-	
-	let totalPrice = (priEle.getAttribute("price") * diffDate).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-	
-	perEle.innerHTML += ' (' + diffDate + '일 / 1일 ' + priEle.getAttribute("price").toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") 
-						+ '원)&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;';
-	priEle.innerHTML = '참여 비용 : ' + totalPrice + '원';
-}
-
-//unixTimeStamp 변환
-function myTime(unixTimeStamp){
-	let myDate = new Date(unixTimeStamp);
-	let date = myDate.getFullYear() + "-"
-	 	+ String(myDate.getMonth() + 1).padStart(2, "0") + "-" 
-		+ String(myDate.getDate()).padStart(2, "0");
-	
-	return date;
 }
 
 
