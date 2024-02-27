@@ -106,18 +106,12 @@
 	</div>
 	
 	<div id="chatarea">
-		<div id="chat">
-			<span id="replynick">닉네임!</span>
-			<span id="replyregdate">24/02/23 15:44</span>
-			<div id="replycontent">
-				@뫄뫄  안녕하세요
-			</div>
-		</div>
 	</div>
 	
 	
 	<jsp:include page="../layout/footer.jsp"/>
+	<script type="text/javascript" src="/resources/js/shop/partyreply.js"></script>
+	<script type="text/javascript" src="/resources/js/shop/get.js"></script>
 </body>
-<script type="text/javascript" src="/resources/js/shop/partyreply.js"></script>
-<script type="text/javascript" src="/resources/js/shop/get.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </html>

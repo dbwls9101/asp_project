@@ -18,7 +18,7 @@
 	</div>
 	<div id="partyinfo-container">
 		<c:forEach var="vo" items="${list }">
-			<div id="partyinfo" codeone=${vo.codeone } codetwo=${vo.codetwo } p_idx=${vo.p_idx }>
+			<div id="partyinfo" codeone=${vo.codeone } codetwo=${vo.codetwo } p_idx=${vo.p_idx } datediff=${vo.datediff }>
 				<div id="service">
 					${vo.c_secondary }
 				</div>

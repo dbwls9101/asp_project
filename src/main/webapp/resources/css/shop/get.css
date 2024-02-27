@@ -243,11 +243,97 @@
 }
 
 #chatarea{
-	margin-top: 30px;
+	margin-top: 40px;
 	margin-left: 20px;
 }
 
-#replynick{
-	font-size: 20px;
+#chat{
+	margin-bottom: 50px;
 }
 
+#replynick{
+	font-size: 16px;
+	margin-right: 45px;
+	display: inline;
+}
+
+#replycontent {
+	padding: 20px;
+	padding-right: 50px;
+	position: relative;
+	top: 25px;
+	background: #f9f9f9;
+	border-radius: .4em;
+	display: inline-block;
+}
+
+#replycontent:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 33px solid transparent;
+	border-right-color: #f9f9f9;
+	border-left: 0;
+	border-top: 0;
+	margin-top: -16.5px;
+	margin-left: -33px;
+	display: inline-block;
+}
+
+#chatcontentarea{
+	position: relative;
+	display: inline-block;
+}
+
+#replyregdate{
+	font-size: 11px;
+	margin-top:25px;
+	position: absolute;
+	right: 8px;
+	color: gray;
+}
+
+#commentto{
+	font-size: 14px;
+	font-weight: bold;
+	color: #43a051;
+}
+
+.dropend .dropdown-toggle::after {
+	display: none !important;
+}
+
+btn btn-primary dropdown-toggle{
+	background-color: #fff;
+}
+
+#replybtnarea{
+	position: absolute;
+	top:5px;
+	right:8px;
+}
+
+#replymenubtn{
+	width: 17px;
+}
+
+#replybtnarea button{
+	width: 17px;
+	padding:0;
+	border: 0px;
+}
+
+#replybtnarea button:focus{
+	border: 0px;
+}
+
+#replybtns{
+	min-width: unset;
+}
+
+#replybtns li{
+	font-size: 13px;
+}

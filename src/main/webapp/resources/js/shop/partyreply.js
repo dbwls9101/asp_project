@@ -11,16 +11,16 @@ const replyService = (function(){
 		})
 		.catch(err => console.log(err));
 	}
-	/*
-	function getList(bno, callback){
-		fetch('/reply/pages/' + bno + '.json')
+	
+	function getList(p_idx, callback){
+		fetch('/partyreply/pages/' + p_idx)
 		.then(response => response.json())
 		.then(json => {
 			callback(json);
 		})
 		.catch(err => console.log(err));
 	}
-	
+	/*
 	function remove(rno, callback){
 		fetch('/reply/' + rno, {
 			method : 'delete',
@@ -55,9 +55,9 @@ const replyService = (function(){
 	}*/
 	
 	return {
-		add : add
-		/*getList : getList,
-		remove : remove,
+		add : add,
+		getList : getList
+		/*remove : remove,
 		update : update,
 		get : get*/
 	}

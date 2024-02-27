@@ -51,7 +51,7 @@
 		from party_board p inner join category c 
 		on p.codeone=c.codeone and p.codetwo=c.codetwo
 		where p.codeone=#{codeone}
-		order by p_idx desc
+		order by status desc, p_idx desc
 	</select>
 	
 	<!-- 게시글 상세 -->

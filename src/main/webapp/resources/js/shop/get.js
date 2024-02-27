@@ -53,6 +53,41 @@ document.querySelector("#participate").addEventListener('click', ()=>{
 //댓글관련
 const rs = replyService;
 
+//댓글 목록 가져오기
+showList(); 
+function showList(){
+	rs.getList(
+		replyf.p_idx.value,
+		function(result){
+			let msg = '';
+			result.forEach(reply => {
+	             msg += '<div id="chat">';
+	             msg += '<div id="chatcontentarea">';
+	             msg += '<div id="replynick">' + reply.writer + '</div>';
+	             msg += '<div id="replycontent">';
+	             msg += '<span id="commentto">@' + reply.comment_to + '</span><br><span id="replycomment">' + reply.comment + '</span>';
+	             
+	             //수정 삭제 버튼
+	             msg += '<div id="replybtnarea" class="btn-group dropend" role="group">';
+	             msg += '<button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">';
+	             msg += '<img id="replymenubtn" src="/resources/images/replymenu.png"></button>';
+	             msg += '<ul id="replybtns" class="dropdown-menu">';
+	             msg += '<li><a class="dropdown-item" href="#">수정</a></li>';
+	             msg += '<li><a class="dropdown-item" href="#">삭제</a></li>';
+	             msg += '</ul>';
+	             msg += '</div>';
+	             
+	             msg += '</div>';
+	             msg += '<br><span id="replyregdate">' + reply.reg_date + '</span>';
+	             msg += '</div>';
+	             msg += '</div>';
+			});
+			
+			document.querySelector("#chatarea").innerHTML = msg;
+		}
+	);
+}
+
 //댓글 등록 버튼
 document.querySelector("#replyregister").addEventListener('click', ()=>{
 	if(document.querySelector("#private").checked){
@@ -75,8 +110,8 @@ document.querySelector("#replyregister").addEventListener('click', ()=>{
 			private_chk: replyf.private_chk.value
 		},
 		function(result){
-			console.log(result);
 			replyf.comment.value = '';
+			showList();
 		}
 	);
 })
