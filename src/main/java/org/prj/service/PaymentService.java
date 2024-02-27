@@ -26,5 +26,5 @@ public interface PaymentService {
 	
 	// 내역 결제취소 상태변경
 	public int cancelStatus(String order_no);
-
+	
 }

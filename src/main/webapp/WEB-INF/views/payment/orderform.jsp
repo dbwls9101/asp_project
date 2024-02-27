@@ -30,7 +30,7 @@
 						<th>서비스명</th>
 						<th>참여일</th>
 						<th>판매가</th>
-						<th>수수료</th>
+						<th>수수료(10%)</th>
 						<th>합계</th>
 					</tr>
 				</thead>
@@ -65,9 +65,11 @@
 						<input type="hidden" name="phone" value="${principal.member.phone }">
 						<input type="hidden" name="m_idx" value="${principal.member.m_idx }">
 						<input type="hidden" name="title" value="${vo.c_secondary }">
+						<input type="hidden" name="sub_title" value="${vo.title }">
 						<input type="hidden" name="p_idx" value="${vo.p_idx }">
 						<input type="hidden" name="codeone" value="${vo.codeone }">
 						<input type="hidden" name="codetwo" value="${vo.codetwo }">
+						<input type="hidden" name="end_date" value="${vo.end_date }">
 					</li>
 				</ul>
 			</div>

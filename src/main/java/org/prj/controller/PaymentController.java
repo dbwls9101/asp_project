@@ -92,8 +92,11 @@ public class PaymentController {
 	
 	// 결제 상세 내역
 	@GetMapping("/orderdetail")
-	public String moveOrderdetail() {
-		log.info("orderdetail...");
+	public String moveOrderdetail(String order_no, Model model) {
+		log.info("moveOrderdetail...");
+		log.info("get..." + order_no);
+		model.addAttribute("vo", payService.orderGet(order_no));
+		
 		return "/payment/orderdetail";
 	}
 	

@@ -57,7 +57,9 @@ payBtn.addEventListener('click', () =>{
 				commission : f.commission.value,
 				pay_method : f.pay_method.value,
 				pay_status : 'B',
-				title : f.title.value
+				title : f.title.value,
+				sub_title : f.sub_title.value,
+				end_date : f.end_date.value
 			}, function(result) {
 				console.log('result : ' + result);
 				//결제 후 해당 게시글로 이동

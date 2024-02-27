@@ -86,7 +86,9 @@
 }
 
 #partystatus{
-	padding: 50px 20px;
+	width: 1200px;
+    padding: 50px 20px;
+    margin: auto;
 }
 
 #announcement{
