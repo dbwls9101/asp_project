@@ -31,11 +31,12 @@ public class WithdrawServiceImpl implements WithdrawService {
 		
 		return mapper.insert(vo);
 	}
+	
+	// 조회 기능 차후 진행 예정
+/*	@Override
+	public WithdrawVO get(int w_idx) {
+		log.info("get...." + w_idx);
+		return mapper.read(w_idx);
+	} */
 
-
-	
-	
-	
-	
-	
 }
