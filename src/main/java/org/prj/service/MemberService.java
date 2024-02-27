@@ -19,4 +19,7 @@ public interface MemberService {
 	//아이디 찾기
 	public String findId(String name, String email) throws Exception;
 	
+	// 비밀번호 찾기
+	public MemberVO findPw(String email, String id) throws Exception;
+	
 }

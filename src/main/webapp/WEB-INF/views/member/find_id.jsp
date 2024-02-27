@@ -56,7 +56,7 @@
 			
 		</div>
 		<div class="button-align center">
-			<button type="button" id="cancel" class="button" onclick="location.href='/'" style="cursor:pointer;">취소</button>
+			<button type="button" id="cancel" class="button" onclick="location.href='/member/login'" style="cursor:pointer;">취소</button>
 			<button type="submit" id="btn_submit" class="button button-purple" accesskey="s" onclick="findSubmit(this.form)">확인</button>
 		</div>
 	</div>

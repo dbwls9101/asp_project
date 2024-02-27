@@ -6,17 +6,23 @@
 	
 	<!-- 출금신청 내용 불러오기  -->
 	<select id="getList" resultType="org.prj.domain.WithdrawVO">
-		SELECT * FROM withdraw WHERE M_IDX = #{m_idx }
-		ORDER BY W_IDX DESC
+		select m_idx, w_idx, id, name, phone, with_method, with_amount, with_status, commission, reg_date
+		from(
+		select ROWNUM rn, m_idx, w_idx, id, name, phone, with_method, with_amount, with_status, commission, reg_date
+		from(select * from withdraw order by w_idx desc) order by w_idx desc) where m_idx = #{m_idx }
 	</select>
 
 	<!-- 출금신청  -->
 	<insert id="insert" parameterType="org.prj.domain.WithdrawVO">
 			insert into withdraw( m_idx, w_idx, id, name, phone, with_method, 
                   				  with_amount, with_status, commission, reg_date)
-			values(seq_member.nextval, SEQ_WITHDRAW.nextval, #{id }, #{name }, #{phone }, #{with_method },
+			values(#{m_idx }, SEQ_WITHDRAW.nextval, #{id }, #{name }, #{phone }, #{with_method },
        				 #{with_amount }, #{with_status }, 1000, sysdate)
 	</insert>
 	
+	<!-- 조회기능 차후 예정 -->
+<!-- 	<select id="read" parameterType="int" resultType="org.prj.domain.WithdrawVO">
+		select * from withdraw where W_IDX = #{w_idx }
+	</select> -->
 	
 </mapper>

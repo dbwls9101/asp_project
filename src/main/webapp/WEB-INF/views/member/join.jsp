@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원가입</title>
 <link rel="stylesheet" href="/resources/css/member/join.css"> 
 </head>
 <body>
 <jsp:include page="../layout/header.jsp"/>
 <form class="form-horizontal register-form" role="form" id="fregisterform" name="fregisterform" autocomplete="off" action="#" method="post" onsubmit="return false">
-	<div class="mw-800 form-signup mg-top-minus">
+	<div class="mw-800 form-signup">
 		<div class="h3">아이디/비밀번호</div>
 		<div class="form-round signup">
 			<ul class="form-list">
@@ -33,16 +33,12 @@
 			</li>
 			</ul>
 		</div>
-		<div class="h3"><span class="text-purple">내 정보</span> 입력</div>
+		<div class="h3"><span class="title-point">정보</span> 입력</div>
 		<div class="form-round signup">
 			<ul class="form-list">
 				<li>
 					<span class="subject">ㆍ 이름</span>
 					<input type="text" id="name" name="name" value="" placeholder="이름" size="10">
-					<button type="button" id="win_hp_cert" class="button round button-purple phone">휴대폰 본인확인</button>
-					<!-- <a href="" class="button round button-purple phone">휴대폰 본인인증</a> -->
-					<div class="lightgrey break"><span class="text-purple">[휴대폰 본인확인 완료]</span> 휴대폰 번호는 인증한 휴대폰 번호와 동일하게 자동 입력 됩니다.</div>
-						<noscript>본인확인을 위해서는 자바스크립트 사용이 가능해야합니다.</noscript>
 				</li>
 				<li>
 					<span class="subject">ㆍ 닉네임</span>
@@ -62,8 +58,8 @@
 			</ul>
 		</div>
 		<div class="button-align center">
-			<a href="/" class="button">취소</a>
-			<button type="submit" id="btn_submit" class="button button-purple" accesskey="s" onclick="validate(this.form)">회원 가입</button>
+			<button type="submit" id="btn_submit" class="button button-point" accesskey="s" onclick="validate(this.form)">회원 가입</button>
+			<a href="/member/login" class="button">취소</a>
 		</div>
 	</div>
 </form>

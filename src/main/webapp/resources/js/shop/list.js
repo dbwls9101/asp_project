@@ -19,10 +19,6 @@ let partyinfo = document.querySelectorAll("#partyinfo");
 function getDetailInfo(){
 	partyinfo.forEach(party => {
 		party.addEventListener('click', () => {
-			if(principal == 'anonymousUser'){
-				alert('로그인 후 이용가능한 서비스입니다.');
-				return;
-			}
 			
 			let codeone = party.getAttribute('codeone');
 			let codetwo = party.getAttribute('codetwo');

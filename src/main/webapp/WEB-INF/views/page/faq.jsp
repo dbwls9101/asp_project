@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>faq</title>
 <link rel="stylesheet" href="/resources/css/page/page.css">
+<link rel="stylesheet" href="/resources/css/faq/faqPage.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <body>
 	<jsp:include page="../layout/header.jsp"/>
@@ -17,7 +18,7 @@
 				<img alt="faq-img" src="/resources/images/prj_logo.png" class="faq-img">에 대해 궁금하시다고요?
 			</div>
 			<div class="faq-sub-title">
-				벗츠는 사용자가 이용하고 있는 <span class="title-point">공유형 구독 서비스</span>를 허용된 범위 안에서
+				사용자가 이용하고 있는 <span class="title-point">공유형 구독 서비스</span>를 허용된 범위 안에서
 				<br>
 				경제적이고 <span class="title-point">안전하게 모집 및 참여</span> 할 수 있도록 도와주는 서비스입니다.
 				<br><br>
@@ -32,15 +33,15 @@
 			</div>
 			
 			<div class="faq-content">
-				<c:forEach var="vo" items="${list }">
+				<c:forEach var="vo" items="${list }" varStatus="status">
 					<div class="accordion accordion-flush" id="accordionFlushExample">
 						<div class="accordion-item">
-							<h2 class="accordion-header">
-								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+							<div class="accordion-header">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${status.count}" aria-expanded="false" aria-controls="flush-collapse${status.count}">
 									${vo.title }
 								</button>
-							</h2>
-							<div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+							</div>
+							<div id="flush-collapse${status.count}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
 								<div class="accordion-body"><pre>${vo.content }</pre></div>
 							</div>
 						</div>
@@ -52,5 +53,6 @@
 	
 	<jsp:include page="../layout/footer.jsp"/>
 </body>
+<script type="text/javascript" src="/resources/js/faq/page.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </html>

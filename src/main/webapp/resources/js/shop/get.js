@@ -90,6 +90,11 @@ function showList(){
 
 //댓글 등록 버튼
 document.querySelector("#replyregister").addEventListener('click', ()=>{
+	if(principal == 'anonymousUser'){
+		alert('로그인 후 이용가능한 서비스입니다.');
+		return;
+	}
+	
 	if(document.querySelector("#private").checked){
 		replyf.private_chk.value = 'Y';
 	}else{
@@ -104,7 +109,7 @@ document.querySelector("#replyregister").addEventListener('click', ()=>{
 	rs.add(
 		{
 			p_idx: replyf.p_idx.value,
-			writer: replyf.writer.value,
+			writer: principal.member.nickname,
 			comment_to: replyf.comment_to.value,
 			comment: replyf.comment.value,
 			private_chk: replyf.private_chk.value

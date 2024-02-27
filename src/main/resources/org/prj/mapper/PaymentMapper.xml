@@ -8,7 +8,7 @@
 		insert into payment
 			(order_no, p_idx, m_idx, id, name, phone, service_amount, pay_amount, point, commission, pay_method, pay_status, approved_at, title, imp_uid, token, sub_title, end_date)
 		values 
-			(#{order_no}, #{p_idx}, 1, #{id}, #{name}, #{phone}, #{service_amount}, #{pay_amount}, #{point}, #{commission}, #{pay_method}, #{pay_status}, SYSDATE, #{title}, #{imp_uid}, #{token}, #{sub_title}, #{end_date})
+			(#{order_no}, #{p_idx}, #{m_idx}, #{id}, #{name}, #{phone}, #{service_amount}, #{pay_amount}, #{point}, #{commission}, #{pay_method}, #{pay_status}, SYSDATE, #{title}, #{imp_uid}, #{token}, #{sub_title}, #{end_date})
 	</insert>
 	
 	<!-- 결제정보 -->

@@ -99,7 +99,7 @@
 		</div>
 		<div id="replybtn">
 			<input type="hidden" name="p_idx" value="${vo.p_idx }">
-			<input type="hidden" name="writer" value="${principal.member.nickname }">
+			<input type="hidden" name="writer" value="">
 			<input type="button" value="등록" id="replyregister">
 		</div>
 		</form>

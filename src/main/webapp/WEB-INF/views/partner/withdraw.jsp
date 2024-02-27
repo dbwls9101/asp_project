@@ -16,7 +16,7 @@
 			<h3 id="withdraw-tab-title">출금관리</h3>
 			
 			<div id="withdraw-search">
-				<form id="withdrawform">
+				<form method="post" id="withdrawform">
 					<select class="form-select" aria-label="Default select example">
 					  <option selected>출금상태</option>
 					  <option value="1">신청</option>
@@ -32,6 +32,8 @@
 					
 					<input class="form-control" type="text" placeholder="검색어를 입력하세요." aria-label="default input example">				
 					<input type="button" id="search" value="검색">
+					<input type="hidden" name="m_idx" value="${vo.m_idx }">
+					<input type="hidden" name="w_idx" value="${vo.w_idx }">
 
 					<input type="button" id="withDrawal" value="출금신청">
 					<!------------ 하단부는 비동기 방식  (우선 숨긴다.)------------>
@@ -82,15 +84,14 @@
 						         <input type="hidden" name="m_idx" value="${principal.member.m_idx }">
 						         <input type="hidden" name="id" value="${principal.member.id}">
 						         <input type="hidden" name="phone" value="${principal.member.phone}">
-						         <input type="hidden" name="with_status" value="A">					<!-- 내일 수정  -->
+						         <input type="hidden" name="with_status" value="A">					
 						         <input type="hidden" name="commission" value="-1000">				<!-- 내일 수정  -->	
-						         
 					             <button type="button" class="btn btn-sec" id="addReplyBtn">출금신청</button>
 					             <button type="button" class="btn btn-fir" id="closeModalBtn">취소</button>
 					         </div>
 					      </div>
 					   </div>	
-				<!------------ 하단부는 비동기 방식 (우선 숨긴다.)------------>
+				<!------------ 비동기 방식 (우선 숨긴다.)------------>
 				</form>
 			</div>
 			
@@ -108,7 +109,7 @@
 							<th>신청일</th>						
 						</tr>
 					</thead>
-					<tbody>
+					<tbody class="aa">
 						
 					</tbody>
 				</table>

@@ -1,7 +1,7 @@
 let regId = /^[A-Za-z0-9]{4,20}$/
 let regPw = /^[0-9a-zA-Z]{8,16}$/;
-let regName = /^[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
-let regNick = /^[가-힣a-zA-Z]+$/;
+let regName = /^[가-힣a-zA-Z]{2,10}$/;
+let regNick = /^[가-힣a-zA-Z0-9]{2,10}$/;
 let regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
 let regPhone = /^\d{3}-\d{4}-\d{4}$/;
 
@@ -36,19 +36,19 @@ function validate(f){
 		return;
 	}
 	if( !regId.exec(f.id.value)  ){
-		alert("아이디 : 영문자, 숫자, 최소 4글자 이상");
+		alert("아이디 : 영문자 또는 숫자로 최소 4글자 이상 입력 가능");
 		f.id.value = '';
 		f.id.focus();
 		return;
 	}
 	if( !regPw.exec(f.password.value)  ){
-		alert("비밀번호 : 8~16자, 소문자 or 숫자 or 대문자");
+		alert("비밀번호 : 소문자 or 숫자 or 대문자로 8~16자까지 입력 가능");
 		f.password.value = '';
 		f.password.focus();
 		return;
 	}
 	if( !regName.exec(f.name.value)  ){
-		alert("이름 : 한글 또는 영문자");
+		alert("이름 : 한글 또는 영문자로 2~10자까지 입력 가능");
 		f.name.value = '';
 		f.name.focus();
 		return;
@@ -60,7 +60,7 @@ function validate(f){
 		return;
 	}
 	if( !regNick.exec(f.nickname.value)  ){
-		alert("닉네임 : 공백없이 한글, 영문, 숫자만 입력 가능");
+		alert("닉네임 : 한글 또는 영문자로 2~10자까지 입력 가능");
 		f.nickname.value = '';
 		f.nickname.focus();
 		return;
@@ -71,7 +71,7 @@ function validate(f){
 		f.phone.focus();
 		return;
 	}
-			
+
 		f.action = '/member/join';
 		f.submit();		
 }
@@ -85,7 +85,7 @@ id.addEventListener('keyup', (e) => {
 	}else{
 		if( !regId.exec(id.value)  ){
 			ckid1.classList.remove("input_red", "input_blue");
-			ckid1.innerHTML = "아이디 : 영문자, 숫자, 최소 4글자 이상";
+			ckid1.innerHTML = "아이디 : 영문자 또는 숫자로 최소 4글자 이상 입력 가능";
 			ckid1.style.display = 'inline-block';
 		}else{
 			checkid2(id.value);
@@ -126,7 +126,7 @@ password.addEventListener('keyup', (e) => {
 	}else{
 		if( !regPw.exec(password.value)  ){
 			ckpw1.classList.remove("input_blue");
-			ckpw1.innerHTML = "비밀번호 : 8~16자, 소문자 or 숫자 or 대문자";
+			ckpw1.innerHTML = "비밀번호 : 소문자 or 숫자 or 대문자로 8~16자까지 입력 가능";
 			ckpw1.style.display = 'inline-block';
 		}else{
 			ckpw1.classList.add("input_blue");
@@ -174,7 +174,7 @@ nickname.addEventListener('keyup', (e) => {
 	}else{
 		if( !regNick.exec(nickname.value)  ){
 			cknick1.classList.remove("input_red", "input_blue");
-			cknick1.innerHTML = "닉네임 : 공백없이 한글, 영문, 숫자만 입력 가능";
+			cknick1.innerHTML = "닉네임 : 한글 또는 영문자로 2~10자까지 입력 가능";
 			cknick1.style.display = 'inline-block';
 		}else{
 			cknick2(nickname.value);
