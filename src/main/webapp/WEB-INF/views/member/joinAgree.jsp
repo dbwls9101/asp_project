@@ -17,12 +17,19 @@
 	<a href="javascrip:;" onclick="nwindow('https://buts.co.kr/plugin/social/popup.php?provider=kakao&amp;url=https://buts.co.kr/bbs/login.php')" style="margin-left:0px; margin-top:5px; width:100%;" class="kakao sns-kakao" title="카카오">
 		<img src="/resources/images/kakao_logo.png" alt="">카카오 계정으로 로그인 하기			
 	</a>
+	<div>
+	<br>
+	<br>
+		<label>
+			<span><input type="checkbox" name="agreeAll" class="agreeAll" value="agreeAll">&nbsp;회원가입 약관 안내, 개인정보 처리방침 안내 내용에 모두 동의 합니다.</span>
+		</label>
+	</div>
 <div class="h3">약관 동의</div>
 <div class="page-content">
 	
 	<div class="article-title" style="padding-top:0px;">제1조 목적</div>  
 
-	<p>이 약관은 벗츠 회사(전자상거래 사업자로 이하 "회사"라 한다)가 운영하는 벗츠 쇼핑몰(이하 "몰"이라 한다)에서 제공하는 인터넷 관련 서비스(이하 "서비스"라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리·의무 및 책임사항을 규정함을 목적으로 합니다.</p> 
+	<p>이 약관은 모여라 회사(전자상거래 사업자로 이하 "회사"라 한다)가 운영하는 모여라 쇼핑몰(이하 "몰"이라 한다)에서 제공하는 인터넷 관련 서비스(이하 "서비스"라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리·의무 및 책임사항을 규정함을 목적으로 합니다.</p> 
 
 	※「PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질에 반하지 않는 한 이 약관을 준용합니다.」
 

@@ -6,7 +6,7 @@ body {
 
 .form-signin {
   max-width: 600px;
-  padding: 5rem;
+  padding: 1rem;
   text-align: center;
 }
 
@@ -14,10 +14,10 @@ body {
   z-index: 2;
 }
 
-.form-signin #id {
+.form-signin input[type="email"] {
   margin-bottom: -1px;
-  border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .form-signin input[type="password"] {
@@ -89,7 +89,7 @@ body {
 
 /* 로그인 실패시 경고글 */
 .login_warn{
-    margin-top: 20px;
+    margin-top: 30px;
     text-align: center;
     color : red;
 }
@@ -134,6 +134,6 @@ body {
   font-size: 14px;
   color: #666666;
 }
-.text-point {
-  color: #28973c !important;
+.text-purple {
+  color: #7e69fe !important;
 }

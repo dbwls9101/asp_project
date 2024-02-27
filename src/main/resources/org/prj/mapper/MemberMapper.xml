@@ -86,4 +86,13 @@
 		select id from member where name = #{name} and email = #{email}
 	</select>	
 	
+	<!-- 비밀번호 찾기 (이메일, 아이디 일치) -->
+	<select id="findPw" parameterType="String" resultType="org.prj.domain.MemberVO">
+		select * from member where email = #{email} and id = #{id}
+	</select>
+	
+	<!-- 패스워드변경 -->
+	<update id = "updatePw" parameterType="org.prj.domain.MemberVO">
+		update member set password = #{password} where email = #{email}
+	</update>
 </mapper>	
