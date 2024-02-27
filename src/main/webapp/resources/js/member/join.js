@@ -1,7 +1,7 @@
 let regId = /^[A-Za-z0-9]{4,20}$/
 let regPw = /^[0-9a-zA-Z]{8,16}$/;
-let regName = /^[가-힣a-zA-Z]+$ {2,10}/;
-let regNick = /^[가-힣a-zA-Z]+$ {2,10}/;
+let regName = /^[가-힣a-zA-Z]{2,10}$/;
+let regNick = /^[가-힣a-zA-Z0-9]{2,10}$/;
 let regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
 let regPhone = /^\d{3}-\d{4}-\d{4}$/;
 
@@ -71,7 +71,7 @@ function validate(f){
 		f.phone.focus();
 		return;
 	}
-			
+
 		f.action = '/member/join';
 		f.submit();		
 }
