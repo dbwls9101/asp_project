@@ -14,4 +14,7 @@ public class PartyBoardVO {
 	private String c_primary, c_secondary, title, name, nickname, id, share_id, share_pw, phone, rule, comment, status;
 	private Date start_date, end_date;
 	private String reg_date, update_date;
+	
+	//가상컬럼
+	private int datediff, totalprice;
 }

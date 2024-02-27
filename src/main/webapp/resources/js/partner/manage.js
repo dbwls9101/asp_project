@@ -17,22 +17,12 @@ function getList(m_idx){
 	.then(response => response.json())
 	.then(json => {
 		json.forEach(vo => {
-			//오늘날짜
-			let sArr = new Date().toISOString().slice(0, 10);
-			let sArr2 = sArr.split('-');
-			let sDate = new Date(sArr2[0], sArr2[1], sArr2[2]);
-			//종료날짜
-			let eArr = myTime(vo.end_date).split('-');
-			let eDate = new Date(eArr[0], eArr[1], eArr[2]);
-
-			let diffDate = Math.abs((sDate - eDate) / (1000*60*60*24));
-			
 			msg += '<tr>';
 			msg += '<td>' + vo.p_idx + '</td>';
 			msg += '<td><a href="#">[' + vo.c_secondary + '] ' +  vo.title + '</a></td>';
 			msg += '<td>' + vo.price + '원</td>';
 			msg += '<td>' + vo.curr_party + ' / ' + vo.party_num + '</td>';
-			msg += '<td>' + diffDate + '일</td>';
+			msg += '<td>' + vo.datediff + '일</td>';
 			msg += '<td>' + myTime(vo.end_date) + '</td>';
 			msg += '<td>' + myTime(vo.reg_date) + '</td>';
 			msg += '<td><input type="button" id="partymodify" value="수정" onclick="modifyBtnEvent(' + vo.p_idx + ')">';

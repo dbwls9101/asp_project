@@ -17,13 +17,6 @@
 	<a href="javascrip:;" onclick="nwindow('https://buts.co.kr/plugin/social/popup.php?provider=kakao&amp;url=https://buts.co.kr/bbs/login.php')" style="margin-left:0px; margin-top:5px; width:100%;" class="kakao sns-kakao" title="카카오">
 		<img src="/resources/images/kakao_logo.png" alt="">카카오 계정으로 로그인 하기			
 	</a>
-	<div>
-	<br>
-	<br>
-		<label>
-			<span><input type="checkbox" name="agreeAll" class="agreeAll" value="agreeAll">&nbsp;회원가입 약관 안내, 개인정보 처리방침 안내 내용에 모두 동의 합니다.</span>
-		</label>
-	</div>
 <div class="h3">약관 동의</div>
 <div class="page-content">
 	
@@ -431,9 +424,17 @@
 <br>
 <label>
 <span><input type="checkbox" name="agree2" value="agree2">&nbsp;개인정보 처리방침 안내 내용에 동의 합니다.</span>
-</label>		
+</label>	
+<div>
+<br>
+<br>
+
+	<label class="agreeAll">
+		<span><input type="checkbox" name="agreeAll" id="agreeAll" value="agreeAll">&nbsp;모두 동의 합니다.</span>
+	</label>
+</div>
 <div class="button-align center">
-	<a href="/" class="button">취소</a>
+	<a href="/member/login" class="button">취소</a>
 	<button type="submit" id="btn_submit" class="button button-purple" accesskey="s" onclick="agree(this.form)" >회원 가입</button>
 </div>
 </form>

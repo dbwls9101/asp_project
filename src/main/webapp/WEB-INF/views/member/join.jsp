@@ -58,7 +58,7 @@
 			</ul>
 		</div>
 		<div class="button-align center">
-			<a href="/" class="button">취소</a>
+			<a href="/member/login" class="button">취소</a>
 			<button type="submit" id="btn_submit" class="button button-purple" accesskey="s" onclick="validate(this.form)">회원 가입</button>
 		</div>
 	</div>

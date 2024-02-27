@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "sec" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,17 +30,17 @@
 						<th>서비스명</th>
 						<th>참여일</th>
 						<th>판매가</th>
-						<th>수수료</th>
+						<th>수수료(10%)</th>
 						<th>합계</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td>${vo.c_secondary }</td>
-						<td id="period" enddate="${vo.end_date }"></td>
-						<td id="price" price="${vo.price }"></td>
-						<td id="commission"></td>
-						<td><strong id="sum"></strong></td>
+						<td id="period" enddate="${vo.end_date }">${vo.datediff }일 (1일 ${vo.price }원)</td>
+						<td id="price"><fmt:formatNumber value="${vo.totalprice }" pattern="#,###" />원</td>
+						<td id="commission"><fmt:formatNumber value="${vo.totalprice*0.1 }" pattern="#,###" />원</td>
+						<td><strong id="sum"><fmt:formatNumber value="${vo.totalprice + vo.totalprice*0.1 }" pattern="#,###" />원</strong></td>
 					</tr>
 				</tbody>
 			</table>
@@ -64,9 +65,11 @@
 						<input type="hidden" name="phone" value="${principal.member.phone }">
 						<input type="hidden" name="m_idx" value="${principal.member.m_idx }">
 						<input type="hidden" name="title" value="${vo.c_secondary }">
+						<input type="hidden" name="sub_title" value="${vo.title }">
 						<input type="hidden" name="p_idx" value="${vo.p_idx }">
 						<input type="hidden" name="codeone" value="${vo.codeone }">
 						<input type="hidden" name="codetwo" value="${vo.codetwo }">
+						<input type="hidden" name="end_date" value="${vo.end_date }">
 					</li>
 				</ul>
 			</div>
@@ -79,18 +82,18 @@
 				<ul>
 					<li>
 						<div class="subject">ㆍ 서비스 금액</div>
-						<div class="right" id="payprice"></div>
-						<input type="hidden" name="service_amount">
+						<div class="right" id="payprice"><fmt:formatNumber value="${vo.totalprice }" pattern="#,###" />원</div>
+						<input type="hidden" name="service_amount" value="<fmt:parseNumber value="${vo.totalprice }" integerOnly="true"/>">
 					</li>
 					<li>
 						<div class="subject">ㆍ 수수료(10%)</div>
-						<div class="right" id="paycommission"></div>
-						<input type="hidden" name="commission">
+						<div class="right" id="paycommission"><fmt:formatNumber value="${vo.totalprice*0.1 }" pattern="#,###" />원</div>
+						<input type="hidden" name="commission" value="<fmt:parseNumber value="${vo.totalprice*0.1}" integerOnly="true"/>">
 					</li>
 					<li>
 						<div class="subject">ㆍ 합계</div>
-						<div class="right" id="paysum"></div>
-						<input type="hidden" name="pay_amount">
+						<div class="right" id="paysum"><fmt:formatNumber value="${vo.totalprice + vo.totalprice*0.1 }" pattern="#,###" />원</div>
+						<input type="hidden" name="pay_amount" value="<fmt:parseNumber value="${vo.totalprice + vo.totalprice*0.1}" integerOnly="true"/>">
 					</li>
 					<li>
 						<div class="subject">ㆍ 사용 포인트</div>
@@ -112,7 +115,7 @@
 					<li class="total">
 						<div class="subject" style="color: #43a051;">총 결제금액</div>
 						<div class="right">
-							<span class="total-price"></span>
+							<span class="total-price"><fmt:formatNumber value="${vo.totalprice + vo.totalprice*0.1 }" pattern="#,###" /></span>
 							<span>원</span>
 						</div>
 					</li>

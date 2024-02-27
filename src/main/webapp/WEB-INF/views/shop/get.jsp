@@ -2,12 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "sec" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/resources/css/shop/get.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 <body>
 	<jsp:include page="../layout/header.jsp"/>
@@ -38,9 +40,8 @@
 	<div id="partyinfo">
 		<span id="nick">${vo.nickname }</span>
 		<div>
-			<span id="end-date">종료일 : ${vo.end_date }</span>
-			<span id="period" enddate="${vo.end_date }"></span>
-			<span id="price" price="${vo.price }"></span>
+			<span id="end-date">종료일 : ${vo.end_date } (${vo.datediff }일 / 1일 ${vo.price }원)</span>
+			<span id="price">&nbsp; | &nbsp;&nbsp;참여비용 : <fmt:formatNumber value="${vo.totalprice }" pattern="#,###" />원</span>
 		</div>
 	</div>
 	

@@ -24,7 +24,7 @@
 		  <li class="list-group-item"><a href="#">댓글보기</a></li>
 		  <li class="list-group-item"><a href="/partner/partyinfo">참여정보</a></li>
 		  <li class="list-group-item"><a href="#">취소내역</a></li>
-		  <li class="list-group-item"><a href="#">출금관리</a></li>
+		  <li class="list-group-item"><a href="/partner/withdraw">출금관리</a></li>
 		  <li class="list-group-item"><a href="#">정보수정</a></li>
 		</ul>
 	</div>

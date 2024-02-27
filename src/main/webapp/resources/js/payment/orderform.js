@@ -4,60 +4,6 @@ IMP.init("imp45030755");   /* imp~ : 가맹점 식별코드*/
 const f = document.forms[0];
 const payBtn = document.querySelector('#pay-btn');
 
-//폼 정보
-window.onload = function(){
-	//일 /금액 계산
-	totalperiodprice();
-}
-
-function totalperiodprice(){
-	let perEle = document.querySelector("#period");
-	let priEle = document.querySelector("#price");
-	let commEle = document.querySelector("#commission");
-	let sumEle = document.querySelector("#sum");
-	
-	//오늘날짜
-	let sArr = new Date().toISOString().slice(0, 10);
-	let sArr2 = sArr.split('-');
-	let sDate = new Date(sArr2[0], sArr2[1], sArr2[2]);
-	
-	//종료날짜
-	let eArr = myTime(perEle.getAttribute("enddate")).split('-');
-	let eDate = new Date(eArr[0], eArr[1], eArr[2]);
-	
-	let diffDate = Math.abs((sDate - eDate) / (1000*60*60*24));
-	let totalPrice = (priEle.getAttribute("price") * diffDate);
-	let commission = (priEle.getAttribute("price") * diffDate) * 0.1;
-	let sumPrice = totalPrice + commission;
-	
-	
-	//일 수 (1일금액)
-	perEle.innerHTML += ' ' + diffDate + '일 (1일 ' + priEle.getAttribute("price").toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원)';
-	//일수*1일금액
-	priEle.innerHTML = totalPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원';
-	document.querySelector("#payprice").innerHTML = totalPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원';
-	document.querySelector("input[name='service_amount']").value = totalPrice;
-	//수수료
-	commEle.innerHTML = commission.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원';
-	document.querySelector("#paycommission").innerHTML = commission.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원';
-	document.querySelector("input[name='commission']").value = commission;
-	//합계
-	sumEle.innerHTML = sumPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원';
-	document.querySelector("#paysum").innerHTML = sumPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원';
-	document.querySelector(".total-price").innerHTML = sumPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-	document.querySelector("input[name='pay_amount']").value = sumPrice;
-}
-
-//unixTimeStamp 변환
-function myTime(unixTimeStamp){
-	let myDate = new Date(unixTimeStamp);
-	let date = myDate.getFullYear() + "-"
-	 	+ String(myDate.getMonth() + 1).padStart(2, "0") + "-" 
-		+ String(myDate.getDate()).padStart(2, "0");
-	
-	return date;
-}
-
 //주문하기 버튼 클릭 시 
 const ps = payService;
 payBtn.addEventListener('click', () =>{
@@ -111,7 +57,9 @@ payBtn.addEventListener('click', () =>{
 				commission : f.commission.value,
 				pay_method : f.pay_method.value,
 				pay_status : 'B',
-				title : f.title.value
+				title : f.title.value,
+				sub_title : f.sub_title.value,
+				end_date : f.end_date.value
 			}, function(result) {
 				console.log('result : ' + result);
 				//결제 후 해당 게시글로 이동

@@ -29,7 +29,7 @@
 	   				</a>
 	   			</div>
 	   			<div class="menu">
-	   				<ul>
+	   				<ul style="padding-left:0">
 	   					<li><a href="/shop/list/10" class="menu-a">영상</a></li>
 	   					<li><a href="/shop/list/20" class="menu-a">도서/음악</a></li>
 	   					<li><a href="/shop/list/30" class="menu-a">게임</a></li>

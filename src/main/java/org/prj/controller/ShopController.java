@@ -1,6 +1,5 @@
 package org.prj.controller;
 
-import org.prj.domain.PartyBoardVO;
 import org.prj.service.PartyBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
