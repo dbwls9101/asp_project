@@ -426,10 +426,18 @@
 <br>
 <label>
 <span><input type="checkbox" name="agree2" value="agree2">&nbsp;개인정보 처리방침 안내 내용에 동의 합니다.</span>
-</label>		
+</label>	
+<div>
+<br>
+<br>
+
+	<label class="agreeAll">
+		<span><input type="checkbox" name="agreeAll" id="agreeAll" value="agreeAll">&nbsp;모두 동의 합니다.</span>
+	</label>
+</div>
 <div class="button-align center">
 	<button type="submit" id="btn_submit" class="button button-point" accesskey="s" onclick="agree(this.form)" >회원 가입</button>
-	<a href="/" class="button">취소</a>
+	<a href="/member/login" class="button">취소</a>
 </div>
 </form>
 <br><br>

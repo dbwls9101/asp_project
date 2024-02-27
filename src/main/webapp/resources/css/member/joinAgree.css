@@ -53,23 +53,6 @@
 	margin-top: 60px;
 }
 
-.button {
-	position: relative;
-	display: inline-block;
-	min-width: 240px;
-	height: 70px;
-	margin: 1px 0;
-	padding: 0 10px;
-	font-size: 18px;
-	color: white;
-	text-align: center;
-	line-height: 68px;
-	border: 0;
-	border-radius: 5px;
-	background-color: #cecdd4;
-	overflow: hidden;
-}
-
 .form-sns-join {
 	width: 800px;
 	margin: 0 auto;
@@ -105,4 +88,51 @@
 .form-sns-join a.kakao {
 	color: #331420;
 	background-color: #f9e000;
+}
+
+.button-align.center {
+	text-align: center;
+}
+
+.button-align .button {
+	vertical-align: top;
+}
+
+.button:link, .button:visited {
+	color: white;
+	text-decoration: none;
+}
+
+.button.button-purple {
+	background-color: #43a051;
+	cursor: pointer;
+}
+
+.button-align {
+	position: relative;
+	min-height: 53px;
+	margin-top: 15px;
+}
+
+.button {
+	position: relative;
+	display: inline-block;
+	min-width: 240px;
+	height: 70px;
+	margin: 1px 0;
+	padding: 0 10px;
+	font-size: 18px;
+	color: white;
+	text-align: center;
+	line-height: 68px;
+	border: 0;
+	border-radius: 5px;
+	background-color: #cecdd4;
+	overflow: hidden;
+}
+
+.agreeAll {
+	font-size: 20px;
+	display: flex;
+    justify-content: center;
 }

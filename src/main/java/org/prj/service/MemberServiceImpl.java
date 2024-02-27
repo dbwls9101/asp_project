@@ -46,4 +46,11 @@ public class MemberServiceImpl implements MemberService{
 			return membermapper.findId(name, email);
 		}
 	
+	//비밀번호 찾기
+	@Override
+		public MemberVO findPw(String email, String id) throws Exception {
+			
+			return membermapper.findPw(email, id);
+		}
+	
 }

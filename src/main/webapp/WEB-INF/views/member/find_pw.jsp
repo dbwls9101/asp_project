@@ -10,23 +10,6 @@
 </head>
 <body>
 <jsp:include page="../layout/header.jsp"/>
-<%-- <h1>패스워드 찾기</h1>
-<h4>회원가입 시 등록하신 아이디,이름 및 이메일 주소를 입력해 주세요.</h4>
-<h4>비밀번호 변경 안내해드립니다.</h4>
-	<form id="findForm" action="${contextPath }/member/findIdCheck" method="post">
-	    <div>
-	    	<input type="text" name="id" id="id" placeholder="아이디">
-	    </div>	
-	    <div>
-	    	<input type="text" name="name" id="name" placeholder="이름">
-	    </div>
-	    <div>
-	    	<input type="email" name="email" id="email" placeholder="이메일">
-	    </div>
-	    <button type="button" id="cancel" onclick="location.href='/'">취소</button>
-	    <button type="button" id="submit" onclick="findSubmit(this.form); return false;">확인</button>
-	</form> --%>
-
 <form class="form-horizontal register-form" role="form" id="fregisterform" name="fregisterform" autocomplete="off" action="#" method="post" onsubmit="return false">
 	<div class="mw-800 form-signup mg-top-minus">
 		<div class="h4"><span class="text-purple">비밀번호</span> 찾기</div>
@@ -39,10 +22,6 @@
 					<input type="text" id="id" name="id" value="" placeholder="아이디" size="10">
 				</li>			
 				<li>
-					<span class="subject">ㆍ 이름</span>
-					<input type="text" id="name" name="name" value="" placeholder="이름" size="10">
-				</li>
-				<li>
 					<span class="subject">ㆍ 이메일</span>
 					<input type="text" class="email_input" name="email" id="email" placeholder="이메일">
 					<span class="lightgrey inline-break" id="emailText" style="display: none;">이메일 사용이 가능합니다.</span>
@@ -51,7 +30,7 @@
 			
 		</div>
 		<div class="button-align center">
-			<button type="button" id="cancel" class="button" onclick="location.href='/'" style="cursor:pointer;">취소</button>
+			<button type="button" id="cancel" class="button" onclick="location.href='/member/login'" style="cursor:pointer;">취소</button>
 			<button type="submit" id="btn_submit" class="button button-purple" accesskey="s" onclick="findSubmit(this.form)">확인</button>
 		</div>
 	</div>
