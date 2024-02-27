@@ -47,6 +47,7 @@ payBtn.addEventListener('click', () =>{
 			ps.order({
 				imp_uid : rsp.imp_uid,
 				p_idx: f.p_idx.value,
+				m_idx: principal.member.m_idx,
 				order_no : rsp.merchant_uid,
 				id : f.id.value,
 				name : f.name.value,

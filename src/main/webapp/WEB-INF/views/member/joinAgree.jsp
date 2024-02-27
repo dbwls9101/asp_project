@@ -4,25 +4,27 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원가입 동의</title>
 <link rel="stylesheet" href="/resources/css/member/joinAgree.css"> 
 </head>
 <body>
 <jsp:include page="../layout/header.jsp"/>
 <form class="form-horizontal register-form" role="form" id="fregisterform" name="fregisterform" autocomplete="off" action="#" method="get" onsubmit="return false">
-<div class="h3">SNS 가입하기</div>
-	<a href="javascrip:;" onclick="nwindow('https://buts.co.kr/plugin/social/popup.php?provider=naver&amp;url=https://buts.co.kr/bbs/login.php')" style="margin-top:20px; width:100%;" class="naver sns-naver" title="네이버">
+<div class="h3"><span class="title-point">SNS</span> 가입하기</div>
+<div class="form-sns-join">
+	<a href="javascrip:;" onclick="nwindow('https://buts.co.kr/plugin/social/popup.php?provider=naver&amp;url=https://buts.co.kr/bbs/login.php')" class="naver sns-naver" title="네이버">
 		<img src="/resources/images/naver_logo.png" alt="">네이버 계정으로 로그인 하기
 	</a>
-	<a href="javascrip:;" onclick="nwindow('https://buts.co.kr/plugin/social/popup.php?provider=kakao&amp;url=https://buts.co.kr/bbs/login.php')" style="margin-left:0px; margin-top:5px; width:100%;" class="kakao sns-kakao" title="카카오">
+	<a href="javascrip:;" onclick="nwindow('https://buts.co.kr/plugin/social/popup.php?provider=kakao&amp;url=https://buts.co.kr/bbs/login.php')" class="kakao sns-kakao" title="카카오">
 		<img src="/resources/images/kakao_logo.png" alt="">카카오 계정으로 로그인 하기			
 	</a>
-<div class="h3">약관 동의</div>
+</div>
+<div class="h3"><span class="title-point">약관</span> 동의</div>
 <div class="page-content">
 	
 	<div class="article-title" style="padding-top:0px;">제1조 목적</div>  
 
-	<p>이 약관은 벗츠 회사(전자상거래 사업자로 이하 "회사"라 한다)가 운영하는 벗츠 쇼핑몰(이하 "몰"이라 한다)에서 제공하는 인터넷 관련 서비스(이하 "서비스"라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리·의무 및 책임사항을 규정함을 목적으로 합니다.</p> 
+	<p>이 약관은 회사(전자상거래 사업자로 이하 "회사"라 한다)가 운영하는 쇼핑몰(이하 "몰"이라 한다)에서 제공하는 인터넷 관련 서비스(이하 "서비스"라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리·의무 및 책임사항을 규정함을 목적으로 합니다.</p> 
 
 	※「PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질에 반하지 않는 한 이 약관을 준용합니다.」
 
@@ -272,7 +274,7 @@
 <label>
 <span><input type="checkbox" name="agree1" value="agree1">&nbsp;회원가입 약관의 내용에 동의 합니다.</span>
 </label>
-<div class="h3">개인정보 처리방침</div>
+<div class="h3"><span class="title-point">개인정보</span> 처리방침</div>
 <div class="page-content">
 	
 	<div class="article-title" style="padding-top:0px;">제1조 총칙</div>
@@ -426,8 +428,8 @@
 <span><input type="checkbox" name="agree2" value="agree2">&nbsp;개인정보 처리방침 안내 내용에 동의 합니다.</span>
 </label>		
 <div class="button-align center">
+	<button type="submit" id="btn_submit" class="button button-point" accesskey="s" onclick="agree(this.form)" >회원 가입</button>
 	<a href="/" class="button">취소</a>
-	<button type="submit" id="btn_submit" class="button button-purple" accesskey="s" onclick="agree(this.form)" >회원 가입</button>
 </div>
 </form>
 <br><br>
