@@ -37,10 +37,9 @@ public class PartnerController {
 	@Autowired 
 	private PartyBoardService pService;
 	
-	// 출근 관리
+	// 출금 관리
 	@Autowired
 	private WithdrawService wService;
-		// 출근관리
 	
 	//파티관리
 	@GetMapping("/manage")

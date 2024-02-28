@@ -32,13 +32,13 @@
 		</c:choose>
 		<div id="title-area">
 			<span id="servicename">${vo.c_secondary }</span>
-			<span id="pidx">파티번호 : ${vo.p_idx }</span>
+			<span id="pidx" pidx="${vo.p_idx }">파티번호 : ${vo.p_idx }</span>
 			<span id="title">${vo.title }</span>
 		</div>
 	</div>
 	
 	<div id="partyinfo">
-		<span id="nick">${vo.nickname }</span>
+		<span id="nick" nick="${vo.nickname }">${vo.nickname }</span>
 		<div>
 			<span id="end-date">종료일 : ${vo.end_date } (${vo.datediff }일 / 1일 ${vo.price }원)</span>
 			<span id="price">&nbsp; | &nbsp;&nbsp;참여비용 : <fmt:formatNumber value="${vo.totalprice }" pattern="#,###" />원</span>
@@ -60,23 +60,52 @@
 			</c:forEach>
 		</c:if>	
 	</div>
-	
 	<div id="announcement">
 		<div id="rules" rule="${vo.rule }"></div>
 		<div id="comment"><pre>${vo.comment }</pre></div>
 	</div>
-	<form method="post">
-		<div id="checkform">
-			<input type="checkbox" id="agree">
-			<label class="form-check-label" for="agree"> 파티 규칙에 대한 내용 확인 및 파티 알림 수신에 동의합니다.</label>
-		</div>
-		<div id="btnarea">
-			<input type="hidden" name="pn" value="${vo.p_idx }">
-			
-			<input type="button" value="참여" id="participate">
-			<input type="button" value="목록" id="getpartylist">
-		</div>
-	</form>
+	
+	<!-- 익명 사용자의 경우(로그인 X) -->
+	<sec:authorize access="isAnonymous()">
+		<form method="post" id="participateForm">
+			<div id="checkform">
+				<input type="checkbox" id="agree">
+				<label class="form-check-label" for="agree"> 파티 규칙에 대한 내용 확인 및 파티 알림 수신에 동의합니다.</label>
+			</div>
+			<div class="btnarea">
+				<input type="hidden" name="pn" value="${vo.p_idx }">
+				
+				<input type="button" value="참여" id="participate">
+				<input type="button" value="목록" id="getpartylist">
+			</div>
+		</form>
+	</sec:authorize>
+	
+	<!-- 인증된 사용자 (로그인 O) -->
+	<sec:authorize access="isAuthenticated()">
+		<c:choose>
+			<c:when test="${principal.member.nickname eq vo.nickname}">
+				<div class="btnarea" id="partnerBtns">
+					<input type="button" value="관리" id="myPartyManage">
+					<input type="button" value="목록" id="getpartylist">
+				</div>
+			</c:when>
+			<c:otherwise>
+				<form method="post" id="participateForm">
+					<div id="checkform">
+						<input type="checkbox" id="agree">
+						<label class="form-check-label" for="agree"> 파티 규칙에 대한 내용 확인 및 파티 알림 수신에 동의합니다.</label>
+					</div>
+					<div class="btnarea">
+						<input type="hidden" name="pn" value="${vo.p_idx }">
+						
+						<input type="button" value="참여" id="participate">
+						<input type="button" value="목록" id="getpartylist">
+					</div>
+				</form>
+			</c:otherwise>
+		</c:choose>
+	</sec:authorize>
 	
 	<hr>
 	
@@ -99,6 +128,7 @@
 		</div>
 		<div id="replybtn">
 			<input type="hidden" name="p_idx" value="${vo.p_idx }">
+		
 			<input type="hidden" name="writer" value="">
 			<input type="button" value="등록" id="replyregister">
 		</div>

@@ -40,6 +40,11 @@ public class PartyBoardServiceImpl implements PartyBoardService{
 	public List<PartyBoardVO> getListbycategory(int codeone) {
 		return pMapper.getListbycategory(codeone);
 	}
+	
+	@Override
+	public List<PartyBoardVO> getCategoryList(PartyBoardVO vo) {
+		return pMapper.getCategoryList(vo);
+	}
 
 	@Override
 	public PartyBoardVO getDetailParty(int p_idx) {

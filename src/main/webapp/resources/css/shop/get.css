@@ -116,18 +116,18 @@
 	text-align: center;
 }
 
-#btnarea{
+.btnarea{
 	padding: 60px 0;
 	text-align: center;
 }
 
-#btnarea input[type="button"]{
+.btnarea input[type="button"]{
 	width: 150px;
 	height: 70px;
 	font-size: 20px;
 }
 
-#participate{
+#participate, #myPartyManage{
 	border: 0px;
 	background-color: #43a051;
 	color: white;
@@ -145,11 +145,11 @@
     border-radius: 5px;
 }
 
-#participate:hover{
+#participate:hover, #myPartyManage:hover{
 	background-color: #FFE05C;
 }
 
-#getpartylist:hover {
+#getpartylist:hover{
 	background-color: #111;
 }
 

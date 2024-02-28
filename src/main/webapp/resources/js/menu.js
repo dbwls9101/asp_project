@@ -25,6 +25,58 @@ if (pathname.includes('/shop/list/10') || search.includes('?c1=10')) {
 	li[3].className += ' hover';
 }
 
+// 헤더 2차 메뉴에 카테고리 값 불러오기 
+showCategory(); 
+function showCategory(){
+	var code10 = document.querySelector('#codeone-10');
+	var code20 = document.querySelector('#codeone-20');
+	var code30 = document.querySelector('#codeone-30');
+	var code40 = document.querySelector('#codeone-40');
+	
+	fetch('/page/submenu')
+    .then(response => response.json())
+    .then( data => {
+    	let msg10 = '';
+    	let msg20 = '';
+    	let msg30 = '';
+    	let msg40 = '';
+    	
+    	data.forEach(code => {
+            if (code.codeone == 10) {
+				msg10 += '<li>';
+				msg10 += '<a href="/shop/list/' + code.codeone + '/' + code.codetwo + '">#';
+				msg10 += code.c_secondary;
+				msg10 += '</a>';
+				msg10 += '</li>';
+			} else if (code.codeone == 20) {
+				msg20 += '<li>';
+				msg20 += '<a href="/shop/list/' + code.codeone + '/' + code.codetwo + '">#';
+				msg20 += code.c_secondary;
+				msg20 += '</a>';
+				msg20 += '</li>';
+			} else if (code.codeone == 30) {
+				msg30 += '<li>';
+				msg30 += '<a href="/shop/list/' + code.codeone + '/' + code.codetwo + '">#';
+				msg30 += code.c_secondary;
+				msg30 += '</a>';
+				msg30 += '</li>';
+			} else if (code.codeone == 40) {
+				msg40 += '<li>';
+				msg40 += '<a href="/shop/list/' + code.codeone + '/' + code.codetwo + '">#';
+				msg40 += code.c_secondary;
+				msg40 += '</a>';
+				msg40 += '</li>';
+			}
+		});
+    	
+		code10.innerHTML = msg10;
+		code20.innerHTML = msg20;
+		code30.innerHTML = msg30;
+		code40.innerHTML = msg40;
+    })
+    .catch(err => console.log(err));
+}
+
 // 헤더에서 적용되는 부분 ( 제이슨 형태로 저장 ) // 처음 2page에서 목록에 갔다가 다시 돌아올때 2page로 떠야 하는 것 ****
 function setStorageData(pageNum, amount){		// setStorageData 값을 객체로 만들고 값을
 	const pageData = {

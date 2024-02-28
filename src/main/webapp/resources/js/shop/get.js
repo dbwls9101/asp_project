@@ -1,6 +1,12 @@
 window.onload = function(){
 	//공지사항 규칙
 	getrule();
+	
+	if(document.querySelector("#participate") == null){
+		partyWriter();
+	}else{
+		notPartyWriter();
+	}
 }
 
 
@@ -24,30 +30,54 @@ document.querySelector("#makeparty").addEventListener('click', ()=>{
 		return;
 	}
 	location.href = '/partner/register';
-})
+});
 
 //목록 버튼
 const urlParams = new URL(location.href).searchParams;
 //게시글 체크 폼
-const f = document.forms[0];
+const f = document.querySelector("#participateForm");
 //댓글 폼
-const replyf = document.forms[1];
+const replyf = document.querySelector("#replyform");
 
-document.querySelector("#getpartylist").addEventListener('click', ()=>{
-	let c1 = urlParams.get('c1');
-	location.href = "/shop/list/" + c1;
-})
 
-//참여 버튼
-document.querySelector("#participate").addEventListener('click', ()=>{
-	if(!document.querySelector("#agree").checked){
-		alert('안내 및 규칙을 읽고 체크박스에 체크해 주세요.');
-		return;
-	}
+//내가 생성한 파티가 아닐 경우
+function notPartyWriter(){
+	//참여 버튼
+	document.querySelector("#participate").addEventListener('click', function() {
+	    	if(principal == 'anonymousUser'){
+	    		alert('로그인 후 이용가능한 서비스입니다.');
+	    		return;
+	    	}
+	    	
+	    	if(!document.querySelector("#agree").checked){
+	    		alert('안내 및 규칙을 읽고 체크박스에 체크해 주세요.');
+	    		return;
+	    	}
+	    	
+	    	f.action = '/payment/orderform';
+	    	f.submit();
+	});
 	
-	f.action = '/payment/orderform';
-	f.submit();
-})
+	//목록 버튼
+	document.querySelector("#getpartylist").addEventListener('click', ()=>{
+		let c1 = urlParams.get('c1');
+		location.href = "/shop/list/" + c1;
+	});
+}
+
+//내가 생성한 파티일 경우
+function partyWriter(){
+	//관리 버튼
+	document.querySelector("#myPartyManage").addEventListener('click', ()=>{
+		location.href = "/partner/manage";
+	});
+	
+	//목록 버튼
+	document.querySelector("#getpartylist").addEventListener('click', ()=>{
+		let c1 = urlParams.get('c1');
+		location.href = "/shop/list/" + c1;
+	});
+}
 
 
 //댓글관련
@@ -67,15 +97,18 @@ function showList(){
 	             msg += '<div id="replycontent">';
 	             msg += '<span id="commentto">@' + reply.comment_to + '</span><br><span id="replycomment">' + reply.comment + '</span>';
 	             
-	             //수정 삭제 버튼
-	             msg += '<div id="replybtnarea" class="btn-group dropend" role="group">';
-	             msg += '<button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">';
-	             msg += '<img id="replymenubtn" src="/resources/images/replymenu.png"></button>';
-	             msg += '<ul id="replybtns" class="dropdown-menu">';
-	             msg += '<li><a class="dropdown-item" href="#">수정</a></li>';
-	             msg += '<li><a class="dropdown-item" href="#">삭제</a></li>';
-	             msg += '</ul>';
-	             msg += '</div>';
+	             //삭제 버튼 - 로그인된 닉네임과 댓글 작성자 동일해야 삭제 버튼 활성화
+	             if(principal != 'anonymousUser'){
+	            	 if(principal.member.nickname == reply.writer){
+			             msg += '<div id="replybtnarea" class="btn-group dropend" role="group">';
+			             msg += '<button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">';
+			             msg += '<img id="replymenubtn" src="/resources/images/replymenu.png"></button>';
+			             msg += '<ul id="replybtns" class="dropdown-menu">';
+			             msg += '<li><a class="dropdown-item" href="javascript:replyDelete(' + reply.c_idx + ');">삭제</a></li>';
+			             msg += '</ul>';
+			             msg += '</div>'; 
+		             } 
+	             }
 	             
 	             msg += '</div>';
 	             msg += '<br><span id="replyregdate">' + reply.reg_date + '</span>';
@@ -92,6 +125,7 @@ function showList(){
 document.querySelector("#replyregister").addEventListener('click', ()=>{
 	if(principal == 'anonymousUser'){
 		alert('로그인 후 이용가능한 서비스입니다.');
+		replyf.comment.value = '';
 		return;
 	}
 	
@@ -121,3 +155,14 @@ document.querySelector("#replyregister").addEventListener('click', ()=>{
 	);
 })
 
+//댓글 삭제
+function replyDelete(c_idx){
+	if(confirm('댓글을 삭제하시겠습니까?')){
+		rs.remove(
+			c_idx,
+			function(result){
+				showList();
+			}
+		);
+	}
+}

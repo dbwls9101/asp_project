@@ -10,6 +10,7 @@ public interface PartyBoardMapper {
 	public PartyBoardVO getParty(int p_idx);
 	public void updateParty(PartyBoardVO vo);
 	public List<PartyBoardVO> getListbycategory(int codeone);
+	public List<PartyBoardVO> getCategoryList(PartyBoardVO vo);
 	public PartyBoardVO getDetailParty(int p_idx);
 	public void updateCurrNum(int p_idx);
 	public void cancleUpdateCurrNum(int p_idx);
