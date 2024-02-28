@@ -21,7 +21,7 @@ function getList(m_idx){
 		json.forEach(vo => {
 			msg += '<tr>';
 			msg += '<td>' + vo.p_idx + '</td>';
-			msg += '<td><a href="#">[' + vo.c_secondary + '] ' +  vo.title + '</a></td>';
+			msg += '<td><a href="/shop/get?c1=' + vo.codeone + '&c2=' + vo.codetwo + '&pn=' + vo.p_idx + '">[' + vo.c_secondary + '] ' +  vo.title + '</a></td>';
 			msg += '<td>' + vo.price + '원</td>';
 			msg += '<td>' + vo.curr_party + ' / ' + vo.party_num + '</td>';
 			msg += '<td>' + vo.datediff + '일</td>';

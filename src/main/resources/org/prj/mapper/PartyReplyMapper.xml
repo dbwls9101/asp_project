@@ -9,7 +9,7 @@
 	</insert>
 	
 	<select id="getList" resultType="org.prj.domain.PartyCommentVO">
-		select * from party_comment where p_idx=#{p_idx}
+		select * from party_comment where p_idx=#{p_idx} order by c_idx
 	</select>
 	
 	<delete id="delete" parameterType="int">

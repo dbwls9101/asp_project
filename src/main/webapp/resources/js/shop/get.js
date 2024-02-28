@@ -83,6 +83,9 @@ function partyWriter(){
 //댓글관련
 const rs = replyService;
 
+//댓글 언급 목록 가져오기
+
+
 //댓글 목록 가져오기
 showList(); 
 function showList(){
@@ -91,29 +94,74 @@ function showList(){
 		function(result){
 			let msg = '';
 			result.forEach(reply => {
-	             msg += '<div id="chat">';
-	             msg += '<div id="chatcontentarea">';
-	             msg += '<div id="replynick">' + reply.writer + '</div>';
-	             msg += '<div id="replycontent">';
-	             msg += '<span id="commentto">@' + reply.comment_to + '</span><br><span id="replycomment">' + reply.comment + '</span>';
 	             
-	             //삭제 버튼 - 로그인된 닉네임과 댓글 작성자 동일해야 삭제 버튼 활성화
-	             if(principal != 'anonymousUser'){
-	            	 if(principal.member.nickname == reply.writer){
-			             msg += '<div id="replybtnarea" class="btn-group dropend" role="group">';
-			             msg += '<button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">';
-			             msg += '<img id="replymenubtn" src="/resources/images/replymenu.png"></button>';
-			             msg += '<ul id="replybtns" class="dropdown-menu">';
-			             msg += '<li><a class="dropdown-item" href="javascript:replyDelete(' + reply.c_idx + ');">삭제</a></li>';
-			             msg += '</ul>';
-			             msg += '</div>'; 
-		             } 
-	             }
+				if(principal != 'anonymousUser'){
+					if(principal.member.nickname == reply.writer){//내가 쓴 댓글인 경우
+						msg += '<div class="chat re">';
+			            msg += '<div id="chatcontentarea">';
+			            //msg += '<div id="replynick">' + reply.writer + '</div>';
+			            msg += '<div id="myreplycontent">';
+			            msg += '<span id="commentto" class="right">@' + reply.comment_to + '</span>';
+			            
+			            if(reply.private_chk == 'Y'){
+			            	msg += '<br><span id="replycomment"><img src="/resources/images/mylock.png">' + reply.comment + '</span>';
+			            }else{
+			            	msg += '<br><span id="replycomment">' + reply.comment + '</span>';
+			            }
+			            
+			           //삭제 버튼 - 로그인된 닉네임과 댓글 작성자 동일해야 삭제 버튼 활성화
+			            msg += '<div id="replybtnarea" class="btn-group dropend" role="group">';
+			            msg += '<button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">';
+			            msg += '<img id="replymenubtn" src="/resources/images/replymenu.png"></button>';
+			            msg += '<ul id="replybtns" class="dropdown-menu">';
+			            msg += '<li><a class="dropdown-item" href="javascript:replyDelete(' + reply.c_idx + ');">삭제</a></li>';
+			            msg += '</ul>';
+			            msg += '</div>';
+			            
+			            msg += '</div>';
+			            msg += '<br><span id="replyregdate">' + reply.reg_date + '</span>';
+			            msg += '</div>';
+			            msg += '<div id="replynick" class="right">' + reply.writer + '</div>';
+			            msg += '</div>';
+			            
+					}else{//내가 쓴 댓글 아닌 경우
+						msg += '<div class="chat">';
+			            msg += '<div id="chatcontentarea">';
+			            msg += '<div id="replynick">' + reply.writer + '</div>';
+			            msg += '<div id="replycontent">';
+			            msg += '<span id="commentto">@' + reply.comment_to + '</span>';
+			            
+			            if(reply.private_chk == 'Y'){
+			            	msg += '<br><span id="replycomment"><img src="/resources/images/lock.png">비밀댓글입니다.</span>';
+			            }else{
+			            	msg += '<br><span id="replycomment">' + reply.comment + '</span>';
+			            }
+			            
+			            msg += '</div>';
+			            msg += '<br><span id="replyregdate">' + reply.reg_date + '</span>';
+			            msg += '</div>';
+			            msg += '</div>';
+
+					}
+				}else{ //로그인 안한 경우
+					msg += '<div class="chat">';
+		            msg += '<div id="chatcontentarea">';
+		            msg += '<div id="replynick">' + reply.writer + '</div>';
+		            msg += '<div id="replycontent">';
+		            msg += '<span id="commentto">@' + reply.comment_to + '</span>';
+		            if(reply.private_chk == 'Y'){
+		            	msg += '<br><span id="replycomment"><img src="/resources/images/lock.png">비밀 댓글 입니다.</span>';
+		            }else{
+		            	msg += '<br><span id="replycomment">' + reply.comment + '</span>';
+		            }
+		            
+		            msg += '</div>';
+		            msg += '<br><span id="replyregdate">' + reply.reg_date + '</span>';
+		            msg += '</div>';
+		            msg += '</div>';
+		            
+				}
 	             
-	             msg += '</div>';
-	             msg += '<br><span id="replyregdate">' + reply.reg_date + '</span>';
-	             msg += '</div>';
-	             msg += '</div>';
 			});
 			
 			document.querySelector("#chatarea").innerHTML = msg;
