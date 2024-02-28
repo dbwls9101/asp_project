@@ -6,73 +6,89 @@
 	box-sizing: border-box;
 	font-family: 'Noto Sans KR', Sans-Serif !important;
 }
+
 a {
 	text-decoration: none !important;
 }
-#partner-header{
+
+#partner-header {
 	position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 80px;
-    border-bottom: 1px solid #43a051;
-    z-index: 900;
-    background-color: #fff;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 80px;
+	border-bottom: 1px solid #43a051;
+	z-index: 900;
+	background-color: #fff;
 }
-#partner-header img{
+
+#partner-header img {
 	width: 150px;
 	margin: 0 20px;
 }
+
 #partner-nav {
 	position: absolute;
-    top: 0;
-    right: 5px;
-    padding: 30px 0 25px 0;
-    margin-bottom: 0;
+	top: 0;
+	right: 5px;
+	padding: 30px 0 25px 0;
+	margin-bottom: 0;
 }
+
 #partner-nav li {
 	display: inline-block;
 	margin-right: 40px;
 }
 
-#partner-menu{
+#partner-nav li a {
+	color: #666;
+    font-weight: 500;
+}
+
+#partner-nav li a:hover {
+	color: #43a051;
+}
+
+#partner-menu {
 	width: 220px;
 	height: 100%;
 	position: fixed;
-    top: 80px;
-    left: 0;
-    background-color: white;
-    border-right: 1px solid #43a051;
-    z-index: 700;
+	top: 80px;
+	left: 0;
+	background-color: white;
+	border-right: 1px solid #43a051;
+	z-index: 700;
 }
 
-#partner-menu li a{
+#partner-menu li a {
 	display: block;
-    padding: 10px 30px 10px 15px;
-    font-size: 16px;
-    color: #888;
-    font-weight: bold;
+	padding: 10px 30px 10px 15px;
+	font-size: 16px;
+	color: #888;
+	font-weight: bold;
 }
 
-#partner-menu li:hover a{
-	background: #f9f9f9 url(/resources/images/admin_arrow.png) no-repeat calc(100% - 10px) 50%;
+#partner-menu li:hover a {
+	background: #f9f9f9 url(/resources/images/admin_arrow.png) no-repeat
+		calc(100% - 10px) 50%;
 	color: #43a051 !important;
 }
 
-#partner-menu li:hover{
-    background-color: #f9f9f9 !important;
+#partner-menu li:hover {
+	background-color: #f9f9f9 !important;
 }
 
-.list-group{
+.list-group {
 	border-radius: unset !important;
 }
 
-.list-group-item{
+.list-group-item {
 	border: none !important;
-	border-bottom: var(--bs-list-group-border-width) solid var(--bs-list-group-border-color) !important;
+	border-bottom: var(- -bs-list-group-border-width) solid
+		var(- -bs-list-group-border-color) !important;
 }
 
-#content-container{
+#content-container {
 	margin-left: 220px;
 	margin-top: 130px;
 }
