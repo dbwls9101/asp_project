@@ -22,5 +22,11 @@ public class PartyReplyServiceImpl implements PartyReplyService{
 	public List<PartyCommentVO> getList(int p_idx) {
 		return prmapper.getList(p_idx);
 	}
+
+	@Override
+	public int remove(int c_idx) {
+		return prmapper.delete(c_idx);
+	}
+	
 	
 }

@@ -4,7 +4,9 @@ document.querySelector("#makeparty").addEventListener('click', ()=>{
 })
 
 //list 가져오기
-getList(principal.member.m_idx);
+getPrincipal().then(() => {
+   getList(principal.member.m_idx);
+})
 
 function getList(m_idx){
 	msg = "";
@@ -43,7 +45,6 @@ function modifyBtnEvent(p_idx){
 function deleteBtnEvent(p_idx){
 	
 }
-
 
 //unixTimeStamp 변환
 function myTime(unixTimeStamp){

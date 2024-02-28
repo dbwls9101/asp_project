@@ -6,6 +6,7 @@ import org.prj.domain.PartyCommentVO;
 import org.prj.service.PartyReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,5 +42,13 @@ public class PartyReplyController {
 		log.info("getReplyList..." + p_idx);
 		
 		return prservice.getList(p_idx);
+	}
+	
+	//댓글 삭제
+	@DeleteMapping(value = "/{c_idx}", produces = MediaType.TEXT_PLAIN_VALUE)
+	public String remove(@PathVariable int c_idx){
+		log.info("ReplyRemove..." + c_idx);
+		
+		return prservice.remove(c_idx) == 1 ? "remove success" : "remove fail";
 	}
 }

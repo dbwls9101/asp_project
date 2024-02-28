@@ -20,9 +20,9 @@ const replyService = (function(){
 		})
 		.catch(err => console.log(err));
 	}
-	/*
-	function remove(rno, callback){
-		fetch('/reply/' + rno, {
+	
+	function remove(c_idx, callback){
+		fetch('/partyreply/' + c_idx, {
 			method : 'delete',
 		})
 		.then(response => response.text())
@@ -31,7 +31,7 @@ const replyService = (function(){
 		})
 		.catch(err => console.log(err));
 	}
-	
+	/*
 	function update(updateReply, callback){
 		fetch('/reply/' + updateReply.rno, {
 			method : 'put',
@@ -56,9 +56,7 @@ const replyService = (function(){
 	
 	return {
 		add : add,
-		getList : getList
-		/*remove : remove,
-		update : update,
-		get : get*/
+		getList : getList,
+		remove : remove
 	}
 })();
