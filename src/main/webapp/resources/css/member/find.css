@@ -23,30 +23,6 @@
 	font-weight: 400;
 	color: #43a051;
 }
-/* 비밀번호 정규식 불일치 */
-.pw_input_3 {
-	color: black;
-	display: none;
-}
-
-/* 비밀번호 일치하지 않는 경우 */
-.pw_input_1 {
-	color: blue;
-	display: none;
-}
-/* 비밀번호 일치하는 경우 */
-.pw_input_2 {
-	color: red;
-	display: none;
-}
-
-.input_red {
-	color: red;
-}
-
-.input_blue {
-	color: blue;
-}
 
 .form-round {
 	position: relative;
@@ -75,20 +51,19 @@ ul {
 	top: 10;
 	left: 0;
 	display: inline-block;
-	width: 170px;
+	width: 160px;
 	padding: 10px 0;
 }
 
-input[type='text'], input[type='password'] {
+input[type='text'] {
 	width: 230px;
 	height: 45px;
-	font-size: 14px;
 	padding: 0 15px;
+	font-size: 14px;
 	color: #333;
 	border: solid 1px #dddddd;
 	background-color: white;
 	outline: none;
-	margin: 0 30px
 }
 
 .form-list .inline-break {
@@ -96,19 +71,12 @@ input[type='text'], input[type='password'] {
 	margin: 6px 0 6px 0;
 }
 
-.form-list .lightgrey {
-	margin: 6px 0 6px 0;
-	font-size: 15px;
-	line-height: 14px;
+.button-align.center {
+	text-align: center;
 }
 
 .button-align .button {
 	vertical-align: top;
-}
-
-.button:link, .button:visited {
-	color: white;
-	text-decoration: none;
 }
 
 .button.button-purple {
@@ -120,7 +88,6 @@ input[type='text'], input[type='password'] {
 	position: relative;
 	min-height: 53px;
 	margin-top: 60px;
-	text-align: center;
 }
 
 .button {
@@ -144,15 +111,14 @@ input[type='text'], input[type='password'] {
 	vertical-align: middle;
 }
 
-.button.round {
-	min-width: auto;
-	padding: 0 16px;
-	height: 32px;
-	font-size: 14px;
-	line-height: 30px;
-	border-radius: 17px;
+.form-list .lightgrey {
+	margin: 6px 0 6px 0;
+	font-size: 15px;
+	line-height: 14px;
+	font-size: 20px;
+	color: red;
 }
 
-.button.button-purple {
-	background-color: #43a051;;
+.login_warn {
+	font-size: 20px;
 }

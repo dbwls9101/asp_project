@@ -67,4 +67,3 @@
 </body>
 <script type="text/javascript" src="/resources/js/member/join.js"></script>
 </html>
-

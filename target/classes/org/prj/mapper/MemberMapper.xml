@@ -93,6 +93,6 @@
 	
 	<!-- 패스워드변경 -->
 	<update id = "updatePw" parameterType="org.prj.domain.MemberVO">
-		update member set password = #{password} where email = #{email}
+		update member set password = #{password} where email = #{email} and id = #{id}
 	</update>
 </mapper>	
