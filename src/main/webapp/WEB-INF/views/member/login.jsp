@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>로그인</title>
+<title>Insert title here</title>
 <link rel="stylesheet" href="/resources/css/member/login.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" ></script>
@@ -36,8 +36,7 @@
 		<label class="form-check-label" for="remember-me">자동 로그인</label>
 		<span class="float-end">
 			<a href="/member/joinAgree" class="find-info-text" >회원가입</a> &nbsp;|&nbsp;
-			<a href="/member/find_id" class="find-info-text">아이디 찾기</a> &nbsp;|&nbsp;
-			<a href="/member/find_pw" class="find-info-text">패스워드 찾기</a>
+			<a href="/member/find" class="find-info-text">아이디/비밀번호 찾기</a>
 		</span>
     </div>
     <button class="btn btn-primary w-100 py-2 fs-3" id="login_button" type="submit" style="font-size: 22px !important;">로그인</button>

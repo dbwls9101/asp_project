@@ -1,21 +1,4 @@
 @charset "UTF-8";
-/* 화면 전체 렙 */
-.wrapper {
-	width: 1000px;
-}
-/* 페이지 제목 */
-.subjecet {
-	width: 100%;
-	height: 120px;
-	background-color: #8EC0E4;
-}
-
-.subjecet span {
-	margin-left: 31px;
-	font-size: 80px;
-	font-weight: 900;
-	color: white;
-}
 
 .mg-top-minus {
 	margin-top: -50px !important;
@@ -46,30 +29,6 @@
 	display: none;
 }
 
-/* 비밀번호 영역 */
-.pw_wrap {
-	width: 100%;
-	margin-top: 20px;
-}
-
-.pw_name {
-	font-size: 25px;
-	font-weight: bold;
-}
-
-.pw_input_box {
-	border: 1px solid black;
-	height: 31px;
-	padding: 10px 14px;
-}
-
-.pw_input {
-	width: 100%;
-	height: 100%;
-	border: none;
-	font-size: 28px;
-}
-
 /* 비밀번호 일치하지 않는 경우 */
 .pw_input_1 {
 	color: blue;
@@ -87,34 +46,6 @@
 
 .input_blue {
 	color: blue;
-}
-/* 비밀번호 확인 영역 */
-.pwck_wrap {
-	width: 100%;
-	margin-top: 20px;
-}
-
-.pwck_name {
-	font-size: 25px;
-	font-weight: bold;
-}
-
-.pwck_input_box {
-	border: 1px solid black;
-	height: 31px;
-	padding: 10px 14px;
-}
-
-.pwck_input {
-	width: 100%;
-	height: 100%;
-	border: none;
-	font-size: 28px;
-}
-
-.form-round {
-	padding: 10px 15px;
-	border-radius: 10px;
 }
 
 .form-round {
@@ -148,16 +79,11 @@ ul {
 	padding: 10px 0;
 }
 
-.form-list input[type='text'], input[type='password'] {
-	width: 230px;
-	margin-right: 10px;
-}
-
 input[type='text'], input[type='password'] {
+	width: 230px;
 	height: 45px;
 	font-size: 14px;
 	padding: 0 15px;
-	font-size: 14px;
 	color: #333;
 	border: solid 1px #dddddd;
 	background-color: white;
@@ -171,16 +97,9 @@ input[type='text'], input[type='password'] {
 }
 
 .form-list .lightgrey {
+	margin: 6px 0 6px 0;
 	font-size: 15px;
 	line-height: 14px;
-}
-
-.button-align.center {
-	text-align: center;
-}
-
-.button-align {
-	margin-top: 30px;
 }
 
 .button-align .button {
@@ -201,14 +120,7 @@ input[type='text'], input[type='password'] {
 	position: relative;
 	min-height: 53px;
 	margin-top: 60px;
-}
-
-.button {
-	min-width: 110px;
-	height: 42px;
-	padding: 0 10px;
-	font-size: 13px;
-	line-height: 42px;
+	text-align: center;
 }
 
 .button {
@@ -228,19 +140,8 @@ input[type='text'], input[type='password'] {
 	overflow: hidden;
 }
 
-.form-list .phone {
-	margin-top: 8px;
-}
-
 .form-list .button {
 	vertical-align: middle;
-}
-
-.button.round {
-	padding: 0 10px;
-	height: 24px;
-	font-size: 11px;
-	line-height: 22px;
 }
 
 .button.round {
@@ -254,10 +155,4 @@ input[type='text'], input[type='password'] {
 
 .button.button-purple {
 	background-color: #43a051;;
-}
-
-.form-list .lightgrey {
-	margin: 6px 0 6px 0;
-	font-size: 15px;
-	line-height: 14px;
 }
