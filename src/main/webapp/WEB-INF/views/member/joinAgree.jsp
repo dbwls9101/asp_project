@@ -428,9 +428,6 @@
 <span><input type="checkbox" name="agree2" value="agree2">&nbsp;개인정보 처리방침 안내 내용에 동의 합니다.</span>
 </label>	
 <div>
-<br>
-<br>
-
 	<label class="agreeAll">
 		<span><input type="checkbox" name="agreeAll" id="agreeAll" value="agreeAll">&nbsp;모두 동의 합니다.</span>
 	</label>
@@ -440,7 +437,6 @@
 	<a href="/member/login" class="button">취소</a>
 </div>
 </form>
-<br><br>
 <jsp:include page="../layout/footer.jsp"/>
 </body>
 <script type="text/javascript" src="/resources/js/member/joinAgree.js"></script>

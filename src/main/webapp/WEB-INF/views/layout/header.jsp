@@ -30,8 +30,47 @@
 	   			</div>
 	   			<div class="login">
 	   				<sec:authentication property="principal" var="principal"/>
-					<sec:authorize access="isAuthenticated()">
-						<a href="/member/logout" class="header-btn">로그아웃</a>
+					<sec:authorize access="isAuthenticated()">			
+						<div class="header-user">
+							<span class="picture"><img alt="picture" src="/resources/images/get_sun.png"></span>
+							<span class="arrow"><img alt="arrow" src="/resources/images/mymenu-arrow.png"></span>
+							<div class="header-profile">
+								<div class="block">
+									<div class="name">
+										${principal.member.name }
+										<a href="/member/logout" class="header-logout">
+											<img alt="close" src="/resources/images/close-option.png">
+										</a>
+									</div>
+									<div class="grade">일반회원</div>
+									<div class="party-btn"><a href="#">파티장신청</a></div>
+								</div>
+								<div class="block">
+									<ul class="profile-menu">
+										<li>
+											<div class="point">
+												<span class="icon"><img alt="icon" src="/resources/images/point.png"></span>
+												<span class="point-text">POINT</span>
+												<span class="right">${principal.member.point }P</span>
+											</div>
+										</li>
+									</ul>
+								</div>
+								<div class="block">
+									<ul class="profile-menu">
+										<li><a href="#" style="color: #43a051;">참여중인 파티</a></li>
+										<li><a href="/page/mypage">회원정보확인</a></li>
+										<li><a href="/payment/orderinquiry">결제내역 조회</a></li>
+									</ul>
+								</div>
+								<div class="block">
+									<ul class="profile-menu">
+										<li><a href="/page/faq?i_type=A">FAQ</a></li>
+										<li><a href="/inquiry_board/Inquiryregister">1:1 문의하기</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>			
 					</sec:authorize>
 					<sec:authorize access="isAnonymous()">
 						<a href="/member/login" class="header-btn">로그인</a>
