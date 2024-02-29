@@ -15,6 +15,8 @@ public interface PartyBoardService {
 	public void updateParty(PartyBoardVO vo);
 	//카테고리 별 파티 리스트
 	public List<PartyBoardVO> getListbycategory(int codeone);
+	//카테고리 별 파티 리스트
+	public List<PartyBoardVO> getCategoryList(PartyBoardVO vo);
 	//게시글 상세
 	public PartyBoardVO getDetailParty(int p_idx);
 	//참여인원 업데이트

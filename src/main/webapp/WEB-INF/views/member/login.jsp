@@ -41,7 +41,7 @@
     </div>
     <button class="btn btn-primary w-100 py-2 fs-3" id="login_button" type="submit" style="font-size: 22px !important;">로그인</button>
 	<div class="form-text fs-6">
-		회원이 아닌가요? 첫가입 시 500포인트! <br><span class="text-point">추천인 등록 시 추가 500포인트!</span>
+		<span class="text-point">회원이 아닌가요? 첫가입 시 500포인트!</span>
 	</div>	
 	<div class="form-sns-join">
 		<a href="javascrip:;" onclick="nwindow('https://buts.co.kr/plugin/social/popup.php?provider=naver&amp;url=https://buts.co.kr/bbs/login.php')" style="margin-top:20px; width:100%; font-weight: 500;" class="naver sns-naver" title="네이버">
@@ -54,8 +54,9 @@
 	
   </form>
 </div>
-<jsp:include page="../layout/footer.jsp"/>
 </div>
+
+<jsp:include page="../layout/footer.jsp"/>
 </body>
 <script type="text/javascript" src="/resources/js/member/login.js"></script>
 </html>

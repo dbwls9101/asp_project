@@ -19,11 +19,10 @@ public class PartyBoardMapperTests {
 	@Autowired
 	private PartyBoardMapper mapper;
 	
-	/*@Test
-	public void testGetList() {
-		List<PartyBoardVO> list = mapper.getListbycategory(10);
-		
-		for(PartyBoardVO vo : list)
-			log.info(vo);
-	}*/
+	/*
+	 * @Test public void testGetList() { List<PartyBoardVO> list =
+	 * mapper.getListbycategory(10);
+	 * 
+	 * for(PartyBoardVO vo : list) log.info(vo); }
+	 */
 }

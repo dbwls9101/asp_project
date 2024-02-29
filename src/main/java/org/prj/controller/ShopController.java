@@ -1,5 +1,6 @@
 package org.prj.controller;
 
+import org.prj.domain.PartyBoardVO;
 import org.prj.service.PartyBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,6 +43,28 @@ public class ShopController {
 	public void get(Model model, @RequestParam("pn") int p_idx) {
 		log.info("get..." + p_idx);
 		model.addAttribute("vo", pService.getDetailParty(p_idx));
+	}
+	
+	//2차 카테고리별 리스트
+	@GetMapping("/list/{c1}/{c2}")
+	public String getCategoryList(Model model, @PathVariable("c1") int codeone, @PathVariable("c2") int codetwo) {
+		PartyBoardVO vo = new PartyBoardVO();
+		vo.setCodeone(codeone);
+		vo.setCodetwo(codetwo);
+		
+		log.info("getCategoryList..." + codeone + codetwo);
+		model.addAttribute("list", pService.getCategoryList(vo));
+		
+		if(codeone == 10) {
+			model.addAttribute("category", "영상");
+		}else if(codeone == 20) {
+			model.addAttribute("category", "도서/음악");
+		}else if(codeone == 30) {
+			model.addAttribute("category", "게임");
+		}else {
+			model.addAttribute("category", "기타");
+		}
+		return "/shop/list";
 	}
 }
 

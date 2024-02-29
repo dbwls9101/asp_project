@@ -4,7 +4,9 @@ document.querySelector("#makeparty").addEventListener('click', ()=>{
 })
 
 //list 가져오기
-getList(principal.member.m_idx);
+getPrincipal().then(() => {
+   getList(principal.member.m_idx);
+})
 
 function getList(m_idx){
 	msg = "";
@@ -19,7 +21,7 @@ function getList(m_idx){
 		json.forEach(vo => {
 			msg += '<tr>';
 			msg += '<td>' + vo.p_idx + '</td>';
-			msg += '<td><a href="#">[' + vo.c_secondary + '] ' +  vo.title + '</a></td>';
+			msg += '<td><a href="/shop/get?c1=' + vo.codeone + '&c2=' + vo.codetwo + '&pn=' + vo.p_idx + '">[' + vo.c_secondary + '] ' +  vo.title + '</a></td>';
 			msg += '<td>' + vo.price + '원</td>';
 			msg += '<td>' + vo.curr_party + ' / ' + vo.party_num + '</td>';
 			msg += '<td>' + vo.datediff + '일</td>';
@@ -43,7 +45,6 @@ function modifyBtnEvent(p_idx){
 function deleteBtnEvent(p_idx){
 	
 }
-
 
 //unixTimeStamp 변환
 function myTime(unixTimeStamp){

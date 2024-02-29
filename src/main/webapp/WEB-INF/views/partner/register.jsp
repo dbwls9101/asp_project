@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>파티 생성</title>
 <link rel="stylesheet" href="/resources/css/partner/register.css">
 </head>
 <body>
@@ -16,9 +16,7 @@
 	<div id="content-container">
 		<div id="service-container">
 		
-			<span id="party-tab-title">파티 생성</span>
-			
-			<hr>
+			<h3 id="party-tab-title">파티 생성</h3>
 			
 			<div id="form-container">
 				<form id="registerform" method="post">
@@ -131,8 +129,8 @@
 								<input type="hidden" name="nickname" value="${principal.member.nickname }">	
 								<input type="hidden" name="id" value="${principal.member.id }">
 								
-								<input type="button" id="myPartyList" value="목록">
 								<input type="button" id="myPartyRegister" value="등록">
+								<input type="button" id="myPartyList" value="목록">
 							</td>
 						</tr>
 					</table>

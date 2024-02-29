@@ -7,4 +7,12 @@
 		insert into party_comment
 		values(seq_partycomment.nextval, #{p_idx}, #{writer}, #{comment_to}, #{comment}, #{private_chk}, sysdate, sysdate)
 	</insert>
+	
+	<select id="getList" resultType="org.prj.domain.PartyCommentVO">
+		select * from party_comment where p_idx=#{p_idx} order by c_idx
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		delete from party_comment where c_idx=#{c_idx}
+	</delete>
 </mapper>

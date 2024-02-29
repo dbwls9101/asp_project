@@ -116,18 +116,18 @@
 	text-align: center;
 }
 
-#btnarea{
+.btnarea{
 	padding: 60px 0;
 	text-align: center;
 }
 
-#btnarea input[type="button"]{
+.btnarea input[type="button"]{
 	width: 150px;
 	height: 70px;
 	font-size: 20px;
 }
 
-#participate{
+#participate, #myPartyManage{
 	border: 0px;
 	background-color: #43a051;
 	color: white;
@@ -145,11 +145,11 @@
     border-radius: 5px;
 }
 
-#participate:hover{
+#participate:hover, #myPartyManage:hover{
 	background-color: #FFE05C;
 }
 
-#getpartylist:hover {
+#getpartylist:hover{
 	background-color: #111;
 }
 
@@ -243,11 +243,148 @@
 }
 
 #chatarea{
-	margin-top: 30px;
+	margin-top: 40px;
 	margin-left: 20px;
 }
 
-#replynick{
-	font-size: 20px;
+.chat{
+	margin-bottom: 30px;
+}
+.chat.re {
+	text-align: right;
 }
 
+#replynick{
+	font-size: 16px;
+	margin-right: 45px;
+	display: inline;
+}
+
+#replynick.right {
+    margin-right: 0px;
+    margin-left: 45px;
+}
+
+#replycontent {
+	padding: 15px;
+	padding-right: 50px;
+	position: relative;
+	top: 25px;
+	background: #f9f9f9;
+	border-radius: .4em;
+	display: inline-block;
+	line-height: 28px;
+}
+
+#replycontent:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 33px solid transparent;
+	border-right-color: #f9f9f9;
+	border-left: 0;
+	border-top: 0;
+	margin-top: -16.5px;
+	margin-left: -33px;
+	display: inline-block;
+}
+
+#myreplycontent{
+	padding: 15px;
+	padding-right: 50px;
+	position: relative;
+	top: 25px;
+	background: #258e75;
+	border-radius: .4em;
+	display: inline-block;
+	text-align: left;
+	line-height: 28px;
+}
+
+#myreplycontent:after{
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 33px solid transparent;
+	border-left-color: #258e75;
+	border-right: 0;
+	border-top: 0;
+	margin-top: -16.5px;
+	margin-right: -33px;
+	display: inline-block;
+}
+
+#myreplycontent #replycomment{
+	color: #fff;
+}
+
+#replycomment img{
+	width: 19px;
+	margin-right: 10px;
+	padding-bottom: 3px;
+}
+
+#chatcontentarea{
+	position: relative;
+	display: inline-block;
+}
+
+#replyregdate{
+	font-size: 11px;
+	margin-top:25px;
+	position: absolute;
+	right: 8px;
+	color: gray;
+}
+
+#commentto{
+	font-size: 14px;
+	font-weight: bold;
+	color: #43a051;
+}
+
+#commentto.right{
+	color: #fff;
+}
+
+.dropend .dropdown-toggle::after {
+	display: none !important;
+}
+
+btn btn-primary dropdown-toggle{
+	background-color: #fff;
+}
+
+#replybtnarea{
+	position: absolute;
+	top:5px;
+	right:8px;
+}
+
+#replymenubtn{
+	width: 20px;
+}
+
+#replybtnarea button{
+	width: 17px;
+	padding:0;
+	border: 0px;
+}
+
+#replybtnarea button:focus{
+	border: 0px;
+}
+
+#replybtns{
+	min-width: unset;
+}
+
+#replybtns li{
+	font-size: 13px;
+}

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>파티/판매 목록</title>
 <link rel="stylesheet" href="/resources/css/partner/manage.css">
 </head>
 <body>

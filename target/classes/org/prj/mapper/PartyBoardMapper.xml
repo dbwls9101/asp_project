@@ -51,7 +51,19 @@
 		from party_board p inner join category c 
 		on p.codeone=c.codeone and p.codetwo=c.codetwo
 		where p.codeone=#{codeone}
-		order by p_idx desc
+		order by status desc, p_idx desc
+	</select>
+	
+	<!-- 2차 카테고리별 파티 리스트 -->
+	<select id="getCategoryList" parameterType="org.prj.domain.PartyBoardVO" resultType="org.prj.domain.PartyBoardVO">
+		select p.p_idx, p.m_idx, p.codeone, p.codetwo, p.title, p."NAME", p.nickname, p.id, p.party_num
+		, p.share_id, p.share_pw, p.phone, p.start_date, p.end_date, p.price, p."RULE", p."COMMENT", p.status
+		, p.reg_date, p.update_date, p.curr_party, c.c_primary, c.c_secondary, trunc(end_date)-trunc(sysdate) as datediff, 
+	 	((trunc(end_date)-trunc(sysdate)) * price) as totalprice
+		from party_board p inner join category c 
+		on p.codeone=c.codeone and p.codetwo=c.codetwo
+		where p.codeone=#{codeone} and  p.codetwo=#{codetwo}
+		order by status desc, p_idx desc
 	</select>
 	
 	<!-- 게시글 상세 -->

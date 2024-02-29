@@ -14,55 +14,59 @@ function cssBinding(cssFiles) {
 //form 객체 가져오기
 const f = document.forms[0]; 
 
-getWithList(6);
-function getWithList(m_idx) {
-	msg = '';
+// ----------------- 비동기 방식 리스트업 + 환불신청 ----------------------------
+
+getList(principal.member.m_idx);
+function getList(m_idx){
+	//1.출금관리 listUp
+	console.log("m_idx... : " + m_idx)
+	let msg = '';
 	
-	fetch('/partner/withList', {
-		method : 'post',
-		body : m_idx,
-		header : {'Content-type' : 'application/json; charset=UTF-8'}
-	})
+	fetch('/partner/withList/'+ m_idx)
 	.then( response => response.json() )
 	.then( json => {
-		cnosole.log(json)
-		json.forEach(vo => {
-			
-			let status = '';
-			
-			if(vo.with_status == 'A') {
-				status = '신청';
-			}else if(vo.with_status == 'B') {
-				status = '승인';
-			}else if(vo.with_status == 'C') {
-				status = '반려';
-			}
+		console.log(json)
+		json.forEach(withdraw => {
 			
 			msg += '<tr>';
-			msg += '<td>' + vo.w_idx +'</td>';
-			msg += '<td>' + vo.status +'</td>';
-			msg += '<td>' + vo.id +'</td>';
-			msg += '<td>' + vo.with_method +'</td>';
-			msg += '<td>' + vo.name +'</td>';
-			msg += '<td>' + vo.commission +'</td>';
-			msg += '<td>' + vo.with_amount +'</td>';
-			msg += '<td>' + myTime(vo.reg_date) +'</td>';			
+			msg += 		'<td>' + withdraw.w_idx +'</td>';
+			msg +=		'<div>';			
+			msg += 		'<td>'
+			msg += 		'<c:choose>';
+					if(withdraw.with_status == "A") {
+						msg += 	'<strong class="word-color1">' + "신청" + '</strong>';
+					} else if(withdraw.with_status == "B") {
+						msg += 	'<strong class="word-color2">' + "승인" + '</strong>';
+					} else {
+						msg += 	'<strong class="word-color2">' + "반려" + '</strong>';
+					}
+			msg +=		'</c:choose>';		
+			msg +=      '</td>';
+			msg +=		'</div>';
+			msg += 		'<td>' + withdraw.id +'</td>';
+			msg += 		'<td>' + withdraw.with_method +'</td>';
+			msg += 		'<td>' + withdraw.name +'</td>';
+			msg += 		'<td>' + withdraw.commission +'</td>';
+			msg += 		'<td>' + withdraw.with_amount +'</td>';
+			msg += 		'<td>' + myTime(withdraw.reg_date) +'</td>';			
 			msg += '</tr>';	
 		})
-//		withDraw.innerHTML = msg;
-		document.querySelector("tbody").innerHTML = msg;
+			document.querySelector("tbody").innerHTML = msg;
 	})
 	.catch( err => console.log(err) );
-}
-// unixTimeStamp 변환
+
+} 	
+
+//unixTimeStamp 변환
 function myTime(unixTimeStamp) {
+	
 	let myDate = new Date(unixTimeStamp);
 	let date = myDate.getFullYear() + "-"
 	 	+ String(myDate.getMonth() + 1).padStart(2, "0") + "-" 
 		+ String(myDate.getDate()).padStart(2, "0") + ' ' 
-		+ String(myDate.getHours()) + ':' 
-		+ String(myDate.getMinutes()) + ':' 
-		+ String(myDate.getSeconds());
+		+ String(myDate.getHours()).padStart(2, "0") + ':' 
+		+ String(myDate.getMinutes()).padStart(2, "0") + ':' 
+		+ String(myDate.getSeconds()).padStart(2, "0");
 	
 	return date;
 }
@@ -75,11 +79,12 @@ function myTime(unixTimeStamp) {
 // 2-2. 등록된 결과를 불러온다. 위에 히든으로 넣었기 때문에 그 정보만 불러오면된다.!!*/
 
 const modal = document.querySelector('#modal');
+const midx = document.querySelector('input[name="m_idx]');
 const inputName = document.querySelector('input[name="name"]');
 const inputWithAmount = document.querySelector('input[name="with_amount"]');
 const inputWithMethod = document.querySelector('input[name="with_method"]');
 const addReplyBtn = document.querySelector('#addReplyBtn');			// 최종 댓글이 등록되게 누르는 버튼
-const withDrawal = document.querySelector('#withDrawal');			// 댓글 등록 시장버튼
+const withDrawal = document.querySelector('#withDrawal');			// 댓글 등록 시작버튼
 const closeModalBtn = document.querySelector('#closeModalBtn');		// 입급화면(모달 창)을 닫는 취소 버튼
 
 // 모달 창 활성화
@@ -95,52 +100,51 @@ function closeModal() {
 // 댓글 달기 버튼의 활성화
 withDrawal.addEventListener('click', () => {
 	openModal();
+	regReplyModalStyle();
 })
+
+function regReplyModalStyle() {
+	// 수정 / 삭제 버튼 숨기기
+	addReplyBtn.classList.remove('hide');
+	
+	inputWithAmount.value = '';
+	inputWithMethod.value = '';
+//	inputName.value = principal.username;			// 이전에 있던 글들을 초기화 하기 위함
+
+}
 
 // 모달창을 닫는다.
 closeModalBtn.addEventListener('click', () => {
 	closeModal();
 });
 
-// 최종 댓글을 등록하는 버튼
-/*addReplyBtn.addEventListener('click', () => {
+// 출금 신청하는 버튼
+addReplyBtn.addEventListener('click', () => {
+	
 	if(inputName.value == '' || inputWithAmount.value == '' || inputWithMethod.value == '') {
 		alert('모든 내용을 입력해 주세요.');
 		return;
 	}
 	
-	rs.add(
-		{
-			m_idx = f.m_idx.value,
-			name = inputName.value,
-			with_amount = inputWithAmount.value,
-			with_method = inputWithMethod.value
-		},	
-		function(result) {
-			console.log("result : " + result);
-			closeModal();
-			showList();
-		}
-	)
-	
-	
-})*/
+	fetch('/partner/withNew', {
+		method : 'post',
+		headers : {'Content-type' : 'application/json; charset=utf-8'},
+		body : JSON.stringify({
+			m_idx : principal.member.m_idx,
+			id : f.id.value,
+			phone : f.phone.value,
+			with_status : f.with_status.value,
+			commission : f.commission.value,
+			name : inputName.value,
+			with_amount : inputWithAmount.value,
+			with_method : inputWithMethod.value
+		})
+	})
+	.then( response => response.text() )
+	.then( data => {
+		console.log(data);
+		closeModal();
+		getList(principal.member.m_idx);	
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	});
+}); 

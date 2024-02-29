@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,10 +37,9 @@ public class PartnerController {
 	@Autowired 
 	private PartyBoardService pService;
 	
-	// 출근 관리
+	// 출금 관리
 	@Autowired
 	private WithdrawService wService;
-		// 출근관리
 	
 	//파티관리
 	@GetMapping("/manage")
@@ -111,15 +111,19 @@ public class PartnerController {
 		log.info("movewithdraw...");
 	}
 	
-	//출금관리 리스트 
+	//출금관리 리스트
 	@ResponseBody
-	@PostMapping(value = "/withList", 
-			consumes = "application/json", 
-			produces = MediaType.TEXT_PLAIN_VALUE)
-	public List<WithdrawVO>	withList(@RequestBody int m_idx){
-		log.info("withList..." + m_idx);
+	@GetMapping(value="/withList/{m_idx}", 
+			produces = {
+			MediaType.APPLICATION_JSON_UTF8_VALUE,
+			MediaType.APPLICATION_XML_VALUE		
+			})
+	public ResponseEntity<List<WithdrawVO>> withList(
+			@PathVariable("m_idx") int m_idx
+			) {
+			log.info("m_idx...." + m_idx);
 		
-		return wService.getWithList(m_idx);
+		return new ResponseEntity<List<WithdrawVO>>(wService.getWithList(m_idx), HttpStatus.OK);
 	}
 	
 	//출금관리 - 출금신청

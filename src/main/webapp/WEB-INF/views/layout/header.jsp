@@ -6,8 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="/resources/js/member/memberprincipal.js"></script>
 <link rel="stylesheet" href="/resources/css/main.css">
+<script type="text/javascript" src="/resources/js/member/memberprincipal.js"></script>
 </head>
 <body>
 	<div class="wrap">
@@ -28,14 +28,6 @@
 	   					<img alt="메인로고" src="/resources/images/prj_logo.png">
 	   				</a>
 	   			</div>
-	   			<div class="menu">
-	   				<ul style="padding-left:0">
-	   					<li><a href="/shop/list/10" class="menu-a">영상</a></li>
-	   					<li><a href="/shop/list/20" class="menu-a">도서/음악</a></li>
-	   					<li><a href="/shop/list/30" class="menu-a">게임</a></li>
-	   					<li><a href="/shop/list/40" class="menu-a">기타</a></li>
-	   				</ul>
-	   			</div>
 	   			<div class="login">
 	   				<sec:authentication property="principal" var="principal"/>
 					<sec:authorize access="isAuthenticated()">
@@ -44,6 +36,48 @@
 					<sec:authorize access="isAnonymous()">
 						<a href="/member/login" class="header-btn">로그인</a>
 					</sec:authorize>
+	   			</div>
+	   		</div>
+	   		<div class="shop-menu">
+	   			<div class="menu">
+	   				<ul style="padding-left:0">
+	   					<li>
+	   						<a href="/shop/list/10" class="menu-a">영상</a>
+	   						<div class="sub-menu">
+	   							<div class="sub-width">
+	   								<ul id="codeone-10">
+	   								</ul>
+	   							</div>
+	   						</div>
+	   					</li>
+	   					<li>
+	   						<a href="/shop/list/20" class="menu-a">도서/음악</a>
+	   						<div class="sub-menu">
+	   							<div class="sub-width">
+	   								<ul id="codeone-20">
+	   								</ul>
+	   							</div>
+	   						</div>
+	   					</li>
+	   					<li>
+	   						<a href="/shop/list/30" class="menu-a">게임</a>
+	   						<div class="sub-menu">
+	   							<div class="sub-width">
+	   								<ul id="codeone-30">
+	   								</ul>
+	   							</div>
+	   						</div>
+	   					</li>
+	   					<li>
+	   						<a href="/shop/list/40" class="menu-a">기타</a>
+	   						<div class="sub-menu">
+	   							<div class="sub-width">
+	   								<ul id="codeone-40">
+	   								</ul>
+	   							</div>
+	   						</div>
+	   					</li>
+	   				</ul>
 	   			</div>
 	   		</div>
 	    </div>

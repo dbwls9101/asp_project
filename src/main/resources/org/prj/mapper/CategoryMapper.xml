@@ -6,4 +6,9 @@
 	<select id="getSecondCategory" parameterType="int" resultType="org.prj.domain.CategoryVO">
 		select * from category where codeone=#{codeone}
 	</select>
+	
+	<!-- 2차메뉴 카테고리 표시 -->
+	<select id="showCategory" resultType="org.prj.domain.CategoryVO">
+		select * from category ORDER BY codetwo
+	</select>
 </mapper>
