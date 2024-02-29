@@ -183,8 +183,8 @@ public class MemberController {
 			HttpSession session = request.getSession();
 			session.setAttribute("findMemberVo", vo);
 
-			String setfrom = "wjddms4969@naver.com"; // naver
-			String tomail = "wjddms4969@naver.com"; // 받는사람
+			String setfrom = "wjddms49693@naver.com"; // 보내는 사람
+			String tomail = "wjddms49693@naver.com"; // 받는 사람
 			String title = "[모여라] 비밀번호변경 인증 이메일 입니다";
 			String content = System.getProperty("line.separator")
 					+ "<img src=\"http://localhost:8080/resources/images/prj_logo.png\" width=\"100px\">" + "안녕하세요 회원님"
