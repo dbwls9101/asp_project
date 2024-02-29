@@ -26,4 +26,7 @@ public interface MemberMapper {
 	//비밀번호 찾기
 	public MemberVO findPw(@Param("email") String email, @Param("id") String id);
 	
+	//비밀번호 변경
+	public int updatePw(MemberVO member);
+	
 }
