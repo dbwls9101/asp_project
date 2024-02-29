@@ -47,11 +47,17 @@
 	
 	<div id="partystatus">
 		<c:if test="${vo.curr_party > 0 }">
-			<c:forEach var="i" begin="0" end="${vo.curr_party - 1}">
-				<img src="/resources/images/get_sun.png" class="participation">
+			<c:forEach var="mvo" items="${paymembers }">
+				<div class="partymeminfo">
+					<img src="/resources/images/get_sun.png" class="participation"><br>
+					<span id="mnickname" mnickname="${mvo.nickname }" >${mvo.nickname }</span><br>
+					<span class="approved_at">${mvo.approved_at } 참여</span>
+				</div>
 			</c:forEach>
 			<c:forEach var="i" begin="0" end="${vo.party_num - vo.curr_party - 1}">
-				<img src="/resources/images/get_sun.png" class="non-participation">
+				<div class="partymeminfo">
+					<img src="/resources/images/get_sun.png" class="non-participation">
+				</div>
 			</c:forEach>
 		</c:if>
 		<c:if test="${vo.curr_party == 0 }">
@@ -115,7 +121,6 @@
 		<form id="replyform" method="post">
 		<div id="reply-select">
 			<select id="comment-to" name="comment_to" class="form-select">
-			  <option value="${vo.nickname }" selected>@파티장</option>
 			</select>
 			
 			<div id="checkprivate">

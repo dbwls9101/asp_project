@@ -20,9 +20,4 @@
        				 #{with_amount }, #{with_status }, 1000, sysdate)
 	</insert>
 	
-	<!-- 조회기능 차후 예정 -->
-<!-- 	<select id="read" parameterType="int" resultType="org.prj.domain.WithdrawVO">
-		select * from withdraw where W_IDX = #{w_idx }
-	</select> -->
-	
 </mapper>

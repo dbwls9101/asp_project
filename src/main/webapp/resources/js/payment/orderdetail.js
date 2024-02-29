@@ -14,15 +14,12 @@ function totalperiodprice(){
 	let sArr = myTime(perEle.getAttribute("startdate")).split('-');
 	let sDate = new Date(sArr[0], sArr[1], sArr[2]);
 	
-	console.log(sDate);
 	
 	//종료날짜
 	let eArr = myTime(perEle.getAttribute("enddate")).split('-');
 	let eDate = new Date(eArr[0], eArr[1], eArr[2]);
-	console.log(eDate);
 	
 	let diffDate = Math.abs((sDate - eDate) / (1000*60*60*24));
-	console.log(diffDate);
 	
 	//일 수 (1일금액)
 	perEle.innerHTML += '<br><span class="sub-title">(총 ' + diffDate + '일)</span>';

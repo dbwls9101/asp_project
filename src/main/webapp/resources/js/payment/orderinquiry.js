@@ -4,7 +4,9 @@ IMP.init("imp45030755");   /* imp~ : 가맹점 식별코드*/
 const f = document.forms[0];
 
 //list 가져오기
-getList(principal.member.m_idx);
+getPrincipal().then(() => {
+	getList(principal.member.m_idx);
+})
 function getList(m_idx){
 	msg = "";
 	
@@ -15,7 +17,6 @@ function getList(m_idx){
 	})
 	.then(response => response.json())
 	.then(json => {
-		console.log(json)
 		json.forEach(vo => {
 			
 			let status = '';
@@ -33,7 +34,7 @@ function getList(m_idx){
 			
 			msg += '<tr>';
 			msg += '<td>' + vo.approved_at + '</td>';
-			msg += '<td><a  href="javascript:detailBtn(' + vo.order_no + ');">' + vo.title + '</a></td>';
+			msg += '<td><a  href="javascript:detailBtn(' + vo.order_no + ');">' + vo.title + '<br><span class="sub-title">' + vo.sub_title + '</span></a></td>';
 			msg += '<td>' + vo.pay_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
 			msg += '<td>' + (vo.pay_amount - vo.point).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
 			msg += '<td>' + vo.point.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';

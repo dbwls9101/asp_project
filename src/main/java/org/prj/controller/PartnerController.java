@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.prj.controller.PartnerController;
 import org.prj.domain.CategoryVO;
+import org.prj.domain.MemberVO;
 import org.prj.domain.PartyBoardVO;
 import org.prj.domain.PaymentVO;
 import org.prj.domain.WithdrawVO;
@@ -37,10 +38,9 @@ public class PartnerController {
 	@Autowired 
 	private PartyBoardService pService;
 	
-	// 출근 관리
+	// 출금 관리
 	@Autowired
 	private WithdrawService wService;
-		// 출근관리
 	
 	//파티관리
 	@GetMapping("/manage")

@@ -36,7 +36,7 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>${vo.c_secondary }</td>
+						<td>${vo.c_secondary }<br><span class="sub-title">${vo.title }</span></td>
 						<td id="period" enddate="${vo.end_date }">${vo.datediff }일 (1일 ${vo.price }원)</td>
 						<td id="price"><fmt:formatNumber value="${vo.totalprice }" pattern="#,###" />원</td>
 						<td id="commission"><fmt:formatNumber value="${vo.totalprice*0.1 }" pattern="#,###" />원</td>

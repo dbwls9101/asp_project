@@ -55,14 +55,4 @@
 		SELECT SEQ_INQUIRY.CURRVAL FROM DUAL
 	</select>
 	
-<!-- 	<update id="updateReplyCnt">
-		UPDATE inquiry_board
-		SET
-			REPLYCNT = REPLYCNT + #{amount }
-		WHERE
-			I_IDX = #{i_idx }	
-	</update> -->
-	
-	
-	
 </mapper>

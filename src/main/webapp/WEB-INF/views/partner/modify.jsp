@@ -14,9 +14,7 @@
 	<div id="content-container">
 		<div id="service-container">
 		
-			<span id="party-tab-title">파티 수정</span>
-			
-			<hr>
+			<h3 id="party-tab-title">파티 수정</h3>
 			
 			<div id="form-container">
 				<form id="registerform" method="post">
@@ -122,8 +120,8 @@
 								<input type="hidden" name="nickname" value="${vo.nickname }">	
 								<input type="hidden" name="id" value="${vo.id }">
 								
-								<input type="button" id="myPartyList" value="목록">
 								<input type="button" id="myPartyModify" value="수정">
+								<input type="button" id="myPartyList" value="목록">
 							</td>
 						</tr>
 					</table>
