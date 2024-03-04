@@ -86,16 +86,14 @@ public class ReplyController {
 	}
 	
 	// 5. 수정
-	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH},
-			value="/{c_idx}", produces = MediaType.TEXT_PLAIN_VALUE,
-			consumes = "application/json")
-	public ResponseEntity<String> modify(@PathVariable("c_idx") int c_idx,
-			@RequestBody InquiryCommentVO vo) {
-		log.info("modify : " + c_idx);
+	@RequestMapping(method = RequestMethod.PUT,
+			value="/{c_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String modify(@RequestBody InquiryCommentVO vo) {
+		log.info("modify : " + vo);
+		// System.out.println("!!!!!!!!!!!!!" + vo.getC_idx());
+		// System.out.println("!!!!!!!!!!!!!" + vo.getContent());
 		
-		return service.modify(vo) == 1 ?
-				new ResponseEntity<String>("success", HttpStatus.OK) :
-					new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		return service.modify(vo) == 1 ? "success" : "fail";
 	}
 	
 }

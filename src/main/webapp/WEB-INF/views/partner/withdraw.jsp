@@ -106,7 +106,8 @@
 							<th>예금주</th>
 							<th>수수료</th>
 							<th>출금금액</th>   <!-- 수수료 천원을 제외한 금액 -->
-							<th>신청일</th>						
+							<th>신청일</th>
+							<th>출금취소</th>						
 						</tr>
 					</thead>
 					<tbody class="aa">
