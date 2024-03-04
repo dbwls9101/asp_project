@@ -89,7 +89,7 @@
 	border-top: 1px solid #ececec;
 }
 
-#partymodify, #partydelete {
+#partymodify, #partydelete, #replyanswer, #answerRegister {
 	font-size: 12px;
 	color: white;
     border-radius: 5px;
@@ -98,10 +98,29 @@
     height: 25px;
 }
 
-#partymodify {
+#partymodify, #replyanswer, #answerRegister {
 	background-color: #43a051;
 }
 
 #partydelete {
 	background-color: #ea0540;
+}
+
+.colwidth{
+	width: 140px;
+}
+
+.datecolwidth{
+	width: 190px;
+}
+
+.titlecolwidth{
+	width: 240px;
+}
+
+.ellipsis{
+	white-space: nowrap;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+  	max-width: 200px;
 }

@@ -6,10 +6,12 @@ import org.prj.controller.PartnerController;
 import org.prj.domain.CategoryVO;
 import org.prj.domain.MemberVO;
 import org.prj.domain.PartyBoardVO;
+import org.prj.domain.PartyCommentVO;
 import org.prj.domain.PaymentVO;
 import org.prj.domain.WithdrawVO;
 import org.prj.service.CategoryService;
 import org.prj.service.PartyBoardService;
+import org.prj.service.PartyReplyService;
 import org.prj.service.WithdrawService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,6 +39,9 @@ public class PartnerController {
 	
 	@Autowired 
 	private PartyBoardService pService;
+	
+	@Autowired
+	private PartyReplyService prService;
 	
 	// 출금 관리
 	@Autowired
@@ -95,6 +100,30 @@ public class PartnerController {
 		log.info("modifyParty..." + vo);
 		pService.updateParty(vo);
 		return "redirect:/partner/manage";
+	}
+	
+	//댓글 보기
+	@GetMapping("/replymanage")
+	public void moveReplyManage() {
+		log.info("moveReplyManage...");
+	}
+	
+	//댓글보기 - 리스트
+	@ResponseBody
+	@PostMapping(value = "/replylist", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<PartyCommentVO> getReplyList(@RequestBody String comment_to){
+		log.info("getList..." + comment_to);
+		
+		return prService.getReplyList(comment_to);
+	}
+	
+	//댓글 가져오기
+	@ResponseBody
+	@GetMapping(value = "/pages/{c_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public PartyCommentVO getReply(@PathVariable("c_idx") int c_idx){
+		log.info("getReply..." + c_idx);
+		
+		return prService.getReply(c_idx);
 	}
 	
 	//참여정보

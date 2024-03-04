@@ -7,16 +7,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/resources/css/shop/list.css">
+<link rel="stylesheet" href="/resources/css/shop/participating.css">
 </head>
 <body>
 	<jsp:include page="../layout/header.jsp"/>
 	
-	<div id="menu-title">
-		<span id="category">${category }</span>
-		<input type="button" id="makeparty" value="파티 만들기"> 
+	<div class="title-div">
+		<div class="title">참여 파티</div>
 	</div>
+	
 	<div id="partyinfo-container">
+		<c:if test="${empty list}">
+			<div class="noneparty">참여 중인 파티가 없습니다.</div>
+		</c:if>
 		<c:forEach var="vo" items="${list }">
 			<div id="partyinfo" codeone=${vo.codeone } codetwo=${vo.codetwo } p_idx=${vo.p_idx } datediff=${vo.datediff }>
 				<div id="service">
@@ -51,7 +54,8 @@
 			</div>
 		</c:forEach>
 	</div>
+	
 	<jsp:include page="../layout/footer.jsp"/>
 </body>
-<script type="text/javascript" src="/resources/js/shop/list.js"></script>
+<script type="text/javascript" src="/resources/js/shop/participating.js"></script>
 </html>

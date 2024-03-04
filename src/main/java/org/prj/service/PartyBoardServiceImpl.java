@@ -66,5 +66,9 @@ public class PartyBoardServiceImpl implements PartyBoardService{
 	public List<MemberVO> getPaymentMemberList(int p_idx) {
 		return pMapper.getPaymentMemberList(p_idx);
 	}
-	
+
+	@Override
+	public List<PartyBoardVO> getParticipating(String id) {
+		return pMapper.getParticipating(id);
+	}
 }

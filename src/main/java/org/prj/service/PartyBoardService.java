@@ -26,4 +26,6 @@ public interface PartyBoardService {
 	public void cancleUpdateCurrNum(int p_idx);
 	//파티 결제한 파티원 닉네임 리스트
 	public List<MemberVO> getPaymentMemberList(int p_idx);
+	//내가 참여중인 파티
+	public List<PartyBoardVO> getParticipating(String id);
 }

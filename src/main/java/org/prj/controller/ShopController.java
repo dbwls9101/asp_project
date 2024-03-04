@@ -5,8 +5,11 @@ import java.util.List;
 import org.prj.domain.MemberVO;
 import org.prj.domain.PartyBoardVO;
 import org.prj.service.PartyBoardService;
+import org.prj.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -84,6 +87,17 @@ public class ShopController {
 		log.info("getPayMemberList..." + p_idx);
 		
 		return pService.getPaymentMemberList(p_idx);
+	}
+	
+	//참여중인 파티
+	@GetMapping("/participating")
+	public void getParticipating(Model model) {
+		// 현재 사용자 아이디 가져오기
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        
+		log.info("participating..." + username);
+		model.addAttribute("list", pService.getParticipating(username));
 	}
 }
 

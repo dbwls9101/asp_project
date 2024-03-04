@@ -16,4 +16,5 @@ public interface PartyBoardMapper {
 	public void updateCurrNum(int p_idx);
 	public void cancleUpdateCurrNum(int p_idx);
 	public List<MemberVO> getPaymentMemberList(int p_idx);
+	public List<PartyBoardVO> getParticipating(String id);
 }
