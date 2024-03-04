@@ -57,5 +57,19 @@ public class PageController {
 		log.info("getSecondCategory...");
 		return cService.showCategory();
 	}
+	
+	// 회원정보확인 페이지
+	@GetMapping("/mypage")
+	public String moveMypage() {
+		log.info("moveMypage...");
+		return "/page/mypage";
+	}
+	
+	// 회원정보확인 로그인 페이지
+	@PostMapping("/mypageLogin")
+	public String moveMypageLogin() {
+		log.info("moveMypageLogin...");
+		return "/page/mypageLogin";
+	}
 
 }

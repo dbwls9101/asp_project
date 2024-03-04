@@ -36,10 +36,8 @@
 						<span class="lightgrey inline-break">일치하는 회원 정보가 없습니다. 다시 확인해주세요.</span>
 					</li>
 					</c:if>
-				</c:if>
-				
-			</ul>
-			
+				</c:if>			
+			</ul>		
 		</div>
 		<div class="button-align center">
 		<c:if test ="${result == 1 }">
@@ -52,8 +50,6 @@
 		</div>
 	</div>
 </form>
-<%-- </c:otherwise> --%>
-<%-- </c:choose> --%>
 <form class="form-horizontal register-form" role="form" id="fregisterform" name="fregisterform" autocomplete="off" action="#" method="post" onsubmit="return false">
 	<div class="mw-800 form-signup mg-top-minus">
 		<div class="h4"><span class="text-purple">비밀번호</span> 찾기</div>
@@ -74,10 +70,8 @@
 					<li>
 						<span class="lightgrey inline-break">일치하는 회원 정보가 없습니다. 다시 확인해주세요.</span>
 					</li>
-				</c:if>
-				
-			</ul>
-			
+				</c:if>				
+			</ul>			
 		</div>
 		<div class="button-align center">
 			<button type="submit" id="btn_submit1" class="button button-purple" accesskey="s" onclick="findSubmit2(this.form)">확인</button>

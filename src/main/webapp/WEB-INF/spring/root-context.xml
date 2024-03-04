@@ -40,14 +40,23 @@
 			<props>
 				<prop key="mail.smtp.auth">true</prop>
 				<prop key="mail.smtp.starttls.enable">true</prop>
-<!-- 				<prop key="mail.smtps.ssl.checkserveridentity">true</prop> -->
-				<prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
-				
-<!-- 				<prop key="mail.smtps.ssl.trust">*</prop> -->
+				<prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>				
 				<prop key="mail.debug">true</prop>
 				<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
 			</props>
 		</property>
+	</bean>
+	<bean id="templateResolver" class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
+	      <property name="prefix" value="/resources/html/" />
+	      <property name="suffix" value=".html" />
+	      <property name="templateMode" value="HTML" />
+	      <property name="cacheable" value="true" />
+	</bean>
+	<bean id="templateEngine" class="org.thymeleaf.spring5.SpringTemplateEngine">
+	      <property name="templateResolver" ref="templateResolver" />
+	</bean>
+	<bean class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
+	      <property name="templateEngine" ref="templateEngine" />
 	</bean>
 	
 

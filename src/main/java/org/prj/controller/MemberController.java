@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import lombok.extern.log4j.Log4j;
 
@@ -169,6 +171,8 @@ public class MemberController {
 	// 비밀번호 찾기 (이메일 인증번호 발송)
 	@Autowired
 	private JavaMailSender mailSender;
+	@Autowired
+    private SpringTemplateEngine templateEngine;
 
 	@RequestMapping(value = "/find_pw", method = RequestMethod.POST)
 	public String find_pw(HttpServletRequest request, @RequestParam("email") String email,
@@ -183,22 +187,31 @@ public class MemberController {
 			HttpSession session = request.getSession();
 			session.setAttribute("findMemberVo", vo);
 
-			String setfrom = "wjddms49693@naver.com"; // naver
-			String tomail = "wjddms49693@naver.com"; // 받는사람
+			String setfrom = "wjddms49693@naver.com"; // 보내는 사람
+			String tomail = "wjddms49693@naver.com"; // 받는 사람
 			String title = "[모여라] 비밀번호변경 인증 이메일 입니다";
-			String content = System.getProperty("line.separator")
-					+ "<img src=\"http://localhost:8080/resources/images/prj_logo.png\" width=\"100px\">" + "안녕하세요 회원님"
-					+ System.getProperty("line.separator") + "모여라 비밀번호찾기(변경) 인증번호는 " + num + " 입니다."
-					+ System.getProperty("line.separator"); //
-
+//			String content = System.getProperty("line.separator")
+//					+ "<img src=\"http://localhost:8080/resources/images/prj_logo.png\" width=\"100px\">" + "안녕하세요 회원님"
+//					+ System.getProperty("line.separator") + "모여라 비밀번호찾기(변경) 인증번호는 " + num + " 입니다."
+//					+ System.getProperty("line.separator"); //
 			try {
 				MimeMessage message = mailSender.createMimeMessage();
 				MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "utf-8");
 
+ 
+ 
 				messageHelper.setFrom(setfrom);
 				messageHelper.setTo(tomail);
 				messageHelper.setSubject(title);
-				messageHelper.setText(content, true);
+				
+				//템플릿에 전달할 데이터 설정
+		        Context context = new Context();
+		 		context.setVariable("num", num);
+		 		
+		        //메일 내용 설정 : 템플릿 프로세스
+		        String html = templateEngine.process("emailSend", context);
+		 
+				messageHelper.setText(html, true);
 
 				mailSender.send(message);
 
@@ -229,5 +242,6 @@ public class MemberController {
 
 		return "/member/login";
 	}
+
 
 }

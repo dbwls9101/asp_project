@@ -18,7 +18,6 @@
   <form id="login_form" method="post" >
   	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     <img class="mb-4" src="/resources/images/prj_logo.png" alt="" width="250px">
-<!--     <h1 class="h3 mb-3 fw-normal">Please sign in</h1> -->
 
     <div class="form-floating">
       <input type="text" class="form-control" name="id" id="id" placeholder="아이디를 입력하세요">
