@@ -24,7 +24,7 @@
 	<div id="partner-menu">
 		<ul class="list-group">
 		  <li class="list-group-item"><a href="/partner/manage">파티관리</a></li>
-		  <li class="list-group-item"><a href="#">댓글보기</a></li>
+		  <li class="list-group-item"><a href="/partner/replymanage">댓글보기</a></li>
 		  <li class="list-group-item"><a href="/partner/partyinfo">참여정보</a></li>
 		  <li class="list-group-item"><a href="#">취소내역</a></li>
 		  <li class="list-group-item"><a href="/partner/withdraw">출금관리</a></li>

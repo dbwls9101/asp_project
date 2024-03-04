@@ -9,10 +9,32 @@
 	</insert>
 	
 	<select id="getList" resultType="org.prj.domain.PartyCommentVO">
-		select * from party_comment where p_idx=#{p_idx} order by c_idx
+		select * from party_comment where p_idx=#{p_idx} order by c_idx desc
 	</select>
 	
 	<delete id="delete" parameterType="int">
 		delete from party_comment where c_idx=#{c_idx}
 	</delete>
+	
+	<select id="getReplyList" parameterType="string" resultType="org.prj.domain.PartyCommentVO">
+		select pc.c_idx, pc.writer, pc.reg_date, pc.comment_to, pc."COMMENT", pc.p_idx, pb.codeone, pb.codetwo, pb.title, pb.c_primary, pb.c_secondary
+		from party_comment pc inner join 
+		(select p.p_idx, p.codeone, p.codetwo, p.title,p.nickname, c.c_primary, c.c_secondary
+				from party_board p inner join category c 
+				on p.codeone=c.codeone and p.codetwo=c.codetwo
+				where nickname=#{comment_to}) pb
+		on pc.p_idx = pb.p_idx
+		where comment_to=#{comment_to}
+		order by reg_date desc
+	</select>
+	
+	<select id="getReply" parameterType="int" resultType="org.prj.domain.PartyCommentVO">
+		select pc.c_idx, pc.writer, pc.reg_date, pc.comment_to, pc."COMMENT", pc.p_idx, pb.codeone, pb.codetwo, pb.title, pb.c_primary, pb.c_secondary
+		from party_comment pc inner join 
+		(select p.p_idx, p.codeone, p.codetwo, p.title,p.nickname, c.c_primary, c.c_secondary
+		        from party_board p inner join category c 
+		        on p.codeone=c.codeone and p.codetwo=c.codetwo) pb
+		on pc.p_idx = pb.p_idx
+		where c_idx=#{c_idx}
+	</select>
 </mapper>

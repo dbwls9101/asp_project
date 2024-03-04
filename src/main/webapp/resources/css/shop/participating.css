@@ -1,26 +1,17 @@
-#menu-title{
-	margin-top: 50px;
-	margin-bottom: 20px;
+.title {
+    margin-top: 60px;
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #333333;
+    line-height: 32px;
+    font-weight: bold;
 }
 
-#category{
+.noneparty{
+	margin-top: 60px;
 	font-size: 22px;
-	font-weight: 600;
-}
-
-#makeparty{
-	position: absolute;
-    right: 0;
-    font-size: 15px;
-    font-weight: 500;
-    border-radius: 17px;
-    width: 116px;
-    height: 32px;
-    background-color: #fff;
-    cursor: pointer;
-    border: 1px solid #258e75;
-    color: #258e75;
-    line-height: 18px;
+	color: gray;
+	margin-left: 13px;
 }
 
 #partyinfo-container {

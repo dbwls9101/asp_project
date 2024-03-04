@@ -58,8 +58,8 @@
 								</div>
 								<div class="block">
 									<ul class="profile-menu">
-										<li><a href="#" style="color: #43a051;">참여중인 파티</a></li>
-										<li><a href="/page/mypage">회원정보확인</a></li>
+										<li><a href="/shop/participating" style="color: #43a051;">참여중인 파티</a></li>
+										<li><a href="#">회원정보확인</a></li>
 										<li><a href="/payment/orderinquiry">결제내역 조회</a></li>
 									</ul>
 								</div>
