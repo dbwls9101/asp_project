@@ -43,7 +43,7 @@
 										</a>
 									</div>
 									<div class="grade">일반회원</div>
-									<div class="party-btn"><a href="#">파티장신청</a></div>
+									<div class="party-btn"><a href="/page/partner">파티장신청</a></div>
 								</div>
 								<div class="block">
 									<ul class="profile-menu">

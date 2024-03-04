@@ -41,3 +41,19 @@
 .text-box {
 	font-size: 14px;
 }
+
+/* partner.jsp */
+.application {
+	max-width: 700px;
+	margin: 0 auto;
+    padding: 40px 30px;
+    background-color: white;
+}
+
+.app-title {
+	margin-top: 0;
+    margin-bottom: 24px;
+    font-size: 22px;
+    color: #333333;
+    line-height: 32px;
+}

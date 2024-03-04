@@ -57,5 +57,12 @@ public class PageController {
 		log.info("getSecondCategory...");
 		return cService.showCategory();
 	}
+	
+	// 파트너 신청 페이지
+	@GetMapping("/partner")
+	public String movePartnerapp() {
+		log.info("movePartner...");
+		return "/page/partner";
+	}
 
 }
