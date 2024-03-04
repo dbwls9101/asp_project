@@ -65,7 +65,7 @@
 		<!-- 버튼 부분 (처리 관련 내용은 차 후에)-->
 		
 		<div class="panel-body-btns">
-			<button type="button" class="btn btn-sec" id="modifyBtn">수정</button>	
+			<button type="button" class="btn btn-sec" id="modifyBtn">수정</button>		
 			<button type="button" class="btn btn-fir" id="indexBtn">목록으로 이동</button>	
 		</div>
 	</div>
@@ -106,21 +106,22 @@
 				</tbody>
 				</div>
 			</table>
-		</from>
-		<!-- 화면에 나타나는 영역 -->
-		<div class="panel-footer-body">
-			<ul class="chat">
-				<li data-c_idx="10">
-					<div>
-						<div class="chat-header">
-							<strong class="priamry-font">작성자</strong>
-							<small class="pull-right">2000-01-01</small>
+		
+			<!-- 화면에 나타나는 영역 -->
+			<div class="panel-footer-body">
+				<ul class="chat">
+					<li data-c_idx="10">
+						<div>
+							<div class="chat-header">
+								<strong class="priamry-font">작성자</strong>
+								<small class="pull-right">2000-01-01</small>
+							</div>
+							<p>내용</p>
 						</div>
-						<p>내용</p>
-					</div>
-				</li>
-			</ul>
-		</div>
+					</li>
+				</ul>
+			</div>
+		</from>
 	</div>
 
 	<jsp:include page="../layout/footer.jsp"/>
