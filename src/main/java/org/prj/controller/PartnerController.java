@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.prj.controller.PartnerController;
 import org.prj.domain.CategoryVO;
+import org.prj.domain.MemberVO;
 import org.prj.domain.PartyBoardVO;
 import org.prj.domain.PaymentVO;
 import org.prj.domain.WithdrawVO;

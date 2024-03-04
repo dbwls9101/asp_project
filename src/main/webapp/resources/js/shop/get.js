@@ -4,8 +4,16 @@ window.onload = function(){
 	
 	if(document.querySelector("#participate") == null){
 		partyWriter();
+		
+		//파티장 멘션리스트
+		partnerMentionList();
 	}else{
 		notPartyWriter();
+		
+		//파티원/일반회원 멘션리스트
+		defaultMemtionList().then(() => {
+			selectEvent();
+		}) 
 	}
 }
 
@@ -42,6 +50,8 @@ const replyf = document.querySelector("#replyform");
 
 //내가 생성한 파티가 아닐 경우
 function notPartyWriter(){
+	let partyMembers = document.querySelectorAll("#mnickname");
+	let partycheck = false;
 	//참여 버튼
 	document.querySelector("#participate").addEventListener('click', function() {
 	    	if(principal == 'anonymousUser'){
@@ -54,8 +64,19 @@ function notPartyWriter(){
 	    		return;
 	    	}
 	    	
-	    	f.action = '/payment/orderform';
-	    	f.submit();
+	    	for(let i = 0; i<partyMembers.length; i++){
+	    		if(partyMembers[i].getAttribute('mnickname') == principal.member.nickname){
+	    			alert("이미 참여 중인 파티입니다.");
+	    			partycheck = true;
+	    			document.querySelector("#checkform #agree").checked = false;
+	    			break;
+	    		}
+	    	}
+	    	
+	    	if(partycheck == false){
+	    		f.action = '/payment/orderform';
+		    	f.submit();
+	    	}
 	});
 	
 	//목록 버튼
@@ -83,8 +104,65 @@ function partyWriter(){
 //댓글관련
 const rs = replyService;
 
-//댓글 언급 목록 가져오기
+//파티장 멘션리스트
+function partnerMentionList(){
+	let msg = '';
+	
+	fetch('/shop/paymemberlist',{
+		method: 'post',
+		body: replyf.p_idx.value,
+		headers : {'Content-type' : 'application/json; charset=utf-8'}
+	})
+	.then(response => response.json())
+	.then(json => {
+		if(json != ''){
+			console.log('paymemberlist : ' + json);
+			
+			msg += '<option value="모든파티원" selected>파티원들에게</option>';
+			json.forEach(partymember => {
+				msg += '<option value="' + partymember.nickname + '">@' + partymember.nickname + '</option>';
+			})
+			msg += '<option value="일반">일반</option>';
+		}else{
+			msg += '<option value="모든파티원" selected>파티원들에게</option>';
+			msg += '<option value="일반">일반</option>';
+		}
+		
+		document.querySelector("#comment-to").innerHTML = msg;
+	})
+	.then(() => {
+		selectEvent();
+	}) 
+	.catch(err => console.log(err));
+}
 
+//파티원/일반회원 멘션리스트
+function defaultMemtionList(){
+	return new Promise((resolve, reject) => {
+        let msg = '';
+        let partnerNick = document.querySelector("#nick").getAttribute("nick");
+
+        msg += '<option value="' + partnerNick + '" selected>파티장에게</option>';
+        msg += '<option value="일반">일반</option>';
+
+        document.querySelector("#comment-to").innerHTML = msg;
+        
+        // Promise를 이용하여 비동기 작업 완료 후 resolve 호출
+        resolve();
+    });
+}
+
+//select 이벤트
+function selectEvent(){
+	document.querySelector("#comment-to").addEventListener('change', ()=>{
+		if(document.querySelector("#comment-to").value == '일반'){
+			document.querySelector("#checkprivate").style.display = 'none';
+		}else{
+			document.querySelector("#checkprivate").style.display = 'block';
+			document.querySelector("#checkprivate input").checked = false;
+		}
+	})
+}
 
 //댓글 목록 가져오기
 showList(); 
@@ -101,12 +179,23 @@ function showList(){
 			            msg += '<div id="chatcontentarea">';
 			            //msg += '<div id="replynick">' + reply.writer + '</div>';
 			            msg += '<div id="myreplycontent">';
-			            msg += '<span id="commentto" class="right">@' + reply.comment_to + '</span>';
+			            
+			            if(reply.comment_to != '일반'){
+			            	msg += '<span id="commentto" class="right">@' + reply.comment_to;
+			            	
+			            	if(reply.comment_to == document.querySelector("#nick").getAttribute("nick")){
+				            	msg += '<img src="/resources/images/crown.png"></span><br>';
+				            }else{
+				            	msg += '</span><br>';
+				            }
+			            }else{
+			            	msg += '<span id="commentto" class="right"></span>';
+			            }
 			            
 			            if(reply.private_chk == 'Y'){
-			            	msg += '<br><span id="replycomment"><img src="/resources/images/mylock.png">' + reply.comment + '</span>';
+			            	msg += '<span id="replycomment"><img src="/resources/images/mylock.png">' + reply.comment + '</span>';
 			            }else{
-			            	msg += '<br><span id="replycomment">' + reply.comment + '</span>';
+			            	msg += '<span id="replycomment">' + reply.comment + '</span>';
 			            }
 			            
 			           //삭제 버튼 - 로그인된 닉네임과 댓글 작성자 동일해야 삭제 버튼 활성화
@@ -129,12 +218,28 @@ function showList(){
 			            msg += '<div id="chatcontentarea">';
 			            msg += '<div id="replynick">' + reply.writer + '</div>';
 			            msg += '<div id="replycontent">';
-			            msg += '<span id="commentto">@' + reply.comment_to + '</span>';
 			            
-			            if(reply.private_chk == 'Y'){
-			            	msg += '<br><span id="replycomment"><img src="/resources/images/lock.png">비밀댓글입니다.</span>';
+			            if(reply.comment_to != '일반'){
+			            	msg += '<span id="commentto">@' + reply.comment_to;
+			            	
+			            	if(reply.comment_to == document.querySelector("#nick").getAttribute("nick")){
+				            	msg += '<img src="/resources/images/crown.png"></span><br>';
+				            }else{
+				            	msg += '</span><br>';
+				            }
 			            }else{
-			            	msg += '<br><span id="replycomment">' + reply.comment + '</span>';
+			            	msg += '<span id="commentto"></span>';
+			            }
+			         
+			            if(reply.private_chk == 'Y'){
+			            	if(principal.member.nickname == reply.comment_to)
+			            		msg += '<span id="replycomment"><img src="/resources/images/lock.png">' + reply.comment + '</span>';
+			            	else{
+			            		msg += '<span id="replycomment"><img src="/resources/images/lock.png">비밀댓글입니다.</span>';
+			            	}
+			            	
+			            }else{
+			            	msg += '<span id="replycomment">' + reply.comment + '</span>';
 			            }
 			            
 			            msg += '</div>';
@@ -148,11 +253,23 @@ function showList(){
 		            msg += '<div id="chatcontentarea">';
 		            msg += '<div id="replynick">' + reply.writer + '</div>';
 		            msg += '<div id="replycontent">';
-		            msg += '<span id="commentto">@' + reply.comment_to + '</span>';
-		            if(reply.private_chk == 'Y'){
-		            	msg += '<br><span id="replycomment"><img src="/resources/images/lock.png">비밀 댓글 입니다.</span>';
+		            
+		            if(reply.comment_to != '일반'){
+		            	msg += '<span id="commentto">@' + reply.comment_to;
+		            	
+		            	if(reply.comment_to == document.querySelector("#nick").getAttribute("nick")){
+			            	msg += '<img src="/resources/images/crown.png"></span><br>';
+			            }else{
+			            	msg += '</span><br>';
+			            }
 		            }else{
-		            	msg += '<br><span id="replycomment">' + reply.comment + '</span>';
+		            	msg += '<span id="commentto"></span>';
+		            }
+		            
+		            if(reply.private_chk == 'Y'){
+		            	msg += '<span id="replycomment"><img src="/resources/images/lock.png">비밀 댓글 입니다.</span>';
+		            }else{
+		            	msg += '<span id="replycomment">' + reply.comment + '</span>';
 		            }
 		            
 		            msg += '</div>';
