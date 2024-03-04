@@ -39,11 +39,50 @@
 	
 	<div id="partyinfo">
 		<span id="nick" nick="${vo.nickname }">${vo.nickname }</span>
+		<!-- 파티장, 파티원들만 보이게 함 -->
+		<sec:authorize access="isAuthenticated()">
+			<c:if test="${principal.member.nickname eq vo.nickname}">
+				<input type="button" id="partnerInfo" value="아이디/패스워드 보기">
+			</c:if>
+			<c:forEach var="mvo" items="${paymembers }">
+				<c:if test="${principal.member.nickname eq mvo.nickname}">
+					<input type="button" id="partnerInfo" value="아이디/패스워드 보기">
+				</c:if>
+			</c:forEach>
+		</sec:authorize>
+		
 		<div>
 			<span id="end-date">종료일 : ${vo.end_date } (${vo.datediff }일 / 1일 ${vo.price }원)</span>
 			<span id="price">&nbsp; | &nbsp;&nbsp;참여비용 : <fmt:formatNumber value="${vo.totalprice }" pattern="#,###" />원</span>
 		</div>
 	</div>
+	
+	<!-- 모달 창 -->
+	<div id="modal" class="modal-overlay">
+        <div class="modal-window">
+        	<div class="close-area">Ⅹ</div>
+            <div class="title">
+                <h5><span>계정</span> 정보</h5>
+            </div>
+            <div class="content">
+                <table>
+                	<tr>
+                		<td class="center">아이디</td>
+                		<td>${vo.share_id }</td>
+                	</tr>
+                	<tr>
+                		<td class="center">비밀번호</td>
+                		<td>${vo.share_pw }</td>
+                	</tr>
+                	<tr>
+                		<td class="center">문의처</td>
+                		<td>${vo.phone }</td>
+                	</tr>
+                </table>
+            </div>
+        </div>
+    </div>
+	
 	
 	<div id="partystatus">
 		<c:if test="${vo.curr_party > 0 }">

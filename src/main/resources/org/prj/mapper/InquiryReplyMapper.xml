@@ -38,7 +38,7 @@
 		UPDATE inquiry_comment
 		SET
 			CONTENT = #{content },
-			UPDATEDATE = sysdate
+			UPDATE_DATE = sysdate
 		WHERE
 			C_IDX = #{c_idx }	
 	</update>

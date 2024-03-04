@@ -66,6 +66,31 @@ function showCommList() {
 //---------------------------------- 댓글 관련 부분 ---------------------------
 const rs = replyService;		// reply.js 에서 연결!
 
+// 댓글 수정 폼
+let updateForm = '';
+let commentArea = document.getElementsByClassName("contentTd");
+
+//댓글 수정 폼
+function getUpdateComment(c_idx, content){
+	console.log(c_idx);
+	console.log(content);
+	
+	for(let i = 0; i<commentArea.length; i++){				// 댓글폼을 반복적으로 각각 구분해서 나누기 위함.
+		if(commentArea[i].getAttribute('c_idx') == c_idx){		// c_idx의 속성을 c_idx로
+			updateForm += '<form><input type="text" id="updateComment" name="content" class="form-control" value="'+ content + '">';
+			updateForm += '<input type="hidden" name="c_idx" value="'+ c_idx + '">';
+			updateForm += '<input type="button" class="commentbtn" onclick="update_comment(this.form)" value="등록" style="margin-top:10px; margin-left: 620px">';
+			updateForm += '<input type="button" class="commentbtn" onclick="notUpdate_comment(' + c_idx + ')" value="취소" style="margin-top:10px; margin-left: 5px;">';
+			updateForm += '</form>';
+			commentArea[i].innerHTML = updateForm;
+		}
+		else{
+			commentArea[i].innerHTML = commentArea[i].getAttribute('content') + '<hr>';
+		}
+		updateForm = '';
+	}
+}
+
 showList();
 function showList() {						// 나중에 여기가 더 보기가 될것같다.... 일단...
 	
@@ -78,29 +103,32 @@ function showList() {						// 나중에 여기가 더 보기가 될것같다....
 		
 		jsonArr.forEach(reply => {
 			
-			msg += '<li data-c_idx="'+ reply.c_idx +'" onclick="modifyModalPage(this)">';
+			msg += '<li data-c_idx="'+ reply.c_idx +'">';
 			msg += 		'<div>';
-			msg +=			'<div class="chat-header"';
-			msg +=				'<c:choose>';
-				if(reply.status == "A"){
-					msg +=	'<strong class="word-color1">' + "진행 : 대기" + '</strong>';
-				}else if(reply.status == "B"){
-					msg +=	'<strong class="word-color2">' + "진행 : 완료" + '</strong>';
-				}else {
-					msg +=	'<strong class="word-color3">' + "진행 : 확인중" + '</strong>';
-				}
-			msg +=				'</c:choose>';	
-			msg +=				'<input type="button" value="삭제" onclick="removeComm('+ reply.c_idx +')" class="btn-b" id="removeReplyBtn">'
-			msg +=				'<input type="button" value="수정" onclick="modifyComm('+ reply.c_idx +')" class="btn-b" id="modifyReplyBtn">'
-			msg +=			'</div>'
-			msg += 			'<div class="chat-header">';	
+			msg +=			'<div>';
 			msg +=				'<strong class="primary-font">' + reply.writer + '</strong>';
 			msg +=				'<small class="pull-right">' + myTime(reply.reg_date) + '</small>';
 			msg += 			'</div>';
-			msg +=			'<textarea rows="3" cols="100" name="content" id="modifyReadonly" readonly >' + reply.content + '</textarea>'
+			msg +=			'<div>';
+			msg += '&nbsp;<input type="button" class="commentbtn" value="수정" onclick="getUpdateComment(' + reply.c_idx + ', \'' + reply.content + '\')">';
+			msg += '&nbsp;<input type="button" class="btn-b1" value="삭제" onclick="removeComm(' + reply.c_idx + ')" id="removeReplyBtn">';			
+			msg +=				'<div class="chat-header"';
+			msg +=					'<c:choose>';
+					if(reply.status == "A"){
+						msg +=	'<strong class="word-color1">' + "진행 : 대기" + '</strong>';
+					}else if(reply.status == "B"){
+						msg +=	'<strong class="word-color2">' + "진행 : 완료" + '</strong>';
+					}else {
+						msg +=	'<strong class="word-color3">' + "진행 : 확인중" + '</strong>';
+					}
+			msg +=					'</c:choose>';	
+			msg +=				'</div>'	
+			msg += '<div class="contentTd" c_idx=\"' + reply.c_idx + '\" content=\"' + reply.content + '\">';
+			msg += reply.content;	
+			msg += 			'</div>';			
 			msg += 		'</div>';
 			msg += '</li>';
-			
+
 			console.log(reply);
 		});		// end forEach
 		
@@ -121,20 +149,17 @@ function myTime(unixTimeStamp) {
 	return date;
 }
 
-//------------------------ 모달 -------------------------------------
-const modal = document.querySelector('#modal');
+//------------------------ 하단부 비동기식 방식으로 댓글 처리 -------------------------------------
 const inputStatus = document.querySelector('.status-st');
 const inputReply = document.querySelector('.text11');
 const inputReplyer = document.querySelector('input[name="writer"]');
 const inputReplydate = document.querySelector('input[name="reg_date"]');
 const addReplyBtn = document.querySelector('#addReplyBtn');				
-const resetBtn = document.querySelector('#resetBtn');
-const replyBtn = document.querySelector('#replyBtn');	                // 댓글 등록
-const modifyReplyBtn = document.querySelector('#modifyReplyBtn');		// 댓글 수정
-const removeReplyBtn = document.querySelector('#removeReplyBtn');		// 댓글 삭제
 
+
+// 댓글 등록
 addReplyBtn.addEventListener('click', () => {
-	console.log('등록');
+	
 									// 추후 처리 필요
 	if(inputReply.value == '' || inputReplyer.value == '' || inputStatus.value == '' ) {		
 		alert("모든 내용을 입력하세요.")
@@ -154,95 +179,25 @@ addReplyBtn.addEventListener('click', () => {
 	);
 });
 
-let c_idx;
-
-/*modifyReplyBtn.addEventListener('click', () => {
-
-	if(inputReply.value == '') {
-		alert("내용을 작성해 주세요.");
-		return;
+// 댓글 수정
+function update_comment(f) {
+	// console.log(f);
+	if( !confirm("내용을 수정 하시겠습니까?") ){
+		return false;
 	}
-	
-	rs.update(
-		{
-			c_idx : c_idx,
-			content : inputReply.value
-		}, function(result) {
-			console.log("result : " + result );
-			showList();
-		}
-	);	
-});*/
-
-
-
-function modifyComm(c_idx) {
-	
-	if(modifyComm === "수정"){
-		textarea.remove('readonly');
-	}
-	
-
-	
 	
 	rs.update(
 			{
-				c_idx : c_idx,
-				content : inputReply.value
+				c_idx : f.c_idx.value,
+				content : f.content.value
 			}, function(result) {
-				console.log("result : " + result );
+				console.log('result : ' + result );
 				showList();
 			}
-		);	
-	
-	if(inputReply.value == '') {
-		alert("내용을 작성해 주세요.");
-		return;
-	}
+	);
 }
 
-
-/*
-removeReplyBtn.addEventListener('click', () => {
-
-	if(!writer) {
-		alert("로그인 후 삭제가 가능합니다.");
-		closeModal();
-		return;
-	}
-	
-	let originalReplyer = inputReplyer.value();
-	console.log("Original Replyer : " + originalReplyer);
-	
-	if(writer != originalReplyer) {
-		alert("자신이 작성한 댓글만 삭제가 가능합니다.");
-		closeModal();
-		return;
-	}
-	alert("내용을 삭제 하시겠습니까?");
-	
-	rs.remove(c_idx, originalReplyer,
-		function(result) {
-			console.log("result : " + result);
-			closeModal();
-			showList();
-		}
-	
-	);
-}); */
-
-/*removeReplyBtn.addEventListener('click', () => {
-	
-	alert("내용을 삭제 하시겠습니까?");
-	
-	rs.remove(c_idx,
-		function(result) {
-			console.log("result : " + result);
-			showList();
-		}
-	);
-});*/
-
+// 댓글 삭제
 function removeComm(c_idx) {
 	
 	if( !confirm("내용을 삭제 하시겠습니까?") ){
@@ -251,20 +206,8 @@ function removeComm(c_idx) {
 	
 	rs.remove(c_idx,
 			function(result) {
-				console.log("result : " + result);
+				console.log('result : ' + result);
 				showList();
 			}
 	);
 }
-
-
-
-
-
-
-
-
-
-
-
-

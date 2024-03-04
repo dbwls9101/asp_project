@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class WithdrawVO {
 	private int m_idx, w_idx, with_amount, commission;
-	private String id, name, phone, with_method, with_status, note;
-	private Date reg_date; 
+	private String id, name, phone, with_method, with_status, note, reg_date;
+
 
 }

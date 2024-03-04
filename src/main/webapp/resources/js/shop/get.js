@@ -116,8 +116,6 @@ function partnerMentionList(){
 	.then(response => response.json())
 	.then(json => {
 		if(json != ''){
-			console.log('paymemberlist : ' + json);
-			
 			msg += '<option value="모든파티원" selected>파티원들에게</option>';
 			json.forEach(partymember => {
 				msg += '<option value="' + partymember.nickname + '">@' + partymember.nickname + '</option>';
@@ -331,3 +329,27 @@ function replyDelete(c_idx){
 		);
 	}
 }
+
+
+//아이디 / 패스워드 보기 버튼 + 모달
+//모달창 open
+document.querySelector("#partnerInfo").addEventListener('click', ()=>{
+	document.getElementById("modal").style.display = 'flex';
+	document.body.style.overflow = 'hidden';
+})
+
+//모달창 close
+document.querySelector(".close-area").addEventListener('click', ()=>{
+	document.getElementById("modal").style.display = 'none';
+	document.body.style.overflow = '';
+})
+
+//모달창 바깥영역 클릭시 close
+document.getElementById("modal").addEventListener("click", e => {
+    const evTarget = e.target;
+    if(evTarget.classList.contains("modal-overlay")) {
+    	document.getElementById("modal").style.display = "none"
+    	document.body.style.overflow = '';
+    }
+})
+

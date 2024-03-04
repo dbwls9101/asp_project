@@ -214,6 +214,28 @@ tr th:nth-of-type(2) {
     width: 100px;
     font-size: 15px;
 }
+.btn-b1{
+	background-color: red;
+    border: 1px solid teal;
+    color: #fff;
+    width: 50px;
+    font-size: 10px;	
+}
+.commentbtn{
+	background-color: green;
+    border: 1px solid teal;
+    color: #fff;
+    width: 50px;
+    font-size: 10px;		
+}
+.btnmodify{
+	background-color: gray;
+    border: 1px solid teal;
+    color: #fff;
+    width: 100px;
+    font-size: 10px;
+    display: none;
+}
 
 .text11{
 	width: -webkit-fill-available;
@@ -225,4 +247,16 @@ tr th:nth-of-type(2) {
 
 .th-st2{
 	width: 20px;
+}
+
+/* 여기는 비동기 방식에서 나오는 댓글 부분의 css */
+
+.chat-header {
+	width: 315px;
+	
+}
+.button-cla1{
+	width: 315px;
+	float: right;
+	text-align: right;
 }

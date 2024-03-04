@@ -20,11 +20,7 @@ document.querySelectorAll('.panel-body-btns button').forEach( btn => {
 		
 		if(type === 'registerBtn'){
 			register();
-		} else if(type == 'indexBtn') {
-			let pageData = getStorageData();
-			let sendData = "pageNum=" + pageData.pageNum + "&amount=" + pageData.amount;
-			location.href = '/inquiry_board/Inquirylist?' + sendData;
-		}
+		} 
 		
 	});
 });
@@ -71,18 +67,3 @@ function register() {
 	f.submit();
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

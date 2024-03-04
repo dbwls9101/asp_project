@@ -108,7 +108,6 @@
 	
 	<div class="panel-body-btns">
 		<button type="button" class="btn btn-sec" id="registerBtn">작성완료</button>
-		<button type="button" class="btn btn-fir" id="indexBtn">취소</button>	
 	</div>
 	
 

@@ -48,7 +48,10 @@ function getList(m_idx){
 			msg += 		'<td>' + withdraw.name +'</td>';
 			msg += 		'<td>' + withdraw.commission +'</td>';
 			msg += 		'<td>' + withdraw.with_amount +'</td>';
-			msg += 		'<td>' + myTime(withdraw.reg_date) +'</td>';			
+			msg += 		'<td>' + myTime(withdraw.reg_date) +'</td>';	
+			msg +=		'<td>'
+			msg +=		'<input type="button" class="btn11" value="출금취소" onclick="removeWithdraw('+ withdraw.w_idx +')" id="removeWithdrawBtn">'
+			msg +=		'</td>'	
 			msg += '</tr>';	
 		})
 			document.querySelector("tbody").innerHTML = msg;
@@ -118,7 +121,7 @@ closeModalBtn.addEventListener('click', () => {
 	closeModal();
 });
 
-// 출금 신청하는 버튼
+// 2. 출금 신청
 addReplyBtn.addEventListener('click', () => {
 	
 	if(inputName.value == '' || inputWithAmount.value == '' || inputWithMethod.value == '') {
@@ -148,3 +151,5 @@ addReplyBtn.addEventListener('click', () => {
 
 	});
 }); 
+
+// 3. 출금 취소
