@@ -1,5 +1,8 @@
 package org.prj.service;
 
+import java.io.IOException;
+import java.util.HashMap;
+
 import org.prj.domain.MemberVO;
 
 public interface MemberService {
@@ -24,4 +27,7 @@ public interface MemberService {
 	
 	//비밀번호 변경
 	public int updatePw(MemberVO member) throws Exception;
+	
+	// 인증된 사용자 정보(name, phoen) 구하기
+	public HashMap<String, String> getAuthInfo(String impuid) throws IOException;
 }

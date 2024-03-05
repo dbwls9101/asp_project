@@ -1,9 +1,24 @@
 package org.prj.service;
 
 import org.prj.mapper.MemberMapper;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.prj.domain.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -48,10 +63,10 @@ public class MemberServiceImpl implements MemberService{
 	
 	//비밀번호 찾기
 	@Override
-		public MemberVO findPw(String email, String id) throws Exception {
-			
-			return membermapper.findPw(email, id);
-		}
+	public MemberVO findPw(String email, String id) throws Exception {
+		
+		return membermapper.findPw(email, id);
+	}
 	
 	//비밀번호 변경
 	@Override
@@ -60,4 +75,81 @@ public class MemberServiceImpl implements MemberService{
 		return membermapper.updatePw(member);
 	}
 	
+	//인증된 사용자 정보 구하기
+	@Override
+	public HashMap<String, String> getAuthInfo(String impuid) throws IOException {
+		
+		HashMap<String, String> map = new HashMap<>();
+		System.out.println("imp_uid: " + impuid);
+		
+		URL url = new URL("https://api.iamport.kr/users/getToken");
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();//url Http 연결 생성
+		
+		//POST 요청
+		conn.setRequestMethod("POST");
+		conn.setDoOutput(true);
+		
+		conn.setRequestProperty("Content-Type", "application/json");
+		conn.setRequestProperty("Accept", "application/json");
+		
+		//파라미터 세팅
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+		
+		JsonObject requestData = new JsonObject();
+		requestData.addProperty("imp_key", "7434567018535738");
+		requestData.addProperty("imp_secret", "s7BglO3YEbQ9pIWbMQhWMIr3jXFbpaCe9wYi2xthBropAbqKw8Iw0JDoacXv0dvGQAfxeOO9hDVfLT1w");
+		
+		bw.write(requestData.toString());
+		bw.flush();
+		bw.close();
+		
+		int responseCode = conn.getResponseCode();
+		
+		System.out.println("응답코드: " + responseCode);
+		
+		if(responseCode == 200) { //성공
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			
+			Gson gson = new Gson();
+			
+			//토큰 값 불러오기
+			String response = gson.fromJson(br.readLine(), Map.class).get("response").toString();
+			String token = gson.fromJson(response, Map.class).get("access_token").toString();
+			
+			//인증된 사용자의 정보 가져오기
+			String getPaymentUrl = "http://api.iamport.kr/certifications/" + impuid;
+			HttpURLConnection getConn = (HttpURLConnection) new URL(getPaymentUrl).openConnection();
+			getConn.setRequestMethod("GET");
+			getConn.setRequestProperty("Content-Type", "application/json");
+			getConn.setRequestProperty("Authorization", "Bearer " + token);
+			
+			int getResponseCode = getConn.getResponseCode();
+			System.out.println("GET 응답코드 : " + getResponseCode);
+			
+			if(getResponseCode == 200) {
+				BufferedReader getBr = new BufferedReader(new InputStreamReader(getConn.getInputStream()));
+				StringBuilder getResponseSb = new StringBuilder();
+				String getLine;
+				while((getLine = getBr.readLine()) != null) {
+					getResponseSb.append(getLine).append("\n");
+				}
+				getBr.close();
+				
+				String getResponse = getResponseSb.toString();
+				Gson gson1 = new Gson();
+				JsonObject jsonObj = gson1.fromJson(getResponse, JsonObject.class); //인증한 사용자 정보가 담긴 json 객체
+				
+				//이름
+				String name = jsonObj.getAsJsonObject("response").get("name").getAsString();
+				map.put("name", name);
+				
+				//전화번호
+				String phone = jsonObj.getAsJsonObject("response").get("phone").getAsString();
+				map.put("phone", phone);
+			}
+			br.close();
+		}
+		
+		return map;
+	}
 }

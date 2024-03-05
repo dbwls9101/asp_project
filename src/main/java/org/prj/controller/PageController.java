@@ -54,7 +54,6 @@ public class PageController {
 	@ResponseBody
 	@GetMapping(value = "/submenu", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public List<CategoryVO> showCategory() {
-		log.info("getSecondCategory...");
 		return cService.showCategory();
 	}
 	
