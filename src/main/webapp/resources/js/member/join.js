@@ -3,6 +3,52 @@ let regPw = /^[0-9a-zA-Z]{8,16}$/;
 let regNick = /^[가-힣a-zA-Z0-9]{2,10}$/;
 let regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
 
+var IMP = window.IMP;
+IMP.init("imp45030755");  /* imp~ : 가맹점 식별코드*/
+
+//본인확인 버튼 클릭 이벤트
+document.querySelector('#certification').addEventListener('click', ()=>{
+	//본인인증 모듈 호출
+	// IMP.certification(param, callback) 호출
+	IMP.certification({ 
+		pg:'inicis_unified.{CPID}',//본인인증 설정이 2개이상 되어 있는 경우 필수 
+		merchant_uid: createOrderNum(), // 주문 번호
+	}, function (rsp) { // callback
+		if (rsp.success) {
+			fetch('/member/doCertify', {
+				method : 'post',
+				body : rsp.imp_uid,
+				headers : {'Content-type' : 'application/json; charset=utf-8'}
+			})
+			.then(response => response.json())
+			.then(json => {
+				alert('인증이 완료되었습니다.');
+				document.querySelector("#name").value = json.name;
+				document.querySelector("#phone").value = json.phone;
+			})
+			.catch(err => console.log(err));
+			
+		} else {
+			alert("인증에 실패하였습니다. \n에러 내용: " +  rsp.error_msg);
+		}
+	});
+})
+
+//주문번호 생성 함수
+function createOrderNum() {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+ 
+    let orderNum = year + month + day;
+    for (let i = 0; i < 5; i++) {
+        orderNum += Math.floor(Math.random() * 8);
+    }
+    return parseInt(orderNum);
+}
+
+
 function validate(f){
 		
 	if(!f.id.value){
@@ -18,7 +64,7 @@ function validate(f){
 		return;
 	}	
 	if(!f.name.value){
-		alert("이름을 입력해주세요.");
+		alert("휴대폰 본인확인을 진행해주세요.");
 		return;
 	}
 	if(!f.nickname.value){
@@ -30,7 +76,7 @@ function validate(f){
 		return;
 	}	
 	if(!f.phone.value){
-		alert("휴대폰 번호를 입력해주세요.");
+		alert("휴대폰 본인확인을 진행해주세요.");
 		return;
 	}
 	if( !regId.exec(f.id.value)  ){

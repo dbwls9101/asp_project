@@ -6,8 +6,6 @@
 <meta charset="UTF-8">
 <title>회원가입 동의</title>
 <link rel="stylesheet" href="/resources/css/member/joinAgree.css"> 
-<!-- iamport.payment.js -->
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 </head>
 <body>
 <jsp:include page="../layout/header.jsp"/>

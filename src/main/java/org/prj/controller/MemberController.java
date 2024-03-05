@@ -11,6 +11,8 @@ import org.prj.domain.MemberVO;
 import org.prj.security.domain.CustomUser;
 import org.prj.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.Authentication;
@@ -20,12 +22,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import lombok.extern.log4j.Log4j;
 
@@ -47,11 +53,20 @@ public class MemberController {
 
 	// 회원가입 페이지 이동
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
-	public void join1GET(@RequestParam("impuid") String impuid, Model model) throws Exception {
+	public void join1GET() throws Exception {
+		//HashMap<String, String> map = memberservice.getAuthInfo(impuid);
+		
+		//model.addAttribute("authname", map.get("name"));
+		//model.addAttribute("authphone", map.get("phone"));
+	}
+	
+	//본인인증
+	@PostMapping(value="/doCertify", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<HashMap<String, String>> doCertify(@RequestBody String impuid) throws Exception{
+		log.info("doCertify..." + impuid);
 		HashMap<String, String> map = memberservice.getAuthInfo(impuid);
 		
-		model.addAttribute("authname", map.get("name"));
-		model.addAttribute("authphone", map.get("phone"));
+		return ResponseEntity.ok().body(map);
 	}
 
 	// 회원가입
