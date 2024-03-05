@@ -15,6 +15,11 @@ window.onload = function(){
 			selectEvent();
 		}) 
 	}
+	
+	//버튼 활성화 되어 있을 때만 모달 관련 이벤트 적용(스크립트 에러방지)
+	if(document.querySelector("#partnerInfo") != null){
+		modal();
+	}
 }
 
 
@@ -52,6 +57,7 @@ const replyf = document.querySelector("#replyform");
 function notPartyWriter(){
 	let partyMembers = document.querySelectorAll("#mnickname");
 	let partycheck = false;
+	
 	//참여 버튼
 	document.querySelector("#participate").addEventListener('click', function() {
 	    	if(principal == 'anonymousUser'){
@@ -61,6 +67,11 @@ function notPartyWriter(){
 	    	
 	    	if(!document.querySelector("#agree").checked){
 	    		alert('안내 및 규칙을 읽고 체크박스에 체크해 주세요.');
+	    		return;
+	    	}
+	    	
+	    	if(f.party_num.value == f.curr_party.value){
+	    		alert('파티 모집 정원 초과입니다. \n다른 파티에 참여해주세요.');
 	    		return;
 	    	}
 	    	
@@ -333,23 +344,25 @@ function replyDelete(c_idx){
 
 //아이디 / 패스워드 보기 버튼 + 모달
 //모달창 open
-document.querySelector("#partnerInfo").addEventListener('click', ()=>{
-	document.getElementById("modal").style.display = 'flex';
-	document.body.style.overflow = 'hidden';
-})
+function modal(){
+	document.querySelector("#partnerInfo").addEventListener('click', ()=>{
+		document.getElementById("modal").style.display = 'flex';
+		document.body.style.overflow = 'hidden';
+	})
 
-//모달창 close
-document.querySelector(".close-area").addEventListener('click', ()=>{
-	document.getElementById("modal").style.display = 'none';
-	document.body.style.overflow = '';
-})
+	//모달창 close
+	document.querySelector(".close-area").addEventListener('click', ()=>{
+		document.getElementById("modal").style.display = 'none';
+		document.body.style.overflow = '';
+	})
 
-//모달창 바깥영역 클릭시 close
-document.getElementById("modal").addEventListener("click", e => {
-    const evTarget = e.target;
-    if(evTarget.classList.contains("modal-overlay")) {
-    	document.getElementById("modal").style.display = "none"
-    	document.body.style.overflow = '';
-    }
-})
+	//모달창 바깥영역 클릭시 close
+	document.getElementById("modal").addEventListener("click", e => {
+	    const evTarget = e.target;
+	    if(evTarget.classList.contains("modal-overlay")) {
+	    	document.getElementById("modal").style.display = "none"
+	    	document.body.style.overflow = '';
+	    }
+	})
+}
 
