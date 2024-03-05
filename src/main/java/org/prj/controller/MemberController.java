@@ -164,15 +164,19 @@ public class MemberController {
 	@ResponseBody
 	@GetMapping("/api/currentUser")
 	public Authentication getCurrentUser() {
-		//현재 사용자 정보
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        // 사용자 정보 업데이트 후 새로운 UserDetails 객체를 로드
-        UserDetails updatedUserDetails = customUserDetailService.loadUserByUsername(username);
-        // 현재 사용자의 인증 정보를 업데이트된 UserDetails 객체로 교체
-        Authentication newAuthentication = new UsernamePasswordAuthenticationToken(updatedUserDetails, authentication.getCredentials(), updatedUserDetails.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(newAuthentication);
-		return SecurityContextHolder.getContext().getAuthentication();
+		// 현재 사용자 정보
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    String username = authentication.getName();
+	    
+        if (username != "anonymousUser") {
+	        // 사용자 정보 업데이트 후 새로운 UserDetails 객체를 로드
+	        UserDetails updatedUserDetails = customUserDetailService.loadUserByUsername(username);
+	        // 현재 사용자의 인증 정보를 업데이트된 UserDetails 객체로 교체
+	        Authentication newAuthentication = new UsernamePasswordAuthenticationToken(updatedUserDetails, authentication.getCredentials(), updatedUserDetails.getAuthorities());
+	        SecurityContextHolder.getContext().setAuthentication(newAuthentication);
+	    }
+	    
+		return authentication;
 	}
 
 	// 아이디 찾기
@@ -322,5 +326,16 @@ public class MemberController {
 		memberservice.partnerModify(vo);
 		
 		return "/partner/partnerinfo";
+	}
+	
+	public void updatePrincipal() {
+		//현재 사용자 정보
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+    	// 사용자 정보 업데이트 후 새로운 UserDetails 객체를 로드
+        UserDetails updatedUserDetails = customUserDetailService.loadUserByUsername(username);
+        // 현재 사용자의 인증 정보를 업데이트된 UserDetails 객체로 교체
+        Authentication newAuthentication = new UsernamePasswordAuthenticationToken(updatedUserDetails, authentication.getCredentials(), updatedUserDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(newAuthentication);
 	}
 }
