@@ -10,8 +10,10 @@ import org.prj.domain.PartyCommentVO;
 import org.prj.domain.PaymentVO;
 import org.prj.domain.WithdrawVO;
 import org.prj.service.CategoryService;
+import org.prj.service.MemberService;
 import org.prj.service.PartyBoardService;
 import org.prj.service.PartyReplyService;
+import org.prj.service.PaymentService;
 import org.prj.service.WithdrawService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,6 +44,12 @@ public class PartnerController {
 	
 	@Autowired
 	private PartyReplyService prService;
+	
+	@Autowired
+	private MemberService memberservice;
+
+	@Autowired
+	private PaymentService payservice;
 	
 	// 출금 관리
 	@Autowired
@@ -126,13 +134,6 @@ public class PartnerController {
 		return prService.getReply(c_idx);
 	}
 	
-	//참여정보
-	@GetMapping("/partyinfo")
-	public String movePartyinfo() {
-		log.info("movePartyinfo...");
-		return "/partner/partyinfo";
-	}
-	
 	// ------------- 민병우 담당 부분 -----------------------
 	
 	//출금관리
@@ -174,12 +175,32 @@ public class PartnerController {
 	}
 	
 	
-	/*
-	 * @ResponseBody
-	 * 
-	 * @PostMapping(value = "/partyinfo", produces =
-	 * MediaType.APPLICATION_JSON_UTF8_VALUE) public ResponseEntity<List<PaymentVO>>
-	 * getList(@RequestBody int m_idx) { log.info("getlist... " + m_idx); return new
-	 * ResponseEntity<List<PaymentVO>>(pService.getList(m_idx), HttpStatus.OK); }
-	 */
+	//정보수정
+	@GetMapping("/partnerinfo")
+	public String movePartnerinfo() {
+		log.info("movePartnerinfo...");
+		return "/partner/partnerinfo";
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "/partnerinfo", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public MemberVO getPartnerinfo(@RequestBody int m_idx) {
+		log.info("getPartnerinfo..." + m_idx);
+		
+		return memberservice.getPartnerinfo(m_idx);
+	}
+	
+	//참여정보
+	@GetMapping("/partyinfo")
+	public String movePartyinfo() {
+		log.info("movePartyinfo...");
+		return "/partner/partyinfo";
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "/partyinfo", produces = MediaType.APPLICATION_JSON_UTF8_VALUE) 
+	public List<PaymentVO> getPayMemberList(@RequestBody int m_idx) { 
+		  log.info("getPayMemberList... " + m_idx); 
+		  return payservice.getPayMemberList(m_idx); 
+	}
 }

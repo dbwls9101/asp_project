@@ -29,4 +29,15 @@ public interface MemberMapper {
 	//비밀번호 변경
 	public int updatePw(MemberVO member);
 	
+	//내 정보 수정
+	public int updateMypage(MemberVO member);
+	
+	//파트너 신청
+	public int partnerApp(MemberVO member);
+	
+	//파트너 정보수정
+	public int partnerModify(MemberVO member);
+	
+	//파트너 정보조회
+	public MemberVO getPartnerinfo(int m_idx);
 }

@@ -1,5 +1,6 @@
 package org.prj.controller;
 
+import java.util.HashMap;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.prj.domain.MemberVO;
+import org.prj.security.domain.CustomUser;
 import org.prj.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -17,10 +19,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import lombok.extern.log4j.Log4j;
 
@@ -41,12 +46,15 @@ public class MemberController {
 	}
 
 	// 회원가입 페이지 이동
-	@RequestMapping(value = "join", method = RequestMethod.GET)
-	public void join1GET() {
-
+	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	public void join1GET(@RequestParam("impuid") String impuid, Model model) throws Exception {
+		HashMap<String, String> map = memberservice.getAuthInfo(impuid);
+		
+		model.addAttribute("authname", map.get("name"));
+		model.addAttribute("authphone", map.get("phone"));
 	}
 
-// 회원가입
+	// 회원가입
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String joinPOST(MemberVO member) throws Exception {
 		// log.info("join 진입");
@@ -169,6 +177,8 @@ public class MemberController {
 	// 비밀번호 찾기 (이메일 인증번호 발송)
 	@Autowired
 	private JavaMailSender mailSender;
+	@Autowired
+    private SpringTemplateEngine templateEngine;
 
 	@RequestMapping(value = "/find_pw", method = RequestMethod.POST)
 	public String find_pw(HttpServletRequest request, @RequestParam("email") String email,
@@ -183,22 +193,28 @@ public class MemberController {
 			HttpSession session = request.getSession();
 			session.setAttribute("findMemberVo", vo);
 
-			String setfrom = "wjddms49693@naver.com"; // naver
-			String tomail = "wjddms49693@naver.com"; // 받는사람
+			String setfrom = "wjddms49693@naver.com"; // 보내는 사람
+			String tomail = "wjddms49693@naver.com"; // 받는 사람
 			String title = "[모여라] 비밀번호변경 인증 이메일 입니다";
-			String content = System.getProperty("line.separator")
-					+ "<img src=\"http://localhost:8080/resources/images/prj_logo.png\" width=\"100px\">" + "안녕하세요 회원님"
-					+ System.getProperty("line.separator") + "모여라 비밀번호찾기(변경) 인증번호는 " + num + " 입니다."
-					+ System.getProperty("line.separator"); //
 
 			try {
 				MimeMessage message = mailSender.createMimeMessage();
 				MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "utf-8");
 
+ 
+ 
 				messageHelper.setFrom(setfrom);
 				messageHelper.setTo(tomail);
 				messageHelper.setSubject(title);
-				messageHelper.setText(content, true);
+				
+				//템플릿에 전달할 데이터 설정
+		        Context context = new Context();
+		 		context.setVariable("num", num);
+		 		
+		        //메일 내용 설정 : 템플릿 프로세스
+		        String html = templateEngine.process("emailSend", context);
+		 
+				messageHelper.setText(html, true);
 
 				mailSender.send(message);
 
@@ -215,8 +231,7 @@ public class MemberController {
 
 	}
 
-	// 비밀번호 변경
-
+	// 비밀번호 변경 (비밀번호 찾기)
 	@Autowired
 	private PasswordEncoder newPwencoder;
 
@@ -229,5 +244,64 @@ public class MemberController {
 
 		return "/member/login";
 	}
+	
+	
+	// 회원정보확인 페이지
+	@GetMapping("/mypage")
+	public String moveMypage() {
+		
+		log.info("moveMypage...");
+		return "/member/mypage";
+	}
+	
+	// 회원정보확인 로그인 페이지
+	@PostMapping("/mypageLogin")
+	public String moveMypageLogin() {
+		log.info("moveMypageLogin...");
+		return "/member/mypageLogin";
+	}
+	
+	// 회원 수정 페이지
+	@PostMapping("/modifyForm")
+	public String move(@RequestParam("password") String password, Authentication authentication, Model model) {
+		log.info("moveModifyForm...");
+		CustomUser customVo = (CustomUser)authentication.getPrincipal();
+		MemberVO memberVo = customVo.getMember();
+		
+		boolean isPasswordMatch = newPwencoder.matches(password, memberVo.getPassword());
+		
+		log.info("isPasswordMatch : [" + isPasswordMatch + "]");
+		if(isPasswordMatch) {
+			return "/member/modifyForm";
+		}else {
+			model.addAttribute("isPasswordMatch", isPasswordMatch);
+			return "/member/mypageLogin";
+		}
+	}
+		
+	 //내정보 수정
+	@RequestMapping(value = "/updateForm", method = RequestMethod.POST)
+	public String modifyForm(MemberVO member) throws Exception {
 
+		member.setPassword(pwencoder.encode(member.getPassword()));
+		memberservice.updateMypage(member);
+
+		return "/member/mypage";
+	}
+
+	// 파트너 신청
+	@RequestMapping(value = "/partnerApp", method = RequestMethod.POST)
+	public String partnerApp(MemberVO vo) {
+		log.info("partnerApp..." + vo);
+		memberservice.partnerApp(vo);
+		return "redirect:/member/logout";
+	}
+	
+	// 파트너 정보수정
+	@RequestMapping(value = "/partnerModify", method = RequestMethod.POST)
+	public String partnerModify(MemberVO vo) {
+		log.info("partnerModify..." + vo);
+		memberservice.partnerModify(vo);
+		return "redirect:/member/logout";
+	}
 }

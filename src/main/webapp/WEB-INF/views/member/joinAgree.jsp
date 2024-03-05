@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>회원가입 동의</title>
 <link rel="stylesheet" href="/resources/css/member/joinAgree.css"> 
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 </head>
 <body>
 <jsp:include page="../layout/header.jsp"/>
@@ -13,10 +15,10 @@
 <div class="h3"><span class="title-point">SNS</span> 가입하기</div>
 <div class="form-sns-join">
 	<a href="javascrip:;" onclick="nwindow('https://buts.co.kr/plugin/social/popup.php?provider=naver&amp;url=https://buts.co.kr/bbs/login.php')" class="naver sns-naver" title="네이버">
-		<img src="/resources/images/naver_logo.png" alt="">네이버 계정으로 로그인 하기
+		<img src="/resources/images/naver_logo.png" alt="">네이버 계정으로 회원가입 하기
 	</a>
 	<a href="javascrip:;" onclick="nwindow('https://buts.co.kr/plugin/social/popup.php?provider=kakao&amp;url=https://buts.co.kr/bbs/login.php')" class="kakao sns-kakao" title="카카오">
-		<img src="/resources/images/kakao_logo.png" alt="">카카오 계정으로 로그인 하기			
+		<img src="/resources/images/kakao_logo.png" alt="">카카오 계정으로 회원가입 하기			
 	</a>
 </div>
 <div class="h3"><span class="title-point">약관</span> 동의</div>
