@@ -29,8 +29,6 @@ public class CustomUserDetailService implements UserDetailsService{
 			
 		return vo == null ? null : new CustomUser(vo);
 	}
-	
-	
 }
 
 
