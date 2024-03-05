@@ -86,18 +86,31 @@
 	
 	<div id="partystatus">
 		<c:if test="${vo.curr_party > 0 }">
-			<c:forEach var="mvo" items="${paymembers }">
-				<div class="partymeminfo">
-					<img src="/resources/images/get_sun.png" class="participation"><br>
-					<span id="mnickname" mnickname="${mvo.nickname }" >${mvo.nickname }</span><br>
-					<span class="approved_at">${mvo.approved_at } 참여</span>
-				</div>
-			</c:forEach>
-			<c:forEach var="i" begin="0" end="${vo.party_num - vo.curr_party - 1}">
-				<div class="partymeminfo">
-					<img src="/resources/images/get_sun.png" class="non-participation">
-				</div>
-			</c:forEach>
+			<c:choose>
+				<c:when test="${vo.curr_party == vo.party_num }">
+					<c:forEach var="mvo" items="${paymembers }">
+						<div class="partymeminfo">
+							<img src="/resources/images/get_sun.png" class="participation"><br>
+							<span id="mnickname" mnickname="${mvo.nickname }" >${mvo.nickname }</span><br>
+							<span class="approved_at">${mvo.approved_at } 참여</span>
+						</div>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="mvo" items="${paymembers }">
+						<div class="partymeminfo">
+							<img src="/resources/images/get_sun.png" class="participation"><br>
+							<span id="mnickname" mnickname="${mvo.nickname }" >${mvo.nickname }</span><br>
+							<span class="approved_at">${mvo.approved_at } 참여</span>
+						</div>
+					</c:forEach>
+					<c:forEach var="i" begin="0" end="${vo.party_num - vo.curr_party - 1}">
+						<div class="partymeminfo">
+							<img src="/resources/images/get_sun.png" class="non-participation">
+						</div>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 		</c:if>
 		<c:if test="${vo.curr_party == 0 }">
 			<c:forEach var="i" begin="0" end="${vo.party_num -1}">
@@ -119,6 +132,8 @@
 			</div>
 			<div class="btnarea">
 				<input type="hidden" name="pn" value="${vo.p_idx }">
+				<input type="hidden" name="party_num" value="${vo.party_num }">
+				<input type="hidden" name="curr_party" value="${vo.curr_party }">
 				
 				<input type="button" value="참여" id="participate">
 				<input type="button" value="목록" id="getpartylist">
@@ -143,6 +158,8 @@
 					</div>
 					<div class="btnarea">
 						<input type="hidden" name="pn" value="${vo.p_idx }">
+						<input type="hidden" name="party_num" value="${vo.party_num }">
+						<input type="hidden" name="curr_party" value="${vo.curr_party }">
 						
 						<input type="button" value="참여" id="participate">
 						<input type="button" value="목록" id="getpartylist">
