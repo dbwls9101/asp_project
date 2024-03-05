@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<sec:authorize access="isAuthenticated()">
+   <sec:authentication property="principal" var="principal"/>
+</sec:authorize>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>마이페이지</title>
-<link rel="stylesheet" href="/resources/css/page/mypage.css"> 
+<link rel="stylesheet" href="/resources/css/member/mypage.css"> 
 </head>
 <body>
 <jsp:include page="../layout/header.jsp"/>
@@ -16,19 +22,23 @@
 			<ul class="form-list">
 				<li>
 					<span class="subject">ㆍ 아이디</span>
-					<input type="text" name="id" id="id">
+					<span id="id" >${principal.member.id }</span> 
 				</li>
 				<li>
+					<span class="subject">ㆍ 닉네임</span>
+					<span id="nickname">${principal.member.nickname }</span> 
+				</li>				
+				<li>
 					<span class="subject">ㆍ 휴대폰 번호</span>
-					<input type="text" name="phone" value="" id="phone">
+					<span id="phone">${principal.member.phone }</span> 
 				</li>
 				<li>
 					<span class="subject">ㆍ 이메일</span>
-					<input type="text" class="email_input" name="email" id="email">
+					<span id="email">${principal.member.email }</span> 
 				</li>
 				<li>
 					<span class="subject">ㆍ 가입일</span>
-					<input type="text" class="joindate_input" name="joindate" id="joindate">
+					<span id="reg_date">${principal.member.reg_date }</span> 
 				</li>
 			</ul>
 		</div>
@@ -40,5 +50,5 @@
 </form>
 <jsp:include page="../layout/footer.jsp"/>
 </body>
-<script type="text/javascript" src="/resources/js/page/mypage.js"></script>
+<script type="text/javascript" src="/resources/js/member/mypage.js"></script>
 </html>

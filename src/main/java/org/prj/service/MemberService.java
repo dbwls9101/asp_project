@@ -24,4 +24,7 @@ public interface MemberService {
 	
 	//비밀번호 변경
 	public int updatePw(MemberVO member) throws Exception;
+	
+	//내 정보 수정
+	public int updateMypage(MemberVO member) throws Exception;
 }

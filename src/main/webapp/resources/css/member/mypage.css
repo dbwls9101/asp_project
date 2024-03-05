@@ -140,7 +140,7 @@
 	position: relative;
 	margin-top: 50px;
 	margin-bottom: 20px;
-	font-size: 22px;
+	font-size: 25px;
 	font-weight: 500;
 	color: #333333;
 }
@@ -166,7 +166,7 @@ ul {
 	position: relative;
 	min-height: 42px;
 	padding: 5px 0 2px 155px;
-	font-size: 16px;
+	font-size: 19px;
 	color: #333333;
 }
 
@@ -180,7 +180,7 @@ ul {
 	left: 0;
 	display: inline-block;
 	width: 160px;
-	padding: 10px 0;
+	padding: 0 0;
 }
 
 
