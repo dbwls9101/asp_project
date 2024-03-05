@@ -52,6 +52,7 @@
 				<li>
 					<span class="subject">ㆍ 이메일</span>
 					<input type="text" class="email_input" name="email" id="email" value = "${principal.member.email }" placeholder="이메일" >
+					<span class="lightgrey inline-break" id="emailText" style="display: none;">이메일 사용이 가능합니다.</span>				
 				</li>
 				<li>
 					<span class="subject">ㆍ 휴대폰 번호</span>
