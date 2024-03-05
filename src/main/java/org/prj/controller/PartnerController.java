@@ -174,24 +174,12 @@ public class PartnerController {
 					new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);		
 	}
 	
-	
 	//정보수정
 	@GetMapping("/partnerinfo")
 	public String movePartnerinfo() {
 		log.info("movePartnerinfo...");
 		return "/partner/partnerinfo";
 	}
-	
-	/*
-	 * @ResponseBody
-	 * 
-	 * @PostMapping(value = "/partnerinfo", produces =
-	 * MediaType.APPLICATION_JSON_UTF8_VALUE) public MemberVO
-	 * getPartnerinfo(@RequestBody int m_idx) { log.info("getPartnerinfo..." +
-	 * m_idx);
-	 * 
-	 * return memberservice.getPartnerinfo(m_idx); }
-	 */
 	
 	//참여정보
 	@GetMapping("/partyinfo")
