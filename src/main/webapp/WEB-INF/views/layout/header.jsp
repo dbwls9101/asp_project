@@ -8,10 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/resources/css/main.css">
-<!-- 로그인 됐을 경우에만 principal 호출 -->
-<sec:authorize access="isAuthenticated()">
 <script type="text/javascript" src="/resources/js/member/memberprincipal.js"></script>
-</sec:authorize>
 </head>
 <body>
 	<div class="wrap">
