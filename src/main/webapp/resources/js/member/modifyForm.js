@@ -31,13 +31,14 @@ function validate(f){
 		f.email.focus();
 		return;
 	}
+	alert("정보가 수정되었습니다!");
 		f.action = '/member/updateForm';
 		f.submit();		
 }
 
 
 // 비밀번호 정규식 검사
-let password = document.getElementById('newPassword');
+let password = document.getElementById('password');
 password.addEventListener('keyup', (e) => {
 	var ckpw1 = document.querySelector("#pw");
 	if(password.value == ""){
@@ -55,9 +56,9 @@ password.addEventListener('keyup', (e) => {
 });
 
 // 비밀번호 중복 검사
-document.getElementById('newPasswordCk').addEventListener('keyup', (e) => {
-	var password = document.getElementById("newPassword");
-	if(document.getElementById('newPasswordCk').value == ""){
+document.getElementById('passwordCk').addEventListener('keyup', (e) => {
+	var password = document.getElementById("password");
+	if(document.getElementById('passwordCk').value == ""){
 		document.querySelector(".pw_input_1").style.display = 'none';
 		document.querySelector(".pw_input_2").style.display = 'none';	
 	}else{
@@ -69,8 +70,8 @@ document.getElementById('newPasswordCk').addEventListener('keyup', (e) => {
 
 function checkpw() {
 	
-	var pw = document.getElementById("newPassword").value;
-	var ckpw = document.getElementById("newPasswordCk").value;
+	var pw = document.getElementById("password").value;
+	var ckpw = document.getElementById("passwordCk").value;
 	var ckpw1 = document.querySelector(".pw_input_1");
 	var ckpw2 = document.querySelector(".pw_input_2");
 	
@@ -82,4 +83,44 @@ function checkpw() {
 		ckpw2.style.display = 'inline-block';
 		ckpw1.style.display = 'none';
 	}
+}
+
+//이메일 정규식 및 중복 검사
+let email = document.getElementById('email')
+email.addEventListener('keyup', (e) => {
+	var emailck1 = document.querySelector("#emailText");
+	if(email.value == ""){
+		emailck1.style.display = 'none';
+	}else{
+		if( !regEmail.exec(email.value)  ){
+			emailck1.classList.remove("input_red", "input_blue");
+			emailck1.innerHTML = "'@' 포함하여 입력";
+			emailck1.style.display = 'inline-block';
+		}else{
+			emailck2(email.value);
+		}
+	}
+});
+
+function emailck2(email) {
+	let sendData = '?email=' + email;
+	
+	fetch('/member/memberEmailChk' + sendData)
+	.then( response => response.text() )
+    .then( data => {
+    	console.log(data);
+    	var emailck1 = document.querySelector("#emailText");
+    	emailck1.classList.remove("input_red", "input_blue");
+		if(data == 1){
+			emailck1.innerHTML = "이메일이 이미 존재합니다.";
+			emailck1.classList.add("input_red");
+		}else{
+			emailck1.innerHTML = "사용 가능한 이메일 입니다.";
+			emailck1.classList.add("input_blue");
+		}
+		emailck1.style.display = 'inline-block';
+
+   })
+   .catch( err => console.log(err) );
+	
 }
