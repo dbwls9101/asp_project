@@ -30,4 +30,7 @@ public interface MemberService {
 	
 	// 인증된 사용자 정보(name, phoen) 구하기
 	public HashMap<String, String> getAuthInfo(String impuid) throws IOException;
+
+	//내 정보 수정
+	public int updateMypage(MemberVO member) throws Exception;
 }

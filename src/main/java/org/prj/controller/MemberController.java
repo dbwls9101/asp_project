@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.prj.domain.MemberVO;
+import org.prj.security.domain.CustomUser;
 import org.prj.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -18,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -194,10 +196,7 @@ public class MemberController {
 			String setfrom = "wjddms49693@naver.com"; // 보내는 사람
 			String tomail = "wjddms49693@naver.com"; // 받는 사람
 			String title = "[모여라] 비밀번호변경 인증 이메일 입니다";
-//			String content = System.getProperty("line.separator")
-//					+ "<img src=\"http://localhost:8080/resources/images/prj_logo.png\" width=\"100px\">" + "안녕하세요 회원님"
-//					+ System.getProperty("line.separator") + "모여라 비밀번호찾기(변경) 인증번호는 " + num + " 입니다."
-//					+ System.getProperty("line.separator"); //
+
 			try {
 				MimeMessage message = mailSender.createMimeMessage();
 				MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "utf-8");
@@ -232,7 +231,7 @@ public class MemberController {
 
 	}
 
-	// 비밀번호 변경
+	// 비밀번호 변경 (비밀번호 찾기)
 
 	@Autowired
 	private PasswordEncoder newPwencoder;
@@ -245,6 +244,50 @@ public class MemberController {
 		memberservice.updatePw(vo1);
 
 		return "/member/login";
+	}
+	
+	
+	// 회원정보확인 페이지
+	@GetMapping("/mypage")
+	public String moveMypage() {
+		
+		log.info("moveMypage...");
+		return "/member/mypage";
+	}
+	
+	// 회원정보확인 로그인 페이지
+	@PostMapping("/mypageLogin")
+	public String moveMypageLogin() {
+		log.info("moveMypageLogin...");
+		return "/member/mypageLogin";
+	}
+	
+	// 회원 수정 페이지
+	@PostMapping("/modifyForm")
+	public String move(@RequestParam("password") String password, Authentication authentication, Model model) {
+		log.info("moveModifyForm...");
+		CustomUser customVo = (CustomUser)authentication.getPrincipal();
+		MemberVO memberVo = customVo.getMember();
+		
+		boolean isPasswordMatch = newPwencoder.matches(password, memberVo.getPassword());
+		
+		log.info("isPasswordMatch : [" + isPasswordMatch + "]");
+		if(isPasswordMatch) {
+			return "/member/modifyForm";
+		}else {
+			model.addAttribute("isPasswordMatch", isPasswordMatch);
+			return "/member/mypageLogin";
+		}
+	}
+		
+	 //내정보 수정
+	@RequestMapping(value = "/updateForm", method = RequestMethod.POST)
+	public String modifyForm(MemberVO member) throws Exception {
+
+		member.setPassword(pwencoder.encode(member.getPassword()));
+		memberservice.updateMypage(member);
+
+		return "/member/mypage";
 	}
 
 

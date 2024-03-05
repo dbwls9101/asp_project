@@ -152,4 +152,11 @@ public class MemberServiceImpl implements MemberService{
 		
 		return map;
 	}
+
+	//내정보 수정
+	@Override
+	public int updateMypage(MemberVO member) throws Exception {
+		
+		return membermapper.updateMypage(member);
+	}
 }

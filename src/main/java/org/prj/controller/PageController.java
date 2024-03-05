@@ -10,8 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -55,20 +53,6 @@ public class PageController {
 	@GetMapping(value = "/submenu", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public List<CategoryVO> showCategory() {
 		return cService.showCategory();
-	}
-	
-	// 회원정보확인 페이지
-	@GetMapping("/mypage")
-	public String moveMypage() {
-		log.info("moveMypage...");
-		return "/page/mypage";
-	}
-	
-	// 회원정보확인 로그인 페이지
-	@PostMapping("/mypageLogin")
-	public String moveMypageLogin() {
-		log.info("moveMypageLogin...");
-		return "/page/mypageLogin";
 	}
 
 }

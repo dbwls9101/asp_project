@@ -1,5 +1,5 @@
 function modify(f){
 
-	f.action = '/page/mypageLogin';
+	f.action = '/member/mypageLogin';
 	f.submit();	
 }

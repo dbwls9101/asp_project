@@ -1,9 +1,7 @@
 let regId = /^[A-Za-z0-9]{4,20}$/
 let regPw = /^[0-9a-zA-Z]{8,16}$/;
-let regName = /^[가-힣a-zA-Z]{2,10}$/;
 let regNick = /^[가-힣a-zA-Z0-9]{2,10}$/;
 let regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-let regPhone = /^\d{3}-\d{4}-\d{4}$/;
 
 function validate(f){
 		
@@ -47,12 +45,6 @@ function validate(f){
 		f.password.focus();
 		return;
 	}
-	if( !regName.exec(f.name.value)  ){
-		alert("이름 : 한글 또는 영문자로 2~10자까지 입력 가능");
-		f.name.value = '';
-		f.name.focus();
-		return;
-	}
 	if( !regEmail.exec(f.email.value)  ){
 		alert("이메일 : '@' 포함하여 입력");
 		f.email.value = '';
@@ -63,12 +55,6 @@ function validate(f){
 		alert("닉네임 : 한글 또는 영문자로 2~10자까지 입력 가능");
 		f.nickname.value = '';
 		f.nickname.focus();
-		return;
-	}
-	if( !regPhone.exec(f.phone.value)  ){
-		alert("휴대폰 번호 : 하이픈(-) 포함 입력해주세요");
-		f.phone.value = '';
-		f.phone.focus();
 		return;
 	}
 
@@ -245,20 +231,5 @@ function emailck2(email) {
    .catch( err => console.log(err) );
 	
 }
-
-//휴대폰 번호 정규식 및 중복 검사
-let phone = document.getElementById('phone')
-phone.addEventListener('keyup', (e) => {
-	var phoneck1 = document.querySelector("#phoneText");
-	if(phone.value == ""){
-		phoneck1.style.display = 'none';
-	}else{
-		if( !regPhone.exec(phone.value)  ){
-			phoneck1.classList.remove("input_red", "input_blue");
-			phoneck1.innerHTML = "하이픈(-) 포함하여 입력";
-			phoneck1.style.display = 'inline-block';
-		}
-	}
-});
 
 
