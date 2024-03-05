@@ -103,6 +103,6 @@
 	 	((trunc(end_date)-trunc(sysdate)) * price) as totalprice
 		from party_board p inner join category c 
 		on p.codeone=c.codeone and p.codetwo=c.codetwo
-        where p_idx = (select p_idx from payment where id=#{id})
+        where p_idx in (select p_idx from payment where id=#{id})
 	</select>
 </mapper>

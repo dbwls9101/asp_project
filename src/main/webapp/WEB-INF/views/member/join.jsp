@@ -38,7 +38,7 @@
 			<ul class="form-list">
 				<li>
 					<span class="subject">ㆍ 이름</span>
-					<input type="text" id="name" name="name" value="" placeholder="이름" size="10">
+					<input type="text" id="name" name="name" value="${authname }" placeholder="이름" size="10" readonly="readonly">
 				</li>
 				<li>
 					<span class="subject">ㆍ 닉네임</span>
@@ -52,7 +52,7 @@
 				</li>
 				<li>
 					<span class="subject">ㆍ 휴대폰 번호</span>
-					<input type="text" name="phone" id="phone" placeholder="휴대폰 번호" maxlength="20">
+					<input type="text" name="phone" id="phone" value="${authphone }" placeholder="휴대폰 번호" maxlength="20"  readonly="readonly">
 				</li>
 			</ul>
 		</div>

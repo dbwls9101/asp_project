@@ -2,21 +2,15 @@ package org.prj.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.prj.domain.CategoryVO;
-import org.prj.domain.MemberVO;
 import org.prj.service.CategoryService;
 import org.prj.service.FaqServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -58,7 +52,6 @@ public class PageController {
 	@ResponseBody
 	@GetMapping(value = "/submenu", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public List<CategoryVO> showCategory() {
-		log.info("getSecondCategory...");
 		return cService.showCategory();
 	}
 

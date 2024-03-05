@@ -1,5 +1,6 @@
 package org.prj.controller;
 
+import java.util.HashMap;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -45,9 +46,12 @@ public class MemberController {
 	}
 
 	// 회원가입 페이지 이동
-	@RequestMapping(value = "join", method = RequestMethod.GET)
-	public void join1GET() {
-
+	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	public void join1GET(@RequestParam("impuid") String impuid, Model model) throws Exception {
+		HashMap<String, String> map = memberservice.getAuthInfo(impuid);
+		
+		model.addAttribute("authname", map.get("name"));
+		model.addAttribute("authphone", map.get("phone"));
 	}
 
 	// 회원가입
