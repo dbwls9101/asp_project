@@ -4,7 +4,9 @@ document.querySelector("#makeparty").addEventListener('click', ()=>{
 })
 
 //list 가져오기
-getList(1);
+getPrincipal().then(() => {
+	getList(principal.member.m_idx);
+})
 function getList(m_idx){
 	msg = "";
 	
@@ -15,20 +17,17 @@ function getList(m_idx){
 	})
 	.then(response => response.json())
 	.then(json => {
-		console.log(json)
 		json.forEach(vo => {
-//			//오늘날짜
-//			let sArr = new Date().toISOString().slice(0, 10);
-//			let sArr2 = sArr.split('-');
-//			let sDate = new Date(sArr2[0], sArr2[1], sArr2[2]);
-//			//종료날짜
-//			let eArr = myTime(vo.end_date).split('-');
-//			let eDate = new Date(eArr[0], eArr[1], eArr[2]);
-//
-//			let diffDate = Math.abs((sDate - eDate) / (1000*60*60*24));
+			//남은기간
+			//시작날짜
+			let sDate = new Date();
+			//종료날짜
+			let eArr = myTime(vo.end_date).split('-');
+			let eDate = new Date(eArr);
+			let diffDate = Math.abs(Math.round((sDate - eDate) / (1000*60*60*24)));
 			
+			//상태값
 			let status = '';
-			
 			if (vo.pay_status == 'A') {
 				status = '결제대기';
 			}else if (vo.pay_status == 'B') {
@@ -44,8 +43,8 @@ function getList(m_idx){
 			msg += '<td>' + vo.title + '</td>';
 			msg += '<td>' + vo.name + '</td>';
 			msg += '<td>' + status + '</td>';
-			msg += '<td>' +  + '일</td>';
-			msg += '<td>' + vo.pay_amount + '원</td>';
+			msg += '<td>' + diffDate + '일</td>';
+			msg += '<td>' + vo.service_amount + '원</td>';
 			msg += '<td>' + vo.commission + '원</td>';
 			msg += '<td>' + vo.pay_amount + '원</td>';
 			msg += '</tr>';
@@ -62,9 +61,9 @@ function myTime(unixTimeStamp){
 	let date = myDate.getFullYear() + "-"
 	 	+ String(myDate.getMonth() + 1).padStart(2, "0") + "-" 
 		+ String(myDate.getDate()).padStart(2, "0") + ' ' 
-		+ String(myDate.getHours()) + ':' 
-		+ String(myDate.getMinutes()) + ':' 
-		+ String(myDate.getSeconds());
+		+ String(myDate.getHours()).padStart(2, "0") + ':' 
+		+ String(myDate.getMinutes()).padStart(2, "0") + ':' 
+		+ String(myDate.getSeconds()).padStart(2, "0");
 	
 	return date;
 }

@@ -11,6 +11,8 @@ import org.prj.domain.MemberVO;
 import org.prj.security.domain.CustomUser;
 import org.prj.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.Authentication;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,17 +44,19 @@ public class MemberController {
 
 	// 개인정보 동의 페이지 이동
 	@RequestMapping(value = "joinAgree", method = RequestMethod.GET)
-	public void joinAgreeGET() {
-
-	}
+	public void joinAgreeGET() {}
 
 	// 회원가입 페이지 이동
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
-	public void join1GET(@RequestParam("impuid") String impuid, Model model) throws Exception {
+	public void join1GET() throws Exception {}
+	
+	//본인인증
+	@PostMapping(value="/doCertify", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<HashMap<String, String>> doCertify(@RequestBody String impuid) throws Exception{
+		log.info("doCertify..." + impuid);
 		HashMap<String, String> map = memberservice.getAuthInfo(impuid);
 		
-		model.addAttribute("authname", map.get("name"));
-		model.addAttribute("authphone", map.get("phone"));
+		return ResponseEntity.ok().body(map);
 	}
 
 	// 회원가입
@@ -67,9 +72,7 @@ public class MemberController {
 
 	// 아이디 비밀번호 찾기 페이지 이동
 	@RequestMapping(value = "/find", method = RequestMethod.GET)
-	public void find_idGET() {
-
-	}
+	public void find_idGET() {}
 
 	// 아이디 중복 검사
 	@RequestMapping(value = "/memberIdChk", method = RequestMethod.GET)
@@ -232,7 +235,6 @@ public class MemberController {
 	}
 
 	// 비밀번호 변경 (비밀번호 찾기)
-
 	@Autowired
 	private PasswordEncoder newPwencoder;
 
@@ -287,8 +289,22 @@ public class MemberController {
 		member.setPassword(pwencoder.encode(member.getPassword()));
 		memberservice.updateMypage(member);
 
-		return "/member/mypage";
+		return "redirect:/member/logout";
 	}
 
-
+	// 파트너 신청
+	@RequestMapping(value = "/partnerApp", method = RequestMethod.POST)
+	public String partnerApp(MemberVO vo) {
+		log.info("partnerApp..." + vo);
+		memberservice.partnerApp(vo);
+		return "redirect:/member/logout";
+	}
+	
+	// 파트너 정보수정
+	@RequestMapping(value = "/partnerModify", method = RequestMethod.POST)
+	public String partnerModify(MemberVO vo) {
+		log.info("partnerModify..." + vo);
+		memberservice.partnerModify(vo);
+		return "redirect:/member/logout";
+	}
 }

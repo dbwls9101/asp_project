@@ -105,4 +105,19 @@
 			phone =#{phone} 
 		where id = #{id} and status = 'N'
 	</update>
+	
+	<!--  파트너 신청  -->
+	<update id="partnerApp" parameterType="org.prj.domain.MemberVO"> 
+		update member set "LEVEL" = 'B', auth = 'ROLE_PARTNER', bank = #{bank}, bank_number = #{bank_number} where name = #{name} and phone = #{phone} 
+	</update>
+	
+	<!--  파트너 정보수정  -->
+	<update id="partnerModify" parameterType="org.prj.domain.MemberVO"> 
+		update member set bank = #{bank}, bank_number = #{bank_number} where name = #{name} and phone = #{phone} 
+	</update>
+	
+	<!--  파트너 정보조회  -->
+	<select id="getPartnerinfo" parameterType="int" resultType="org.prj.domain.MemberVO"> 
+		select * from member where m_idx = #{m_idx} 
+	</select>
 </mapper>	

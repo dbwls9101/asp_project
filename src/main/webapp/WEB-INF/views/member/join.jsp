@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <link rel="stylesheet" href="/resources/css/member/join.css"> 
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 </head>
 <body>
 <jsp:include page="../layout/header.jsp"/>
@@ -38,8 +40,8 @@
 			<ul class="form-list">
 				<li>
 					<span class="subject">ㆍ 이름</span>
-					<input type="text" id="name" name="name" value="${authname }" placeholder="이름" size="10" readonly="readonly">
-					<button type="button" id="win_hp_cert" class="button round button-purple phone">휴대폰 본인확인</button>	
+					<input type="text" id="name" name="name" value="" placeholder="이름" size="10" readonly="readonly">
+					<button type="button" id="certification" class="button round button-purple phone">휴대폰 본인확인</button>	
 				</li>
 				<li>
 					<span class="subject">ㆍ 닉네임</span>
@@ -53,7 +55,7 @@
 				</li>
 				<li>
 					<span class="subject">ㆍ 휴대폰 번호</span>
-					<input type="text" name="phone" id="phone" value="${authphone }" placeholder="휴대폰 번호" maxlength="20"  readonly="readonly">
+					<input type="text" name="phone" id="phone" value="" placeholder="휴대폰 번호" maxlength="20"  readonly="readonly">
 				</li>
 			</ul>
 		</div>

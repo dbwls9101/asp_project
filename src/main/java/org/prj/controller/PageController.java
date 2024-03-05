@@ -54,5 +54,12 @@ public class PageController {
 	public List<CategoryVO> showCategory() {
 		return cService.showCategory();
 	}
+	
+	// 파트너 신청 페이지
+	@GetMapping("/partner")
+	public String movePartnerapp() {
+		log.info("movePartner...");
+		return "/page/partner";
+	}
 
 }

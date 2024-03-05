@@ -33,4 +33,13 @@ public interface MemberService {
 
 	//내 정보 수정
 	public int updateMypage(MemberVO member) throws Exception;
+	
+	//파트너 신청
+	public int partnerApp(MemberVO member);
+	
+	//파트너 정보수정
+	public int partnerModify(MemberVO member);
+	
+	//파트너 정보조회
+	public MemberVO getPartnerinfo(int m_idx);
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "sec" %>
 <!DOCTYPE html>
 <html>
@@ -37,13 +38,23 @@
 							<div class="header-profile">
 								<div class="block">
 									<div class="name">
-										${principal.member.name }
+										${principal.member.nickname }
 										<a href="/member/logout" class="header-logout">
 											<img alt="close" src="/resources/images/close-option.png">
 										</a>
 									</div>
-									<div class="grade">일반회원</div>
-									<div class="party-btn"><a href="#">파티장신청</a></div>
+									<c:if test="${principal.member.level eq 'C'}">
+										<div class="grade">일반회원</div>
+										<div class="party-btn"><a href="/page/partner">파티장신청</a></div>
+									</c:if>
+									<c:if test="${principal.member.level eq 'B'}">
+										<div class="grade">파트너</div>
+										<div class="party-btn"><a href="/partner/manage">파티관리</a></div>
+									</c:if>
+									<c:if test="${principal.member.level eq 'A'}">
+										<div class="grade">관리자</div>
+										<div class="party-btn"><a href="/admin/">관리자</a></div>
+									</c:if>
 								</div>
 								<div class="block">
 									<ul class="profile-menu">
