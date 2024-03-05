@@ -21,7 +21,7 @@
 			<ul class="form-list">
 			<li>
 				<span class="subject">ㆍ 아이디</span>
-				<input type="text" name="id" id="id" placeholder="아이디" value = "${principal.member.id }" maxlength="20" readonly>
+				<input type="text" class="id" name="id" id="id" placeholder="아이디" value = "${principal.member.id }" maxlength="20" readonly>
 			</li>
 			<li>
 				<span class="subject">ㆍ 비밀번호</span>
@@ -42,7 +42,7 @@
 			<ul class="form-list">
 				<li>
 					<span class="subject">ㆍ 이름</span>
-					<input type="text" id="name" name="name" value = "${principal.member.name }" placeholder="이름" size="10" readonly>
+					<input type="text" class="name" id="name" name="name" value = "${principal.member.name }" placeholder="이름" size="10" readonly>
 					<button type="button" id="win_hp_cert" class="button round button-purple phone">휴대폰 본인확인</button>	
 				</li>
 				<li>
@@ -55,8 +55,9 @@
 				</li>
 				<li>
 					<span class="subject">ㆍ 휴대폰 번호</span>
-					<input type="text" name="phone" id="phone" value = "${principal.member.phone }" placeholder="휴대폰 번호" maxlength="20">
+					<input type="text" class="phone_input" name="phone" id="phone" value = "${principal.member.phone }" placeholder="휴대폰 번호" maxlength="20">
 				</li>
+				
 			</ul>
 		</div>
 		<div class="button-align center">

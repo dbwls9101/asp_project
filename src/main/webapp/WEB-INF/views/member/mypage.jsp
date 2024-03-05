@@ -44,7 +44,7 @@
 		</div>
 		<div class="button-align center">
 			<button type="submit" id="btn_submit" class="button button-point" accesskey="s" onclick="modify(this.form)">정보수정</button>
-			<a href="/" class="button">탈퇴</a>
+			<button type="submit" id="btn_submit" class="button" accesskey="s" onclick="deletes(this.form)">탈퇴</button>
 		</div>
 	</div>
 </form>

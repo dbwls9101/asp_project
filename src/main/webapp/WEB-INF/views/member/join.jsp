@@ -39,6 +39,7 @@
 				<li>
 					<span class="subject">ㆍ 이름</span>
 					<input type="text" id="name" name="name" value="${authname }" placeholder="이름" size="10" readonly="readonly">
+					<button type="button" id="win_hp_cert" class="button round button-purple phone">휴대폰 본인확인</button>	
 				</li>
 				<li>
 					<span class="subject">ㆍ 닉네임</span>
