@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.prj.domain.MemberVO;
+import org.prj.security.CustomUserDetailService;
 import org.prj.security.domain.CustomUser;
 import org.prj.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,6 +46,8 @@ public class MemberController {
 	private MemberService memberservice;
 	@Autowired
 	private PasswordEncoder pwencoder;
+	@Autowired
+    private CustomUserDetailService customUserDetailService;
 
 	// 개인정보 동의 페이지 이동
 	@RequestMapping(value = "joinAgree", method = RequestMethod.GET)
@@ -157,6 +164,14 @@ public class MemberController {
 	@ResponseBody
 	@GetMapping("/api/currentUser")
 	public Authentication getCurrentUser() {
+		//현재 사용자 정보
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        // 사용자 정보 업데이트 후 새로운 UserDetails 객체를 로드
+        UserDetails updatedUserDetails = customUserDetailService.loadUserByUsername(username);
+        // 현재 사용자의 인증 정보를 업데이트된 UserDetails 객체로 교체
+        Authentication newAuthentication = new UsernamePasswordAuthenticationToken(updatedUserDetails, authentication.getCredentials(), updatedUserDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(newAuthentication);
 		return SecurityContextHolder.getContext().getAuthentication();
 	}
 
@@ -288,7 +303,7 @@ public class MemberController {
 
 		member.setPassword(pwencoder.encode(member.getPassword()));
 		memberservice.updateMypage(member);
-
+		
 		return "redirect:/member/logout";
 	}
 
@@ -297,7 +312,7 @@ public class MemberController {
 	public String partnerApp(MemberVO vo) {
 		log.info("partnerApp..." + vo);
 		memberservice.partnerApp(vo);
-		return "redirect:/member/logout";
+		return "/partner/manage";
 	}
 	
 	// 파트너 정보수정
@@ -305,6 +320,7 @@ public class MemberController {
 	public String partnerModify(MemberVO vo) {
 		log.info("partnerModify..." + vo);
 		memberservice.partnerModify(vo);
-		return "redirect:/member/logout";
+		
+		return "/partner/partnerinfo";
 	}
 }

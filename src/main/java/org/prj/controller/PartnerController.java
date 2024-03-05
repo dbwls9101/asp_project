@@ -182,13 +182,16 @@ public class PartnerController {
 		return "/partner/partnerinfo";
 	}
 	
-	@ResponseBody
-	@PostMapping(value = "/partnerinfo", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public MemberVO getPartnerinfo(@RequestBody int m_idx) {
-		log.info("getPartnerinfo..." + m_idx);
-		
-		return memberservice.getPartnerinfo(m_idx);
-	}
+	/*
+	 * @ResponseBody
+	 * 
+	 * @PostMapping(value = "/partnerinfo", produces =
+	 * MediaType.APPLICATION_JSON_UTF8_VALUE) public MemberVO
+	 * getPartnerinfo(@RequestBody int m_idx) { log.info("getPartnerinfo..." +
+	 * m_idx);
+	 * 
+	 * return memberservice.getPartnerinfo(m_idx); }
+	 */
 	
 	//참여정보
 	@GetMapping("/partyinfo")
