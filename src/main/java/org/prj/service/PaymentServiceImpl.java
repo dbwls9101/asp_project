@@ -173,5 +173,10 @@ public class PaymentServiceImpl implements PaymentService {
 		log.info("cancelStatus..." + order_no);
 		return mapper.cancelStatus(order_no);
 	}
+	
+	@Override
+	public List<PaymentVO> getPayMemberList(int m_idx) {
+	return mapper.getPayMemberList(m_idx);
+	}
 
 }

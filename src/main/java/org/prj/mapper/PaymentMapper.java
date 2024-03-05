@@ -16,4 +16,7 @@ public interface PaymentMapper {
 	
 	// 결제취소 상태변경
 	public int cancelStatus(String order_no);
+	
+	// 참여정보
+	public List<PaymentVO> getPayMemberList(int m_idx);
 }

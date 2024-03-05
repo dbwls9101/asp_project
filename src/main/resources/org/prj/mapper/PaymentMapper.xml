@@ -25,4 +25,13 @@
 	<update id="cancelStatus">
 		update payment set pay_status='D' where order_no=#{order_no}
 	</update>
+	<!--  참여정보  -->
+	<select id="getPayMemberList" parameterType="int" resultType="org.prj.domain.PaymentVO"> 
+		select pay.order_no, pay.p_idx, pay.m_idx, pay.title, pay.sub_title, pay.id, pay.name, pay.phone, pay.service_amount, pay.pay_amount, pay.commission, pay.pay_status, pay.approved_at, pay.end_date 
+			from payment pay inner join 
+			(select p.p_idx, p.m_idx, p.id from party_board p inner join member m on p.m_idx=m.m_idx) pm 
+			on pay.p_idx = pm.p_idx 
+			where pm.m_idx=#{m_idx} 
+			order by approved_at desc 
+	</select>
 </mapper>

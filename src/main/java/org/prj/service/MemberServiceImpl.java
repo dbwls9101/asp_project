@@ -159,4 +159,22 @@ public class MemberServiceImpl implements MemberService{
 		
 		return membermapper.updateMypage(member);
 	}
+	
+	//파트너 신청
+	@Override
+	public int partnerApp(MemberVO member) {
+		return membermapper.partnerApp(member);
+	}
+	
+	//파트너 정보수정
+	@Override
+	public int partnerModify(MemberVO member) {
+		return membermapper.partnerModify(member);
+	}
+	
+	//파트너 정보조회
+	@Override
+	public MemberVO getPartnerinfo(int m_idx) {
+		return membermapper.getPartnerinfo(m_idx);
+	}
 }

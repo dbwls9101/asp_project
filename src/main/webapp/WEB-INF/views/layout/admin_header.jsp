@@ -16,7 +16,7 @@
 	<div id="partner-header">
 		<a href="/"><img alt="메인로고" src="/resources/images/prj_logo.png"></a>
 		<ul id="partner-nav">
-			<li><a href="#">${principal.member.name }</a></li>
+			<li><a href="/member/mypage">${principal.member.name }</a></li>
 			<li><a href="/">메인</a></li>
 			<li><a href="/member/logout">로그아웃</a></li>
 		</ul>
@@ -28,7 +28,7 @@
 		  <li class="list-group-item"><a href="/partner/partyinfo">참여정보</a></li>
 		  <li class="list-group-item"><a href="#">취소내역</a></li>
 		  <li class="list-group-item"><a href="/partner/withdraw">출금관리</a></li>
-		  <li class="list-group-item"><a href="#">정보수정</a></li>
+		  <li class="list-group-item"><a href="/partner/partnerinfo">정보수정</a></li>
 		</ul>
 	</div>
 	
