@@ -43,7 +43,11 @@ function getList(m_idx){
 			msg += '<td>' + vo.title + '</td>';
 			msg += '<td>' + vo.name + '</td>';
 			msg += '<td>' + status + '</td>';
-			msg += '<td>' + diffDate + '일</td>';
+			if (diffDate < 0) {
+				msg += '<td>마감</td>';
+			}else {
+				msg += '<td>' + diffDate + '일</td>';
+			}
 			msg += '<td>' + vo.service_amount + '원</td>';
 			msg += '<td>' + vo.commission + '원</td>';
 			msg += '<td>' + vo.pay_amount + '원</td>';

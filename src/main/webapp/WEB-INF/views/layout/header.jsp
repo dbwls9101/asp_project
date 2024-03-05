@@ -53,7 +53,7 @@
 									</c:if>
 									<c:if test="${principal.member.level eq 'A'}">
 										<div class="grade">관리자</div>
-										<div class="party-btn"><a href="/admin/">관리자</a></div>
+										<div class="party-btn"><a href="/admin/home">관리자</a></div>
 									</c:if>
 								</div>
 								<div class="block">
