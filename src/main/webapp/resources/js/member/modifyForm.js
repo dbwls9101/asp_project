@@ -31,6 +31,7 @@ function validate(f){
 		f.email.focus();
 		return;
 	}
+	alert("정보가 수정되었습니다!");
 		f.action = '/member/updateForm';
 		f.submit();		
 }
