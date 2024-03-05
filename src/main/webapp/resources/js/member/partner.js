@@ -16,7 +16,7 @@ function appPartner(f){
 		return false;
 	}
 	
-	alert('신청이 완료되었습니다. 다시 로그인 해주시기 바랍니다.');
+	alert('신청이 완료되었습니다.\n파트너 페이지로 이동하겠습니다.');
 	
 	f.action = '/member/partnerApp';
 	f.submit();	
@@ -39,8 +39,8 @@ function modifyPartner(f){
 		alert("정보제공에 동의하셔야 수정이 가능합니다.");
 		return;
 	}
+	alert('수정이 완료되었습니다.');
 
-	alert('정보 수정이 완료되었습니다. 다시 로그인 해주시기 바랍니다.');
 	f.action = '/member/partnerModify';
 	f.submit();	
 }

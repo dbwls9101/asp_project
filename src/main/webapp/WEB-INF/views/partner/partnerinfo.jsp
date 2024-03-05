@@ -55,7 +55,7 @@
 										<option value="케이뱅크">케이뱅크</option>		
 										<option value="토스뱅크">토스뱅크</option>				
 								</select>
-								<input type="text" name="bank_number" id="bank_number" style="width: 100%; max-width: 200px;" placeholder="계좌번호를 입력해 주세요.">
+								<input type="text" name="bank_number" id="bank_number" style="width: 100%; max-width: 200px;" value="" placeholder="계좌번호를 입력해 주세요.">
 							</li>
 						</ul>
 						<div class="caution">

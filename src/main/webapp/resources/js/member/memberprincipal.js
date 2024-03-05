@@ -7,7 +7,6 @@ async function getPrincipal() {
         });
         const userPrincipal = await response.json();
         principal = userPrincipal.principal;
-        console.log(principal);
     } catch (e) {
         console.log(e);
     }
