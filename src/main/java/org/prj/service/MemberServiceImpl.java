@@ -146,6 +146,10 @@ public class MemberServiceImpl implements MemberService{
 				//전화번호
 				String phone = jsonObj.getAsJsonObject("response").get("phone").getAsString();
 				map.put("phone", phone);
+				
+				//생일
+				String birth = jsonObj.getAsJsonObject("response").get("birthday").getAsString();
+				map.put("birth", birth);
 			}
 			br.close();
 		}

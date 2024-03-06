@@ -11,4 +11,7 @@ public class Criteria {
 	private int pageNum;
 	private int amount;
 	
+	//카테고리
+	private int codeone;
+	private int codetwo;
 }

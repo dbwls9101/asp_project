@@ -2,6 +2,7 @@ package org.prj.controller;
 
 import java.util.List;
 
+import org.prj.domain.Criteria;
 import org.prj.domain.MemberVO;
 import org.prj.domain.PartyBoardVO;
 import org.prj.service.PartyBoardService;
@@ -33,8 +34,6 @@ public class ShopController {
 	@GetMapping("/list/{c1}")
 	public String getList(Model model, @PathVariable("c1") int codeone) {
 		log.info("getList..." + codeone);
-
-		model.addAttribute("list", pService.getListbycategory(codeone));
 		
 		if(codeone == 10) {
 			model.addAttribute("category", "영상");
@@ -45,6 +44,51 @@ public class ShopController {
 		}else {
 			model.addAttribute("category", "기타");
 		}
+		model.addAttribute("codeone", codeone);
+		
+		return "/shop/list";
+	}
+	
+	//더보기
+	@ResponseBody
+	@GetMapping(value = "/items", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<PartyBoardVO> getItems(@RequestParam("c1") int codeone, @RequestParam("c2") int codetwo, @RequestParam("page") int page) {
+		Criteria cri = new Criteria();
+		List<PartyBoardVO> list = null;
+		
+		cri.setCodeone(codeone);
+		cri.setPageNum(page);
+		
+		if(codetwo == 0) {
+			list = pService.getListbycategory(cri);
+		}else {
+			cri.setCodetwo(codetwo);
+			list = pService.getListbycategory2(cri);
+		}
+		return list;
+	}
+	
+	//2차 카테고리별 리스트
+	@GetMapping("/list/{c1}/{c2}")
+	public String getCategoryList(Model model, @PathVariable("c1") int codeone, @PathVariable("c2") int codetwo) {
+		PartyBoardVO vo = new PartyBoardVO();
+		vo.setCodeone(codeone);
+		vo.setCodetwo(codetwo);
+		
+		log.info("getCategoryList..." + codeone + codetwo);
+		
+		if(codeone == 10) {
+			model.addAttribute("category", "영상");
+		}else if(codeone == 20) {
+			model.addAttribute("category", "도서/음악");
+		}else if(codeone == 30) {
+			model.addAttribute("category", "게임");
+		}else {
+			model.addAttribute("category", "기타");
+		}
+		model.addAttribute("codeone", codeone);
+		model.addAttribute("codetwo", codetwo);
+		
 		return "/shop/list";
 	}
 	
@@ -56,28 +100,6 @@ public class ShopController {
 		
 		//결제한 파티원 정보
 		model.addAttribute("paymembers", getPayMemberList(p_idx));
-	}
-	
-	//2차 카테고리별 리스트
-	@GetMapping("/list/{c1}/{c2}")
-	public String getCategoryList(Model model, @PathVariable("c1") int codeone, @PathVariable("c2") int codetwo) {
-		PartyBoardVO vo = new PartyBoardVO();
-		vo.setCodeone(codeone);
-		vo.setCodetwo(codetwo);
-		
-		log.info("getCategoryList..." + codeone + codetwo);
-		model.addAttribute("list", pService.getCategoryList(vo));
-		
-		if(codeone == 10) {
-			model.addAttribute("category", "영상");
-		}else if(codeone == 20) {
-			model.addAttribute("category", "도서/음악");
-		}else if(codeone == 30) {
-			model.addAttribute("category", "게임");
-		}else {
-			model.addAttribute("category", "기타");
-		}
-		return "/shop/list";
 	}
 	
 	//파티 결제한 파티원 닉네임 리스트
