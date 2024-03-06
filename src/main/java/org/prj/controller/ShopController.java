@@ -6,7 +6,6 @@ import org.prj.domain.Criteria;
 import org.prj.domain.MemberVO;
 import org.prj.domain.PartyBoardVO;
 import org.prj.service.PartyBoardService;
-import org.prj.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -94,12 +93,14 @@ public class ShopController {
 	
 	//게시글 상세정보
 	@GetMapping("/get")
-	public void get(Model model, @RequestParam("pn") int p_idx) {
+	public String get(Model model, @RequestParam("pn") int p_idx) {
 		log.info("get..." + p_idx);
 		model.addAttribute("vo", pService.getDetailParty(p_idx));
 		
 		//결제한 파티원 정보
 		model.addAttribute("paymembers", getPayMemberList(p_idx));
+		
+		return "/shop/get";
 	}
 	
 	//파티 결제한 파티원 닉네임 리스트
