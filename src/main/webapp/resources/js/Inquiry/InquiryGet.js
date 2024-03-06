@@ -152,10 +152,13 @@ function myTime(unixTimeStamp) {
 //------------------------ 하단부 비동기식 방식으로 댓글 처리 -------------------------------------
 const inputStatus = document.querySelector('.status-st');
 const inputReply = document.querySelector('.text11');
-const inputReplyer = document.querySelector('input[name="writer"]');
+const inputReplyer = document.querySelector('input[name="id"]');
 const inputReplydate = document.querySelector('input[name="reg_date"]');
 const addReplyBtn = document.querySelector('#addReplyBtn');				
 
+function clearChat() {				// 댓글 내용 초기화
+	inputReply.value = '';
+}
 
 // 댓글 등록
 addReplyBtn.addEventListener('click', () => {
@@ -175,6 +178,7 @@ addReplyBtn.addEventListener('click', () => {
 		function(result) {
 			//console.log("result : " + result);
 			showList();
+			clearChat();
 		}
 	);
 });

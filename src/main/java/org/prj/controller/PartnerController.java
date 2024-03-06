@@ -2,6 +2,7 @@ package org.prj.controller;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.prj.controller.PartnerController;
 import org.prj.domain.CategoryVO;
 import org.prj.domain.MemberVO;
@@ -19,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -138,8 +141,19 @@ public class PartnerController {
 	
 	//출금관리
 	@GetMapping("/withdraw")
-	public void movewithdraw() {
+	public void movewithdraw(Model model) {
 		log.info("movewithdraw...");
+
+		try {
+			// 현재 사용자 아이디 가져오기
+		    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		    String username = authentication.getName();
+		    log.info("participating..." + username);
+			model.addAttribute("sumamount", wService.getp_idx(username));
+			model.addAttribute("withamount", wService.withamount(username));
+		} catch(Exception e) {
+			log.error("An error occurred in movewithdraw", e);
+		} 
 	}
 	
 	//출금관리 리스트
@@ -147,8 +161,7 @@ public class PartnerController {
 	@GetMapping(value="/withList/{m_idx}", 
 			produces = {
 			MediaType.APPLICATION_JSON_UTF8_VALUE,
-			MediaType.APPLICATION_XML_VALUE		
-			})
+			MediaType.APPLICATION_XML_VALUE})
 	public ResponseEntity<List<WithdrawVO>> withList(
 			@PathVariable("m_idx") int m_idx
 			) {
@@ -162,16 +175,14 @@ public class PartnerController {
 	@PostMapping(value = "/withNew",
 			consumes = "application/json", 
 			produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<String> makeWithdraw(@RequestBody WithdrawVO vo) {
+	public String makeWithdraw(@RequestBody WithdrawVO vo, Model model) {
 		log.info("makeWithdraw..." + vo);
 		
 		int insertCount = wService.register(vo);
 		
 		log.info("insertCount : " + insertCount);
 		
-		return insertCount == 1 ?
-				new ResponseEntity<String>("success", HttpStatus.OK) :
-					new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);		
+		return "redirect:/partner/withdraw";		
 	}
 	
 	//정보수정

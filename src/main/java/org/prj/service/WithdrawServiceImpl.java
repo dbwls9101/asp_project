@@ -2,6 +2,7 @@ package org.prj.service;
 
 import java.util.List;
 
+import org.prj.domain.PaymentVO;
 import org.prj.domain.WithdrawVO;
 import org.prj.mapper.WithdrawMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,30 @@ public class WithdrawServiceImpl implements WithdrawService {
 		
 		return mapper.insert(vo);
 	}
+
+	// p_idx를 가지고와서 판매총액을 만드는 과정	
+	@Override
+	public int getp_idx(String username) {
+		log.info("getp_idx..." + username);
+		return mapper.getp_idx(username);
+	}
+
+	// 지급 요청 금액
+	@Override
+	public int withamount(String username) {
+		log.info("withamount..." + username);
+		return mapper.withamount(username);
+	}
+	
+	
+
+
+
+
+
+
+
+
 	
 	// 조회 기능 차후 진행 예정
 /*	@Override
@@ -39,4 +64,7 @@ public class WithdrawServiceImpl implements WithdrawService {
 		return mapper.read(w_idx);
 	} */
 
+	
+	
+	
 }
