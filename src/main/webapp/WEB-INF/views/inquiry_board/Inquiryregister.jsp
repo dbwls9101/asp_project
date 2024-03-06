@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "sec" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,8 @@
 </head>
 <body>
 	<jsp:include page="../layout/header.jsp"/>
+	
+	<sec:authentication property="principal" var="principal"/>
 	
 	<div class="page-header">
 		<h1>1:1 문의하기</h1>
@@ -53,7 +56,7 @@
 					</tr>
 					<tr>
 						<th>이  름</th>
-						<td><input type="text" name="writer"> </td>
+						<td><input type="text" name="writer" value=${principal.member.id } readonly> </td>
 					</tr>
 					<tr>
 						<th>연락처</th>

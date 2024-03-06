@@ -15,9 +15,22 @@
 	<!-- 출금신청  -->
 	<insert id="insert" parameterType="org.prj.domain.WithdrawVO">
 			insert into withdraw( m_idx, w_idx, id, name, phone, with_method, 
-                  				  with_amount, with_status, commission, reg_date)
+                  				  with_amount, with_status, commission, reg_date, note)
 			values(#{m_idx }, SEQ_WITHDRAW.nextval, #{id }, #{name }, #{phone }, #{with_method },
-       				 #{with_amount }, #{with_status }, 1000, sysdate)
+       				 #{with_amount }, #{with_status }, 1000, sysdate, #{note })
 	</insert>
+	
+	<!-- p_idx를 가지고와 판매 총액을 확인 -->
+	<select id="getp_idx" parameterType="String" resultType="int">
+		select sum(service_amount) from payment where p_idx in (
+			select p_idx from party_board where id = #{username } )
+	</select>
+	
+	<!-- 지금 요청 금액 -->
+	<select id="withamount" parameterType="String" resultType="int">
+		select sum(with_amount) from withdraw where m_idx = 
+		(select m_idx from member where id=#{username})
+		and with_status  = 'A'
+	</select>
 	
 </mapper>

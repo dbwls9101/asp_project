@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "sec" %>        
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +11,8 @@
 <body>
 	<jsp:include page="../layout/header.jsp"/>
 
+	<sec:authentication property="principal" var="principal"/>
+	
 	<div class="page-header">
 		<h1>1:1 문의하기</h1>
 	</div>
@@ -26,7 +29,23 @@
 					</tr>
 					<tr>
 						<th>문의유형</th>
-						<td><input type="text" name="inquiry_type" value="${vo.inquiry_type }" readonly></td>
+						<td>
+						<c:if test="${vo.inquiry_type eq 'A'}">
+						<a>이용문의</a>
+						</c:if>
+						<c:if test="${vo.inquiry_type eq 'B'}">
+						<a>파티문의</a>
+						</c:if>
+						<c:if test="${vo.inquiry_type eq 'C'}">
+						<a>회원문의</a>
+						</c:if>
+						<c:if test="${vo.inquiry_type eq 'D'}">
+						<a>입출금문의</a>
+						</c:if>
+						<c:if test="${vo.inquiry_type eq 'E'}">
+						<a>기타</a>
+						</c:if>
+						</td>
 					</tr>
 					<tr>
 						<th>제목</th>
@@ -34,7 +53,7 @@
 					</tr>
 					<tr>
 						<th>작성자</th>
-						<td><input type="text" name="writer" value="${vo.writer }" readonly></td>
+						<td><input type="text" name="writer" value="${vo.writer}" readonly></td>
 					</tr>
 					<tr>
 						<th>내용</th>
@@ -65,7 +84,11 @@
 		<!-- 버튼 부분 (처리 관련 내용은 차 후에)-->
 		
 		<div class="panel-body-btns">
-			<button type="button" class="btn btn-sec" id="modifyBtn">수정</button>		
+		<sec:authorize access="isAuthenticated()">	<!-- 로그인이 되었냐? -->
+			<c:if test="${principal.member.id eq vo.writer}">
+				<button type="button" class="btn btn-sec" id="modifyBtn">수정</button>
+			</c:if>
+		</sec:authorize>		
 			<button type="button" class="btn btn-fir" id="indexBtn">목록으로 이동</button>	
 		</div>
 	</div>
@@ -82,7 +105,8 @@
 				<tbody>
 					<tr>
 						<th class="th-st1">댓글 작성자</th>
-						<td>${vo.writer }<input type="hidden" value="${vo.writer }" name="writer"></td>
+
+						<td>${principal.member.id}<input type="hidden" name="id" value="${principal.member.id}"></td>
 						<th>처리상태</th>
 						<td class="select1">
 								<select name="status" class="status-st">

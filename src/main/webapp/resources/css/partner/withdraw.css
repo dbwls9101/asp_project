@@ -10,23 +10,34 @@
     margin-bottom: 20px;
 }
 
-#withdraw-search select{
-	width: 170px;
-	display: inline;
-	font-size: 13px;
+#withdraw-search table{
+	text-align: center;
+	height: 462px;
+	width: 100%;
 }
 
-#withdraw-search input[type="text"]{
-	width: 350px;
-	font-size: 13px;
-	display: inline;
+#withdraw-search table th{
+	padding: 18px 0;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333333;
+    background-color: #f9f9f9;
+}
+
+#withdraw-search table td{
+	padding: 15px 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    line-height: 16px;
+    border-top: 1px solid #ececec;
 }
 
 #withdraw-search input[type="button"]{
-	font-size: 15px;
+	font-size: 25px;
 	border-radius: 10px;
-	width: 120px;
-	height: 32px;
+	width: 200px;
+	height: 60px;
 	background-color: #43a051;
     color: white;
     border: 0;
@@ -38,7 +49,7 @@
 
 #withdraw-search{
 	border-radius: 20px;
-	height: 80px;
+	height: 530px;
 	border: 1px solid #43a051;
 	text-align: center;
 	padding-top: 22px;
@@ -75,4 +86,38 @@
 
 #partymodify, #partydelete{
 	font-size: 13px;
+}
+
+#left1{
+	text-align: left;
+}
+
+#withdrawform{
+	width: 650px;
+    padding: 10px;
+    display: block;
+}
+
+#containerA{
+	width: 1165px;
+    height: 480px;
+}
+
+#withdrawCheckA{
+	float: left;
+	width: 550px;
+;
+}
+
+#withdrawCheckB{
+	width: 570px;
+    float: right;
+}
+
+#center1{
+	text-align: center;
+}
+
+#center2{
+	width: 260px;
 }

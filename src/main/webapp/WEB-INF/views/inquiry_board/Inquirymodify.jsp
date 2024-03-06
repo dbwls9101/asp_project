@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "sec" %>       
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +27,23 @@
 					</tr>
 					<tr>
 						<th>문의유형</th>
-						<td><input type="text" name="inquiry_type" value="${vo.inquiry_type }" readonly></td>
+						<td>
+						<c:if test="${vo.inquiry_type eq 'A'}">
+						<a>이용문의</a>
+						</c:if>
+						<c:if test="${vo.inquiry_type eq 'B'}">
+						<a>파티문의</a>
+						</c:if>
+						<c:if test="${vo.inquiry_type eq 'C'}">
+						<a>회원문의</a>
+						</c:if>
+						<c:if test="${vo.inquiry_type eq 'D'}">
+						<a>입출금문의</a>
+						</c:if>
+						<c:if test="${vo.inquiry_type eq 'E'}">
+						<a>기타</a>
+						</c:if>
+						</td>
 					</tr>
 					<tr>
 						<th>제목</th>
