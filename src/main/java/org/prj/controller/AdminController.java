@@ -20,6 +20,20 @@ public class AdminController {
 	@Autowired
 	private FaqService fService;
 	
+	//관리자홈
+	@GetMapping("/home")
+	public String moveHome() {
+		log.info("moveHome...");
+		return "/admin/home";
+	}
+	
+	//테스트 - 삭제예정
+	@GetMapping("/test")
+	public String moveTest() {
+		log.info("moveTest...");
+		return "/admin/test";
+	}
+
 	//FAQ 등록
 	@GetMapping("/faq/register")
 	public String moveFaqregister() {
