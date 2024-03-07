@@ -28,12 +28,21 @@
 				<div id="title" class="ellipsis">${vo.title }</div>
 				<div id="curr-party">
 					<c:if test="${vo.curr_party > 0 }">
-						<c:forEach var="i" begin="0" end="${vo.curr_party - 1}">
-							<img src="/resources/images/sun.png" class="participation">
-						</c:forEach>
-						<c:forEach var="i" begin="0" end="${vo.party_num - vo.curr_party - 1}">
-							<img src="/resources/images/sun.png" class="non-participation">
-						</c:forEach>
+						<c:choose>
+							<c:when test="${vo.curr_party == vo.party_num }">
+								<c:forEach var="i" begin="0" end="${vo.party_num - 1}">
+									<img src="/resources/images/sun.png" class="participation">
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="i" begin="0" end="${vo.curr_party - 1}">
+									<img src="/resources/images/sun.png" class="participation">
+								</c:forEach>
+								<c:forEach var="i" begin="0" end="${vo.party_num - vo.curr_party - 1}">
+									<img src="/resources/images/sun.png" class="non-participation">
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</c:if>
 					<c:if test="${vo.curr_party == 0 }">
 						<c:forEach var="i" begin="0" end="${vo.party_num -1}">

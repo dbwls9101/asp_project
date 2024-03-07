@@ -1,20 +1,33 @@
 //list 가져오기
 getPrincipal().then(() => {
-   getList(principal.member.nickname);
+	let pageData = getStorageData();
+	
+	if(pageData == null){
+		getList(principal.member.nickname, 1, 10);
+	}else{
+		getList(principal.member.nickname, pageData.pageNum, pageData.amount);
+	}
 })
 
 //파티장에게 달린 댓글 목록
-function getList(partnernick){
-	msg = "";
+function getList(partnernick, pageNum, amount){
+	let msg = "";
+	let page = "";
 	
 	fetch('/partner/replylist', {
 		method : 'post',
-		body : partnernick,
+		body : JSON.stringify({
+			comment_to : partnernick,
+			pageNum : pageNum,
+			amount : amount
+		}),
 		headers : {'Content-type' : 'application/json; charset=utf-8'}
 	})
 	.then(response => response.json())
 	.then(json => {
-		json.forEach(vo => {
+		let list = json.list;
+		
+		list.forEach(vo => {
 			msg += '<tr>';
 			msg += '<td>' + vo.writer + '</td>';
 			msg += '<td>' + vo.reg_date + '</td>';
@@ -24,9 +37,50 @@ function getList(partnernick){
 			msg += '</tr>';
 		})
 		
+		//페이징
+		if(json.prev){
+			page += '<li class="previous">';
+			page += '<a href="' + (json.startPage-1) + '">&lt;</a>';
+			page += '</li>';
+		}
+		
+		for(let i = json.startPage; i <= json.endPage; i++){
+			page += '<li>';
+			page += '<a href="' + i + '" class="' + (json.cri.pageNum == i ? 'active' : '') + '">' + i + '</a>';
+			page += '</li>';
+		}
+		
+		if(json.next){
+			page += '<li class="previous">';
+			page += '<a href="' + (json.endPage+1) + '">&gt;</a>';
+			page += '</li>';
+		}
+		
 		document.querySelector("tbody").innerHTML = msg;
+		document.querySelector(".page-nation").innerHTML = page;
+	})
+	.then(()=>{
+		pagingEvent();
 	})
 	.catch(err => console.log(err));
+}
+
+//페이지 버튼 클릭 이벤트
+function pagingEvent(){
+	document.querySelectorAll(".page-nation li a").forEach(aEle => {
+		aEle.addEventListener('click', function(e){
+			e.preventDefault(); //href 경로 이동 방지
+			
+			//태그 속성 불러오기
+			let menu = 'replymanage';
+			let pageNum = this.getAttribute("href");
+			let amount = 10;
+			
+			setStorageData(menu, pageNum, amount);
+			
+			getList(principal.member.nickname, pageNum, amount);
+		});
+	});
 }
 
 

@@ -33,6 +33,13 @@
 					</tbody>
 				</table>
 			</div>
+			
+			<!-- page -->
+			<div class="page-wrap">
+				<ul class="page-nation">
+				
+				</ul>
+			</div>
 		</div>
 	</div>
 	
@@ -78,6 +85,8 @@
             </div>
         </div>
     </div>
+    
+    <jsp:include page="../layout/partner_footer.jsp"/>
     
 </body>
 <script type="text/javascript" src="/resources/js/shop/partyreply.js"></script>

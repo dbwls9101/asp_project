@@ -13,15 +13,25 @@
 	</insert>
 	
 	<!-- 파티 리스트 -->
-	<select id="getPartyList" resultType="org.prj.domain.PartyBoardVO">
-		select p.p_idx, p.m_idx, p.codeone, p.codetwo, p.title, p."NAME", p.nickname, p.id, p.party_num
-		, p.share_id, p.share_pw, p.phone, p.start_date, p.end_date, p.price, p."RULE", p."COMMENT", p.status
-		, p.reg_date, p.update_date, p.curr_party, c.c_primary, c.c_secondary, trunc(end_date)-trunc(sysdate) as datediff, 
-	 	((trunc(end_date)-trunc(sysdate)) * price) as totalprice
-		from party_board p inner join category c 
-		on p.codeone=c.codeone and p.codetwo=c.codetwo
-		where m_idx=#{m_idx} 
-		order by p_idx desc
+	<select id="getPartyList" parameterType="org.prj.domain.Criteria" resultType="org.prj.domain.PartyBoardVO">
+	<![CDATA[
+		select * from
+		(select rownum rn, p_idx, m_idx, codeone, codetwo, title, "NAME", nickname, id, party_num
+			, share_id, share_pw, phone, start_date, end_date, price, "RULE", "COMMENT", status
+			, reg_date, update_date, curr_party, c_primary, c_secondary, trunc(end_date)-trunc(sysdate) as datediff, 
+		 	((trunc(end_date)-trunc(sysdate)) * price) as totalprice
+	 	from
+			(select p.p_idx, p.m_idx, p.codeone, p.codetwo, p.title, p."NAME", p.nickname, p.id, p.party_num
+			, p.share_id, p.share_pw, p.phone, p.start_date, p.end_date, p.price, p."RULE", p."COMMENT", p.status
+			, p.reg_date, p.update_date, p.curr_party, c.c_primary, c.c_secondary, trunc(end_date)-trunc(sysdate) as datediff, 
+		 	((trunc(end_date)-trunc(sysdate)) * price) as totalprice
+			from party_board p inner join category c 
+			on p.codeone=c.codeone and p.codetwo=c.codetwo
+			where m_idx=#{m_idx} 
+			order by p_idx desc)
+		where rownum <= #{pageNum} * #{amount})
+		where rn > (#{pageNum}-1) * #{amount}
+	]]>
 	</select>
 	
 	<!-- 파티 수정 페이지 -->
@@ -61,7 +71,7 @@
 			order by status desc, p_idx desc)
 		where rownum <= #{pageNum} * 4 )
 		where rn > (#{pageNum}-1) * 4
-		]]>
+	]]>
 	</select>
 	
 	<!-- 2차 카테고리별 파티 리스트 -->
@@ -126,4 +136,14 @@
         where p_idx in (select p_idx from payment where id=#{id})
 	</select>
 	
+	<!-- 마감 파티 상태 변경 -->
+	<update id="partyStatusUpdate">
+		update party_board 
+		set status='N' 
+		where status='Y' and <![CDATA[ (trunc(end_date)-trunc(sysdate)) < 0 ]]>
+	</update>
+	
+	<select id="getMyPartyTotal" parameterType="int" resultType="int">
+		select count(*) from party_board where m_idx=#{m_idx}
+	</select>
 </mapper>

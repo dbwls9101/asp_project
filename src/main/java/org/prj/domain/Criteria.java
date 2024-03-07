@@ -14,4 +14,8 @@ public class Criteria {
 	//카테고리
 	private int codeone;
 	private int codetwo;
+	
+	//페이징
+	private int m_idx;
+	private String comment_to;
 }

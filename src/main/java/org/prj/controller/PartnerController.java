@@ -1,11 +1,14 @@
 package org.prj.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.prj.controller.PartnerController;
 import org.prj.domain.CategoryVO;
+import org.prj.domain.Criteria;
 import org.prj.domain.MemberVO;
+import org.prj.domain.PageDTO;
 import org.prj.domain.PartyBoardVO;
 import org.prj.domain.PartyCommentVO;
 import org.prj.domain.PaymentVO;
@@ -47,9 +50,6 @@ public class PartnerController {
 	
 	@Autowired
 	private PartyReplyService prService;
-	
-	@Autowired
-	private MemberService memberservice;
 
 	@Autowired
 	private PaymentService payservice;
@@ -67,10 +67,15 @@ public class PartnerController {
 	//내 파티 리스트
 	@ResponseBody
 	@PostMapping(value = "/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<PartyBoardVO> getList(@RequestBody int m_idx){
-		log.info("getList..." + m_idx);
+	public PageDTO getList(@RequestBody Criteria cri){
+		log.info("getList..." + cri.getM_idx() + " / page : " + cri.getPageNum() + " / amount : " + cri.getAmount());
 		
-		return pService.getPartyList(m_idx);
+		//게시글 전체 개수 
+		int total = pService.getMyPartyTotal(cri.getM_idx());
+		List<PartyBoardVO> list = pService.getPartyList(cri);
+		
+		PageDTO pageMakger = new PageDTO(cri, total, list);
+		return pageMakger;
 	}
 	
 	//파티생성 페이지
@@ -122,10 +127,15 @@ public class PartnerController {
 	//댓글보기 - 리스트
 	@ResponseBody
 	@PostMapping(value = "/replylist", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<PartyCommentVO> getReplyList(@RequestBody String comment_to){
-		log.info("getList..." + comment_to);
+	public PageDTO getReplyList(@RequestBody Criteria cri){
+		log.info("getList..." + cri.getComment_to() + " / page : " + cri.getPageNum() + " / amount : " + cri.getAmount());
 		
-		return prService.getReplyList(comment_to);
+		//내 파티에 달린 댓글 개수
+		int total = prService.getMyPartyReplyTotal(cri.getComment_to());
+		List<PartyCommentVO> list = prService.getReplyList(cri);
+		
+		PageDTO pageMakger = new PageDTO(cri, total, list);
+		return pageMakger;
 	}
 	
 	//댓글 가져오기
@@ -199,10 +209,17 @@ public class PartnerController {
 		return "/partner/partyinfo";
 	}
 	
+	//참여정보-리스트
 	@ResponseBody
 	@PostMapping(value = "/partyinfo", produces = MediaType.APPLICATION_JSON_UTF8_VALUE) 
-	public List<PaymentVO> getPayMemberList(@RequestBody int m_idx) { 
-		  log.info("getPayMemberList... " + m_idx); 
-		  return payservice.getPayMemberList(m_idx); 
+	public PageDTO getPayMemberList(@RequestBody Criteria cri) { 
+		log.info("getPayMemberList... " + cri.getM_idx() + " / page : " + cri.getPageNum() + " / amount : " + cri.getAmount()); 
+		  
+		//게시글 전체 개수 
+		int total = payservice.getPayPartyTotal(cri.getM_idx());
+		List<PaymentVO> list = payservice.getPayMemberList(cri);
+		
+		PageDTO pageMakger = new PageDTO(cri, total, list);
+		return pageMakger;
 	}
 }
