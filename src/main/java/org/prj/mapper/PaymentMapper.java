@@ -2,6 +2,7 @@ package org.prj.mapper;
 
 import java.util.List;
 
+import org.prj.domain.Criteria;
 import org.prj.domain.PaymentVO;
 
 public interface PaymentMapper {
@@ -18,5 +19,8 @@ public interface PaymentMapper {
 	public int cancelStatus(String order_no);
 	
 	// 참여정보
-	public List<PaymentVO> getPayMemberList(int m_idx);
+	public List<PaymentVO> getPayMemberList(Criteria cri);
+	
+	//내 파티 참여자 수
+	public int getPayPartyTotal(int m_idx);
 }

@@ -2,6 +2,7 @@ package org.prj.service;
 
 import java.util.List;
 
+import org.prj.domain.Criteria;
 import org.prj.domain.PartyCommentVO;
 import org.prj.mapper.PartyReplyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +30,19 @@ public class PartyReplyServiceImpl implements PartyReplyService{
 	}
 
 	@Override
-	public List<PartyCommentVO> getReplyList(String comment_to) {
-		return prmapper.getReplyList(comment_to);
+	public List<PartyCommentVO> getReplyList(Criteria cri) {
+		return prmapper.getReplyList(cri);
 	}
 
 	@Override
 	public PartyCommentVO getReply(int c_idx) {
 		return prmapper.getReply(c_idx);
 	}
+
+	@Override
+	public int getMyPartyReplyTotal(String comment_to) {
+		return prmapper.getMyPartyReplyTotal(comment_to);
+	}
+	
 	
 }

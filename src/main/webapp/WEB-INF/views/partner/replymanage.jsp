@@ -10,7 +10,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 <body>
-	<jsp:include page="../layout/admin_header.jsp"/>
+	<jsp:include page="../layout/partner_header.jsp"/>
 	
 	<div id="content-container">
 		<div id="service-container">
@@ -32,6 +32,13 @@
 						
 					</tbody>
 				</table>
+			</div>
+			
+			<!-- page -->
+			<div class="page-wrap">
+				<ul class="page-nation">
+				
+				</ul>
 			</div>
 		</div>
 	</div>
@@ -78,6 +85,8 @@
             </div>
         </div>
     </div>
+    
+    <jsp:include page="../layout/partner_footer.jsp"/>
     
 </body>
 <script type="text/javascript" src="/resources/js/shop/partyreply.js"></script>

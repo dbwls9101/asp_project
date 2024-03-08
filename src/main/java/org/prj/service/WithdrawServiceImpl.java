@@ -2,6 +2,7 @@ package org.prj.service;
 
 import java.util.List;
 
+import org.prj.domain.PaymentVO;
 import org.prj.domain.WithdrawVO;
 import org.prj.mapper.WithdrawMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +32,45 @@ public class WithdrawServiceImpl implements WithdrawService {
 		
 		return mapper.insert(vo);
 	}
-	
-	// 조회 기능 차후 진행 예정
-/*	@Override
-	public WithdrawVO get(int w_idx) {
-		log.info("get...." + w_idx);
-		return mapper.read(w_idx);
-	} */
 
+	// p_idx를 가지고와서 판매총액을 만드는 과정	
+	@Override
+	public int getp_idx(String username) {
+		log.info("getp_idx..." + username);
+		return mapper.getp_idx(username);
+	}
+
+	// 지급 요청 금액
+	@Override
+	public int withamount(String username) {
+		log.info("withamount..." + username);
+		return mapper.withamount(username);
+	}
+
+	// 관리자 화면!! 출금 관리 리스트업
+	@Override
+	public List<WithdrawVO> withdrawList() {
+		log.info("withdrawList...");
+		return mapper.withdrawList();
+	}
+
+	// 지금 금액
+	@Override
+	public int currentamount(String username) {
+		log.info("currentamount...");
+		return mapper.currentamount(username);
+	}
+
+	// 관리자 화면에서 승인 버튼 누를 경우 with_status C로 변경
+	@Override
+	public boolean modifyWithdraw(int w_idx) {
+		log.info("modifyWithdraw..." + w_idx);
+		
+		int result = mapper.modifyWithdraw(w_idx);
+		
+		return result == 1 ? true : false;
+	}
+
+	
+	
 }

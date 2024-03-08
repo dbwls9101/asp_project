@@ -62,6 +62,7 @@
 			</ul>
 		</div>
 		<div class="button-align center">
+			<input type="hidden" name="birth" id="birth" value="">
 			<button type="submit" id="btn_submit" class="button button-point" accesskey="s" onclick="validate(this.form)">회원 가입</button>
 			<a href="/member/login" class="button">취소</a>
 		</div>

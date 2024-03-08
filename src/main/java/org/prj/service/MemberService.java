@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import org.prj.domain.MemberVO;
+import org.prj.domain.PaymentVO;
 
 public interface MemberService {
 	
@@ -43,9 +44,13 @@ public interface MemberService {
 	//파트너 정보조회
 	public MemberVO getPartnerinfo(int m_idx);
 	
-    // 카카오 회원가입
+	//결재 후 member -> with_amount 금액이 증가
+	public void updateWithamount(MemberVO vo);
+
+    //카카오 회원가입
 	public int kakaoIdck(String kakaoid);
 	
 	//카카오 로그인
 	public MemberVO kakaoRead(String kakaoid);
+
 }

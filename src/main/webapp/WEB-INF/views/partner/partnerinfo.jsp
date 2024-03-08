@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/resources/css/page/page.css">
 </head>
 <body>
-	<jsp:include page="../layout/admin_header.jsp"/>
+	<jsp:include page="../layout/partner_header.jsp"/>
 	
 	<div id="content-container">
 		<div id="service-container">

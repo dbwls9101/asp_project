@@ -1,10 +1,14 @@
 package org.prj.controller;
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.prj.controller.PartnerController;
 import org.prj.domain.CategoryVO;
+import org.prj.domain.Criteria;
 import org.prj.domain.MemberVO;
+import org.prj.domain.PageDTO;
 import org.prj.domain.PartyBoardVO;
 import org.prj.domain.PartyCommentVO;
 import org.prj.domain.PaymentVO;
@@ -19,6 +23,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,9 +50,6 @@ public class PartnerController {
 	
 	@Autowired
 	private PartyReplyService prService;
-	
-	@Autowired
-	private MemberService memberservice;
 
 	@Autowired
 	private PaymentService payservice;
@@ -64,10 +67,15 @@ public class PartnerController {
 	//내 파티 리스트
 	@ResponseBody
 	@PostMapping(value = "/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<PartyBoardVO> getList(@RequestBody int m_idx){
-		log.info("getList..." + m_idx);
+	public PageDTO getList(@RequestBody Criteria cri){
+		log.info("getList..." + cri.getM_idx() + " / page : " + cri.getPageNum() + " / amount : " + cri.getAmount());
 		
-		return pService.getPartyList(m_idx);
+		//게시글 전체 개수 
+		int total = pService.getMyPartyTotal(cri.getM_idx());
+		List<PartyBoardVO> list = pService.getPartyList(cri);
+		
+		PageDTO pageMakger = new PageDTO(cri, total, list);
+		return pageMakger;
 	}
 	
 	//파티생성 페이지
@@ -119,10 +127,15 @@ public class PartnerController {
 	//댓글보기 - 리스트
 	@ResponseBody
 	@PostMapping(value = "/replylist", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<PartyCommentVO> getReplyList(@RequestBody String comment_to){
-		log.info("getList..." + comment_to);
+	public PageDTO getReplyList(@RequestBody Criteria cri){
+		log.info("getList..." + cri.getComment_to() + " / page : " + cri.getPageNum() + " / amount : " + cri.getAmount());
 		
-		return prService.getReplyList(comment_to);
+		//내 파티에 달린 댓글 개수
+		int total = prService.getMyPartyReplyTotal(cri.getComment_to());
+		List<PartyCommentVO> list = prService.getReplyList(cri);
+		
+		PageDTO pageMakger = new PageDTO(cri, total, list);
+		return pageMakger;
 	}
 	
 	//댓글 가져오기
@@ -138,8 +151,20 @@ public class PartnerController {
 	
 	//출금관리
 	@GetMapping("/withdraw")
-	public void movewithdraw() {
+	public void movewithdraw(Model model) {
 		log.info("movewithdraw...");
+
+		try {
+			// 현재 사용자 아이디 가져오기
+		    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		    String username = authentication.getName();
+		    log.info("participating..." + username);
+			model.addAttribute("sumamount", wService.getp_idx(username));
+			model.addAttribute("withamount", wService.withamount(username));
+			model.addAttribute("currentamount", wService.currentamount(username));
+		} catch(Exception e) {
+			log.error("An error occurred in movewithdraw", e);
+		} 
 	}
 	
 	//출금관리 리스트
@@ -147,8 +172,7 @@ public class PartnerController {
 	@GetMapping(value="/withList/{m_idx}", 
 			produces = {
 			MediaType.APPLICATION_JSON_UTF8_VALUE,
-			MediaType.APPLICATION_XML_VALUE		
-			})
+			MediaType.APPLICATION_XML_VALUE})
 	public ResponseEntity<List<WithdrawVO>> withList(
 			@PathVariable("m_idx") int m_idx
 			) {
@@ -162,16 +186,14 @@ public class PartnerController {
 	@PostMapping(value = "/withNew",
 			consumes = "application/json", 
 			produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<String> makeWithdraw(@RequestBody WithdrawVO vo) {
+	public String makeWithdraw(@RequestBody WithdrawVO vo, Model model) {
 		log.info("makeWithdraw..." + vo);
 		
 		int insertCount = wService.register(vo);
 		
 		log.info("insertCount : " + insertCount);
 		
-		return insertCount == 1 ?
-				new ResponseEntity<String>("success", HttpStatus.OK) :
-					new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);		
+		return "redirect:/partner/withdraw";		
 	}
 	
 	//정보수정
@@ -188,10 +210,17 @@ public class PartnerController {
 		return "/partner/partyinfo";
 	}
 	
+	//참여정보-리스트
 	@ResponseBody
 	@PostMapping(value = "/partyinfo", produces = MediaType.APPLICATION_JSON_UTF8_VALUE) 
-	public List<PaymentVO> getPayMemberList(@RequestBody int m_idx) { 
-		  log.info("getPayMemberList... " + m_idx); 
-		  return payservice.getPayMemberList(m_idx); 
+	public PageDTO getPayMemberList(@RequestBody Criteria cri) { 
+		log.info("getPayMemberList... " + cri.getM_idx() + " / page : " + cri.getPageNum() + " / amount : " + cri.getAmount()); 
+		  
+		//게시글 전체 개수 
+		int total = payservice.getPayPartyTotal(cri.getM_idx());
+		List<PaymentVO> list = payservice.getPayMemberList(cri);
+		
+		PageDTO pageMakger = new PageDTO(cri, total, list);
+		return pageMakger;
 	}
 }

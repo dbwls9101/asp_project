@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.prj.domain.MemberVO;
+import org.prj.domain.PaymentVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -146,6 +147,10 @@ public class MemberServiceImpl implements MemberService{
 				//전화번호
 				String phone = jsonObj.getAsJsonObject("response").get("phone").getAsString();
 				map.put("phone", phone);
+				
+				//생일
+				String birth = jsonObj.getAsJsonObject("response").get("birthday").getAsString();
+				map.put("birth", birth);
 			}
 			br.close();
 		}
@@ -176,15 +181,23 @@ public class MemberServiceImpl implements MemberService{
 	public MemberVO getPartnerinfo(int m_idx) {
 		return membermapper.getPartnerinfo(m_idx);
 	}
+
+	//결재 후 member -> with_amount 금액이 증가
+	@Override
+	public void updateWithamount(MemberVO vo) {
+		membermapper.updateWithamount(vo);
+	}
 	
-	//카카오 아이디 중복 조회
+	//카카오 회원가입
 	@Override
 	public int kakaoIdck(String kakaoid) {
 		return membermapper.kakaoIdck(kakaoid);
 	}
 	
+	//카카오 로그인
 	@Override
 	public MemberVO kakaoRead(String kakaoid) {
 		return membermapper.kakaoRead(kakaoid);
 	}
+
 }

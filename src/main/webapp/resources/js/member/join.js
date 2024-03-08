@@ -25,6 +25,7 @@ document.querySelector('#certification').addEventListener('click', ()=>{
 				alert('인증이 완료되었습니다.');
 				document.querySelector("#name").value = json.name;
 				document.querySelector("#phone").value = json.phone;
+				document.querySelector("#birth").value = json.birth;
 			})
 			.catch(err => console.log(err));
 			

@@ -23,5 +23,6 @@ public class MemberVO {
 	
 	//가상컬럼
 	private Date approved_at;
-	
+	private int serviceamount;
+
 }

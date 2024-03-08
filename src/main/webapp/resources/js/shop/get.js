@@ -42,10 +42,16 @@ document.querySelector("#makeparty").addEventListener('click', ()=>{
 		location.href = '/member/login';
 		return;
 	}
+	
+	if(principal.member.level == 'C'){
+		alert('파티장 신청 후 이용가능한 서비스입니다.');
+		return;
+	}
+	
 	location.href = '/partner/register';
 });
 
-//목록 버튼
+//이전 목록으로 가기 위해 현재 url 가져오기
 const urlParams = new URL(location.href).searchParams;
 //게시글 체크 폼
 const f = document.querySelector("#participateForm");
@@ -60,40 +66,45 @@ function notPartyWriter(){
 	
 	//참여 버튼
 	document.querySelector("#participate").addEventListener('click', function() {
-	    	if(principal == 'anonymousUser'){
-	    		alert('로그인 후 이용가능한 서비스입니다.');
-	    		return;
-	    	}
-	    	
-	    	if(!document.querySelector("#agree").checked){
-	    		alert('안내 및 규칙을 읽고 체크박스에 체크해 주세요.');
-	    		return;
-	    	}
-	    	
-	    	if(f.party_num.value == f.curr_party.value){
-	    		alert('파티 모집 정원 초과입니다. \n다른 파티에 참여해주세요.');
-	    		return;
-	    	}
-	    	
-	    	for(let i = 0; i<partyMembers.length; i++){
-	    		if(partyMembers[i].getAttribute('mnickname') == principal.member.nickname){
-	    			alert("이미 참여 중인 파티입니다.");
-	    			partycheck = true;
-	    			document.querySelector("#checkform #agree").checked = false;
-	    			break;
-	    		}
-	    	}
-	    	
-	    	if(partycheck == false){
-	    		f.action = '/payment/orderform';
-		    	f.submit();
-	    	}
+    	if(principal == 'anonymousUser'){
+    		alert('로그인 후 이용가능한 서비스입니다.');
+    		return;
+    	}
+    	
+    	if(!document.querySelector("#agree").checked){
+    		alert('안내 및 규칙을 읽고 체크박스에 체크해 주세요.');
+    		return;
+    	}
+    	
+    	if(f.party_num.value == f.curr_party.value){
+    		alert('파티 모집 정원 초과입니다. \n다른 파티에 참여해주세요.');
+    		return;
+    	}
+    	
+    	for(let i = 0; i<partyMembers.length; i++){
+    		if(partyMembers[i].getAttribute('mnickname') == principal.member.nickname){
+    			alert("이미 참여 중인 파티입니다.");
+    			partycheck = true;
+    			document.querySelector("#checkform #agree").checked = false;
+    			break;
+    		}
+    	}
+    	
+    	if(partycheck == false){
+    		f.action = '/payment/orderform';
+	    	f.submit();
+    	}
 	});
 	
 	//목록 버튼
 	document.querySelector("#getpartylist").addEventListener('click', ()=>{
-		let c1 = urlParams.get('c1');
-		location.href = "/shop/list/" + c1;
+		let pageData = getStorageData();
+		
+		if(pageData != null){
+			location.href = '/partner/' + pageData.menu;
+		}else{
+			history.back(-1);
+		}
 	});
 }
 
@@ -106,8 +117,13 @@ function partyWriter(){
 	
 	//목록 버튼
 	document.querySelector("#getpartylist").addEventListener('click', ()=>{
-		let c1 = urlParams.get('c1');
-		location.href = "/shop/list/" + c1;
+		let pageData = getStorageData();
+		
+		if(pageData != null){
+			location.href = '/partner/' + pageData.menu;
+		}else{
+			history.back(-1);
+		}
 	});
 }
 
