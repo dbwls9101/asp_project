@@ -40,4 +40,11 @@ public interface MemberMapper {
 	
 	//파트너 정보조회
 	public MemberVO getPartnerinfo(int m_idx);
+
+    // 카카오 회원가입
+	public int kakaoIdck(String kakaoid);
+	
+	//카카오 로그인
+	public MemberVO kakaoRead(String kakaoid);
+
 }

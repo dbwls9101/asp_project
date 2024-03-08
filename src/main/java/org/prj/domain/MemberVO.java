@@ -19,7 +19,9 @@ public class MemberVO {
 	private int m_idx, point, with_amount;
 	private Date reg_date, update_date;
 	private List<AuthVO> authList;
+	private String kakaoid, naverid, token;
 	
 	//가상컬럼
 	private Date approved_at;
+	
 }
