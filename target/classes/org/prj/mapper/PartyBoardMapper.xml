@@ -146,4 +146,9 @@
 	<select id="getMyPartyTotal" parameterType="int" resultType="int">
 		select count(*) from party_board where m_idx=#{m_idx}
 	</select>
+	
+	<!-- id 불러온다!!-->
+	<select id="idSearch" parameterType="int" resultType="String">
+		SELECT id FROM party_board where p_idx = #{p_idx }
+	</select>
 </mapper>

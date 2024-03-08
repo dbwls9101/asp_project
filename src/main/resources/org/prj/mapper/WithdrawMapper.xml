@@ -33,4 +33,25 @@
 		and with_status  = 'A'
 	</select>
 	
+	<!-- 관리자 화면에서 출금신청 리스트 전체를 가지고 오는 것 -->
+	<select id="withdrawList" resultType="org.prj.domain.WithdrawVO">
+		select * from withdraw order by reg_date desc
+	</select>
+	
+	<!-- 지금  금액은 with_status가 C로 변경된 값만 가지고 오면 된다.  -->
+	<select id="currentamount" parameterType="String" resultType="int">
+		select sum(with_amount) from withdraw where m_idx = 
+		(select m_idx from member where id=#{username})
+		and with_status  = 'B'
+	</select>
+	
+	<!-- 관리자 화면에서 승인 버튼 누를 경우 with_status B로 변경  -->
+	<update id="modifyWithdraw" parameterType="int">
+		update withdraw
+		set
+			with_status = 'B'
+		where w_idx = #{w_idx }
+	</update>
+	
+	
 </mapper>

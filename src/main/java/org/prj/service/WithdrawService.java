@@ -22,4 +22,12 @@ public interface WithdrawService {
 	// 지급 요청 금액
 	public int withamount(String username);
 	
+	// 관리자 화면에서 출금 관리 화면 리스트 업
+	public List<WithdrawVO> withdrawList();
+	
+	// 지급 금액
+	public int currentamount(String username);
+	
+	// 관리자 화면에서 승인 버튼 누를 경우 with_status C로 변경
+	public boolean modifyWithdraw(int w_idx);
 }

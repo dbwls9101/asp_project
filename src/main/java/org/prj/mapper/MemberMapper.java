@@ -2,6 +2,7 @@ package org.prj.mapper;
 
 import org.apache.ibatis.annotations.Param;
 import org.prj.domain.MemberVO;
+import org.prj.domain.PaymentVO;
 
 public interface MemberMapper {
 
@@ -40,4 +41,7 @@ public interface MemberMapper {
 	
 	//파트너 정보조회
 	public MemberVO getPartnerinfo(int m_idx);
+	
+	//결재 후 member -> with_amount 금액이 증가
+	public void updateWithamount(MemberVO vo);
 }

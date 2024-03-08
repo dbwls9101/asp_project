@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>출금 관리</title>
 </head>
 <body>
 	<jsp:include page="../layout/partner_header.jsp"/>
@@ -47,13 +47,28 @@
 									
 									<tr>
 										<th id="left1">2. 지급금액</th> 
-											<td>0원</td>
-											<td>신청금액 기준</td>
+											<c:choose>
+												<c:when test="${currentamount == null}">
+													<td>0원</td>
+												</c:when>
+												<c:otherwise>
+													<td id="currentamount" name="currentamount">${currentamount }원</td>
+												</c:otherwise>
+											</c:choose>
+											<td>신청금액 기준(수수료 포함)</td>
 									</tr>
 									
 									<tr>
 										<th id="left1">3. 지급 요청 금액</th>
-											<td id="withamount" name="withamount">${withamount }원</td>
+											<c:choose>
+												<c:when test="${withamount == 0}">
+													<td>0원</td>												
+												</c:when>
+												<c:otherwise>
+													<td id="withamount" name="withamount">${withamount }원</td>
+												</c:otherwise>
+											</c:choose>
+<%-- 											<td id="withamount" name="withamount">${withamount }원</td> --%>
 											<input type="hidden" name="with_amount3" value="${withamount }">
 											<td>수수료 포함</td>
 									</tr>
@@ -79,7 +94,7 @@
 										</tr>
 										
 										<tr>
-											<td colspan="2"><p3 id="center1">최대 00원까지 신청할 수 있습니다.</p3></td>										
+											<td colspan="2"><p3 id="center1">최대 ${sumamount - withamount}원까지 신청할 수 있습니다.</p3></td>										
 										</tr>
 										
 										<tr>
