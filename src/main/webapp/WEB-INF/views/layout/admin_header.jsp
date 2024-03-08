@@ -77,13 +77,13 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/admin/refund">
                     <i class="fas fa-fw fa-ban"></i>
                     <span>환불관리</span></a>
             </li>
             
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/admin/withdraw">
                     <i class="fas fa-fw fa-money-bill"></i>
                     <span>출금관리</span></a>
             </li>

@@ -20,4 +20,5 @@ public interface PartyBoardMapper {
 	public List<PartyBoardVO> getParticipating(String id);
 	public int partyStatusUpdate();
 	public int getMyPartyTotal(int m_idx);
+	public String idSearch(int p_idx);
 }

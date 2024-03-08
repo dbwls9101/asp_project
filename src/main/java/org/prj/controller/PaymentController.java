@@ -3,7 +3,9 @@ package org.prj.controller;
 import java.io.IOException;
 import java.util.List;
 
+import org.prj.domain.MemberVO;
 import org.prj.domain.PaymentVO;
+import org.prj.service.MemberService;
 import org.prj.service.PartyBoardService;
 import org.prj.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,9 @@ public class PaymentController {
 	@Autowired
 	private PaymentService payService;
 	
+	@Autowired
+	private MemberService mService;
+	
 	@PostMapping("/orderform")
 	public void get(Model model, @RequestParam("pn") int p_idx) {
 		log.info("get..." + p_idx);
@@ -53,6 +58,18 @@ public class PaymentController {
 		int insertCount = payService.order(vo);
 		log.info("insertCount : " + insertCount);
 		
+		//결제 정보의 p_idx로 파티장 아이디 조회
+		String partyWriterid = pService.idSearch(vo.getP_idx());
+		System.out.println("vo.getP_idx() : "  + vo.getP_idx());
+		System.out.println("partyWriterid : "  + partyWriterid);
+		
+		System.out.println("getService_amount() : " + vo.getService_amount());
+		//결재 후 member -> with_amount 금액이 증가
+		MemberVO mvo = new MemberVO();
+		mvo.setId(partyWriterid);
+		mvo.setServiceamount(vo.getService_amount());
+		mService.updateWithamount(mvo); 
+		
 		//결제 성공 후 party_board 테이블 참여인원 +1
 		if(insertCount > 0)
 			pService.updateCurrNum(vo.getP_idx());
@@ -63,6 +80,7 @@ public class PaymentController {
 		return insertCount == 1 ? new ResponseEntity<String>("success", HttpStatus.OK) : 
 			new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
 	
 	//실결제
 	@GetMapping("/pay")

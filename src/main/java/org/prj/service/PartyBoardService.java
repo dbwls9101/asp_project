@@ -33,5 +33,6 @@ public interface PartyBoardService {
 	public int partyStatusUpdate();
 	//내가 생성한 파티 개수
 	public int getMyPartyTotal(int m_idx);
-	
+	// 결제 정보의 p_idx로 파티장 아이디 조회
+	public String idSearch(int p_idx);
 }

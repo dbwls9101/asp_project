@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.prj.domain.MemberVO;
+import org.prj.domain.PaymentVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -181,4 +182,12 @@ public class MemberServiceImpl implements MemberService{
 	public MemberVO getPartnerinfo(int m_idx) {
 		return membermapper.getPartnerinfo(m_idx);
 	}
+
+	//결재 후 member -> with_amount 금액이 증가
+	@Override
+	public void updateWithamount(MemberVO vo) {
+		membermapper.updateWithamount(vo);
+	}
+	
+	
 }

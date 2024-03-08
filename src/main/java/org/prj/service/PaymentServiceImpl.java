@@ -184,6 +184,5 @@ public class PaymentServiceImpl implements PaymentService {
 	public int getPayPartyTotal(int m_idx) {
 		return mapper.getPayPartyTotal(m_idx);
 	}
-
 	
 }

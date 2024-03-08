@@ -161,6 +161,7 @@ public class PartnerController {
 		    log.info("participating..." + username);
 			model.addAttribute("sumamount", wService.getp_idx(username));
 			model.addAttribute("withamount", wService.withamount(username));
+			model.addAttribute("currentamount", wService.currentamount(username));
 		} catch(Exception e) {
 			log.error("An error occurred in movewithdraw", e);
 		} 

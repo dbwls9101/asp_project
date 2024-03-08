@@ -14,8 +14,12 @@ function cssBinding(cssFiles) {
 //form 객체 가져오기
 const f = document.forms[0]; 
 
-// ----------------- 비동기 방식 리스트업 + 환불신청 ----------------------------
+// ----------------- 비동기 방식 리스트업 + 출금 신청 ----------------------------
 
+//list 가져오기
+getPrincipal().then(() => {
+	getList(principal.member.m_idx);
+})
 getList(principal.member.m_idx);
 function getList(m_idx){
 	//1.출금관리 listUp

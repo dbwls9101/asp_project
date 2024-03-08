@@ -46,25 +46,31 @@ public class WithdrawServiceImpl implements WithdrawService {
 		log.info("withamount..." + username);
 		return mapper.withamount(username);
 	}
-	
-	
 
+	// 관리자 화면!! 출금 관리 리스트업
+	@Override
+	public List<WithdrawVO> withdrawList() {
+		log.info("withdrawList...");
+		return mapper.withdrawList();
+	}
 
+	// 지금 금액
+	@Override
+	public int currentamount(String username) {
+		log.info("currentamount...");
+		return mapper.currentamount(username);
+	}
 
+	// 관리자 화면에서 승인 버튼 누를 경우 with_status C로 변경
+	@Override
+	public boolean modifyWithdraw(int w_idx) {
+		log.info("modifyWithdraw..." + w_idx);
+		
+		int result = mapper.modifyWithdraw(w_idx);
+		
+		return result == 1 ? true : false;
+	}
 
-
-
-
-
-	
-	// 조회 기능 차후 진행 예정
-/*	@Override
-	public WithdrawVO get(int w_idx) {
-		log.info("get...." + w_idx);
-		return mapper.read(w_idx);
-	} */
-
-	
 	
 	
 }

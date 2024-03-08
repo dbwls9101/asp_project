@@ -84,4 +84,9 @@ public class PartyBoardServiceImpl implements PartyBoardService{
 	}
 	
 	
+	@Override
+	public String idSearch(int p_idx) {
+		log.info("idSearch..." + p_idx);
+		return pMapper.idSearch(p_idx);
+	}
 }
