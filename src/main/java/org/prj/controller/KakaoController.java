@@ -47,16 +47,17 @@ public class KakaoController {
         log.info("result:: " + result);
         String kakaoid = (String) result.get("id");
         
-        //토큰값, kakaoid 가지고 join page로 이동
-        model.addAttribute("kakaoToken", kakaoToken);
-        model.addAttribute("kakaoid", kakaoid);
-
-
         // 일치하는 snsId 없을 시 회원가입
         if (memberService.kakaoIdck(kakaoid) == 0) {
+        	MemberVO memVo = new MemberVO();
+        	memVo.setKakaoid(kakaoid);
+        	memVo.setToken(kakaoToken);
+        	session.setAttribute("joinMemVo", memVo);
             log.warn("카카오로 회원가입");
-            return "/member/join";
+            model.addAttribute("kakao","1");
+            return "redirect:/member/join";
         }else {
+        	model.addAttribute("setText", "이미 존재하는 SNS 계정입니다.");
         	return "/member/registerAlert";
         }
 
@@ -74,16 +75,16 @@ public class KakaoController {
         log.info("result:: " + result);
         // map isempty
         if(result.isEmpty()) {
-        	return "/";
+        	return "redirect:/";
         }
         String kakaoid = (String) result.get("id");
         
         MemberVO membervo = memberService.kakaoRead(kakaoid);
 		System.out.println(membervo);
 		
-		
 		if (membervo == null){ 
-			return "/member/login"; 
+			model.addAttribute("setText", "SNS계정이 존재하지 않습니다. 다시 확인해주세요.");
+			return "/member/registerAlert";
 		}else{
 			UserDetails userDetails = customUserDetailService.loadUserByUsername(membervo.getId()); 
 			Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null,userDetails.getAuthorities());

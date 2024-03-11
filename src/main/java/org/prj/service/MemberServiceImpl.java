@@ -199,5 +199,11 @@ public class MemberServiceImpl implements MemberService{
 	public MemberVO kakaoRead(String kakaoid) {
 		return membermapper.kakaoRead(kakaoid);
 	}
+	
+	//회원가입 중복확인
+	@Override
+	public int joinCheck(String name, String phone) {
+		return membermapper.joinCheck(name, phone);
+	}
 
 }

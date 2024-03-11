@@ -12,8 +12,6 @@
 <body>
 <jsp:include page="../layout/header.jsp"/>
 <form class="form-horizontal register-form" role="form" id="fregisterform" name="fregisterform" autocomplete="off" action="#" method="post" onsubmit="return false">
-	<input type="hidden" name="token" value="${token}">
-	<input type="hidden" name="kakaoid" value="${kakaoid}">
 	<div class="mw-800 form-signup">
 		<div class="h3">아이디/비밀번호</div>
 		<div class="form-round signup">

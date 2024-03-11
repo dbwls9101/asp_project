@@ -142,4 +142,9 @@
 		select m_idx, id, password, name, email, phone, nickname, point, reg_date, status, "LEVEL", bank, bank_number, with_amount, auth, naverid, kakaoid, token from member where kakaoid = #{kakaoid} and status = 'N' 
 	</select>
 	
+	<!-- 회원가입 중복확인 -->
+	<select id="joinCheck" parameterType="String" resultType="int">
+		select count(*) from member where name = #{name} and phone = #{phone}
+	</select>
+	
 </mapper>	
