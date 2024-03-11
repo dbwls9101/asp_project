@@ -24,8 +24,13 @@ public class PartyBoardServiceImpl implements PartyBoardService{
 	}
 
 	@Override
-	public List<PartyBoardVO> getPartyList(Criteria cri) {
-		return pMapper.getPartyList(cri);
+	public int getManageSearchTotal(Criteria cri) {
+		return pMapper.getManageSearchTotal(cri);
+	}
+
+	@Override
+	public List<PartyBoardVO> getManageSearchList(Criteria cri) {
+		return pMapper.getManageSearchList(cri);
 	}
 
 	@Override

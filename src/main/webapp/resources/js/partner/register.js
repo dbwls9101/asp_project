@@ -153,5 +153,7 @@ document.querySelector("#myPartyRegister").addEventListener('click', () => {
 
 //파티 관리 목록으로 돌아가기
 document.querySelector("#myPartyList").addEventListener('click', ()=>{
-	location.href = '/partner/manage';
+	let pageData = getStorageData();
+	
+	location.href = '/partner/' + pageData.menu;
 })

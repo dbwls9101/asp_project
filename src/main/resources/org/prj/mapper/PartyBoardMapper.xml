@@ -12,9 +12,31 @@
 		#{start_date}, #{end_date}, #{price}, #{rule, jdbcType=VARCHAR}, #{comment}, 'Y', sysdate, sysdate, 0)
 	</insert>
 	
-	<!-- 파티 리스트 -->
-	<select id="getPartyList" parameterType="org.prj.domain.Criteria" resultType="org.prj.domain.PartyBoardVO">
-	<![CDATA[
+	<!-- 내 파티(파티관리) 검색결과 게시글 수 카운트 -->
+	<select id="getManageSearchTotal" parameterType="org.prj.domain.Criteria" resultType="int">
+		select count(*)
+		from party_board
+		where m_idx=#{m_idx}
+		<if test='codeone != null and codeone != ""'>
+			and codeone=#{codeone}
+		</if>
+		<if test='codetwo != null and codetwo != ""'>
+			and codetwo=#{codetwo}
+		</if>
+		<if test='searchword != null or searchword != ""'>
+			<choose>
+		        <when test='searchcolumn.equals("p_idx")'>
+		            and p_idx LIKE '%' || #{searchword} || '%'
+		        </when>
+		        <when test='searchcolumn.equals("title")'>
+		            and LOWER(title) LIKE '%' || #{searchword} || '%'
+		        </when>
+		    </choose>
+		</if>
+	</select>
+	
+	<!-- 내 파티(파티관리)검색결과 리스트 -->
+	<select id="getManageSearchList" parameterType="org.prj.domain.Criteria" resultType="org.prj.domain.PartyBoardVO">
 		select * from
 		(select rownum rn, p_idx, m_idx, codeone, codetwo, title, "NAME", nickname, id, party_num
 			, share_id, share_pw, phone, start_date, end_date, price, "RULE", "COMMENT", status
@@ -27,11 +49,33 @@
 		 	((trunc(end_date)-trunc(sysdate)) * price) as totalprice
 			from party_board p inner join category c 
 			on p.codeone=c.codeone and p.codetwo=c.codetwo
-			where m_idx=#{m_idx} 
-			order by p_idx desc)
+			where p.m_idx=#{m_idx} 
+			<if test='codeone != null and codeone != ""'>
+				and p.codeone=#{codeone}
+			</if>
+			<if test='codetwo != null and codetwo != ""'>
+				and p.codetwo=#{codetwo}
+			</if>
+			<if test='searchword != null or searchword != ""'>
+				<choose>
+			        <when test='searchcolumn.equals("p_idx")'>
+			            and p.p_idx LIKE '%' || #{searchword} || '%'
+			        </when>
+			        <when test='searchcolumn.equals("title")'>
+			            and LOWER(p.title) LIKE '%' || #{searchword} || '%'
+			        </when>
+			    </choose>
+			</if>
+			<if test='sort.equals("latest")'>
+			order by p.p_idx desc
+ 			</if>
+ 			<if test='sort.equals("period")'>
+			order by (trunc(end_date)-trunc(sysdate)) desc
+ 			</if>)
+ 		<![CDATA[	
 		where rownum <= #{pageNum} * #{amount})
 		where rn > (#{pageNum}-1) * #{amount}
-	]]>
+		]]>
 	</select>
 	
 	<!-- 파티 수정 페이지 -->

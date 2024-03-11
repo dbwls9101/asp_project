@@ -124,3 +124,7 @@
   	text-overflow: ellipsis;
   	max-width: 200px;
 }
+
+.activeFont{
+	color: #43a051 !important;
+}

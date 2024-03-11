@@ -8,7 +8,8 @@ import org.prj.domain.PartyBoardVO;
 
 public interface PartyBoardMapper {
 	public void registerParty(PartyBoardVO vo);
-	public List<PartyBoardVO> getPartyList(Criteria cri);
+	public int getManageSearchTotal(Criteria cri);
+	public List<PartyBoardVO> getManageSearchList(Criteria cri);
 	public PartyBoardVO getParty(int p_idx);
 	public void updateParty(PartyBoardVO vo);
 	public List<PartyBoardVO> getListbycategory(Criteria cri);

@@ -18,4 +18,10 @@ public class Criteria {
 	//페이징
 	private int m_idx;
 	private String comment_to;
+	private String sort;
+	
+	//파티관리 검색
+	private String category;
+	private String searchcolumn;
+	private String searchword;
 }

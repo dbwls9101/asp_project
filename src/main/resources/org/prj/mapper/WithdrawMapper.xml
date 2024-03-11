@@ -38,7 +38,7 @@
 		select * from withdraw order by reg_date desc
 	</select>
 	
-	<!-- 지금  금액은 with_status가 C로 변경된 값만 가지고 오면 된다.  -->
+	<!-- 지금  금액은 with_status가 B로 변경된 값만 가지고 오면 된다.  -->
 	<select id="currentamount" parameterType="String" resultType="int">
 		select sum(with_amount) from withdraw where m_idx = 
 		(select m_idx from member where id=#{username})

@@ -64,18 +64,35 @@ public class PartnerController {
 		log.info("moveManage...");
 	}
 	
-	//내 파티 리스트
+	//다중검색 - 리스트
 	@ResponseBody
-	@PostMapping(value = "/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public PageDTO getList(@RequestBody Criteria cri){
-		log.info("getList..." + cri.getM_idx() + " / page : " + cri.getPageNum() + " / amount : " + cri.getAmount());
+	@PostMapping(value="/managesearch", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public PageDTO getManageSearchList(@RequestBody Criteria cri) {
+		String codeone = cri.getCategory().substring(0,2);
+		String codetwo = cri.getCategory().substring(2);
+
+		if(cri.getCategory().length() > 2) {
+			if(!cri.getCategory().equals("all")) {
+				cri.setCodeone(Integer.valueOf(codeone));
+				cri.setCodetwo(Integer.valueOf(codetwo));
+			}
+		}else if(cri.getCategory().length() == 2) {
+			cri.setCodeone(Integer.valueOf(codeone));
+		}
+		System.out.println(cri);
 		
-		//게시글 전체 개수 
-		int total = pService.getMyPartyTotal(cri.getM_idx());
-		List<PartyBoardVO> list = pService.getPartyList(cri);
+		int total = pService.getManageSearchTotal(cri);
+		List<PartyBoardVO> list = pService.getManageSearchList(cri);
 		
 		PageDTO pageMakger = new PageDTO(cri, total, list);
 		return pageMakger;
+	}
+	
+	//카테고리 리스트 - manage select box
+	@ResponseBody
+	@GetMapping(value="/allcategory", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<CategoryVO> getAllCategory(){
+		return cService.getAllCategory();
 	}
 	
 	//파티생성 페이지

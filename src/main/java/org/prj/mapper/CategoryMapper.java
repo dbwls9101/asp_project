@@ -9,4 +9,7 @@ public interface CategoryMapper {
 	
 	// 2차메뉴 카테고리 표시
 	public List<CategoryVO> showCategory();
+	
+	//전체 카테고리 리스트
+	public List<CategoryVO> getAllCategory();
 }

@@ -49,7 +49,7 @@
 									</c:if>
 									<c:if test="${principal.member.level eq 'B'}">
 										<div class="grade">파트너</div>
-										<div class="party-btn"><a href="/partner/manage">파티관리</a></div>
+										<div class="party-btn"><a href="javascript:moveManage()">파티관리</a></div>
 									</c:if>
 									<c:if test="${principal.member.level eq 'A'}">
 										<div class="grade">관리자</div>
