@@ -91,11 +91,16 @@ function getStorageData(){
 	return JSON.parse( localStorage.getItem('page_data') );	
 }
 
-//로컬스토리지 클리어(주소에 get, partner 없을 경우에만)
+//로컬스토리지 클리어(주소에 get, partner 없을 경우, 파티관리 클릭 시)
 const url = window.location.href;
 
 function containsString(str) {
     return url.indexOf(str) !== -1;
+}
+
+function moveManage(){
+	localStorage.clear();
+	location.href='/partner/manage';
 }
 
 function storageClear(){
@@ -105,10 +110,6 @@ function storageClear(){
 	if(!containsGet && !containsPartner){
 		localStorage.clear();
 	}
-	
-	document.querySelector("#makeparty").addEventListener('click', ()=>{
-		localStorage.clear();
-	})
 }
 storageClear();
 

@@ -3,28 +3,130 @@ document.querySelector("#makeparty").addEventListener('click', ()=>{
 	location.href = '/partner/register';
 })
 
+//카테고리 가져오기
+getAllCategory();
+function getAllCategory(){
+	let msg = "";
+	
+	fetch('/partner/allcategory')
+	.then(response => response.json())
+	.then(json => {
+		msg += '<option value="10">영상</option>';
+		json.forEach(vo => {
+			if(vo.codeone == 10){
+				msg += '<option value="' + vo.codeone.toString() + vo.codetwo.toString() + '">&nbsp;&nbsp;#' + vo.c_secondary + '</option>';
+			}
+		})
+		msg += '<option value="20" codetwo="">도서/음악</option>';
+		json.forEach(vo => {
+			if(vo.codeone == 20){
+				msg += '<option value="' + vo.codeone.toString() + vo.codetwo.toString() + '">&nbsp;&nbsp;#' + vo.c_secondary + '</option>';
+			}
+		})
+		msg += '<option value="30" codetwo="">게임</option>';
+		json.forEach(vo => {
+			if(vo.codeone == 30){
+				msg += '<option value="' + vo.codeone.toString() + vo.codetwo.toString() + '">&nbsp;&nbsp;#' + vo.c_secondary + '</option>';
+			}
+		})
+		msg += '<option value="40" codetwo="">기타</option>';
+		json.forEach(vo => {
+			if(vo.codeone == 40){
+				msg += '<option value="' + vo.codeone.toString() + vo.codetwo.toString() + '">&nbsp;&nbsp;#' + vo.c_secondary + '</option>';
+			}
+		})
+		
+		document.querySelector("#category").innerHTML += msg;
+	})
+	.catch(err => console.log(err));
+}
+
 //list 가져오기
-getPrincipal().then(() => {
+window.onload = function() {
+	getPrincipal().then(() => {
+		let pageData = getStorageData();
+		let obj;
+		
+		if(pageData == null){
+			document.querySelector("#listbyperiod").classList.remove("activeFont");
+			document.querySelector("#listbylatest").classList.add("activeFont");
+			setStorageData('manage', 1, 10, 'latest', 'all', 'p_idx', '');
+			obj = makeObject(principal.member.m_idx, 1, 10, 'latest', 'all', 'p_idx', '');
+		}else{
+			if(pageData.sort == 'latest'){
+				document.querySelector("#listbyperiod").classList.remove("activeFont");
+				document.querySelector("#listbylatest").classList.add("activeFont");
+			}
+			else{
+				document.querySelector("#listbylatest").classList.remove("activeFont");
+				document.querySelector("#listbyperiod").classList.add("activeFont");
+			}
+			
+			selectOptions();
+			
+			obj = makeObject(principal.member.m_idx, pageData.pageNum, pageData.amount, pageData.sort, pageData.category, pageData.searchcolumn, pageData.searchword);
+		}
+		
+		multiSearchList(obj);
+	})
+};
+
+function selectOptions() {
 	let pageData = getStorageData();
 	
-	if(pageData == null){
-		getList(principal.member.m_idx, 1, 10);
-	}else{
-		getList(principal.member.m_idx, pageData.pageNum, pageData.amount);
-	}
+    document.querySelectorAll("#category option").forEach(c => {
+        if(c.value == pageData.category) {
+            c.selected = 'selected';
+        }
+    });
+    
+    document.querySelectorAll("#detailSearch option").forEach(d => {
+        if(d.value == pageData.searchcolumn) {
+            d.selected = 'selected';
+        }
+    });
+    
+    document.querySelector("#searchword").value = pageData.searchword;
+}
+
+//검색
+document.querySelector("#search").addEventListener('click', ()=>{
+	let pageData = getStorageData();
+	
+	let category = document.querySelector("#category").value;
+	let searchcolumn = document.querySelector("#detailSearch").value;
+	let searchword = document.querySelector("#searchword").value;
+	
+	getPrincipal().then(() => {
+		setStorageData('manage', 1, 10, pageData.sort, category, searchcolumn, searchword);
+		let obj = makeObject(principal.member.m_idx, 1, 10, pageData.sort, category, searchcolumn, searchword);
+		multiSearchList(obj);
+	})
 })
 
-function getList(m_idx, pageNum, amount){
+//객체 생성 후 반환하는 함수
+function makeObject(m_idx, pageNum, amount, sort, category, searchcolumn, searchword){
+	let obj = {
+		m_idx : m_idx,
+		pageNum : pageNum,
+		amount : amount,
+		sort : sort,
+		category : category,
+		searchcolumn : searchcolumn,
+		searchword : searchword
+	};
+	
+	return obj;
+}
+
+//list
+function multiSearchList(obj){
 	let msg = "";
 	let page = "";
 	
-	fetch('/partner/list', {
+	fetch('/partner/managesearch', {
 		method : 'post',
-		body : JSON.stringify({
-			m_idx : m_idx,
-			pageNum : pageNum,
-			amount : amount
-		}),
+		body : JSON.stringify(obj),
 		headers : {'Content-type' : 'application/json; charset=utf-8'}
 	})
 	.then(response => response.json())
@@ -79,17 +181,50 @@ function pagingEvent(){
 		aEle.addEventListener('click', function(e){
 			e.preventDefault(); //href 경로 이동 방지
 			
+			let pageData = getStorageData();
+			
 			//태그 속성 불러오기
 			let menu = 'manage';
 			let pageNum = this.getAttribute("href");
 			let amount = 10;
+			let sort = document.querySelector("#listbylatest").classList.contains('activeFont') ? 'latest' : 'period';
 			
-			setStorageData(menu, pageNum, amount);
+			setStorageData(menu, pageNum, amount, sort, pageData.category, pageData.searchcolumn, pageData.searchword);
 			
-			getList(principal.member.m_idx, pageNum, amount);
+			getPrincipal().then(() => {
+				let obj = makeObject(principal.member.m_idx, pageNum, amount, sort, pageData.category, pageData.searchcolumn, pageData.searchword);
+				multiSearchList(obj);
+			})
 		});
 	});
 }
+
+//최신순, 남은기간순 정렬
+//최신순
+document.querySelector("#listbylatest").addEventListener('click', ()=>{
+	let pageData = getStorageData();
+	
+	//css
+	document.querySelector("#listbyperiod").classList.remove("activeFont");
+	document.querySelector("#listbylatest").classList.add("activeFont");
+	
+	let obj = makeObject(principal.member.m_idx, 1, 10, 'latest', pageData.category, pageData.searchcolumn, pageData.searchword);
+	multiSearchList(obj);
+	setStorageData('manage', 1, 10, 'latest', pageData.category, pageData.searchcolumn, pageData.searchword);
+})
+
+//남은기간순
+document.querySelector("#listbyperiod").addEventListener('click', ()=>{
+	let pageData = getStorageData();
+	
+	//css
+	document.querySelector("#listbylatest").classList.remove("activeFont");
+	document.querySelector("#listbyperiod").classList.add("activeFont");
+	
+	let obj = makeObject(principal.member.m_idx, 1, 10, 'period', pageData.category, pageData.searchcolumn, pageData.searchword);
+	multiSearchList(obj);
+	setStorageData('manage', 1, 10, 'period', pageData.category, pageData.searchcolumn, pageData.searchword);
+})
 
 //수정 삭제 버튼 클릭 이벤트
 function modifyBtnEvent(p_idx){

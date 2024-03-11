@@ -52,5 +52,8 @@ public interface MemberService {
 	
 	//카카오 로그인
 	public MemberVO kakaoRead(String kakaoid);
+	
+	//회원가입 중복확인
+	public int joinCheck(String name, String phone);
 
 }

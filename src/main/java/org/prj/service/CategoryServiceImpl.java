@@ -25,4 +25,9 @@ public class CategoryServiceImpl implements CategoryService {
 	public List<CategoryVO> showCategory() {
 		return cMapper.showCategory();
 	}
+
+	@Override
+	public List<CategoryVO> getAllCategory() {
+		return cMapper.getAllCategory();
+	}
 }

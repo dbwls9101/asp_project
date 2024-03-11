@@ -3,6 +3,7 @@ getPrincipal().then(() => {
 	let pageData = getStorageData();
 	
 	if(pageData == null){
+		setStorageData('replymanage', 1, 10);
 		getList(principal.member.nickname, 1, 10);
 	}else{
 		getList(principal.member.nickname, pageData.pageNum, pageData.amount);

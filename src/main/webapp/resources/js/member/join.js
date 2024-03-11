@@ -22,12 +22,17 @@ document.querySelector('#certification').addEventListener('click', ()=>{
 			})
 			.then(response => response.json())
 			.then(json => {
-				alert('인증이 완료되었습니다.');
-				document.querySelector("#name").value = json.name;
-				document.querySelector("#phone").value = json.phone;
-				document.querySelector("#birth").value = json.birth;
+				if (json.result == "1"){
+					alert('이미 가입된 회원입니다. 다시 확인해주세요!');
+				}else{		
+					alert('인증이 완료되었습니다.');
+					document.querySelector("#name").value = json.name;
+					document.querySelector("#phone").value = json.phone;
+					document.querySelector("#birth").value = json.birth;
+				}
 			})
 			.catch(err => console.log(err));
+			
 			
 		} else {
 			alert("인증에 실패하였습니다. \n에러 내용: " +  rsp.error_msg);

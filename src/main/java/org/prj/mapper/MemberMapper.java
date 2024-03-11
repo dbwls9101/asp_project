@@ -50,5 +50,8 @@ public interface MemberMapper {
 	
 	//카카오 로그인
 	public MemberVO kakaoRead(String kakaoid);
+	
+	//회원가입 중복확인
+	public int joinCheck(@Param("name") String name, @Param("phone") String phone);
 
 }

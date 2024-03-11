@@ -63,18 +63,31 @@ public class MemberController {
 		log.info("doCertify..." + impuid);
 		HashMap<String, String> map = memberservice.getAuthInfo(impuid);
 		
+		String name = map.get("name");
+		String phone = map.get("phone");
+		
+		int result = memberservice.joinCheck(name, phone);
+		map.put("result", result + "");
 		return ResponseEntity.ok().body(map);
 	}
 
 	// 회원가입
+	
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	public String joinPOST(MemberVO member) throws Exception {
+	public String joinPOST(MemberVO member, Model model, HttpSession session) throws Exception {
 		// log.info("join 진입");
 		member.setPassword(pwencoder.encode(member.getPassword()));
+		
+		MemberVO memVo =  (MemberVO)session.getAttribute("joinMemVo");
+		if(memVo != null) {
+			member.setKakaoid(memVo.getKakaoid());
+			member.setToken(memVo.getToken());
+		}
 		// 회원가입 서비스 실행
 		memberservice.memberJoin(member);
-
-		return "redirect:/";
+		model.addAttribute("setText", "회원가입을 축하드립니다! 다시 로그인 해주세요!");
+    	return "/member/registerAlert";
+//		return "redirect:/";
 	}
 
 	// 아이디 비밀번호 찾기 페이지 이동

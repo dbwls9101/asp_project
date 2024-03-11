@@ -1,11 +1,14 @@
 // 파트너 페이징
-function setStorageData(menu, pageNum, amount){
+function setStorageData(menu, pageNum, amount, sortBy, category, searchcolumn, searchword){
 	const pageData = {
 		menu : menu,
 		pageNum : pageNum,
-		amount : amount
+		amount : amount,
+		sort : sortBy,
+		category : category,
+		searchcolumn : searchcolumn, 
+		searchword : searchword
 	};
-	
 	localStorage.setItem('page_data', JSON.stringify(pageData));
 }
 

@@ -9,8 +9,10 @@ import org.prj.domain.PartyBoardVO;
 public interface PartyBoardService {
 	//파티 등록
 	public void registerParty(PartyBoardVO vo);
-	//파티 리스트
-	public List<PartyBoardVO> getPartyList(Criteria cri);
+	// 파티관리 - 검색 결과 count
+	public int getManageSearchTotal(Criteria cri);
+	// 파티관리 - 검색 결과에 대한 리스트
+	public List<PartyBoardVO> getManageSearchList(Criteria cri);
 	//파티 수정 페이지
 	public PartyBoardVO getParty(int p_idx);
 	//파티 수정
