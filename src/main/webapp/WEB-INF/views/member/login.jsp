@@ -47,7 +47,7 @@
 			<img src="/resources/images/naver_logo.png" alt="">네이버 계정으로 로그인 하기
 		</a>	
 		<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=1eafea66efb2c408d53924fa52fd0839&redirect_uri=	
-			http://localhost:8080/kakao_login" style="margin-left:0px; margin-top:5px; width:100%; font-weight: 500;" class="kakao sns-kakao" title="카카오">
+			http://localhost:8081/kakao_login" style="margin-left:0px; margin-top:5px; width:100%; font-weight: 500;" class="kakao sns-kakao" title="카카오">
 			<img src="/resources/images/kakao_logo.png" alt="">카카오 계정으로 로그인 하기			
 		</a>
 	</div>
