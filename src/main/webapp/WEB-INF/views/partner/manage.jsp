@@ -18,20 +18,16 @@
 		
 			<div id="party-search">
 				<form>
-					<select class="form-select" aria-label="Default select example">
-					  <option selected>카테고리</option>
-					  <option value="1">One</option>
-					  <option value="2">Two</option>
-					  <option value="3">Three</option>
+					<select id="category" class="form-select" aria-label="Default select example">
+					  <option value="all" selected>카테고리</option>
 					</select>
 					
-					<select class="form-select" aria-label="Default select example">
-					  <option value="1" selected>파티번호</option>
-					  <option value="2">파티제목</option>
-					  <option value="3">계정ID</option>
+					<select id="detailSearch" class="form-select" aria-label="Default select example">
+					  <option value="p_idx" selected>파티번호</option>
+					  <option value="title">파티제목</option>
 					</select>
 					
-					<input class="form-control" type="text" placeholder="검색어를 입력하세요." aria-label="default input example">
+					<input class="form-control" type="text" id="searchword" placeholder="검색어를 입력하세요." aria-label="default input example">
 					
 					<input type="button" id="search" value="검색">
 					<input type="button" id="makeparty" value="파티생성">
@@ -39,8 +35,8 @@
 			</div>
 			
 			<span id="sorttap">
-				<a href="#">최신순</a>
-				<a href="#">남은기간순</a>
+				<a href="#" id="listbylatest" class="activeFont">최신순</a>
+				<a href="#" id="listbyperiod" class="">남은기간순</a>
 			</span>
 			
 			<div id="partylist">

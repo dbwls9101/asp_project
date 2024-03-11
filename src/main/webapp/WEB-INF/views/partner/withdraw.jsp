@@ -61,14 +61,13 @@
 									<tr>
 										<th id="left1">3. 지급 요청 금액</th>
 											<c:choose>
-												<c:when test="${withamount == 0}">
+												<c:when test="${withamount == null}">
 													<td>0원</td>												
 												</c:when>
 												<c:otherwise>
 													<td id="withamount" name="withamount">${withamount }원</td>
 												</c:otherwise>
 											</c:choose>
-<%-- 											<td id="withamount" name="withamount">${withamount }원</td> --%>
 											<input type="hidden" name="with_amount3" value="${withamount }">
 											<td>수수료 포함</td>
 									</tr>
