@@ -8,18 +8,18 @@ import org.prj.domain.FaqVO;
 import org.prj.domain.VideoVO;
 import org.prj.service.FaqService;
 import org.prj.service.VideoService;
+import org.prj.domain.WithdrawVO;
+import org.prj.service.WithdrawService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -35,6 +35,10 @@ public class AdminController {
 	
 	@Autowired
 	private VideoService vService;
+ 
+	// 출금 관리
+	@Autowired
+	private WithdrawService wService;
 	
 	//관리자홈
 	@GetMapping("/home")
@@ -93,4 +97,49 @@ public class AdminController {
 		log.info("vo..." + vo);
 		return vService.videoSave(vo);
 	}
+	
+	//추천영상 삭제
+	@ResponseBody
+	@GetMapping(value = "/videoDelete/{channel}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public int videoDelete(@PathVariable("channel") String channel) throws IOException {
+		log.info("videoDelete...");
+		log.info("channel..." + channel);
+		return vService.videoDelete(channel);
+	}
+
+	// 환불 관리
+	@GetMapping("/refund")
+	public String moveRefund() {
+		log.info("moveRefund...");
+		return "/admin/refund";
+	}
+	
+	// 출금 관리
+	@GetMapping("/withdraw")
+	public String moveWithdraw() {
+		log.info("Withdraw...");
+		return "/admin/withdraw";
+	}
+	
+	//출금관리 리스트
+	@ResponseBody
+	@GetMapping(value="/withdrawList", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_XML_VALUE})
+	public ResponseEntity<List<WithdrawVO>> withdrawList() {
+		log.info("withdrawList...");
+		return new ResponseEntity<List<WithdrawVO>> (wService.withdrawList(), HttpStatus.OK);
+	} 
+	
+	//출금관리 승인, DB with_status A -> C로 변경
+	@ResponseBody
+	@PostMapping(value = "/modifyWithdraw", produces = MediaType.TEXT_PLAIN_VALUE)
+	public String modifyWithdraw(@RequestBody int w_idx) {
+	    log.info("modifyWithdraw... :" + w_idx);
+
+	    if (wService.modifyWithdraw(w_idx)) {
+	        return "success";
+	    }else {
+	    	return "fail";
+	    }
+	}
+	
 }

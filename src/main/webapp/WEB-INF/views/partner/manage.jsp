@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,8 +62,17 @@
 					</tbody>
 				</table>
 			</div>
+			
+			<!-- page -->
+			<div class="page-wrap">
+				<ul class="page-nation">
+				
+				</ul>
+			</div>
 		</div>
 	</div>
+	
+	<jsp:include page="../layout/partner_footer.jsp"/>
 	
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>

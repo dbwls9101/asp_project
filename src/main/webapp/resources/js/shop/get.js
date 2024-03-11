@@ -98,8 +98,13 @@ function notPartyWriter(){
 	
 	//목록 버튼
 	document.querySelector("#getpartylist").addEventListener('click', ()=>{
-		let c1 = urlParams.get('c1');
-		location.href = "/shop/list/" + c1;
+		let pageData = getStorageData();
+		
+		if(pageData != null){
+			location.href = '/partner/' + pageData.menu;
+		}else{
+			history.back(-1);
+		}
 	});
 }
 
@@ -112,8 +117,13 @@ function partyWriter(){
 	
 	//목록 버튼
 	document.querySelector("#getpartylist").addEventListener('click', ()=>{
-		let c1 = urlParams.get('c1');
-		location.href = "/shop/list/" + c1;
+		let pageData = getStorageData();
+		
+		if(pageData != null){
+			location.href = '/partner/' + pageData.menu;
+		}else{
+			history.back(-1);
+		}
 	});
 }
 

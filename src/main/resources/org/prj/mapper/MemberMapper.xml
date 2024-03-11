@@ -30,7 +30,7 @@
 	
 	<!-- 로그인 security -->
 	<select id="memberRead" resultMap="memberMap">
-		select m_idx, id, password, name, email, phone, nickname, point, reg_date, status, "LEVEL", bank, bank_number, with_amount, auth from member where id = #{id} and status = 'N' 
+		select m_idx, id, password, name, email, phone, nickname, point, reg_date, status, "LEVEL", bank, bank_number, with_amount, auth, naverid, kakaoid, token from member where id = #{id} and status = 'N'
 	</select>
 	
 	<!-- 회원가입 -->
@@ -48,7 +48,10 @@
 			REG_DATE, 
 			UPDATE_DATE, 
 			status, 
-			point
+			point,
+			token,
+			kakaoid,
+			naverid
 		)
 			values 
 		(
@@ -63,7 +66,10 @@
 			sysdate, 
 			sysdate, 
 			'N', 
-			'500'
+			'500',
+			#{token},
+			#{kakaoid},
+			#{naverid, jdbcType=VARCHAR}
 		)
 	</insert>
 	
@@ -118,6 +124,22 @@
 	
 	<!--  파트너 정보조회  -->
 	<select id="getPartnerinfo" parameterType="int" resultType="org.prj.domain.MemberVO"> 
-		select * from member where m_idx = #{m_idx} 
+		select * from member where m_idx = #{m_idx} 		
 	</select>
+	
+	<!-- withamount 업데이트 -->
+	<update id="updateWithamount" parameterType="org.prj.domain.MemberVO">
+		update member set with_amount = (with_amount + #{serviceamount}) where id=#{id}
+	</update>
+	
+	<!-- 카카오 회원가입 -->
+	<select id="kakaoIdck" parameterType="String" resultType="int">
+		select count(*) from member where kakaoid = #{kakaoid}
+	</select>
+	
+	<!-- 카카오 로그인 -->
+	<select id="kakaoRead" parameterType="String" resultMap="memberMap">
+		select m_idx, id, password, name, email, phone, nickname, point, reg_date, status, "LEVEL", bank, bank_number, with_amount, auth, naverid, kakaoid, token from member where kakaoid = #{kakaoid} and status = 'N' 
+	</select>
+	
 </mapper>	

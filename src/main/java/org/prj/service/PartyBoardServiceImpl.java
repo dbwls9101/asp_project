@@ -24,8 +24,8 @@ public class PartyBoardServiceImpl implements PartyBoardService{
 	}
 
 	@Override
-	public List<PartyBoardVO> getPartyList(int m_idx) {
-		return pMapper.getPartyList(m_idx);
+	public List<PartyBoardVO> getPartyList(Criteria cri) {
+		return pMapper.getPartyList(cri);
 	}
 
 	@Override
@@ -72,5 +72,21 @@ public class PartyBoardServiceImpl implements PartyBoardService{
 	public List<PartyBoardVO> getParticipating(String id) {
 		return pMapper.getParticipating(id);
 	}
+
+	@Override
+	public int partyStatusUpdate() {
+		return pMapper.partyStatusUpdate();
+	}
+
+	@Override
+	public int getMyPartyTotal(int m_idx) {
+		return pMapper.getMyPartyTotal(m_idx);
+	}
 	
+	
+	@Override
+	public String idSearch(int p_idx) {
+		log.info("idSearch..." + p_idx);
+		return pMapper.idSearch(p_idx);
+	}
 }

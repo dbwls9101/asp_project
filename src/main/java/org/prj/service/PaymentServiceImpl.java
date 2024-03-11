@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import org.prj.domain.Criteria;
 import org.prj.domain.PaymentVO;
 import org.prj.mapper.PaymentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -175,8 +176,13 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 	
 	@Override
-	public List<PaymentVO> getPayMemberList(int m_idx) {
-	return mapper.getPayMemberList(m_idx);
+	public List<PaymentVO> getPayMemberList(Criteria cri) {
+	return mapper.getPayMemberList(cri);
 	}
 
+	@Override
+	public int getPayPartyTotal(int m_idx) {
+		return mapper.getPayPartyTotal(m_idx);
+	}
+	
 }

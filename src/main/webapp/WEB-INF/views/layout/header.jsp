@@ -39,7 +39,7 @@
 								<div class="block">
 									<div class="name">
 										${principal.member.nickname }
-										<a href="/member/logout" class="header-logout">
+										<a href="#" onclick="mainLogout()" class="header-logout">
 											<img alt="close" src="/resources/images/close-option.png">
 										</a>
 									</div>

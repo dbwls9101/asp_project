@@ -10,7 +10,7 @@ public interface PartyBoardService {
 	//파티 등록
 	public void registerParty(PartyBoardVO vo);
 	//파티 리스트
-	public List<PartyBoardVO> getPartyList(int m_idx);
+	public List<PartyBoardVO> getPartyList(Criteria cri);
 	//파티 수정 페이지
 	public PartyBoardVO getParty(int p_idx);
 	//파티 수정
@@ -19,7 +19,6 @@ public interface PartyBoardService {
 	public List<PartyBoardVO> getListbycategory(Criteria cri);
 	//2차 카테고리 별 파티 리스트
 	public List<PartyBoardVO> getListbycategory2(Criteria cri);
-	
 	//게시글 상세
 	public PartyBoardVO getDetailParty(int p_idx);
 	//참여인원 업데이트
@@ -30,4 +29,10 @@ public interface PartyBoardService {
 	public List<MemberVO> getPaymentMemberList(int p_idx);
 	//내가 참여중인 파티
 	public List<PartyBoardVO> getParticipating(String id);
+	//마감된 파티 status 변경
+	public int partyStatusUpdate();
+	//내가 생성한 파티 개수
+	public int getMyPartyTotal(int m_idx);
+	// 결제 정보의 p_idx로 파티장 아이디 조회
+	public String idSearch(int p_idx);
 }

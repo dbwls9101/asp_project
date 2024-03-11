@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Index</title>
+<title>관리자 홈</title>
 </head>
 <body>
 	<jsp:include page="../layout/admin_header.jsp"/>

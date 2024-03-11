@@ -8,7 +8,7 @@ import org.prj.domain.PartyBoardVO;
 
 public interface PartyBoardMapper {
 	public void registerParty(PartyBoardVO vo);
-	public List<PartyBoardVO> getPartyList(int m_idx);
+	public List<PartyBoardVO> getPartyList(Criteria cri);
 	public PartyBoardVO getParty(int p_idx);
 	public void updateParty(PartyBoardVO vo);
 	public List<PartyBoardVO> getListbycategory(Criteria cri);
@@ -18,4 +18,7 @@ public interface PartyBoardMapper {
 	public void cancleUpdateCurrNum(int p_idx);
 	public List<MemberVO> getPaymentMemberList(int p_idx);
 	public List<PartyBoardVO> getParticipating(String id);
+	public int partyStatusUpdate();
+	public int getMyPartyTotal(int m_idx);
+	public String idSearch(int p_idx);
 }

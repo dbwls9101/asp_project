@@ -111,11 +111,6 @@ input[type='text'], input[type='password'] {
 	text-decoration: none;
 }
 
-.button.button-purple {
-	background-color: #43a051;
-	cursor: pointer;
-}
-
 .button-align {
 	position: relative;
 	min-height: 53px;

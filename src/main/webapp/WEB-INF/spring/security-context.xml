@@ -14,6 +14,7 @@
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 	<bean id="customUserDetailService"
 		class="org.prj.security.CustomUserDetailService"></bean>
+	<bean id="logoutSuccessHandler" class="org.prj.security.CustomLogoutSuccessHandler"></bean>
 
 	<security:http auto-config="true">					<!-- 로그인/로그아웃할 때 통신 문제 관리 하는 것 -->
 		<security:intercept-url pattern="/member/*"
@@ -35,8 +36,9 @@
 
 		<!-- 로그아웃 처리 -->
 		<security:logout logout-url="/member/logout"
-			logout-success-url="/" invalidate-session="true"
-			delete-cookies="remember-me, JSESSIONID" />
+		invalidate-session="false"
+		success-handler-ref="logoutSuccessHandler"
+		delete-cookies="remember-me, JSESSIONID" />
 
 		<!-- 에러 처리 -->
 		<!-- <security:access-denied-handler error-page="/accessError"/> -->
