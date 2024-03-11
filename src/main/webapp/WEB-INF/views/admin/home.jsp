@@ -183,6 +183,13 @@
     </div>
     <!-- /.container-fluid -->
     
+    <!-- Page level plugins -->
+    <script src="/resources/js/admin/Chart.min.js"></script>
+    
+    <!-- Page level custom scripts -->
+    <script src="/resources/js/admin/chart-area-demo.js"></script>
+    <script src="/resources/js/admin/chart-pie-demo.js"></script>
+    
 	<jsp:include page="../layout/admin_footer.jsp"/>
 </body>
 </html>
