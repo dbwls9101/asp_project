@@ -327,9 +327,7 @@ ul {
 	background-color: white;
 	outline: none;
 }
-.form-horizontal modify-form readonly {
-	background-color: gray;
-}
+.modify-form input:read-only {background-color: #f0f0f0 !important;}  
 
 .form-list .inline-break {
 	display: block;

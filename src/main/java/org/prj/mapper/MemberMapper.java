@@ -41,7 +41,17 @@ public interface MemberMapper {
 	
 	//파트너 정보조회
 	public MemberVO getPartnerinfo(int m_idx);
-	
+
 	//결재 후 member -> with_amount 금액이 증가
 	public void updateWithamount(MemberVO vo);
+    
+	//카카오 회원가입
+	public int kakaoIdck(String kakaoid);
+	
+	//카카오 로그인
+	public MemberVO kakaoRead(String kakaoid);
+	
+	//회원가입 중복확인
+	public int joinCheck(@Param("name") String name, @Param("phone") String phone);
+
 }

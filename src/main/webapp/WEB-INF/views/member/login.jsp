@@ -43,10 +43,11 @@
 		<span class="text-point">회원이 아닌가요? 첫가입 시 500포인트!</span>
 	</div>	
 	<div class="form-sns-join">
-		<a href="javascrip:;" onclick="nwindow('https://buts.co.kr/plugin/social/popup.php?provider=naver&amp;url=https://buts.co.kr/bbs/login.php')" style="margin-top:20px; width:100%; font-weight: 500;" class="naver sns-naver" title="네이버">
+		<a href="javascrip:;" style="margin-top:20px; width:100%; font-weight: 500;" class="naver sns-naver" title="네이버">
 			<img src="/resources/images/naver_logo.png" alt="">네이버 계정으로 로그인 하기
-		</a>
-		<a href="javascrip:;" onclick="nwindow('https://buts.co.kr/plugin/social/popup.php?provider=kakao&amp;url=https://buts.co.kr/bbs/login.php')" style="margin-left:0px; margin-top:5px; width:100%; font-weight: 500;" class="kakao sns-kakao" title="카카오">
+		</a>	
+		<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=1eafea66efb2c408d53924fa52fd0839&redirect_uri=	
+			http://localhost:8080/kakao_login" style="margin-left:0px; margin-top:5px; width:100%; font-weight: 500;" class="kakao sns-kakao" title="카카오">
 			<img src="/resources/images/kakao_logo.png" alt="">카카오 계정으로 로그인 하기			
 		</a>
 	</div>

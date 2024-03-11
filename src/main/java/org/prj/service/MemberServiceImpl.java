@@ -160,8 +160,7 @@ public class MemberServiceImpl implements MemberService{
 
 	//내정보 수정
 	@Override
-	public int updateMypage(MemberVO member) throws Exception {
-		
+	public int updateMypage(MemberVO member) throws Exception {		
 		return membermapper.updateMypage(member);
 	}
 	
@@ -189,5 +188,22 @@ public class MemberServiceImpl implements MemberService{
 		membermapper.updateWithamount(vo);
 	}
 	
+	//카카오 회원가입
+	@Override
+	public int kakaoIdck(String kakaoid) {
+		return membermapper.kakaoIdck(kakaoid);
+	}
 	
+	//카카오 로그인
+	@Override
+	public MemberVO kakaoRead(String kakaoid) {
+		return membermapper.kakaoRead(kakaoid);
+	}
+	
+	//회원가입 중복확인
+	@Override
+	public int joinCheck(String name, String phone) {
+		return membermapper.joinCheck(name, phone);
+	}
+
 }
