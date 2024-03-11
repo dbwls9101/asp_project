@@ -1,0 +1,54 @@
+#detailSearch{
+	width: 130px;
+	display: inline;
+	font-size: 13px;
+}
+
+#searchword{
+	width: 300px;
+	font-size: 13px;
+	display: inline;
+}
+
+#search {
+	font-size: 14px;
+	border-radius: 10px;
+	width: 90px;
+	height: 32px;
+	background-color: #006D77;
+	color: white;
+	border: 0;
+}
+
+.radio{
+	margin-bottom: 10px;
+	font-size: 15px;
+}
+
+#partylist {
+	margin-top: 30px;
+	border-top: 1px solid #333333;
+	border-bottom: 1px solid #ececec;
+}
+
+#partylist table {
+	text-align: center;
+	width: 100%;
+}
+
+#partylist table th {
+	padding: 18px 0;
+	font-size: 14px;
+	font-weight: bold;
+	color: #333333;
+	background-color: #f9f9f9;
+}
+
+#partylist table td {
+	padding: 15px 0;
+	font-size: 14px;
+	font-weight: 500;
+	color: #333;
+	line-height: 16px;
+	border-top: 1px solid #ececec;
+}

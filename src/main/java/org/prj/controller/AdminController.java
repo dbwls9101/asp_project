@@ -96,4 +96,9 @@ public class AdminController {
 	    }
 	}
 	
+	//파티 관리
+	@GetMapping("party")
+	public void moveParty() {
+		log.info("party...");
+	}
 }
