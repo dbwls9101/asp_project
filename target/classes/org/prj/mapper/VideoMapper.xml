@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.prj.mapper.VideoMapper">
+	<!-- 영상 저장  -->
+	<insert id="add" parameterType="org.prj.domain.VideoVO">
+		INSERT INTO video(idx, title, description, videoid, thumbnailurl, channelid, channel, reg_date)
+		VALUES(SEQ_video.nextval, #{title }, #{description }, #{videoid }, #{thumbnailurl }, 
+				#{channelid }, #{channel }, sysdate)
+	</insert>
+	
+	<!-- 저장한 개수  -->
+	<select id="listCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM video where channelid = #{channelid } and TO_CHAR(reg_date,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD')
+	</select>
+	
+	<!-- 영상 삭제  -->
+	<delete id="remove" parameterType="String">
+		delete FROM video where channel = #{channel }
+	</delete>
+	
+	<!-- 전체 조회  -->
+	<select id="getAllVideos" resultType="org.prj.domain.VideoVO">
+		SELECT * FROM video ORDER BY idx desc
+	</select>
+	
+</mapper>

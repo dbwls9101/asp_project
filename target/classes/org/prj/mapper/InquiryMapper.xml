@@ -26,7 +26,7 @@
 	<!-- 3. 게시판 글 등록 -->
 	<insert id="insert" parameterType="org.prj.domain.InquiryVO">
 		INSERT INTO inquiry_board(i_idx, m_idx, inquiry_type, writer, content, password, status, reg_date, phone, title)
-		VALUES(SEQ_INQUIRY.nextval, 22, #{inquiry_type }, #{writer }, #{content }, 
+		VALUES(SEQ_INQUIRY.nextval, #{m_idx }, #{inquiry_type }, #{writer }, #{content }, 
 				#{password }, #{status }, sysdate, #{phone }, #{title })
 	</insert>
 	
