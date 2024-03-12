@@ -126,7 +126,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="#">1:1 문의</a>
                         <a class="collapse-item" href="#">FAQ</a>
-                        <a class="collapse-item" href="#">추천영상</a>
+                        <a class="collapse-item" href="/admin/videoList">추천영상</a>
                     </div>
                 </div>
             </li>
@@ -259,7 +259,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="#" onclick="adminLogout()">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>

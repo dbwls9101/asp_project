@@ -11,6 +11,12 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" ></script>
 </head>
 <body>
+<script type="text/javascript">
+
+function test123(){
+	alert("123");
+}
+</script>
 <jsp:include page="../layout/header.jsp"/>
 <div class="wrapper">
 	
@@ -46,9 +52,12 @@
 		<a href="javascrip:;" style="margin-top:20px; width:100%; font-weight: 500;" class="naver sns-naver" title="네이버">
 			<img src="/resources/images/naver_logo.png" alt="">네이버 계정으로 로그인 하기
 		</a>	
-		<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=1eafea66efb2c408d53924fa52fd0839&redirect_uri=	
+		<!-- <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=1eafea66efb2c408d53924fa52fd0839&redirect_uri=	
 			http://localhost:8081/kakao_login" style="margin-left:0px; margin-top:5px; width:100%; font-weight: 500;" class="kakao sns-kakao" title="카카오">
 			<img src="/resources/images/kakao_logo.png" alt="">카카오 계정으로 로그인 하기			
+		</a> -->
+		<a href="javascript:;" style="margin-left:0px; margin-top:5px; width:100%; font-weight: 500;" class="kakao sns-kakao" title="카카오" onclick="window.open('/member/registerAlert?type=kakao_login', 'kakao Login', 'width=500,height=600,top=200,left=500');">
+			<img src="/resources/images/kakao_logo.png" alt="">카카오 계정으로 로그인 하기	
 		</a>
 	</div>
 	

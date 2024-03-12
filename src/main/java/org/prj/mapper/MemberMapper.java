@@ -2,7 +2,6 @@ package org.prj.mapper;
 
 import org.apache.ibatis.annotations.Param;
 import org.prj.domain.MemberVO;
-import org.prj.domain.PaymentVO;
 
 public interface MemberMapper {
 
