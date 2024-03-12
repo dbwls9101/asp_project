@@ -1,7 +1,3 @@
-.container-space {
-	padding-bottom: 150px;
-}
-
 .video-container {
 	position: relative;
     width: calc(100% + 26px);

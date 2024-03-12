@@ -10,11 +10,6 @@
 				#{channelid }, #{channel }, sysdate)
 	</insert>
 	
-	<!-- 저장한 개수  -->
-	<select id="listCount" parameterType="String" resultType="int">
-		SELECT COUNT(*) FROM video where channelid = #{channelid } and TO_CHAR(reg_date,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD')
-	</select>
-	
 	<!-- 영상 삭제  -->
 	<delete id="remove" parameterType="String">
 		delete FROM video where channel = #{channel }
@@ -23,6 +18,23 @@
 	<!-- 전체 조회  -->
 	<select id="getAllVideos" resultType="org.prj.domain.VideoVO">
 		SELECT * FROM video ORDER BY idx desc
+	</select>
+	
+	<!-- 메인 추천영상 -->
+	<select id="mainAllVideos" resultType="org.prj.domain.VideoVO">
+		SELECT *
+		FROM (
+		    SELECT v.*, 
+		           ROW_NUMBER() OVER (PARTITION BY v.channel ORDER BY v.reg_date DESC) AS rnum
+		    FROM video v
+		    WHERE (v.channel, v.reg_date) IN (
+		        SELECT channel, MAX(reg_date) AS latest_date
+		        FROM video
+		        GROUP BY channel
+		    )
+		)
+		WHERE rnum = 1
+		ORDER BY reg_date DESC
 	</select>
 	
 </mapper>

@@ -94,4 +94,9 @@ public class PartyBoardServiceImpl implements PartyBoardService{
 		log.info("idSearch..." + p_idx);
 		return pMapper.idSearch(p_idx);
 	}
+	
+	@Override
+	public List<PartyBoardVO> mainAllParty() {
+		return pMapper.mainAllParty();
+	}
 }
