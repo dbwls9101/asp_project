@@ -427,3 +427,33 @@ ul {
     line-height: 16px;
     color: #888;
 }
+
+/* 개인정보 동의 영역*/
+.page-content {
+	border: 3px solid black;
+	height: 250px;
+	overflow: auto;
+	padding: 25px 40px;
+	border: solid 1px #c8f1cbed;
+	border-radius: 20px;
+	font-size: 14px;
+}
+
+.h3 {
+	position: relative;
+	margin-top: 50px;
+	margin-bottom: 25px;
+	font-size: 22px;
+	font-weight: 500;
+	color: #333333;
+}
+
+.title-point {
+	color: #43a051;
+}
+
+.agreeAll {
+	font-size: 20px;
+	display: flex;
+    justify-content: center;
+}

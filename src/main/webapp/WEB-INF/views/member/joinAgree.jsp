@@ -15,8 +15,8 @@
 	<a href="javascrip:;" onclick="nwindow('https://buts.co.kr/plugin/social/popup.php?provider=naver&amp;url=https://buts.co.kr/bbs/login.php')" class="naver sns-naver" title="네이버">
 		<img src="/resources/images/naver_logo.png" alt="">네이버 계정으로 회원가입 하기
 	</a>
-	<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=1eafea66efb2c408d53924fa52fd0839&redirect_uri=http://localhost:8081/kakao_callback" class="kakao sns-kakao" title="카카오">
-		<img src="/resources/images/kakao_logo.png" alt="">카카오 계정으로 회원가입 하기			
+	<a href="javascript:;" onclick="window.open('/member/registerAlert?type=kakao_callback', 'kakao Login', 'width=500,height=600,top=200,left=500');" class="kakao sns-kakao" title="카카오">
+		<img src="/resources/images/kakao_logo.png" alt="">카카오 계정으로 회원가입 하기		
 	</a>
 </div>
 <div class="h3"><span class="title-point">약관</span> 동의</div>

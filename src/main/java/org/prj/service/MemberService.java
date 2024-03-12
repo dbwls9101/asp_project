@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import org.prj.domain.MemberVO;
-import org.prj.domain.PaymentVO;
 
 public interface MemberService {
 	
