@@ -94,4 +94,29 @@ public class PartyBoardServiceImpl implements PartyBoardService{
 		log.info("idSearch..." + p_idx);
 		return pMapper.idSearch(p_idx);
 	}
+
+	@Override
+	public int getAdminPartyTotal(Criteria cri) {
+		return pMapper.getAdminPartyTotal(cri);
+	}
+
+	@Override
+	public List<PartyBoardVO> getAdminPartyList(Criteria cri) {
+		return pMapper.getAdminPartyList(cri);
+	}
+
+	@Override
+	public void doAdminUpdateParty(PartyBoardVO vo) {
+		pMapper.doAdminUpdateParty(vo);
+	}
+
+	@Override
+	public int doPartyclose(int p_idx) {
+		return pMapper.doPartyclose(p_idx);
+	}
+
+	@Override
+	public int doPartyOpen(int p_idx) {
+		return pMapper.doPartyOpen(p_idx);
+	}
 }

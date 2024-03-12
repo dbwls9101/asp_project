@@ -33,15 +33,21 @@
 		</div>
 		
 		<div>
+			<select id="category" class="form-select" aria-label="Default select example">
+			  <option value="all" selected>카테고리</option>
+			</select>
+			
 			<select id="detailSearch" class="form-select" aria-label="Default select example">
-			  <option value="p_idx" selected>파티번호</option>
+			  <option value="p_idx" selected>파티 번호</option>
+			  <option value="title">파티 제목</option>
 			  <option value="id">파티장 아이디</option>
-			  <option value="name">파티장 닉네임</option>
+			  <option value="nickname">파티장 닉네임</option>
 			</select>
 			
 			<input class="form-control" type="text" id="searchword" aria-label="default input example">
 			
 			<input type="button" id="search" value="검색">
+			<input type="button" id="reset" value="초기화">
 		</div>
 		
 		<div id="partylist">
@@ -49,9 +55,10 @@
 				<thead>
 					<tr>
 						<th>파티번호</th>
-						<th>제목</th>
-						<th>결제비용(총액)</th>
-						<th>참여인원</th>
+						<th style="width:300px">제목</th>
+						<th>닉네임(아이디)</th>
+						<th style="width:150px">일 금액</th>
+						<th style="width:100px">참여인원</th>
 						<th>남은기간</th>
 						<th>종료일</th>
 						<th>파티생성일</th>
@@ -63,9 +70,17 @@
 				</tbody>
 			</table>
 		</div>
+		
+		<!-- page -->
+		<div class="page-wrap">
+			<ul class="page-nation">
+			
+			</ul>
+		</div>
 	</div>
 	
 	
 	<jsp:include page="../layout/admin_footer.jsp"/>
 </body>
+<script type="text/javascript" src="/resources/js/admin/party.js"></script>
 </html>

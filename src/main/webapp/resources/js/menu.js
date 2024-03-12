@@ -106,8 +106,9 @@ function moveManage(){
 function storageClear(){
 	let containsGet = containsString('get');
 	let containsPartner = containsString('partner');
+	let containsAdmin = containsString('admin');
 	
-	if(!containsGet && !containsPartner){
+	if(!containsGet && !containsPartner && !containsAdmin){
 		localStorage.clear();
 	}
 }

@@ -37,4 +37,16 @@ public interface PartyBoardService {
 	public int getMyPartyTotal(int m_idx);
 	// 결제 정보의 p_idx로 파티장 아이디 조회
 	public String idSearch(int p_idx);
+	
+	//================관리자=======================
+	//파티 개수
+	public int getAdminPartyTotal(Criteria cri);
+	//파티 리스트
+	public List<PartyBoardVO> getAdminPartyList(Criteria cri);
+	//파티 수정
+	public void doAdminUpdateParty(PartyBoardVO vo);
+	//파티 마감
+	public int doPartyclose(int p_idx);
+	//파티 오픈
+	public int doPartyOpen(int p_idx);
 }
