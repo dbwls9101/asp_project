@@ -1,5 +1,6 @@
 package org.prj.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -19,9 +20,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,7 +50,10 @@ public class MemberController {
 
 	// 개인정보 동의 페이지 이동
 	@RequestMapping(value = "joinAgree", method = RequestMethod.GET)
-	public void joinAgreeGET() {}
+	public void joinAgreeGET(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.invalidate();	// 세션 삭제
+	}
 
 	// 회원가입 페이지 이동
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
@@ -86,6 +88,7 @@ public class MemberController {
 		// 회원가입 서비스 실행
 		memberservice.memberJoin(member);
 		model.addAttribute("setText", "회원가입을 축하드립니다! 다시 로그인 해주세요!");
+		model.addAttribute("kakaoPopCheck", 4);
     	return "/member/registerAlert";
 //		return "redirect:/";
 	}
@@ -103,9 +106,7 @@ public class MemberController {
 
 		if (result != 0) {
 			return "1"; // 중복 아이디가 존재
-
 		} else {
-
 			return "0"; // 중복 아이디 X
 		}
 	} // memberIdChkPOST() 종료
@@ -115,15 +116,11 @@ public class MemberController {
 	@ResponseBody
 	public String memberNickChkGET(@RequestParam("nickname") String nickname) throws Exception {
 
-
 		int result = memberservice.nicknameCheck(nickname);
-
 
 		if (result != 0) {
 			return "1"; // 중복 닉네임 존재
-
 		} else {
-
 			return "0"; // 중복 닉네임 X
 		}
 	} // memberNickChkGET() 종료
@@ -136,12 +133,9 @@ public class MemberController {
 
 		int result = memberservice.emailCheck(email);
 
-
 		if (result != 0) {
 			return "1"; // 중복 이메일 존재
-
 		} else {
-
 			return "0"; // 중복 이메일 X
 		}
 	} // memberEmailChkGET() 종료
@@ -340,6 +334,13 @@ public class MemberController {
 		
 		return "/partner/partnerinfo";
 	}
+	
+	// 카카오 로그인 팝업창
+	@RequestMapping(value = "/member/registerAlert", method = RequestMethod.GET)
+    public void kakao_call(Model model,@RequestParam(value ="type", required=false) String type) throws IOException {
+		model.addAttribute("type",type);
+    	log.warn("카카오로 kakao_popup");
+    }
 	
 	public void updatePrincipal() {
 		//현재 사용자 정보

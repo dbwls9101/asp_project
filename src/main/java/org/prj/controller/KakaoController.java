@@ -1,7 +1,6 @@
 package org.prj.controller;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -9,7 +8,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -54,15 +52,15 @@ public class KakaoController {
         	memVo.setToken(kakaoToken);
         	session.setAttribute("joinMemVo", memVo);
             log.warn("카카오로 회원가입");
-            model.addAttribute("kakao","1");
-            return "redirect:/member/join";
+            model.addAttribute("kakaoPopCheck", 1);
+            return "/member/registerAlert";
         }else {
         	model.addAttribute("setText", "이미 존재하는 SNS 계정입니다.");
+        	model.addAttribute("kakaoPopCheck", 3);
         	return "/member/registerAlert";
         }
 
     }
-    
     @RequestMapping(value = "/kakao_login", method = RequestMethod.GET)
     public String doKakaoLogin(Model model, @RequestParam String code, HttpSession session) throws IOException {
         System.out.println("code:: " + code);
@@ -73,18 +71,22 @@ public class KakaoController {
         // 접속자 정보 get
         Map<String, Object> result = kakaoService.getUserInfo(kakaoToken);
         log.info("result:: " + result);
-        // map isempty
-        if(result.isEmpty()) {
-        	return "redirect:/";
-        }
         String kakaoid = (String) result.get("id");
         
         MemberVO membervo = memberService.kakaoRead(kakaoid);
 		System.out.println(membervo);
 		
 		if (membervo == null){ 
-			model.addAttribute("setText", "SNS계정이 존재하지 않습니다. 다시 확인해주세요.");
+//			model.addAttribute("setText", "SNS계정이 존재하지 않습니다. 다시 확인해주세요.");
+//			return "/member/registerAlert";
+			MemberVO memVo = new MemberVO();
+        	memVo.setKakaoid(kakaoid);
+        	memVo.setToken(kakaoToken);
+        	session.setAttribute("joinMemVo", memVo);
+            log.warn("카카오로 회원가입");
+			model.addAttribute("kakaoPopCheck", 1);
 			return "/member/registerAlert";
+			
 		}else{
 			UserDetails userDetails = customUserDetailService.loadUserByUsername(membervo.getId()); 
 			Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null,userDetails.getAuthorities());
@@ -94,8 +96,8 @@ public class KakaoController {
 			
 			session.setAttribute("loginType", "kakao");
 			session.setAttribute("kakaoid", kakaoid);
-			
-			return "redirect:/"; 
+			model.addAttribute("kakaoPopCheck", 2);
+			return "/member/registerAlert"; 
 		}
     }
     

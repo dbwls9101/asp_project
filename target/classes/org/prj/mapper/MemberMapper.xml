@@ -67,8 +67,8 @@
 			sysdate, 
 			'N', 
 			'500',
-			#{token},
-			#{kakaoid},
+			#{token, jdbcType=VARCHAR},
+			#{kakaoid, jdbcType=VARCHAR},
 			#{naverid, jdbcType=VARCHAR}
 		)
 	</insert>
