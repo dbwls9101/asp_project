@@ -228,4 +228,9 @@ public class MemberServiceImpl implements MemberService{
 		return membermapper.naver_update(memeber);
 	}
 
+	//회원번호 찾기
+	@Override
+	public int findMidx(String id) {
+		return membermapper.findMidx(id);
+	}
 }

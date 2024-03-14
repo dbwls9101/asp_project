@@ -149,6 +149,10 @@
 		select count(*) from member where name = #{name} and phone = #{phone}
 	</select>
 	
+	<!-- 회원번호 찾기 -->
+	<select id="findMidx" parameterType="String" resultType="int">
+		select m_idx from member where id = #{id} 
+	</select>
 	<!-- 네이버 회원가입 -->
 	<select id="naverIdck" parameterType="String" resultType="int">
 		select count(*) from member where naverid = #{naverid}

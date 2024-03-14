@@ -5,21 +5,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>1:1 문의 신청</title>
+<title>1:1 문의</title>
 </head>
 <body>
 	<jsp:include page="../layout/header.jsp"/>
 	
 	<!-- 1. 문의하기 -->
 	<div>
-		<h1 class="page-header"> 1:1 문의하기 </h1>
+		<h1 class="page-header"> <span class="text-point">1:1</span> 문의 </h1>
 	</div>
 	
 	<!-- 2. 정보 제공 내용 -->
 	<div class="heading-explanation">
-		<h5>사용목적에 적합한 게시판 활용을 위하여 광고성 글이나 불법게시물(상업물, 음란물, 욕설)등</h5>
-		<h5>본 사이트와 무관한 게시물은 관리자 권한으로 통보 없이 임의 삭제될 수 있습니다.</h5>
-		<h5>아울러 질문과 답변을 하는 게시판이므로 성격에 맞지 않는 글을 삭제될 수 있음을 알려드립니다.</h5>
+		사용목적에 적합한 게시판 활용을 위하여 광고성 글이나 불법게시물(상업물, 음란물, 욕설)등<br>
+		본 사이트와 무관한 게시물은 관리자 권한으로 통보 없이 임의 삭제될 수 있습니다.<br>
+		아울러 질문과 답변을 하는 게시판이므로 성격에 맞지 않는 글을 삭제될 수 있음을 알려드립니다.
 	</div>
 	
 	<!-- 3. 문의하기 버튼 -->
@@ -32,7 +32,6 @@
 		<table>
 			<thead>
 				<tr>
-					<th>번 호</th>
 					<th>상담유형</th>
 					<th>처리결과</th>
 					<th>제 목</th>
@@ -43,7 +42,6 @@
 			<tbody>
 				<c:forEach var="vo" items="${list }">
 					<tr>
-						<td>${vo.i_idx }</td>
 						<c:choose>
 							<c:when test="${vo.inquiry_type eq 'A' }">
 								<td>이용문의</td>

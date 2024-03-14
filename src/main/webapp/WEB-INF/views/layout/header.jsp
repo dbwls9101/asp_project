@@ -16,7 +16,7 @@
     	<div class="top">
 		    <div class="width-menu">
 			    <div class="top-menu">
-				    <a href="/inquiry_board/Inquiryregister">1:1 문의</a>
+				    <a href="#" onclick="inquiryChk()">1:1 문의</a>
 				    <a href="#">이벤트</a>
 				    <a href="#">공지사항</a>
 			    </div>
@@ -77,7 +77,7 @@
 								<div class="block">
 									<ul class="profile-menu">
 										<li><a href="/page/faq?i_type=A">FAQ</a></li>
-										<li><a href="/inquiry_board/Inquiryregister">1:1 문의하기</a></li>
+										<li><a href="/inquiry_board/Inquirylist">1:1 문의</a></li>
 									</ul>
 								</div>
 							</div>

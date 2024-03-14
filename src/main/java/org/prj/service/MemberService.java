@@ -55,7 +55,10 @@ public interface MemberService {
 	//회원가입 중복확인
 	public int joinCheck(String name, String phone);
 	
-    //네이버 회원가입
+	//회원번호 찾기
+	public int findMidx(String id);
+
+	//네이버 회원가입
 	public int naverIdck(String naverid);
 	
 	//네이버 로그인

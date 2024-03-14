@@ -5,12 +5,27 @@ function videoSave(f) {
 		return;
 	}
 	
-	if (!f.channelId.value) {
-		alert('채널 ID를 입력하세요.');
-		return;
+	var channelId = '';
+	
+	if (f.channel.value == '넷플릭스') {
+		channelId = 'UCiEEF51uRAeZeCo8CJFhGWw';
+	}else if (f.channel.value == '웨이브') {
+		channelId = 'UCym5538xAEEppbridXozfgw';
+	}else if (f.channel.value == '유튜브') {
+		channelId = 'UCOH52Yqq4-rdLvpt2Unsqsw';
+	}else if (f.channel.value == '디즈니') {
+		channelId = 'UCtdz9LWNNQKUg4Xpma_40Ug';
+	}else if (f.channel.value == '왓챠') {
+		channelId = 'UCgmmc51A3qyAR3MvVX-rzCQ';
+	}else if (f.channel.value == '라프텔') {
+		channelId = 'UCI7lPoS1I3zOOePX9ph4iAA';
+	}else if (f.channel.value == '쿠팡플레이') {
+		channelId = 'UCjn-VbcIkAeXQKCmLJV8YwQ';
+	}else if (f.channel.value == '프라임비디오') {
+		channelId = 'UCQJWtTnAHhEG5w4uN0udnUQ';
 	}
 	
-	var value = f.channelId.value + '/' + f.channel.value;
+	var value = channelId + '/' + f.channel.value;
 	
 	fetch('/admin/videoSave/' + value)
 		.then(response => response.json())
