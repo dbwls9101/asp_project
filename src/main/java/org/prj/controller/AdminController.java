@@ -270,7 +270,6 @@ public class AdminController {
 	@ResponseBody
 	@PostMapping(value="/categorystatus", produces = MediaType.TEXT_PLAIN_VALUE)
 	public String changeCategoryStatus(@RequestBody CategoryVO vo) {
-		System.out.println("@@@@@" + vo);
 		return cService.changeCategoryStatus(vo) > 0 ? "success" : "fail";
 	}
 }
