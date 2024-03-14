@@ -310,7 +310,7 @@ function emailck2(email) {
 let query = window.location.search;
 let joinAgree = document.querySelector(".joinAgree");
 
-if( query == '?kakao=1'){
+if( query == '?sns'){
 	joinAgree.style.display = 'inline-block';
 }
 

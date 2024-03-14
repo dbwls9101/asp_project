@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <sec:authorize access="isAuthenticated()">
    <sec:authentication property="principal" var="principal"/>
 </sec:authorize>
@@ -58,7 +58,17 @@
 					<span class="subject">ㆍ 휴대폰 번호</span>
 					<input type="text" class="phone_input" name="phone" id="phone" value = "${principal.member.phone }" placeholder="휴대폰 번호" maxlength="20">
 				</li>
-				
+				<li>
+					<span class="subject">ㆍ SNS 관리</span>
+					<div class="input-checkbox">
+						<div class="reg-form sns-wrap-reg">
+						    <div class="sns-wrap">
+						    <a href="javascript:;" id="sns-naver" class="sns-icon social_link sns-naver <c:if test = "${principal.member.naverid == null or principal.member.naverid eq ''}" >sns-icon-not </c:if>" onclick="naver_update('${principal.member.naverid}');" title="naver 계정을 연결 합니다." data-provider="naver"><span class="ico"></span><span class="txt">네이버 로그인</span></a>
+						    <a href="javascript:;" id="sns-kakao" class="sns-icon social_link sns-kakao <c:if test = "${principal.member.kakaoid == null or principal.member.kakaoid eq ''}" >sns-icon-not </c:if>" onclick="kakao_update('${principal.member.kakaoid}');" title="kakao 연결을 해제합니다." data-provider="kakao"><span class="ico"></span><span class="txt">카카오 로그인</span></a>
+						    </div>
+						</div>
+					</div>										
+				</li>
 			</ul>
 		</div>
 		<div class="button-align center">

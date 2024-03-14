@@ -12,7 +12,7 @@
 <form class="form-horizontal register-form" role="form" id="fregisterform" name="fregisterform" autocomplete="off" action="#" method="get" onsubmit="return false">
 <div class="h3"><span class="title-point">SNS</span> 가입하기</div>
 <div class="form-sns-join">
-	<a href="javascrip:;" onclick="nwindow('https://buts.co.kr/plugin/social/popup.php?provider=naver&amp;url=https://buts.co.kr/bbs/login.php')" class="naver sns-naver" title="네이버">
+	<a href="javascript:;" onclick="window.open('/member/registerAlert?type=naver_callback', 'naver Login', 'width=500,height=600,top=200,left=500');" class="naver sns-naver" title="네이버">
 		<img src="/resources/images/naver_logo.png" alt="">네이버 계정으로 회원가입 하기
 	</a>
 	<a href="javascript:;" onclick="window.open('/member/registerAlert?type=kakao_callback', 'kakao Login', 'width=500,height=600,top=200,left=500');" class="kakao sns-kakao" title="카카오">

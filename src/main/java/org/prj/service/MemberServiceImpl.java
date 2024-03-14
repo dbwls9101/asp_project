@@ -203,5 +203,29 @@ public class MemberServiceImpl implements MemberService{
 	public int joinCheck(String name, String phone) {
 		return membermapper.joinCheck(name, phone);
 	}
+	
+	//네이버 회원가입
+	@Override
+	public int naverIdck(String naverid) {
+		return membermapper.naverIdck(naverid);
+	}
+	
+	//네이버 로그인
+	@Override
+	public MemberVO naverRead(String naverid) {
+		return membermapper.naverRead(naverid);
+	}
+	
+	//카카오 SNS 계정 연결
+	@Override
+	public int kakao_update(MemberVO memeber) {
+		return membermapper.kakao_update(memeber);
+	}
+	
+	//네이버 SNS 계정 연결
+	@Override
+	public int naver_update(MemberVO memeber) {
+		return membermapper.naver_update(memeber);
+	}
 
 }

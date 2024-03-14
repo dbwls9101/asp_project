@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,12 +14,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" ></script>
 </head>
 <body>
-<script type="text/javascript">
-
-function test123(){
-	alert("123");
-}
-</script>
 <jsp:include page="../layout/header.jsp"/>
 <div class="wrapper">
 	
@@ -49,7 +46,7 @@ function test123(){
 		<span class="text-point">회원이 아닌가요? 첫가입 시 500포인트!</span>
 	</div>	
 	<div class="form-sns-join">
-		<a href="javascrip:;" style="margin-top:20px; width:100%; font-weight: 500;" class="naver sns-naver" title="네이버">
+		<a href="javascript:;" style="margin-top:20px; width:100%; font-weight: 500;" class="naver sns-naver" title="네이버" onclick="window.open('/member/registerAlert?type=naver_login', 'naver Login', 'width=500,height=600,top=200,left=500');">
 			<img src="/resources/images/naver_logo.png" alt="">네이버 계정으로 로그인 하기
 		</a>	
 		<!-- <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=1eafea66efb2c408d53924fa52fd0839&redirect_uri=	
@@ -64,7 +61,6 @@ function test123(){
   </form>
 </div>
 </div>
-
 <jsp:include page="../layout/footer.jsp"/>
 </body>
 <script type="text/javascript" src="/resources/js/member/login.js"></script>

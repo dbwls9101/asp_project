@@ -124,3 +124,36 @@ function emailck2(email) {
    .catch( err => console.log(err) );
 	
 }
+
+function naver_update(naverid){
+	if(naverid == null || naverid == ""){
+		window.open('/member/registerAlert?type=naver_update', 'naver Update', 'width=500, height=600, top=200, left=500');
+	}else{
+		 if (confirm("SNS 계정 연결을 해제하시겠습니까?") == true){ 
+				fetch('/naver_delete')
+				.then( response => response.text() )
+				.then( text => {
+				alert("SNS 계정 연결이 해제 되었습니다.");
+				window.location.reload();
+				})
+			.catch( err => console.log(err) );	
+		}
+	}
+}
+
+function kakao_update(kakaoid){
+	if(kakaoid == null || kakaoid == ""){
+		window.open('/member/registerAlert?type=kakao_update', 'kakao Update', 'width=500, height=600, top=200, left=500');
+	}else{
+		 if (confirm("SNS 계정 연결을 해제하시겠습니까?") == true){ 
+				fetch('/kakao_delete')
+				.then( response => response.text() )
+				.then( text => {
+				alert("SNS 계정 연결이 해제 되었습니다.");
+				window.location.reload();
+				})
+			.catch( err => console.log(err) );	
+		}
+	}
+	
+}

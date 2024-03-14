@@ -4,5 +4,7 @@ function modify(f){
 }
 
 function deletes(f){
-	alert("정말 탈퇴하시겠습니까?");
+	if (confirm("정말 탈퇴하시겠습니까?") == true) {
+		
+	}
 }
