@@ -83,12 +83,13 @@ public class MemberController {
 		MemberVO memVo =  (MemberVO)session.getAttribute("joinMemVo");
 		if(memVo != null) {
 			member.setKakaoid(memVo.getKakaoid());
+			member.setNaverid(memVo.getNaverid());
 			member.setToken(memVo.getToken());
 		}
 		// 회원가입 서비스 실행
 		memberservice.memberJoin(member);
 		model.addAttribute("setText", "회원가입을 축하드립니다! 다시 로그인 해주세요!");
-		model.addAttribute("kakaoPopCheck", 4);
+		model.addAttribute("PopCheck", 4);
     	return "/member/registerAlert";
 //		return "redirect:/";
 	}
@@ -335,11 +336,11 @@ public class MemberController {
 		return "/partner/partnerinfo";
 	}
 	
-	// 카카오 로그인 팝업창
+	// SNS 로그인 팝업창
 	@RequestMapping(value = "/member/registerAlert", method = RequestMethod.GET)
     public void kakao_call(Model model,@RequestParam(value ="type", required=false) String type) throws IOException {
 		model.addAttribute("type",type);
-    	log.warn("카카오로 kakao_popup");
+    	log.warn("SNS 로그인 popup");
     }
 	
 	public void updatePrincipal() {

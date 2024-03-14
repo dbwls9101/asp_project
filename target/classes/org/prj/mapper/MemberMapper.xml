@@ -19,6 +19,8 @@
 		<result property="bank" column="bank"/>
 		<result property="bank_number" column="bank_number"/>
 		<result property="with_amount" column="with_amount"/>
+		<result property="kakaoid" column="kakaoid"/>
+		<result property="naverid" column="naverid"/>
 		<collection property="authList" resultMap="authMap"></collection>
 	</resultMap>
 	
@@ -151,4 +153,24 @@
 	<select id="findMidx" parameterType="String" resultType="int">
 		select m_idx from member where id = #{id} 
 	</select>
+	<!-- 네이버 회원가입 -->
+	<select id="naverIdck" parameterType="String" resultType="int">
+		select count(*) from member where naverid = #{naverid}
+	</select>
+	
+	<!-- 네이버 로그인 -->
+	<select id="naverRead" parameterType="String" resultMap="memberMap">
+		select m_idx, id, password, name, email, phone, nickname, point, reg_date, status, "LEVEL", bank, bank_number, with_amount, auth, naverid, kakaoid, token from member where naverid = #{naverid} and status = 'N' 
+	</select>
+	
+	<!-- 카카오 SNS 계정 연결 -->
+	<update id="kakao_update" parameterType="org.prj.domain.MemberVO">
+		update member set kakaoid = #{kakaoid} where id = #{id}
+	</update>
+	
+	<!-- 네이버 SNS 계정 연결 -->
+	<update id="naver_update" parameterType="org.prj.domain.MemberVO">
+		update member set naverid = #{naverid} where id = #{id}
+	</update>
+	
 </mapper>	

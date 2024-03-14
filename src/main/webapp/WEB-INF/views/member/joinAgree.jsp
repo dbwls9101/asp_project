@@ -16,8 +16,8 @@
 			<span class="title-point">SNS</span> 가입하기
 		</div>
 		<div class="form-sns-join">
-			<a href="javascrip:;"
-				onclick="nwindow('https://buts.co.kr/plugin/social/popup.php?provider=naver&amp;url=https://buts.co.kr/bbs/login.php')"
+			<a href="javascript:;"
+				onclick="window.open('/member/registerAlert?type=naver_callback', 'naver Login', 'width=500,height=600,top=200,left=500');"
 				class="naver sns-naver" title="네이버"> <img
 				src="/resources/images/naver_logo.png" alt="">네이버 계정으로 회원가입 하기
 			</a> <a href="javascript:;"
@@ -380,7 +380,7 @@
 			<div class="article-title">부&nbsp;&nbsp;칙 시행일 등</div>
 
 			<ol>
-				<li>이 약관은 2024년 02월 14일부터 시행합니다.</li>
+				<li>이 약관은 2019년 10월 16일부터 시행합니다.</li>
 				<li>이 약관은 전자상거래(인터넷사이버몰) 표준약관 제10023호(2014. 9. 19. 개정)를 준수합니다.
 				</li>
 			</ol>
@@ -570,8 +570,8 @@
 					개인정보와 관련한 불만이 있으신 분은 본 쇼핑몰의 개인정보 관리책임자에게 의견을 주시면 접수 즉시 조치하여 처리결과를
 					통보해 드립니다.
 					<ol>
-						<li>개인정보 보호책임자 성명 : ASP</li>
-						<li>이메일 : manager@goott.co.kr</li>
+						<li>개인정보 보호책임자 성명 : 김시진</li>
+						<li>이메일 : manager@buts.co.kr</li>
 					</ol>
 				</li>
 				<li>또는 개인정보침해에 대한 신고나 상담이 필요하신 경우에는 아래 기관에 문의하시기 바랍니다.
@@ -595,7 +595,7 @@
 			<div class="article-title">부&nbsp;&nbsp;칙 시행일 등</div>
 
 			<ol>
-				<li>본 방침은 2024년 02월 14일부터 시행합니다.</li>
+				<li>본 방침은 2019년 10월 16일부터 시행합니다.</li>
 			</ol>
 
 		</div>
@@ -618,6 +618,3 @@
 </body>
 <script type="text/javascript" src="/resources/js/member/joinAgree.js"></script>
 </html>
-
-
-
