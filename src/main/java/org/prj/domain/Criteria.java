@@ -24,4 +24,7 @@ public class Criteria {
 	private String category;
 	private String searchcolumn;
 	private String searchword;
+	
+	//파티 상태
+	private String status;
 }

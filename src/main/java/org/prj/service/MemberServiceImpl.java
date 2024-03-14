@@ -204,4 +204,9 @@ public class MemberServiceImpl implements MemberService{
 		return membermapper.joinCheck(name, phone);
 	}
 
+	//회원번호 찾기
+	@Override
+	public int findMidx(String id) {
+		return membermapper.findMidx(id);
+	}
 }

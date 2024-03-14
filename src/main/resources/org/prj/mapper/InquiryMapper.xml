@@ -7,14 +7,14 @@
 	<!-- 1. 게시판 내용 불러오기 -->
 	<select id="getList" resultType="org.prj.domain.InquiryVO">
 		<![CDATA[
-		SELECT i_idx, m_idx, inquiry_type, writer, phone, title, content, password, status, reg_date, update_date
+		SELECT i_idx, m_idx, inquiry_type, writer, phone, title, content, status, reg_date, update_date
 		FROM (
-		SELECT ROWNUM rn, i_idx, m_idx, inquiry_type, writer, phone, title, content, password, status, reg_date, update_date
+		SELECT ROWNUM rn, i_idx, m_idx, inquiry_type, writer, phone, title, content, status, reg_date, update_date
 		FROM 
 		(SELECT * FROM inquiry_board ORDER BY i_idx desc)
 		WHERE ROWNUM <= #{pageNum} * #{amount}
 		ORDER BY i_idx desc)
-		WHERE rn > ( #{pageNum}-1) * #{amount}
+		WHERE rn > ( #{pageNum}-1) * #{amount} and m_idx = #{m_idx}
 		]]>
 	</select>
 	
@@ -25,9 +25,9 @@
 	
 	<!-- 3. 게시판 글 등록 -->
 	<insert id="insert" parameterType="org.prj.domain.InquiryVO">
-		INSERT INTO inquiry_board(i_idx, m_idx, inquiry_type, writer, content, password, status, reg_date, phone, title)
+		INSERT INTO inquiry_board(i_idx, m_idx, inquiry_type, writer, content, status, reg_date, phone, title)
 		VALUES(SEQ_INQUIRY.nextval, #{m_idx }, #{inquiry_type }, #{writer }, #{content }, 
-				#{password }, #{status }, sysdate, #{phone }, #{title })
+				#{status }, sysdate, #{phone }, #{title })
 	</insert>
 	
 	<!-- 4. 게시된 글을 가지고 온다. -->

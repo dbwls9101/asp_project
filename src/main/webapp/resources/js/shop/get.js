@@ -101,7 +101,11 @@ function notPartyWriter(){
 		let pageData = getStorageData();
 		
 		if(pageData != null){
-			location.href = '/partner/' + pageData.menu;
+			if(pageData.status != ''){
+				location.href = '/admin/' + pageData.menu;
+			}else{
+				location.href = '/partner/' + pageData.menu;
+			}
 		}else{
 			history.back(-1);
 		}
@@ -120,7 +124,11 @@ function partyWriter(){
 		let pageData = getStorageData();
 		
 		if(pageData != null){
-			location.href = '/partner/' + pageData.menu;
+			if(pageData.status != ''){
+				location.href = '/admin/' + pageData.menu;
+			}else{
+				location.href = '/partner/' + pageData.menu;
+			}
 		}else{
 			history.back(-1);
 		}

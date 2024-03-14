@@ -23,4 +23,9 @@ public interface PartyBoardMapper {
 	public int getMyPartyTotal(int m_idx);
 	public String idSearch(int p_idx);
 	public List<PartyBoardVO> mainAllParty();
+	public int getAdminPartyTotal(Criteria cri);
+	public List<PartyBoardVO> getAdminPartyList(Criteria cri);
+	public void doAdminUpdateParty(PartyBoardVO vo);
+	public int doPartyclose(int p_idx);
+	public int doPartyOpen(int p_idx);
 }

@@ -26,7 +26,7 @@ function fetchList() {
         	}
         	
             data.forEach(item => {
-            	msg += '<div id="partyinfo" codeone="' + item.codeone + '" codetwo="' + item.codetwo + '" p_idx="' + item.p_idx + '" datediff="' + item.datediff + '">';
+            	msg += '<div id="partyinfo" codeone="' + item.codeone + '" codetwo="' + item.codetwo + '" p_idx="' + item.p_idx + '" datediff="' + item.datediff + '" status="' + item.status + '">';
 				msg += '<div id="service">' + item.c_secondary + '</div>';
 				msg += '<div id="title" class="ellipsis">' + item.title + '</div>';
 				
@@ -54,7 +54,7 @@ function fetchList() {
 				}
 				msg += '</div>';
 				
-				if(item.datediff > 0){
+				if(item.status == 'Y'){
 					msg += '<div id="enddate">~ ' + myTime(item.end_date) + ' <span id="period">(' + item.datediff + '일)</span></div>';
 					msg += '<div id="price">' + item.totalprice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</div>';
 				}else{
@@ -106,9 +106,9 @@ let partyinfo = document.querySelectorAll("#partyinfo");
 			let codeone = party.getAttribute('codeone');
 			let codetwo = party.getAttribute('codetwo');
 			let p_idx = party.getAttribute('p_idx');
-			let datediff = party.getAttribute('datediff');
+			let status = party.getAttribute('status');
 			
-			if(datediff <= 0){
+			if(status == 'N'){
 				alert('이미 마감된 파티입니다.');
 			}else{
 				location.href = '/shop/get?c1=' + codeone + '&c2=' + codetwo + '&pn=' + p_idx;

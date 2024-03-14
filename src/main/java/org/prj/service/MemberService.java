@@ -54,5 +54,8 @@ public interface MemberService {
 	
 	//회원가입 중복확인
 	public int joinCheck(String name, String phone);
+	
+	//회원번호 찾기
+	public int findMidx(String id);
 
 }

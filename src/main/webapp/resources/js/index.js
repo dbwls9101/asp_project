@@ -9,11 +9,11 @@ function myTime(unixTimeStamp){
 }
 
 window.onload = function(){
-	//게시글 클릭이벤트
+	// 게시글 클릭이벤트
 	getDetailInfo();
 }
 
-//게시글 상세
+// 게시글 상세
 function getDetailInfo(){
 let partyinfo = document.querySelectorAll("#partyinfo");
 	partyinfo.forEach(party => {
@@ -33,4 +33,90 @@ let partyinfo = document.querySelectorAll("#partyinfo");
 	})
 }
 
-//슬라이드
+var itemPartyRow = document.querySelectorAll('.slide-row');
+
+// 메인 슬라이드
+if (itemPartyRow.length >= 8) {
+	$(document).ready(function() {
+		var $itemSlideParty = $('.slide-container'),
+			$itemPartyList = $itemSlideParty.find('.slide-list'),
+			$itemPartyRow = $itemSlideParty.find('.slide-row');
+			($itemPartyNavi = $itemSlideParty.find('.navi')),
+			($itemPartyIndicator = $itemSlideParty.find('.indicator')),
+			($itemPartyButton = null);
+		
+		var itemPartyInterval = null;
+		var itemPartyRowWidth = $itemPartyRow.outerWidth(true);
+		var itemPartyCurrent = 0;
+		var itemPartySpeed = 500;
+		var itemPartyTerm = 4000;
+		var itemPartyLength = Math.round($itemPartyRow.length / 2);
+		
+		function itemPartInit() {
+		$itemPartyList
+		  .on('mouseenter', function() {
+		    clearInterval(itemPartyInterval);
+		  })
+		  .on('mouseleave', function() {
+		    itemPartyStart();
+		  });
+		itemPartyStart();
+		itemPartyNavi();
+		itemPartyIndicator();
+		}
+		
+		function itemPartyNavi() {
+		$itemPartyNavi
+		  .show()
+		  .on('click', function(e) {
+		    e.preventDefault();
+		    $(this).hasClass('slide-prev') ? itemPartyMove(-1) : itemPartyMove(1);
+		  })
+		  .on('mouseenter', function() {
+		    clearInterval(itemPartyInterval);
+		  })
+		  .on('mouseleave', function() {
+		    itemPartyStart();
+		  });
+		}
+		
+		function itemPartyIndicator() {
+		for (var i = 0; i < itemPartyLength; i++) {
+		  if (!i) {
+		    $itemPartyIndicator.append('<span class="on"></span>');
+		  } else {
+		    $itemPartyIndicator.append('<span></span>');
+		  }
+		}
+		$itemPartyButton = $itemSlideParty.find('.indicator span');
+		}
+		
+		function itemPartyMove(direction) {
+		if (direction > 0) {
+		  itemPartyCurrent = itemPartyCurrent >= itemPartyLength - 1 ? 0 : itemPartyCurrent + 1;
+		  $itemPartyList.animate({ left: itemPartyRowWidth * direction * -1 }, itemPartySpeed, function() {
+		    $itemPartyList.stop().append($('.slide-container .slide-row').first()).append($('.slide-container .slide-row').first()).css({ left: 0 });
+		  });
+		} else {
+		  itemPartyCurrent = itemPartyCurrent == 0 ? itemPartyLength - 1 : itemPartyCurrent - 1;
+		  $itemPartyList
+		    .stop()
+		    .prepend($('.slide-container .slide-row').last())
+		    .prepend($('.slide-container .slide-row').last())
+		    .css({ left: -itemPartyRowWidth + 'px' });
+		  $itemPartyList.animate({ left: 0 }, itemPartySpeed);
+		}
+		$itemPartyButton.removeClass('on').eq(itemPartyCurrent).addClass('on');
+		}
+		
+		function itemPartyStart() {
+		itemPartyInterval = setInterval(function() {
+		  itemPartyMove(1);
+		}, itemPartyTerm);
+		}
+		
+		if (itemPartyLength > 4) {
+		itemPartInit();
+		}
+	});
+}

@@ -39,4 +39,16 @@ public interface PartyBoardService {
 	public String idSearch(int p_idx);
 	// 파티관리 - 검색 결과에 대한 리스트
 	public List<PartyBoardVO> mainAllParty();
+	
+	//================관리자=======================
+	//파티 개수
+	public int getAdminPartyTotal(Criteria cri);
+	//파티 리스트
+	public List<PartyBoardVO> getAdminPartyList(Criteria cri);
+	//파티 수정
+	public void doAdminUpdateParty(PartyBoardVO vo);
+	//파티 마감
+	public int doPartyclose(int p_idx);
+	//파티 오픈
+	public int doPartyOpen(int p_idx);
 }
