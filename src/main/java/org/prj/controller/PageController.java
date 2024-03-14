@@ -52,7 +52,7 @@ public class PageController {
 	@ResponseBody
 	@GetMapping(value = "/submenu", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public List<CategoryVO> showCategory() {
-		return cService.showCategory();
+		return cService.getAllCategory();
 	}
 	
 	// 파트너 신청 페이지

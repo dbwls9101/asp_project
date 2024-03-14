@@ -184,7 +184,6 @@ public class AdminController {
 		}else if(cri.getCategory().length() == 2) {
 			cri.setCodeone(Integer.valueOf(codeone));
 		}
-		System.out.println(cri);
 		
 		int total = pService.getAdminPartyTotal(cri);
 		List<PartyBoardVO> list = pService.getAdminPartyList(cri);
@@ -238,5 +237,40 @@ public class AdminController {
 		}else {
 			return "fail";
 		}
+	}
+	
+	//카테고리 관리
+	@GetMapping("/category")
+	public void moveCategory() {
+		log.info("moveCategory...");
+	}
+	
+	//카테고리 관리 - 리스트 
+	@ResponseBody
+	@PostMapping(value="/allsecondcategory", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<CategoryVO> getAdminCategory(@RequestBody int codeone){
+		return cService.getAllSecondCategory(codeone);
+	}
+	
+	//카테고리 중복 확인
+	@ResponseBody
+	@PostMapping(value="/checkcategory", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public int checkCategory(@RequestBody CategoryVO vo) {
+		return cService.checkCategory(vo);
+	}
+	
+	//카테고리 추가
+	@ResponseBody
+	@PostMapping(value="/addcategory", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public int addCategory(@RequestBody CategoryVO vo) {
+		return cService.addCategory(vo);
+	}
+	
+	//카테고리 활성화, 비활성화
+	@ResponseBody
+	@PostMapping(value="/categorystatus", produces = MediaType.TEXT_PLAIN_VALUE)
+	public String changeCategoryStatus(@RequestBody CategoryVO vo) {
+		System.out.println("@@@@@" + vo);
+		return cService.changeCategoryStatus(vo) > 0 ? "success" : "fail";
 	}
 }
