@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+<<<<<<< HEAD
                             	
+=======
+                                	
+    
+>>>>>>> 8ef622cd3d813c0682c7a65d8afe082f71965368
     
     
     
@@ -7,7 +12,12 @@
     
     
     <wb-module deploy-name="controller-1.0.0-BUILD-SNAPSHOT">
+<<<<<<< HEAD
                                                                 
+=======
+                                                                        
+        
+>>>>>>> 8ef622cd3d813c0682c7a65d8afe082f71965368
         
         
         
@@ -15,7 +25,12 @@
         
         
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+<<<<<<< HEAD
                                                         		
+=======
+                                                                		
+        
+>>>>>>> 8ef622cd3d813c0682c7a65d8afe082f71965368
         
         
         
@@ -25,7 +40,14 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+<<<<<<< HEAD
                                                         		
+=======
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
+                                                                		
+        
+>>>>>>> 8ef622cd3d813c0682c7a65d8afe082f71965368
         
         
         
@@ -33,7 +55,12 @@
         
         
         <property name="java-output-path" value="target/classes"/>
+<<<<<<< HEAD
                                                                 
+=======
+                                                                        
+        
+>>>>>>> 8ef622cd3d813c0682c7a65d8afe082f71965368
         
         
         
@@ -41,7 +68,12 @@
         
         
         <property name="context-root" value="controller"/>
+<<<<<<< HEAD
                                                         	
+=======
+                                                                	
+    
+>>>>>>> 8ef622cd3d813c0682c7a65d8afe082f71965368
     
     
     
@@ -49,7 +81,12 @@
     
     
     </wb-module>
+<<<<<<< HEAD
                             
+=======
+                                
+
+>>>>>>> 8ef622cd3d813c0682c7a65d8afe082f71965368
 
 
 
