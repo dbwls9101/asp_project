@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.prj.mapper.PaymentMapper">
+	<!-- 결제내역 등록 -->	
+	<insert id="order" parameterType="org.prj.domain.PaymentVO">
+		insert into payment
+			(order_no, p_idx, m_idx, id, name, phone, service_amount, pay_amount, point, commission, pay_method, pay_status, approved_at, title, imp_uid, token, sub_title, end_date)
+		values 
+			(#{order_no}, #{p_idx}, #{m_idx}, #{id}, #{name}, #{phone}, #{service_amount}, #{pay_amount}, #{point}, #{commission}, #{pay_method}, #{pay_status}, SYSDATE, #{title}, #{imp_uid}, #{token}, #{sub_title}, #{end_date})
+	</insert>
+	
+	<!-- 결제정보 -->
+	<select id="orderList" resultType="org.prj.domain.PaymentVO">
+		SELECT * FROM payment where m_idx=#{m_idx} order by approved_at desc
+	</select>
+	
+	<!-- 결제조회 -->
+	<select id="orderGet" resultType="org.prj.domain.PaymentVO">
+		SELECT * FROM payment where order_no=#{order_no}
+	</select>
+	
+	<!-- 결제취소 상태변경 -->
+	<update id="cancelStatus">
+		update payment set pay_status='D' where order_no=#{order_no}
+	</update>
+	
+	<!--  참여정보  -->
+	<select id="getPayMemberList" parameterType="org.prj.domain.Criteria" resultType="org.prj.domain.PaymentVO"> 
+	<![CDATA[
+		select * from
+		(select rownum rn, order_no, p_idx, m_idx, title, sub_title, id, name, phone, service_amount, pay_amount, commission, pay_status, approved_at, end_date 
+		from
+			(select pay.order_no, pay.p_idx, pay.m_idx, pay.title, pay.sub_title, pay.id, pay.name, pay.phone, pay.service_amount, pay.pay_amount, pay.commission, pay.pay_status, pay.approved_at, pay.end_date 
+			from payment pay inner join 
+			(select p.p_idx, p.m_idx, p.id from party_board p inner join member m on p.m_idx=m.m_idx) pm 
+			on pay.p_idx = pm.p_idx 
+			where pm.m_idx=#{m_idx} and pay.pay_status = 'B'
+			order by approved_at desc)
+		where rownum <= #{pageNum} * #{amount})
+		where rn > (#{pageNum}-1) * #{amount}
+	]]>
+	</select>
+	
+	<!-- 내 파티 참여자 -->
+	<select id="getPayPartyTotal" parameterType="int" resultType="int">
+		select count(*) 
+		from payment pay inner join 
+		(select p.p_idx, p.m_idx, p.id from party_board p inner join member m on p.m_idx=m.m_idx) pm 
+		on pay.p_idx = pm.p_idx 
+		where pm.m_idx=#{m_idx} and pay.pay_status = 'B'
+	</select>
+</mapper>
