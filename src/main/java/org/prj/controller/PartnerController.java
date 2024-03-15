@@ -1,20 +1,16 @@
 package org.prj.controller;
 
 import java.util.List;
-import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.prj.controller.PartnerController;
 import org.prj.domain.CategoryVO;
 import org.prj.domain.Criteria;
-import org.prj.domain.MemberVO;
 import org.prj.domain.PageDTO;
 import org.prj.domain.PartyBoardVO;
 import org.prj.domain.PartyCommentVO;
 import org.prj.domain.PaymentVO;
 import org.prj.domain.WithdrawVO;
 import org.prj.service.CategoryService;
-import org.prj.service.MemberService;
 import org.prj.service.PartyBoardService;
 import org.prj.service.PartyReplyService;
 import org.prj.service.PaymentService;
@@ -170,31 +166,37 @@ public class PartnerController {
 	@GetMapping("/withdraw")
 	public void movewithdraw(Model model) {
 		log.info("movewithdraw...");
-
+		
 		try {
-			// 현재 사용자 아이디 가져오기
-		    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		    String username = authentication.getName();
-		    log.info("participating..." + username);
-			model.addAttribute("sumamount", wService.getp_idx(username));
-			model.addAttribute("withamount", wService.withamount(username));
-			model.addAttribute("currentamount", wService.currentamount(username));
+		// 현재 사용자 아이디 가져오기
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		log.info("participating..." + username);
+		model.addAttribute("unsales", wService.unsales(username));
+		model.addAttribute("unsaleslist", wService.unsaleslist(username));
+		model.addAttribute("sumamount", wService.getp_idx(username));
+		model.addAttribute("withamount", wService.withamount(username));
+		model.addAttribute("currentamount", wService.currentamount(username));
+		
 		} catch(Exception e) {
 			log.error("An error occurred in movewithdraw", e);
-		} 
+		}
 	}
 	
 	//출금관리 리스트
 	@ResponseBody
-	@GetMapping(value="/withList/{m_idx}", 
-			produces = {
-			MediaType.APPLICATION_JSON_UTF8_VALUE,
-			MediaType.APPLICATION_XML_VALUE})
+	@GetMapping(value="/withList/{m_idx}", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public ResponseEntity<List<WithdrawVO>> withList(
 			@PathVariable("m_idx") int m_idx
 			) {
 			log.info("m_idx...." + m_idx);
 		
+		List<WithdrawVO> withdrawList = wService.getWithList(m_idx);
+		
+		if(withdrawList == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+			
 		return new ResponseEntity<List<WithdrawVO>>(wService.getWithList(m_idx), HttpStatus.OK);
 	}
 	
