@@ -11,84 +11,58 @@
 <body>
 	<jsp:include page="../layout/header.jsp"/>
 	
-	<div class="page-header">
-		<h1>1:1문의글 수정&삭제</h1>
-	</div>
-	
-	<br>
-	
 	<div class="panel-body">
 		<form method="post">
-			<table>
-				<tbody>
-					<tr>
-						<th>글 번호</th>
-						<td><input type="text" name="i_idx" value="${vo.i_idx }" readonly></td>
-					</tr>
-					<tr>
-						<th>문의유형</th>
-						<td>
-						<c:if test="${vo.inquiry_type eq 'A'}">
-						<a>이용문의</a>
-						</c:if>
-						<c:if test="${vo.inquiry_type eq 'B'}">
-						<a>파티문의</a>
-						</c:if>
-						<c:if test="${vo.inquiry_type eq 'C'}">
-						<a>회원문의</a>
-						</c:if>
-						<c:if test="${vo.inquiry_type eq 'D'}">
-						<a>입출금문의</a>
-						</c:if>
-						<c:if test="${vo.inquiry_type eq 'E'}">
-						<a>기타</a>
-						</c:if>
-						</td>
-					</tr>
-					<tr>
-						<th>제목</th>
-						<td><input type="text" name="title" value="${vo.title }"></td>
-					</tr>
-					<tr>
-						<th>작성자</th>
-						<td><input type="text" name="writer" value="${vo.writer }" readonly></td>
-					</tr>
-					<tr>
-						<th>내용</th>
-						<td>
-							<textarea rows="10" cols="75" name="content">${vo.content }</textarea>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+			<div class="mw-800 form-signup">
+				<div class="h3">
+					<span class="title-point">1:1</span> 문의 수정
+				</div>
+					<div class="form-round signup">
+						<ul class="form-list">
+							<li>
+								<span class="subject">ㆍ 문의유형</span>
+								<select name="inquiry_type">
+										<option value="A">이용문의</option>
+										<option value="B">파티문의</option>
+										<option value="C">회원문의</option>
+										<option value="D">입출금문의</option>
+										<option value="E">기타</option>
+								</select>
+							</li>
+							<li>
+								<span class="subject">ㆍ 이름</span>
+								<input type="text" name="writer" style="background-color: #e9ecef;" value="${vo.writer }" readonly="readonly">
+							</li>
+							<li>
+								<span class="subject">ㆍ 연락처</span>
+								<input type="text" name="phone" style="background-color: #e9ecef;" value="${vo.phone }" readonly="readonly">
+							</li>
+							<li>
+								<span class="subject">ㆍ 제목</span> 
+								<input type="text" name="title" value="${vo.title }">
+							</li>
+							<li>
+								<span class="subject">ㆍ 내용</span>
+								<textarea rows="10" cols="75" name="content">${vo.content }</textarea>
+								<input type="hidden" name="i_idx" value="${vo.i_idx }">
+							</li>
+							<li>
+								<span class="subject">ㆍ 파일 첨부</span> 
+								<span class="uploadDiv"><input type="file" name="uploadFile" multiple="multiple"></span>
+								<div class="uploadResult">
+									<ul></ul>
+								</div>
+							</li>
+						</ul>
+					</div>
+					
+				<div class="panel-body-btns">
+					<button type="button" class="button button-point btn" id="modifyBtn">수정</button>
+					<button type="button" class="button btn" id="indexBtn">목록으로 이동</button>
+				</div>
+			</div>
 		</form>
-		
-		<div class="file-container">
-			<div class="file-header">
-				<div class="file=title">
-					<a>파일 첨부</a>
-				</div>
-			</div>
-			<div class="file-body">
-				<div class="uploadDiv">
-					<input type="file" name="uploadFile" multiple="multiple">
-				</div>
-				<div class="uploadResult">
-					<ul></ul>
-				</div>
-			</div>
-		</div>
 	</div>
-	
-	<br>
-	
-	<div class="panel-body-btns">
-		<button type="button" class="btn btn-sec" id="modifyBtn">수정</button>
-		<button type="button" class="btn btn-thi" id="removeBtn">삭제</button>
-		<button type="button" class="btn btn-fir" id="indexBtn">목록으로 이동</button>
-	</div>
-	
-
 	<jsp:include page="../layout/footer.jsp"/>
 	<script type="text/javascript" src="/resources/js/Inquiry/Inquiryupload.js"></script>
 	<script type="text/javascript" src="/resources/js/Inquiry/InquiryModify.js"></script>		

@@ -20,8 +20,6 @@ document.querySelectorAll('.panel-body-btns button').forEach( btn => {
 		
 		if(type === 'modifyBtn') {
 			modify()
-		} else if(type === 'removeBtn') {
-			remove()
 		} else if(type === 'indexBtn') {
 			let pageData = getStorageData();
 			let sendData = "pageNum=" + pageData.pageNum + "&amount=" + pageData.amount;
@@ -43,19 +41,6 @@ function modify() {
 	
 	f.action = '/inquiry_board/Inquirymodify';
 	f.submit();
-}
-
-// 게시글 삭제
-function remove() {
-	if(confirm("정말 삭제 하시겠습니까?")) {
-		
-		let i_idxEle = f.i_idx;
-		f.innerHTML = '';
-		f.appendChild(i_idxEle);
-		
-		f.action = '/inquiry_board/Inquiryremove';
-		f.submit();
-	}
 }
 
 //  -------------- 업로드 관련 내용 --------------

@@ -14,4 +14,7 @@ public interface VideoService {
 	
 	//추천영상 불러오기
 	public List<VideoVO> getAllVideos();
+	
+	//메인 추천영상
+	public List<VideoVO> mainAllVideos();
 }

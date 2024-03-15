@@ -5,12 +5,16 @@ import java.util.List;
 import org.prj.domain.Criteria;
 import org.prj.domain.FileInfoVO;
 import org.prj.domain.InquiryVO;
+import org.prj.domain.MemberVO;
 import org.prj.domain.PageDTO;
 import org.prj.service.InquiryService;
+import org.prj.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,9 +35,22 @@ public class InquiryController {
 	@Autowired
 	private InquiryService service;
 	
+	@Autowired
+	private MemberService mservice;
+	
 	@GetMapping("/Inquirylist")
 	public String list(Model model, Criteria cri) {		// 1:1문의 게시판 페이지 처리
 		log.info("list...");
+		
+		// 현재 사용자 회원번호 가져오기
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    String username = authentication.getName();
+	    log.info("userDetails..." + username);
+	    
+	    int memberIdx = mservice.findMidx(username);
+	    log.info("memberIdx..." + memberIdx);
+	    
+	    cri.setM_idx(memberIdx);
 		
 		if(cri.getPageNum() == 0 && cri.getAmount() == 0) {
 			cri.setPageNum(1);	// 한개 페이지
@@ -59,11 +76,12 @@ public class InquiryController {
 	@PostMapping("/Inquiryregister")
 	public String register(InquiryVO vo, RedirectAttributes rttr) {
 		log.info("register..." + vo);
-		service.register(vo);
 		
 		if (vo.getAttachList() != null) {
 			vo.getAttachList().forEach(attach -> log.info(attach));
 		}
+		
+		service.register(vo);
 		rttr.addFlashAttribute("result", "success");
 		return "redirect:/inquiry_board/Inquirylist";
 	}
@@ -105,8 +123,6 @@ public class InquiryController {
 		}
 		
 		return "redirect:/inquiry_board/Inquirylist";
-		
-//		return "redirect:/inquiry_board/list";
 	}
 	
 	@ResponseBody

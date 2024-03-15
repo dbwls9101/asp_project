@@ -26,8 +26,6 @@ document.querySelector("input[type='file']").addEventListener('change', () =>{
 	const inputFile = document.querySelector('input[type="file"]');
 	const files = inputFile.files;
 	
-	console.log(files);
-	
 	for(let i=0; i<files.length; i++) {
 		
 		if(!checkExtenstion(files[i].name, files[i].size)) {
@@ -44,7 +42,6 @@ document.querySelector("input[type='file']").addEventListener('change', () =>{
 		)
 		.then( response => response.json() )
 		.then( json => {
-			console.log(json);
 			
 			showUploadedFile(json);
 		})
@@ -67,7 +64,7 @@ function showUploadedFile(uploadResultArr) {
 		
 		msg += '<li path="'+file.uploadPath+'" uuid="'+ file.uuid +'" fileName="' + file.fileName+'">';		// 동적으로 바인딩
 		msg += 		'<a>' + file.fileName  + '</a>';
-		msg += 		'<span data-file="' + fileCallPath + '"> X </span>';
+		msg += 		'<span data-file="' + fileCallPath + '" style="cursor: pointer;"> X </span>';
 		msg += '</li>';
 		
 	})
