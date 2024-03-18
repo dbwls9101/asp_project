@@ -70,12 +70,9 @@
 		where w_idx = #{w_idx }
 	</update>
 	
-<<<<<<< HEAD
+	<!-- 새 출금신청 -->
 	<select id="getNewWithdraw" resultType="int">
 		select count(*) from withdraw where with_status='A'
 	</select>
-=======
-	
-	
->>>>>>> 2140e99617868a81bde82c48278bbd16ac48a955
+
 </mapper>

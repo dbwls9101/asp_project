@@ -70,6 +70,7 @@
 		where w_idx = #{w_idx }
 	</update>
 	
+	<!-- 새 출금신청 -->
 	<select id="getNewWithdraw" resultType="int">
 		select count(*) from withdraw where with_status='A'
 	</select>
