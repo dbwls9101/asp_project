@@ -53,5 +53,7 @@
 		where w_idx = #{w_idx }
 	</update>
 	
-	
+	<select id="getNewWithdraw" resultType="int">
+		select count(*) from withdraw where with_status='A'
+	</select>
 </mapper>

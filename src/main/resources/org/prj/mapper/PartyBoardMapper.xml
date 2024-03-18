@@ -319,4 +319,12 @@
 	<update id="doPartyOpen" parameterType="int">
 		update party_board set status='Y' where p_idx=#{p_idx}
 	</update>
+	
+	<select id="getPartyRatio" resultType="org.prj.domain.PartyBoardVO">
+		SELECT 
+		    codeone,
+		    COUNT(*) AS total_count,
+		    ROUND((COUNT(*) / (SELECT COUNT(*) FROM party_board)) * 100, 2) AS ratio
+		FROM party_board GROUP BY codeone ORDER BY codeone
+	</select>
 </mapper>

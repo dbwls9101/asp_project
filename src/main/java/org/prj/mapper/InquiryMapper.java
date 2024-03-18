@@ -32,4 +32,6 @@ public interface InquiryMapper {
 	// 7. 댓글 데이터 변경
 //	public void updateReplyCnt(@Param("i_idx") int i_idx, @Param("amount") int amount);
 	
+	public int getNewInquiry();
+	
 }

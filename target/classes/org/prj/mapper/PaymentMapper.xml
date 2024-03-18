@@ -51,4 +51,33 @@
 		on pay.p_idx = pm.p_idx 
 		where pm.m_idx=#{m_idx} and pay.pay_status = 'B'
 	</select>
+	
+	<!-- 월별 결제 총액 -->
+	<select id="getTotalPayment" resultType="org.prj.domain.PaymentVO">
+		SELECT * 
+		FROM (
+		    SELECT 
+		        TO_CHAR(APPROVED_AT, 'YYYYMM') AS MONTH,
+		        SUM(PAY_AMOUNT) AS TOTAL_REVENUE
+		    FROM 
+		        payment
+		    GROUP BY 
+		        TO_CHAR(APPROVED_AT, 'YYYYMM')
+		    ORDER BY 
+		        MONTH
+		) 
+		<![CDATA[	
+		WHERE ROWNUM <= 12
+		]]>
+	</select>
+	
+	<!-- 연간 결제 총액 -->
+	<select id="getTotalEarning" resultType="int">
+		SELECT 
+		    SUM(PAY_AMOUNT)
+		FROM 
+		    payment
+		WHERE 
+		    EXTRACT(YEAR FROM APPROVED_AT) = EXTRACT(YEAR FROM SYSDATE)
+	</select>
 </mapper>

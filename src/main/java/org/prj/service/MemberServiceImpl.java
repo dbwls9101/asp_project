@@ -233,4 +233,11 @@ public class MemberServiceImpl implements MemberService{
 	public int findMidx(String id) {
 		return membermapper.findMidx(id);
 	}
+
+	//총 회원수
+	@Override
+	public int getTotalUser() {
+		return membermapper.getTotalUser();
+	}
+	
 }

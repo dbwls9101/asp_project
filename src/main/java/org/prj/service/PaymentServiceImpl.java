@@ -184,5 +184,14 @@ public class PaymentServiceImpl implements PaymentService {
 	public int getPayPartyTotal(int m_idx) {
 		return mapper.getPayPartyTotal(m_idx);
 	}
-	
+
+	@Override
+	public List<PaymentVO> getTotalPayment() {
+		return mapper.getTotalPayment();
+	}
+
+	@Override
+	public int getTotalEarning() {
+		return mapper.getTotalEarning();
+	}
 }

@@ -92,12 +92,9 @@ public class InquiryServiceImpl implements InquiryService {
 		log.info("AttachList : " + idx);
 		return AttachMapper.findByIdx(idx);
 	}
-	
-	
 
-	
-	
-	
-	
-	
+	@Override
+	public int getNewInquiry() {
+		return mapper.getNewInquiry();
+	}
 }

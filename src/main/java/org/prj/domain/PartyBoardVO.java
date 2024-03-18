@@ -17,4 +17,7 @@ public class PartyBoardVO {
 	
 	//가상컬럼
 	private int datediff, totalprice;
+	
+	private int total_count; //1차 카테고리별 파티 개수
+	private double ratio; //1차 카테고리별 파티 비율 
 }

@@ -68,4 +68,7 @@ public interface MemberMapper {
 	//네이버 SNS 계정 연결
 	public int naver_update(MemberVO memeber);	
 	
+	//총 회원수
+	public int getTotalUser();
+	
 }

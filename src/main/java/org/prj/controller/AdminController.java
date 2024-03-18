@@ -9,10 +9,14 @@ import org.prj.domain.Criteria;
 import org.prj.domain.FaqVO;
 import org.prj.domain.PageDTO;
 import org.prj.domain.PartyBoardVO;
+import org.prj.domain.PaymentVO;
 import org.prj.domain.VideoVO;
 import org.prj.service.CategoryService;
 import org.prj.service.FaqService;
+import org.prj.service.InquiryService;
+import org.prj.service.MemberService;
 import org.prj.service.PartyBoardService;
+import org.prj.service.PaymentService;
 import org.prj.service.VideoService;
 import org.prj.domain.WithdrawVO;
 import org.prj.service.WithdrawService;
@@ -53,6 +57,15 @@ public class AdminController {
 	// 출금 관리
 	@Autowired
 	private WithdrawService wService;
+	
+	@Autowired
+	private PaymentService payService;
+	
+	@Autowired
+	private MemberService mService;
+	
+	@Autowired
+	private InquiryService iService;
 	
 	//관리자홈
 	@GetMapping("/home")
@@ -271,5 +284,60 @@ public class AdminController {
 	@PostMapping(value="/categorystatus", produces = MediaType.TEXT_PLAIN_VALUE)
 	public String changeCategoryStatus(@RequestBody CategoryVO vo) {
 		return cService.changeCategoryStatus(vo) > 0 ? "success" : "fail";
+	}
+	
+	//회원관리
+	@GetMapping("/member")
+	public void moveMember() {
+		log.info("moveMember...");
+	}
+	
+	//파티 생성 비율
+	@ResponseBody
+	@GetMapping(value="/partyratio", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<PartyBoardVO> getPartyRatio(){
+		return pService.getPartyRatio();
+	}
+	
+	//월별 이용자 결제 총액
+	@ResponseBody
+	@GetMapping(value="/totalpayment", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<PaymentVO> getTotalPayment(){
+		return payService.getTotalPayment();
+	}
+	
+	//총 회원 수
+	@ResponseBody
+	@GetMapping(value="/totaluser", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public int getTotalUser(){
+		return mService.getTotalUser();
+	}
+	
+	//연간 결제 총액
+	@ResponseBody
+	@GetMapping(value="/totalearning", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public int getTotalEarning(){
+		return payService.getTotalEarning();
+	}
+	
+	//새 환불신청 수
+//	@ResponseBody
+//	@GetMapping(value="/newrefund", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//	public int getNewRefund(){
+//		return .getNewRefund();
+//	}
+	
+	//새 출금신청 수
+	@ResponseBody
+	@GetMapping(value="/newwithdraw", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public int getNewWithdraw(){
+		return wService.getNewWithdraw();
+	}
+	
+	//새 문의글 수
+	@ResponseBody
+	@GetMapping(value="/newinquiry", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public int getNewInquiry(){
+		return iService.getNewInquiry();
 	}
 }
