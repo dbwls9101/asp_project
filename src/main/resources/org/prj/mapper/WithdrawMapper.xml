@@ -6,9 +6,9 @@
 	
 	<!-- 출금신청 내용 불러오기  -->
 	<select id="getList" resultType="org.prj.domain.WithdrawVO">
-		select m_idx, w_idx, id, name, phone, with_method, with_amount, with_status, commission, reg_date
+		select m_idx, w_idx, id, name, phone, with_method, with_amount, with_status, commission, reg_date, note
 		from(
-		select ROWNUM rn, m_idx, w_idx, id, name, phone, with_method, with_amount, with_status, commission, reg_date
+		select ROWNUM rn, m_idx, w_idx, id, name, phone, with_method, with_amount, with_status, commission, reg_date, note
 		from(select * from withdraw order by w_idx desc) order by w_idx desc) where m_idx = #{m_idx }
 	</select>
 
@@ -33,6 +33,23 @@
 		and with_status  = 'A'
 	</select>
 	
+	<!-- 미발생 판매금 -->
+	<update id="unsales" parameterType="String">
+		update member
+		set with_amount = (select sum(service_amount / round(end_date - trunc(approved_at)) * round(trunc(sysdate) - trunc(approved_at))) from payment where p_idx in (
+			select p_idx from party_board where id=#{username } ))
+		where id=#{username }
+	</update>
+	
+	<!-- 미발생 판매금 -->
+	<select id="unsaleslist" parameterType="String" resultType="int">
+		select sum(service_amount / round(end_date - trunc(approved_at)) * round(trunc(sysdate) - trunc(approved_at))) from payment where p_idx in (
+			select p_idx from party_board where id = #{username } )
+	</select>
+	
+	
+	<!-- 관리자 화면 부분  여기 아래부터 진행-->
+	
 	<!-- 관리자 화면에서 출금신청 리스트 전체를 가지고 오는 것 -->
 	<select id="withdrawList" resultType="org.prj.domain.WithdrawVO">
 		select * from withdraw order by reg_date desc
@@ -53,5 +70,9 @@
 		where w_idx = #{w_idx }
 	</update>
 	
-	
+	<!-- 새 출금신청 -->
+	<select id="getNewWithdraw" resultType="int">
+		select count(*) from withdraw where with_status='A'
+	</select>
+
 </mapper>

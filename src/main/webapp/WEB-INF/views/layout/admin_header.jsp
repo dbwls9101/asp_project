@@ -49,7 +49,7 @@
             </div>
 
             <li class="nav-item">
-                <a class="nav-link" href="#" >
+                <a class="nav-link" href="/admin/member" >
                     <i class="fas fa-fw fa-user"></i>
                     <span>회원관리</span>
                 </a>

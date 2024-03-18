@@ -173,4 +173,8 @@
 		update member set naverid = #{naverid} where id = #{id}
 	</update>
 	
+	<!-- 총 회원수 -->
+	<select id="getTotalUser" resultType="int">
+		select count(*) from member
+	</select>
 </mapper>	

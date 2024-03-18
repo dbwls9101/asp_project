@@ -229,6 +229,10 @@ to {
 	content: "\f369"
 }
 
+.fa-hand:before {
+	content: "\f256"
+}
+
 .fa-acquisitions-incorporated:before {
 	content: "\f6af"
 }

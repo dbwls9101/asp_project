@@ -189,4 +189,14 @@ public class PaymentServiceImpl implements PaymentService {
 	public int orderTotal(int m_idx) {
 		return mapper.orderTotal(m_idx);
 	}
+	
+	@Override
+	public List<PaymentVO> getTotalPayment() {
+		return mapper.getTotalPayment();
+	}
+
+	@Override
+	public int getTotalEarning() {
+		return mapper.getTotalEarning();
+	}
 }

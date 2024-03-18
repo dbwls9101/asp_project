@@ -47,6 +47,28 @@ public class WithdrawServiceImpl implements WithdrawService {
 		return mapper.withamount(username);
 	}
 
+	// 지금 금액
+	@Override
+	public Integer currentamount(String username) {
+		log.info("currentamount...");
+		return mapper.currentamount(username);
+	}
+	
+	// 미발생 금액 리스트
+	@Override
+	public int unsaleslist(String username) {
+		log.info("unsaleslist...");
+		return mapper.unsaleslist(username);
+	}
+	
+	
+	// 미발생 판매금 업데이트
+	@Override
+	public int unsales(String username) {
+		log.info("unsales...");
+		return mapper.unsales(username);
+	}
+
 	// 관리자 화면!! 출금 관리 리스트업
 	@Override
 	public List<WithdrawVO> withdrawList() {
@@ -54,12 +76,6 @@ public class WithdrawServiceImpl implements WithdrawService {
 		return mapper.withdrawList();
 	}
 
-	// 지금 금액
-	@Override
-	public int currentamount(String username) {
-		log.info("currentamount...");
-		return mapper.currentamount(username);
-	}
 
 	// 관리자 화면에서 승인 버튼 누를 경우 with_status C로 변경
 	@Override
@@ -71,6 +87,9 @@ public class WithdrawServiceImpl implements WithdrawService {
 		return result == 1 ? true : false;
 	}
 
-	
+	@Override
+	public int getNewWithdraw() {
+		return mapper.getNewWithdraw();
+	}
 	
 }

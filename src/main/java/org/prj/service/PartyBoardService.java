@@ -51,4 +51,6 @@ public interface PartyBoardService {
 	public int doPartyclose(int p_idx);
 	//파티 오픈
 	public int doPartyOpen(int p_idx);
+	//1차 카테고리별 파티 비율
+	public List<PartyBoardVO> getPartyRatio();
 }

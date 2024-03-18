@@ -26,4 +26,10 @@ public interface PaymentMapper {
 	
 	//내 파티 참여자 수
 	public int getPayPartyTotal(int m_idx);
+	
+	//월별 결제 총액
+	public List<PaymentVO> getTotalPayment();
+	
+	//연간 결제 총액
+	public int getTotalEarning();
 }
