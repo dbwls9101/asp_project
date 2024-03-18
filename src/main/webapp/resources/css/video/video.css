@@ -111,3 +111,21 @@
     font-size: 25px !important;
     padding: 0 !important;
 }
+
+#load-more-btn {
+    position: relative;
+    display: inline-block;
+    width: 70px;
+    height: 34px;
+    margin: 35px auto;
+    font-size: 14px;
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+    line-height: 32px;
+    border-radius: 10px;
+    border: none;
+    background-color: #43a051;
+    cursor: pointer;
+    display: block;
+}

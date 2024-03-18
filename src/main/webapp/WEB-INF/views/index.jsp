@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,7 +64,7 @@
 										</div>
 													
 										<div id="enddate">~ ${party.end_date}<span id="period">(${party.datediff}일)</span></div>
-										<div id="price">${party.totalprice}원</div>
+										<div id="price"><fmt:formatNumber value="${party.totalprice}" type="number" />원</div>
 									</div>
 								</c:forEach>
 							</c:when>

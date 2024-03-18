@@ -61,7 +61,8 @@
         
 		<div id="video-container" class="video-container">
 		</div>
-			
+		
+		<button id="load-more-btn">더 보기</button>
 	</div>
 	
 	<jsp:include page="../layout/admin_footer.jsp"/>

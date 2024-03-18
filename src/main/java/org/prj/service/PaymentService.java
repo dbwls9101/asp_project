@@ -11,7 +11,7 @@ public interface PaymentService {
 	public int order(PaymentVO vo);
 	
 	// 결제정보
-	public List<PaymentVO> orderList(int m_idx);
+	public List<PaymentVO> orderList(Criteria cri);
 	
 	// 토큰 구하기
 	public String getToken() throws IOException;
@@ -24,6 +24,9 @@ public interface PaymentService {
 	
 	// 결제조회
 	public PaymentVO orderGet(String order_no);
+	
+	// 결제정보 개수
+	public int orderTotal(int m_idx);
 	
 	// 내역 결제취소 상태변경
 	public int cancelStatus(String order_no);

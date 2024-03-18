@@ -41,9 +41,9 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 	
 	@Override
-	public List<PaymentVO> orderList(int m_idx) {
-		log.info("orderList..." + m_idx);
-		return mapper.orderList(m_idx);
+	public List<PaymentVO> orderList(Criteria cri) {
+		log.info("orderList..." + cri);
+		return mapper.orderList(cri);
 	}
 	
 	@ToString
@@ -185,4 +185,8 @@ public class PaymentServiceImpl implements PaymentService {
 		return mapper.getPayPartyTotal(m_idx);
 	}
 	
+	@Override
+	public int orderTotal(int m_idx) {
+		return mapper.orderTotal(m_idx);
+	}
 }

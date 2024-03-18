@@ -12,13 +12,28 @@
 	</insert>
 	
 	<!-- 결제정보 -->
-	<select id="orderList" resultType="org.prj.domain.PaymentVO">
-		SELECT * FROM payment where m_idx=#{m_idx} order by approved_at desc
+	<select id="orderList" parameterType="org.prj.domain.Criteria" resultType="org.prj.domain.PaymentVO"> 
+	<![CDATA[
+		select * from
+        (select rownum rn, order_no, p_idx, m_idx, title, sub_title, id, name, phone, service_amount, pay_amount, commission, pay_status, approved_at, end_date
+            from (SELECT * FROM payment where m_idx = #{m_idx} ORDER BY approved_at desc)
+		where rownum <= #{pageNum} * #{amount})
+		where rn > (#{pageNum}-1) * #{amount}
+	]]>
 	</select>
 	
 	<!-- 결제조회 -->
 	<select id="orderGet" resultType="org.prj.domain.PaymentVO">
 		SELECT * FROM payment where order_no=#{order_no}
+	</select>
+	
+	<!-- 결제정보 개수 -->
+	<select id="orderTotal" parameterType="int" resultType="int">
+		select count(*) 
+		from payment pay inner join 
+		(select p.p_idx, p.m_idx, p.id from party_board p inner join member m on p.m_idx=m.m_idx) pm 
+		on pay.p_idx = pm.p_idx 
+		where pm.m_idx=#{m_idx}
 	</select>
 	
 	<!-- 결제취소 상태변경 -->

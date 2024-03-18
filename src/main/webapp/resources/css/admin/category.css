@@ -67,6 +67,7 @@ input[type="text"]{
 }
 
 form{
+    border: 1px solid #006d77;
 	background: #fff;
 	height: 190px;
 	padding: 20px;

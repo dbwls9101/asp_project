@@ -3,7 +3,10 @@ package org.prj.controller;
 import java.io.IOException;
 import java.util.List;
 
+import org.prj.domain.Criteria;
 import org.prj.domain.MemberVO;
+import org.prj.domain.PageDTO;
+import org.prj.domain.PartyCommentVO;
 import org.prj.domain.PaymentVO;
 import org.prj.service.MemberService;
 import org.prj.service.PartyBoardService;
@@ -103,9 +106,14 @@ public class PaymentController {
 	@ResponseBody
 	@PostMapping(value = "/orderinquiry", 
 			produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<List<PaymentVO>> getList(@RequestBody int m_idx) {
-		log.info("getlist... " + m_idx);
-		return new ResponseEntity<List<PaymentVO>>(payService.orderList(m_idx), HttpStatus.OK); 
+	public PageDTO getList(@RequestBody Criteria cri) {
+		log.info("getlist... " + cri);
+		
+		int total = payService.orderTotal(cri.getM_idx());
+		List<PaymentVO> list = payService.orderList(cri);
+		
+		PageDTO pageMakger = new PageDTO(cri, total, list);
+		return pageMakger; 
 	}
 	
 	// 결제 상세 내역
