@@ -20,7 +20,6 @@ const f = document.forms[0];
 getPrincipal().then(() => {
 	getList(principal.member.m_idx);
 })
-getList(principal.member.m_idx);
 function getList(m_idx){
 	//1.출금관리 listUp
 	console.log("m_idx... : " + m_idx)
@@ -51,7 +50,6 @@ function getList(m_idx){
 			msg += 		'<td>' + withdraw.with_method +'</td>';
 			msg += 		'<td>' + withdraw.commission +'</td>';
 			msg += 		'<td>' + (withdraw.with_amount - withdraw.commission) + '</td>';
-			msg += 		'<td>' + withdraw.note +'</td>';
 			msg += '</tr>';	
 		})
 			document.querySelector("tbody").innerHTML = msg;
@@ -81,6 +79,7 @@ function myTime(unixTimeStamp) {
 // 2-1. 리스트를 나오게 할때,
 // 2-2. 등록된 결과를 불러온다. 위에 히든으로 넣었기 때문에 그 정보만 불러오면된다.!!*/
 const sumamount = document.querySelector('#sumamount');
+const unsaleslist = document.querySelector('#unsaleslist');
 const withamount = document.querySelector('input[name="with_amount3"]');
 const midx = document.querySelector('input[name="m_idx]');
 const inputName = document.querySelector('input[name="name"]');
@@ -97,7 +96,7 @@ const withDrawal = document.querySelector('#withDrawal');			// 댓글 등록 시
 // 2. 출금 신청
 withDrawal.addEventListener('click', () => {
 	
-	if(inputWithAmount.value > principal.member.with_amount) {
+	if(unsaleslist.value > principal.member.with_amount) {
 		alert('출금 가능 금액보다 낮은 액수를 작성해 주세요.') 
 		return;
 	} 

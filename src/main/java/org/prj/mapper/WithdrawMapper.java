@@ -13,9 +13,6 @@ public interface WithdrawMapper {
 	// 출금 신청
 	public int insert(WithdrawVO vo);
 	
-	// 조회 기능 차후 진행 예정
-	/* public WithdrawVO read(int w_idx); */
-	
 	// p_idx를 가지고와서 판매총액을 만드는 과정	
 	public int getp_idx(String username);
 	
@@ -23,7 +20,13 @@ public interface WithdrawMapper {
 	public int withamount(String username);
 	
 	// 지급 금액
-	public int currentamount(String username);
+	public Integer currentamount(String username);
+	
+	// 미발생 판매금
+	public int unsales(String username);
+	
+	// 미발생 판매금 불러오는 것 
+	public int unsaleslist(String username);	
 	
 	// 관리자 화면 출금 관리 리스트 업
 	public List<WithdrawVO> withdrawList();
