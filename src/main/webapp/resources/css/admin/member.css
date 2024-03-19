@@ -64,7 +64,7 @@
 	border-top: 1px solid #ececec;
 }
 
-#memberdetail, #memberdelete{
+#memberdetail, #memberdelete, #memberactive{
 	font-size: 12px;
 	color: white;
     border-radius: 5px;
@@ -75,7 +75,13 @@
 }
 
 #memberdelete{
+	width: 60px;
 	background-color: #ea0540;
+}
+
+#memberactive{
+	width: 50px;
+	background-color: #006D77;
 }
 
 /* 페이징 */

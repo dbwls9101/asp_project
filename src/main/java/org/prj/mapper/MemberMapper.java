@@ -91,4 +91,7 @@ public interface MemberMapper {
 	
 	//회원 수정
 	public void doMemberModify(MemberVO vo);
+	
+	//계정 활성화 비활성화
+	public int doLockAccount(MemberVO vo);
 }

@@ -363,6 +363,13 @@ public class AdminController {
 		moveMemberModify(mvo.getM_idx(), model);
 	}
 	
+	//계정 활성화 비활성화
+	@ResponseBody
+	@PostMapping(value="/lockaccount", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String doLockAccount(@RequestBody MemberVO vo) {
+		return mService.doLockAccount(vo) > 0 ? "success" : "fail";
+	}
+	
 	//sns 연동 해지
 	//네이버 해지
 	@ResponseBody

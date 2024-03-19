@@ -304,4 +304,16 @@
 						    </choose>
 		where m_idx=#{m_idx}
 	</update>
+	
+	<!-- 계정 활성화/비활성화 -->
+	<update id="doLockAccount" parameterType="org.prj.domain.MemberVO">
+		<choose>
+	        <when test='status.equals("N")'>
+	            update member set status='Y' where m_idx=#{m_idx}
+	        </when>
+	        <otherwise>
+	            update member set status='N' where m_idx=#{m_idx}
+	        </otherwise>
+	    </choose>
+	</update>
 </mapper>	

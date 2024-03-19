@@ -277,6 +277,10 @@ public class MemberServiceImpl implements MemberService{
 	public void doMemberModify(MemberVO vo) {
 		membermapper.doMemberModify(vo);
 	}
-	
-	
+
+	//계정 활성화 비활성화
+	@Override
+	public int doLockAccount(MemberVO vo) {
+		return membermapper.doLockAccount(vo);
+	}
 }

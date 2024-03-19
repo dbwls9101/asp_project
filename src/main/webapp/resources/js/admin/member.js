@@ -98,7 +98,12 @@ function getList(obj){
 			msg += '<td>' + myTime(vo.reg_date) + '</td>';
 			msg += '<td>' + vo.status + '</td>';
 			msg += '<td><input type="button" id="memberdetail" value="상세" onclick="memberDetailBtn(' + vo.m_idx + ')">';
-			msg += '&nbsp;<input type="button" id="memberdelete" value="정지"onclick="deleteBtnEvent(' + vo.m_idx + ')"></td>';
+			if(vo.status == 'N'){
+				msg += '&nbsp;<input type="button" id="memberdelete" value="비활성화" onclick="deleteBtnEvent(\'' + vo.m_idx + '\', \'' + vo.status + '\')">';
+			}else{
+				msg += '&nbsp;<input type="button" id="memberactive" value="활성화" onclick="deleteBtnEvent(\'' + vo.m_idx + '\', \'' + vo.status + '\')">';
+			}
+			msg += '</td>';
 			msg += '</tr>';
 		})
 		
@@ -176,8 +181,54 @@ function memberDetailBtn(m_idx){
 }
 
 //회원 이용 정지
-function deleteBtnEvent(m_idx){
+function deleteBtnEvent(m_idx, status){
+let pageData = getStorageData();
 	
+	if(status == 'N'){
+		if(confirm('해당 계정을 정지하시겠습니까?')){
+			fetch('/admin/lockaccount',{
+				method : 'post',
+				body : JSON.stringify({
+					m_idx : m_idx,
+					status : status
+				}),
+				headers : {'Content-type' : 'application/json; charset=utf-8'}
+			})
+			.then(response => response.text())
+			.then(data => {
+				if(data == 'success'){
+					alert('해당 계정이 비활성화 되었습니다.');
+				}
+				
+				location.href = '/admin/member';
+			})
+			.catch(err => console.log(err));
+		}else{
+			location.href = '/admin/member';
+		}
+	}else{
+		if(confirm('해당 계정을 활성화 하시겠습니까?')){
+			fetch('/admin/lockaccount',{
+				method : 'post',
+				body : JSON.stringify({
+					m_idx : m_idx,
+					status : status
+				}),
+				headers : {'Content-type' : 'application/json; charset=utf-8'}
+			})
+			.then(response => response.text())
+			.then(data => {
+				if(data == 'success'){
+					alert('해당 계정이 활성화 되었습니다.');
+				}
+				
+				location.href = '/admin/member';
+			})
+			.catch(err => console.log(err));
+		}else{
+			location.href = '/admin/member';
+		}
+	}
 }
 
 //unixTimeStamp 변환
