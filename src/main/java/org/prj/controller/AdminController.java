@@ -7,6 +7,7 @@ import org.prj.controller.AdminController;
 import org.prj.domain.CategoryVO;
 import org.prj.domain.Criteria;
 import org.prj.domain.FaqVO;
+import org.prj.domain.MemberVO;
 import org.prj.domain.PageDTO;
 import org.prj.domain.PartyBoardVO;
 import org.prj.domain.PaymentVO;
@@ -290,6 +291,49 @@ public class AdminController {
 	@GetMapping("/member")
 	public void moveMember() {
 		log.info("moveMember...");
+	}
+	
+	//회원관리 리스트
+	@ResponseBody
+	@PostMapping(value="/member", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public PageDTO getMemberList(@RequestBody Criteria cri) {
+		int total = mService.getMemberTotal(cri);
+		List<MemberVO> list = mService.getAdminMemberList(cri);
+		
+		PageDTO pageMakger = new PageDTO(cri, total, list);
+		return pageMakger;
+	}
+	
+	//회원 수정
+	//회원수정 페이지
+	@GetMapping("/membermodify")
+	public void moveMemberModify(@RequestParam("mn") int m_idx, Model model){
+		log.info("moveMemberModify..." + m_idx);
+		model.addAttribute("vo", mService.getMember(m_idx));
+	}
+	
+	//회원 수정
+	@PostMapping("/membermodify")
+	public void doMemberModify(MemberVO mvo, Model model) {
+		mService.doMemberModify(mvo);
+		moveMemberModify(mvo.getM_idx(), model);
+	}
+	
+	//sns 연동 해지
+	//네이버 해지
+	@ResponseBody
+	@PostMapping(value="/naverdelete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String doNaveridDelete(@RequestBody int m_idx) {
+		int result = mService.doNaveridDelete(m_idx);
+		return result > 0 ? "success" : "fail";
+	}
+	
+	//카카오 해지
+	@ResponseBody
+	@PostMapping(value="/kakaodelete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String doKakaoidDelete(@RequestBody int m_idx) {
+		int result = mService.doKakaoidDelete(m_idx);
+		return result > 0 ? "success" : "fail";
 	}
 	
 	//파티 생성 비율

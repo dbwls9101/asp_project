@@ -10,8 +10,10 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.prj.domain.Criteria;
 import org.prj.domain.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -234,10 +236,47 @@ public class MemberServiceImpl implements MemberService{
 		return membermapper.findMidx(id);
 	}
 
-	//총 회원수
+	//관리자 홈 - 총 회원 수
 	@Override
 	public int getTotalUser() {
 		return membermapper.getTotalUser();
 	}
+
+	//회원관리 - 검색 - 회원 수
+	@Override
+	public int getMemberTotal(Criteria cri) {
+		return membermapper.getMemberTotal(cri);
+	}
+	
+	//회원 관리 - 검색 - 회원 리스트
+	@Override
+	public List<MemberVO> getAdminMemberList(Criteria cri) {
+		return membermapper.getAdminMemberList(cri);
+	}
+
+	//회원 관리 - 회원 수정
+	@Override
+	public MemberVO getMember(int m_idx) {
+		return membermapper.getMember(m_idx);
+	}
+
+	//네이버 연동 해지
+	@Override
+	public int doNaveridDelete(int m_idx) {
+		return membermapper.doNaveridDelete(m_idx);
+	}
+
+	//카카오 연동 해지
+	@Override
+	public int doKakaoidDelete(int m_idx) {
+		return membermapper.doKakaoidDelete(m_idx);
+	}
+
+	//회원 수정
+	@Override
+	public void doMemberModify(MemberVO vo) {
+		membermapper.doMemberModify(vo);
+	}
+	
 	
 }

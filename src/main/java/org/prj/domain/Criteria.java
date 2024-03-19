@@ -25,6 +25,6 @@ public class Criteria {
 	private String searchcolumn;
 	private String searchword;
 	
-	//파티 상태
+	//파티 상태 & 회원 레벨
 	private String status;
 }
