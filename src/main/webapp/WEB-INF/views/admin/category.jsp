@@ -53,7 +53,7 @@
 		</div>
 		
 		<div id="addCategory">
-			<span>카테고리 추가</span>
+			<span style="font-size: 18px; font-weight: 600;">카테고리 추가</span>
 			<form method="post">
 				<table>
 				<tr>

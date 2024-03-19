@@ -10,10 +10,13 @@ public interface PaymentMapper {
 	public int order(PaymentVO vo);
 	
 	// 결제정보
-	public List<PaymentVO> orderList(int m_idx);
+	public List<PaymentVO> orderList(Criteria cri);
 	
 	// 결제조회
 	public PaymentVO orderGet(String order_no);
+	
+	// 결제정보 개수
+	public int orderTotal(int m_idx);
 	
 	// 결제취소 상태변경
 	public int cancelStatus(String order_no);

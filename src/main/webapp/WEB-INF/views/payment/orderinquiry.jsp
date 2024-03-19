@@ -36,6 +36,13 @@
 			</table>
 		</div>
 		
+		<!-- page -->
+		<div class="page-wrap">
+			<ul class="page-nation">
+			
+			</ul>
+		</div>
+		
 	</form>
 	
 	<jsp:include page="../layout/footer.jsp"/>

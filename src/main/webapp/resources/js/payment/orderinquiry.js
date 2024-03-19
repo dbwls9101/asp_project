@@ -5,20 +5,40 @@ const f = document.forms[0];
 
 //list 가져오기
 getPrincipal().then(() => {
-	getList(principal.member.m_idx);
+	let pageData = getStorageData();
+	
+	if(pageData == null){
+		setStorageData('listpage', 1, 10);
+		getList(principal.member.m_idx, 1, 10);
+	}else{
+		getList(principal.member.m_idx, pageData.pageNum, pageData.amount);
+	}
 })
-function getList(m_idx){
-	msg = "";
+
+function getList(m_idx, pageNum, amount){
+	let msg = "";
+	let page = "";
 	
 	fetch('/payment/orderinquiry', {
 		method : 'post',
-		body : m_idx,
+		body : JSON.stringify({
+			m_idx : m_idx,
+			pageNum : pageNum,
+			amount : amount
+		}),
 		headers : {'Content-type' : 'application/json; charset=utf-8'}
 	})
 	.then(response => response.json())
 	.then(json => {
-		json.forEach(vo => {
-			
+		let list = json.list;
+		
+		if(list.length == 0){
+			msg += '<tr>';
+			msg += '<td colspan="8">내역이 없습니다.</td>';
+			msg += '</tr>';
+    	}
+		
+		list.forEach(vo => {
 			let status = '';
 			
 			if (vo.pay_status == 'A') {
@@ -48,9 +68,50 @@ function getList(m_idx){
 			msg += '</tr>';
 		})
 		
+		//페이징
+		if(json.prev){
+			page += '<li class="previous">';
+			page += '<a href="' + (json.startPage-1) + '">&lt;</a>';
+			page += '</li>';
+		}
+		
+		for(let i = json.startPage; i <= json.endPage; i++){
+			page += '<li>';
+			page += '<a href="' + i + '" class="' + (json.cri.pageNum == i ? 'active' : '') + '">' + i + '</a>';
+			page += '</li>';
+		}
+		
+		if(json.next){
+			page += '<li class="previous">';
+			page += '<a href="' + (json.endPage+1) + '">&gt;</a>';
+			page += '</li>';
+		}
+		
 		document.querySelector("tbody").innerHTML = msg;
+		document.querySelector(".page-nation").innerHTML = page;
+	})
+	.then(()=>{
+		pagingEvent();
 	})
 	.catch(err => console.log(err));
+}
+
+//페이지 버튼 클릭 이벤트
+function pagingEvent(){
+	document.querySelectorAll(".page-nation li a").forEach(aEle => {
+		aEle.addEventListener('click', function(e){
+			e.preventDefault(); //href 경로 이동 방지
+			
+			//태그 속성 불러오기
+			let menu = 'listpage';
+			let pageNum = this.getAttribute("href");
+			let amount = 10;
+			
+			setStorageData(menu, pageNum, amount);
+			
+			getList(principal.member.m_idx, pageNum, amount);
+		});
+	});
 }
 
 // 결제취소 버튼

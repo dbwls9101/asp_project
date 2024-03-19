@@ -93,7 +93,47 @@ public class AdminController {
 	public String register(FaqVO vo, RedirectAttributes rttr) {
 		log.info("register..." + vo);
 		fService.register(vo);
-		return "redirect:/";
+		return "redirect:/admin/faq/faqlist";
+	}
+	
+	//FAQ 리스트
+	@GetMapping("/faq/faqlist")
+	public String moveFaqList() {
+		log.info("moveFaqlist...");
+		return "/faq/faqlist";
+	}
+	
+	@ResponseBody
+	@PostMapping(value="/faq/faqlist", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public PageDTO getFaqList(@RequestBody Criteria cri) {
+		int total = fService.getAdminFaqTotal(cri);
+		List<FaqVO> list = fService.getAdminFaqList(cri);
+		
+		PageDTO pageMakger = new PageDTO(cri, total, list);
+		return pageMakger;
+	}
+	
+	//FAQ 수정
+	@GetMapping("/faq/modify")
+	public String moveFaqModify(@RequestParam("fn") int f_idx, Model model){
+		log.info("moveFaqModify..." + f_idx);
+		model.addAttribute("vo", fService.getFaq(f_idx));
+		return "/faq/modify";
+	}
+	
+	@PostMapping("/faq/modify")
+	public String doAdminModifyFaq(FaqVO vo) {
+		log.info("doAdminModifyFaq..." + vo);
+		fService.doAdminUpdateFaq(vo);
+		return "redirect:/admin/faq/faqlist";
+	}
+	
+	//FAQ 삭제
+	@GetMapping("/faq/remove")
+	public String doAdminRemoveFaq(@RequestParam("fn") int f_idx) {
+		log.info("doAdminRemoveFaq..." + f_idx);
+		fService.doAdminRemoveFaq(f_idx);
+		return "redirect:/admin/faq/faqlist";
 	}
 	
 	//추천영상
@@ -106,9 +146,13 @@ public class AdminController {
 	//추천영상 불러오기
 	@ResponseBody
 	@GetMapping(value = "/videoListload", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<VideoVO> videoListload() {
+	public List<VideoVO> videoListload( @RequestParam("page") int page) {
 		log.info("videoListload...");
-		List<VideoVO> list = vService.getAllVideos();
+		Criteria cri = new Criteria();
+		List<VideoVO> list = null;
+		
+		cri.setPageNum(page);
+		list = vService.getAllVideos(cri);
 		return list;
 	}
 	

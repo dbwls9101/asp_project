@@ -125,7 +125,7 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="#">1:1 문의</a>
-                        <a class="collapse-item" href="#">FAQ</a>
+                        <a class="collapse-item" href="/admin/faq/faqlist">FAQ</a>
                         <a class="collapse-item" href="/admin/videoList">추천영상</a>
                     </div>
                 </div>

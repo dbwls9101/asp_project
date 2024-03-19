@@ -88,7 +88,7 @@
 					</tr>
 					<tr>
 						<th id="checkRule" checkRule="${vo.rule }">기본규칙</th>
-						<td>
+						<td style="padding-left: 23px;">
 							<input class="form-check-input" type="checkbox" name="rule" value="19세 이상" id="rulecheck0">
 							<label class="form-check-label" for="rulecheck0"> 19세 이상</label>
 							

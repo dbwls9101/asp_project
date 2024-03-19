@@ -2,7 +2,7 @@
 let f = document.querySelector("#registerform");
 
 //faq 등록
-document.querySelector("#faqRegister").addEventListener('click', () => {
+document.querySelector("#faqModify").addEventListener('click', () => {
 	if(f.faq_type.value == ''){
 		alert('질문 유형을 선택하세요.');
 		f.faq_type.focus();
@@ -21,7 +21,7 @@ document.querySelector("#faqRegister").addEventListener('click', () => {
 		return;
 	}
 	
-	f.action = '/admin/faq/register';
+	f.action = '/admin/faq/modify';
 	f.submit();
 })
 
