@@ -75,4 +75,8 @@
 		select count(*) from withdraw where with_status='A'
 	</select>
 
+	<!-- 내 정보 수정 -->
+	<update id="updateMyinfo" parameterType="org.prj.domain.MemberVO">
+		update withdraw set name=#{name}, phone=#{phone} where m_idx=#{m_idx}
+	</update>
 </mapper>

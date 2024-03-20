@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>파티관리</title>
+<title>결제관리</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-<link rel="stylesheet" href="/resources/css/admin/party.css">
+<link rel="stylesheet" href="/resources/css/admin/paymentdetail.css">
 </head>
 <body>
 	<jsp:include page="../layout/admin_header.jsp"/>
@@ -14,21 +14,25 @@
 	
 	<div class="container-fluid">
 		<div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">파티 관리</h1>
+            <h1 class="h3 mb-0 text-gray-800">결제 관리</h1>
         </div>
         
         <div class="radio">
 			<div class="form-check form-check-inline">
-			  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="all" checked>
-			  <label class="form-check-label" for="inlineRadio1">전체</label>
+			  <input class="form-check-input" type="radio" name="pay_status" id="pay_status1" value="all" checked>
+			  <label class="form-check-label" for="pay_status1">전체</label>
 			</div>
 			<div class="form-check form-check-inline">
-			  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="recruiting">
-			  <label class="form-check-label" for="inlineRadio2">모집중</label>
+			  <input class="form-check-input" type="radio" name="pay_status" id="pay_status2" value="B">
+			  <label class="form-check-label" for="pay_status2">결제완료</label>
 			</div>
 			<div class="form-check form-check-inline">
-			  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="close">
-			  <label class="form-check-label" for="inlineRadio3">마감</label>
+			  <input class="form-check-input" type="radio" name="pay_status" id="pay_status3" value="C">
+			  <label class="form-check-label" for="pay_status3">환불신청</label>
+			</div>
+			<div class="form-check form-check-inline">
+			  <input class="form-check-input" type="radio" name="pay_status" id="pay_status4" value="D">
+			  <label class="form-check-label" for="pay_status4">결제취소</label>
 			</div>
 		</div>
 		
@@ -38,10 +42,10 @@
 			</select>
 			
 			<select id="detailSearch" class="form-select" aria-label="Default select example">
-			  <option value="p_idx" selected>파티 번호</option>
-			  <option value="title">파티 제목</option>
-			  <option value="id">파티장 아이디</option>
-			  <option value="nickname">파티장 닉네임</option>
+			  <option value="order_no" selected>주문 번호</option>
+			  <option value="p_idx">파티 번호</option>
+			  <option value="sub_title">제목</option>
+			  <option value="id">아이디</option>
 			</select>
 			
 			<input class="form-control" type="text" id="searchword" aria-label="default input example">
@@ -54,15 +58,17 @@
 			<table>
 				<thead>
 					<tr>
+						<th>주문번호</th>
 						<th>파티번호</th>
-						<th style="width:300px">제목</th>
-						<th>닉네임(아이디)</th>
-						<th style="width:150px">일 금액</th>
-						<th style="width:100px">참여인원</th>
-						<th>남은기간</th>
-						<th>종료일</th>
-						<th>파티생성일</th>
-						<th>관리</th>
+						<th width="400">서비스명</th>
+						<th>아이디</th>
+						<th>이름</th>
+						<th>결제금액</th>
+						<th>입금액</th>
+						<th>포인트</th>
+						<th>결제일</th>
+						<th>현재상태</th>
+						<th>상태변경</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -82,5 +88,6 @@
 	
 	<jsp:include page="../layout/admin_footer.jsp"/>
 </body>
-<script type="text/javascript" src="/resources/js/admin/party.js"></script>
+<script type="text/javascript" src="/resources/js/payment/payservice.js"></script>
+<script type="text/javascript" src="/resources/js/admin/paymentdetail.js"></script>
 </html>

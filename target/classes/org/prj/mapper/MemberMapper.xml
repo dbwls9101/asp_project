@@ -110,7 +110,8 @@
 		update member set 
 			password = #{password}, 
 			email = #{email}, 
-			phone =#{phone} 
+			name = #{name},
+			phone = #{phone} 
 		where id = #{id} and status = 'N'
 	</update>
 	
@@ -177,4 +178,143 @@
 	<select id="getTotalUser" resultType="int">
 		select count(*) from member
 	</select>
+	
+	<!-- 회원관리 - 검색 - 회원 수 -->
+	<select id="getMemberTotal" parameterType="org.prj.domain.Criteria" resultType="int">
+		select count(*)
+		from member
+		where 1=1
+		<choose>
+	        <when test='status.equals("N")'>
+	            and status = 'N'
+	        </when>
+	        <when test='status.equals("Y")'>
+	            and status = 'Y'
+	        </when>
+	    </choose>
+		<choose>
+	        <when test='category.equals("C")'>
+	            and "LEVEL" = 'C'
+	        </when>
+	        <when test='category.equals("B")'>
+	            and "LEVEL" = 'B'
+	        </when>
+	        <when test='category.equals("A")'>
+	            and "LEVEL" = 'A'
+	        </when>
+	    </choose>
+		<if test='searchword != null or searchword != ""'>
+			<choose>
+		        <when test='searchcolumn.equals("m_idx")'>
+		            and m_idx LIKE '%' || #{searchword} || '%'
+		        </when>
+		        <when test='searchcolumn.equals("id")'>
+		            and LOWER(id) LIKE '%' || #{searchword} || '%'
+		        </when>
+		        <when test='searchcolumn.equals("name")'>
+		            and LOWER(name) LIKE '%' || #{searchword} || '%'
+		        </when>
+		        <when test='searchcolumn.equals("nickname")'>
+		            and LOWER(nickname) LIKE '%' || #{searchword} || '%'
+		        </when>
+		    </choose>
+		</if>
+	</select>
+	
+	<!-- 회원 관리 - 검색 - 회원 리스트 -->
+	<select id="getAdminMemberList" parameterType="org.prj.domain.Criteria" resultType="org.prj.domain.MemberVO">
+		select * from
+		(select rownum rn, m_idx, id, password, name, email, phone, "LEVEL", nickname, reg_date, update_date, status, point, bank, bank_number,
+				with_amount, auth, kakaoid, naverid
+		from
+		(select m_idx, id, password, name, email, phone, "LEVEL", nickname, reg_date, update_date, status, point, bank, bank_number,
+				with_amount, auth, kakaoid, naverid
+		from member
+		where 1=1
+		<choose>
+	        <when test='status.equals("N")'>
+	            and status = 'N'
+	        </when>
+	        <when test='status.equals("Y")'>
+	            and status = 'Y'
+	        </when>
+	    </choose>
+		<choose>
+	        <when test='category.equals("C")'>
+	            and "LEVEL" = 'C'
+	        </when>
+	        <when test='category.equals("B")'>
+	            and "LEVEL" = 'B'
+	        </when>
+	        <when test='category.equals("A")'>
+	            and "LEVEL" = 'A'
+	        </when>
+	    </choose>
+		<if test='searchword != null or searchword != ""'>
+			<choose>
+		        <when test='searchcolumn.equals("m_idx")'>
+		            and m_idx LIKE '%' || #{searchword} || '%'
+		        </when>
+		        <when test='searchcolumn.equals("id")'>
+		            and LOWER(id) LIKE '%' || #{searchword} || '%'
+		        </when>
+		        <when test='searchcolumn.equals("name")'>
+		            and LOWER(name) LIKE '%' || #{searchword} || '%'
+		        </when>
+		        <when test='searchcolumn.equals("nickname")'>
+		            and LOWER(nickname) LIKE '%' || #{searchword} || '%'
+		        </when>
+		    </choose>
+		</if>
+		order by m_idx desc)
+		<![CDATA[	
+		where rownum <= #{pageNum} * #{amount})
+		where rn > (#{pageNum}-1) * #{amount}
+		]]>
+	</select>
+	
+	<!-- 회원 정보 가져오기 -->
+	<select id="getMember" parameterType="int" resultType="org.prj.domain.MemberVO">
+		select * from member where m_idx=#{m_idx}
+	</select>
+	
+	<!-- 네이버 연동 해지 -->
+	<update id="doNaveridDelete" parameterType="int">
+		update member set naverid=null where m_idx=#{m_idx}
+	</update>
+	
+	<!-- 카카오 연동 해지 -->
+	<update id="doKakaoidDelete" parameterType="int">
+		update member set kakaoid=null where m_idx=#{m_idx}
+	</update>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="doMemberModify" parameterType="org.prj.domain.MemberVO">
+		update member set name=#{name}, phone=#{phone}, email=#{email}, "LEVEL"=#{level}, bank=#{bank}, bank_number=#{bank_number},
+							with_amount=#{with_amount}, point=#{point}, 
+							<choose>
+						        <when test='level.equals("A")'>
+						            auth='ROLE_ADMIN'
+						        </when>
+						        <when test='level.equals("B")'>
+						            auth='ROLE_PARTNER'
+						        </when>
+						        <when test='level.equals("C")'>
+						            auth='ROLE_USER'
+						        </when>
+						    </choose>
+		where m_idx=#{m_idx}
+	</update>
+	
+	<!-- 계정 활성화/비활성화 -->
+	<update id="doLockAccount" parameterType="org.prj.domain.MemberVO">
+		<choose>
+	        <when test='status.equals("N")'>
+	            update member set status='Y' where m_idx=#{m_idx}
+	        </when>
+	        <otherwise>
+	            update member set status='N' where m_idx=#{m_idx}
+	        </otherwise>
+	    </choose>
+	</update>
 </mapper>	

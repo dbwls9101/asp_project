@@ -327,4 +327,9 @@
 		    ROUND((COUNT(*) / (SELECT COUNT(*) FROM party_board)) * 100, 2) AS ratio
 		FROM party_board GROUP BY codeone ORDER BY codeone
 	</select>
+	
+	<!-- 파티테이블 내 정보 변경 -->
+	<update id="updateMyinfo" parameterType="org.prj.domain.MemberVO">
+		update party_board set name=#{name}, phone=#{phone} where m_idx=#{m_idx}
+	</update>
 </mapper>

@@ -29,4 +29,5 @@ public interface PartyBoardMapper {
 	public int doPartyclose(int p_idx);
 	public int doPartyOpen(int p_idx);
 	public List<PartyBoardVO> getPartyRatio();
+	public void updateMyinfo(MemberVO vo);
 }

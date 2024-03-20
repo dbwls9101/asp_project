@@ -27,8 +27,17 @@ function storageClear(){
 }
 storageClear();
 
+window.onload = function(){
+	if(document.querySelector('title').innerHTML == '관리자 홈'){
+		totalUsernum();
+		totalEarning();
+		//newRefund();
+		newWithdraw();
+		newInquiry();
+	}
+}
+
 //회원수
-totalUsernum();
 function totalUsernum(){
 	fetch('/admin/totaluser')
 	.then(response => response.json())
@@ -39,7 +48,6 @@ function totalUsernum(){
 }
 
 //연간 결제액
-totalEarning();
 function totalEarning(){
 	fetch('/admin/totalearning')
 	.then(response => response.json())
@@ -50,7 +58,6 @@ function totalEarning(){
 }
 
 //환불신청
-//newRefund();
 //function newRefund(){
 //	fetch('/admin/newrefund')
 //	.then(response => response.json())
@@ -61,7 +68,6 @@ function totalEarning(){
 //}
 
 //출금신청
-newWithdraw();
 function newWithdraw(){
 	fetch('/admin/newwithdraw')
 	.then(response => response.json())
@@ -72,7 +78,6 @@ function newWithdraw(){
 }
 
 //새문의글
-newInquiry();
 function newInquiry(){
 	fetch('/admin/newinquiry')
 	.then(response => response.json())
