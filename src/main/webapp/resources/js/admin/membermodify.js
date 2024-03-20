@@ -46,33 +46,9 @@ let f = document.forms[1];
 //회원 정보 수정 버튼
 document.querySelector("#memberModify").addEventListener('click', ()=>{
 	if(confirm('회원 정보를 수정하시겠습니까?')){
-		if(f.name.value == ''){
-			alert('이름을 입력하세요');
-			f.name.focus();
-			return;
-		}
-		
-		if(f.phone.value == ''){
-			alert('휴대폰 번호를 입력하세요.');
-			f.phone.focus();
-			return;
-		}
-		
-		if(Number.isNaN(Number(f.phone.value))) {
-			alert('휴대폰 번호는 하이픈(-)을 제외한 숫자만 입력가능합니다.');
-			f.phone.focus();
-			return;
-		}
-		
 		if(f.email.value == ''){
 			alert('이메일을 입력하세요.');
 			f.email.focus();
-			return;
-		}
-		
-		if(f.level.value == ''){
-			alert('회원 등급을 입력하세요.');
-			f.level.focus();
 			return;
 		}
 		

@@ -24,7 +24,11 @@
 						<td><input class="form-control" type="text" name="name" value="${vo.name }" aria-label="default input example" readonly></td>
 						<th>회원 등급</th>
 						<td>
-							<input class="form-control" type="text" name="level" value="${vo.level }" aria-label="default input example">
+							<select class="form-select" name="level" style="width: 150px;" aria-label="Default select example">
+								<option value="A" ${vo.level == 'A' ? 'selected' : ''}>관리자(A)</option>
+								<option value="B" ${vo.level == 'B' ? 'selected' : ''}>파트너(B)</option>
+								<option value="C" ${vo.level == 'C' ? 'selected' : ''}>일반(C)</option>
+							</select>
 						</td>
 					</tr>
 					<tr>

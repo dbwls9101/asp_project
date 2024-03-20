@@ -124,7 +124,7 @@ function partyWriter(){
 		let pageData = getStorageData();
 		
 		if(pageData != null){
-			if(pageData.status != ''){
+			if(pageData.status){
 				location.href = '/admin/' + pageData.menu;
 			}else{
 				location.href = '/partner/' + pageData.menu;

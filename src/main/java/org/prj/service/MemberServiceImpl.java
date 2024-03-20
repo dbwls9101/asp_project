@@ -1,6 +1,8 @@
 package org.prj.service;
 
 import org.prj.mapper.MemberMapper;
+import org.prj.mapper.PartyBoardMapper;
+import org.prj.mapper.WithdrawMapper;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -17,6 +19,7 @@ import org.prj.domain.Criteria;
 import org.prj.domain.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -26,6 +29,18 @@ public class MemberServiceImpl implements MemberService{
 
 	@Autowired
 	MemberMapper membermapper;
+	
+	@Autowired
+	PartyBoardMapper pMapper;
+	
+//	@Autowired
+//	refund rMapper;
+	
+	@Autowired
+	WithdrawMapper wMapper;
+	
+//	@Autowired
+//	point pointMapper;
 	
 	//회원가입
 	@Override
@@ -159,8 +174,24 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	//내정보 수정
+	@Transactional
 	@Override
 	public int updateMypage(MemberVO member) throws Exception {		
+		//payment 테이블 제외 name,phone 포함 테이블 데이터 변경 - certify가 'check'인 경우
+		if(member.getCertify().equals("check")) {
+			//party_board(name, phone update) - m_idx
+			pMapper.updateMyinfo(member);
+			
+			//refund(name, phone update) - m_idx
+			//rMapper.updateMyinfo(member);
+			
+			//withdraw(name, phone update) - m_idx
+			wMapper.updateMyinfo(member);
+			
+			//point(name update) - m_idx
+			//pointMapper.updateMyinfo(member);
+			
+		}
 		return membermapper.updateMypage(member);
 	}
 	

@@ -309,7 +309,7 @@ public class MemberController {
 		}
 	}
 		
-	 //내정보 수정
+	//내정보 수정
 	@RequestMapping(value = "/updateForm", method = RequestMethod.POST)
 	public String modifyForm(MemberVO member) throws Exception {
 

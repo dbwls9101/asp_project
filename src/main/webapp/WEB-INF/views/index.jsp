@@ -14,10 +14,9 @@
 </head>
 <body>
 	<jsp:include page="layout/header.jsp"/>
-	<div class="test_div1">컨텐츠1</div>
 	<div class="container2">
 		<div class="container-title">
-			<span class="text-point">파티</span>
+			<span class="text-point">모여라</span> 파티
 		</div>
 		
 		<div class="container2-box">
