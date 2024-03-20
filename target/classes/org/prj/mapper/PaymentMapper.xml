@@ -30,10 +30,8 @@
 	<!-- 결제정보 개수 -->
 	<select id="orderTotal" parameterType="int" resultType="int">
 		select count(*) 
-		from payment pay inner join 
-		(select p.p_idx, p.m_idx, p.id from party_board p inner join member m on p.m_idx=m.m_idx) pm 
-		on pay.p_idx = pm.p_idx 
-		where pm.m_idx=#{m_idx}
+		from payment
+		where m_idx=#{m_idx}
 	</select>
 	
 	<!-- 결제취소 상태변경 -->

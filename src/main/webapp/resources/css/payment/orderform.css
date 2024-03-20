@@ -257,6 +257,11 @@ table {
     cursor: pointer;
 }
 
+.cancel-btn.refund{
+	border: 1px solid #43a051;
+	color: #43a051;
+}
+
 /* 페이징 */
 .page-nation li{
 	list-style: none;

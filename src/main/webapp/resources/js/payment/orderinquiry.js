@@ -42,15 +42,14 @@ function getList(m_idx, pageNum, amount){
 			let status = '';
 			
 			if (vo.pay_status == 'A') {
-				status = '대기';
+				status = '결제 대기';
 			}else if (vo.pay_status == 'B') {
-				status = '완료';
+				status = '결제 완료';
 			}else if (vo.pay_status == 'C') {
-				status = '실패';
+				status = '환불 신청';
 			}else {
-				status = '취소';
+				status = '결제 취소';
 			}
-			
 			
 			msg += '<tr>';
 			msg += '<td>' + vo.approved_at + '</td>';
@@ -59,11 +58,22 @@ function getList(m_idx, pageNum, amount){
 			msg += '<td>' + (vo.pay_amount - vo.point).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
 			msg += '<td>' + vo.point.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
 			msg += '<td><span class="refund-amount">' + vo.refund_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '</span>원</td>';
+			
 			if (vo.pay_status == 'B') {
-				msg += '<td>' + '<button type="button" class="cancel-btn" onclick="cancelBtn(' + vo.order_no + ')">결제취소</button>' + '</td>';
-			} else {
-				msg += '<td><span class="complete-btn">취소완료</span></td>';
+			    let todayTimestamp = new Date();
+			    let nextDayTimestamp = calculateNextDay(vo.approved_at);
+			    
+			    if (todayTimestamp < nextDayTimestamp) {
+			        // 결제 완료 후 24시간 이전
+			        msg += '<td><button type="button" class="cancel-btn" onclick="cancelBtn(' + vo.order_no + ')">결제취소</button></td>';
+			    } else {
+			        // 결제 완료 후 24시간 이후
+			        msg += '<td><button type="button" class="cancel-btn refund" onclick="refundBtn(' + vo.order_no + ')">환불신청</button></td>';
+			    }
+			}else{
+				 msg += '<td>-</td>';
 			}
+			
 			msg += '<td>' + status + '</td>';
 			msg += '</tr>';
 		})
@@ -96,6 +106,13 @@ function getList(m_idx, pageNum, amount){
 	.catch(err => console.log(err));
 }
 
+//24시간 뒤의 시간 반환
+function calculateNextDay(timestampString) {
+    let timestamp = new Date(timestampString);
+    timestamp.setTime(timestamp.getTime() + (24 * 60 * 60 * 1000));
+    return timestamp;
+}
+
 //페이지 버튼 클릭 이벤트
 function pagingEvent(){
 	document.querySelectorAll(".page-nation li a").forEach(aEle => {
@@ -126,6 +143,11 @@ function cancelBtn(order_no) {
 		alert('결제 취소를 실패하였습니다.');
 		return;
 	}
+}
+
+//환불 신청 버튼
+function refundBtn(order_no){
+	alert(order_no);
 }
 
 //상세내역 이동
