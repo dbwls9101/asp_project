@@ -74,13 +74,6 @@ public class AdminController {
 		return "/admin/home";
 	}
 	
-	//테스트 - 삭제예정
-	@GetMapping("/test")
-	public String moveTest() {
-		log.info("moveTest...");
-		return "/admin/test";
-	}
-
 	//FAQ 등록
 	@GetMapping("/faq/register")
 	public String moveFaqregister() {
@@ -383,5 +376,24 @@ public class AdminController {
 	@GetMapping(value="/newinquiry", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public int getNewInquiry(){
 		return iService.getNewInquiry();
+	}
+	
+	//결제관리
+	@GetMapping("/paymentdetail")
+	public void movePaymentDetail() {
+		log.info("movePaymentDetail...");
+	}
+	
+	//결제관리 리스트
+	@ResponseBody
+	@PostMapping(value="/paymentdetail", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public PageDTO getPaymentList(@RequestBody Criteria cri) {
+		log.info("getPaymentList..." + cri);
+		
+		int total = payService.getAdminPaymentTotal(cri);
+		List<PaymentVO> list = payService.getAdminPaymentList(cri);
+		
+		PageDTO pageMakger = new PageDTO(cri, total, list);
+		return pageMakger;
 	}
 }

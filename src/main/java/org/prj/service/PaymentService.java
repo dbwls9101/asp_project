@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.prj.domain.Criteria;
+import org.prj.domain.PartyBoardVO;
 import org.prj.domain.PaymentVO;
 
 public interface PaymentService {
@@ -42,4 +43,10 @@ public interface PaymentService {
 	
 	//연간 결제 총액
 	public int getTotalEarning();
+	
+	//결제내역 개수
+	public int getAdminPaymentTotal(Criteria cri);
+	
+	//결제관리
+	public List<PaymentVO> getAdminPaymentList(Criteria cri);
 }

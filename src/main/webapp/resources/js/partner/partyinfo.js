@@ -4,26 +4,81 @@ document.querySelector("#makeparty").addEventListener('click', ()=>{
 })
 
 //list 가져오기
-getPrincipal().then(() => {
-let pageData = getStorageData();
+window.onload = function() {
+	getPrincipal().then(() => {
+		let pageData = getStorageData();
+		let obj;
+		
+		if(pageData == null){
+			document.querySelector("#listbyperiod").classList.remove("activeFont");
+			document.querySelector("#listbylatest").classList.add("activeFont");
+			setStorageData('partyinfo', 1, 10, 'latest', 'p_idx', '');
+			obj = makeObject(principal.member.m_idx, 1, 10, 'latest', 'p_idx', '');
+		}else{
+			if(pageData.sort == 'latest'){
+				document.querySelector("#listbyperiod").classList.remove("activeFont");
+				document.querySelector("#listbylatest").classList.add("activeFont");
+			}
+			else{
+				document.querySelector("#listbylatest").classList.remove("activeFont");
+				document.querySelector("#listbyperiod").classList.add("activeFont");
+			}
+			
+			selectOptions();
+			
+			obj = makeObject(principal.member.m_idx, pageData.pageNum, pageData.amount, pageData.sort, pageData.searchcolumn, pageData.searchword);
+		}
+		getList(obj);
+	})
+};
+
+function selectOptions() {
+	let pageData = getStorageData();
 	
-	if(pageData == null){
-		getList(principal.member.m_idx, 1, 10);
-	}else{
-		getList(principal.member.m_idx, pageData.pageNum, pageData.amount);
-	}
+    document.querySelectorAll("#detailSearch option").forEach(d => {
+        if(d.value == pageData.searchcolumn) {
+            d.selected = 'selected';
+        }
+    });
+    
+    document.querySelector("#searchword").value = pageData.searchword;
+}
+
+//검색
+document.querySelector("#search").addEventListener('click', ()=>{
+	let pageData = getStorageData();
+	
+	let searchcolumn = document.querySelector("#detailSearch").value;
+	let searchword = document.querySelector("#searchword").value;
+	
+	getPrincipal().then(() => {
+		setStorageData('partyinfo', 1, 10, pageData.sort, searchcolumn, searchword);
+		let obj = makeObject(principal.member.m_idx, 1, 10, pageData.sort, searchcolumn, searchword);
+		getList(obj);
+	})
 })
-function getList(m_idx, pageNum, amount){
+
+//객체 생성 후 반환하는 함수
+function makeObject(m_idx, pageNum, amount, sort, searchcolumn, searchword){
+	let obj = {
+		m_idx : m_idx,
+		pageNum : pageNum,
+		amount : amount,
+		sort : sort,
+		searchcolumn : searchcolumn,
+		searchword : searchword
+	};
+	
+	return obj;
+}
+
+function getList(obj){
 	let msg = "";
 	let page = "";
 	
 	fetch('/partner/partyinfo', {
 		method : 'post',
-		body : JSON.stringify({
-			m_idx : m_idx,
-			pageNum : pageNum,
-			amount : amount
-		}),
+		body : JSON.stringify(obj),
 		headers : {'Content-type' : 'application/json; charset=utf-8'}
 	})
 	.then(response => response.json())
@@ -105,8 +160,15 @@ function pagingEvent(){
 			let menu = 'partyinfo';
 			let pageNum = this.getAttribute("href");
 			let amount = 10;
+			let sort = document.querySelector("#listbylatest").classList.contains('activeFont') ? 'latest' : 'period';
 			
-			getList(principal.member.m_idx, pageNum, amount);
+			setStorageData(menu, pageNum, amount, sort, pageData.searchcolumn, pageData.searchword);
+			
+			getPrincipal().then(() => {
+				let obj = makeObject(principal.member.m_idx, pageNum, amount, sort, pageData.searchcolumn, pageData.searchword);
+				getList(obj);
+			})
+			
 		});
 	});
 }
@@ -123,4 +185,31 @@ function myTime(unixTimeStamp){
 	
 	return date;
 }
+
+//최신순, 남은기간순 정렬
+//최신순
+document.querySelector("#listbylatest").addEventListener('click', ()=>{
+	let pageData = getStorageData();
+	
+	//css
+	document.querySelector("#listbyperiod").classList.remove("activeFont");
+	document.querySelector("#listbylatest").classList.add("activeFont");
+	
+	let obj = makeObject(principal.member.m_idx, 1, 10, 'latest', pageData.searchcolumn, pageData.searchword);
+	getList(obj);
+	setStorageData('manage', 1, 10, 'latest', pageData.searchcolumn, pageData.searchword);
+})
+
+//남은기간순
+document.querySelector("#listbyperiod").addEventListener('click', ()=>{
+	let pageData = getStorageData();
+	
+	//css
+	document.querySelector("#listbylatest").classList.remove("activeFont");
+	document.querySelector("#listbyperiod").classList.add("activeFont");
+	
+	let obj = makeObject(principal.member.m_idx, 1, 10, pageData.searchcolumn, pageData.searchword);
+	getList(obj);
+	setStorageData('manage', 1, 10, 'period', pageData.searchcolumn, pageData.searchword);
+})
 
