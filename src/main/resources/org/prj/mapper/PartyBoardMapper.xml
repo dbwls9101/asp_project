@@ -332,4 +332,9 @@
 	<update id="updateMyinfo" parameterType="org.prj.domain.MemberVO">
 		update party_board set name=#{name}, phone=#{phone} where m_idx=#{m_idx}
 	</update>
+	
+	<!-- 환불 금액 계산을 위해 일금액, 남은 기간 불러오기 -->
+	<select id="getCurrentPartyInfo" parameterType="int" resultType="org.prj.domain.PartyBoardVO">
+		select price, trunc(end_date)-trunc(sysdate) as datediff from party_board where p_idx=#{p_idx}
+	</select>
 </mapper>

@@ -31,7 +31,7 @@ window.onload = function(){
 	if(document.querySelector('title').innerHTML == '관리자 홈'){
 		totalUsernum();
 		totalEarning();
-		//newRefund();
+		newRefund();
 		newWithdraw();
 		newInquiry();
 	}
@@ -58,14 +58,14 @@ function totalEarning(){
 }
 
 //환불신청
-//function newRefund(){
-//	fetch('/admin/newrefund')
-//	.then(response => response.json())
-//	.then(json => {
-//		document.querySelector("#refundreq").innerHTML = json + '건';
-//	})
-//	.catch(err => console.log(err));
-//}
+function newRefund(){
+	fetch('/admin/newrefund')
+	.then(response => response.json())
+	.then(json => {
+		document.querySelector("#refundreq").innerHTML = json + '건';
+	})
+	.catch(err => console.log(err));
+}
 
 //출금신청
 function newWithdraw(){

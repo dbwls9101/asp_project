@@ -34,7 +34,7 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/admin/home">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>관리자 홈</span></a>
@@ -71,7 +71,7 @@
             </div>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/admin/paymentdetail">
                     <i class="fas fa-fw fa-credit-card"></i>
                     <span>결제관리</span></a>
             </li>

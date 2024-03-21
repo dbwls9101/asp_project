@@ -18,6 +18,7 @@ import org.prj.service.InquiryService;
 import org.prj.service.MemberService;
 import org.prj.service.PartyBoardService;
 import org.prj.service.PaymentService;
+import org.prj.service.RefundService;
 import org.prj.service.VideoService;
 import org.prj.domain.WithdrawVO;
 import org.prj.service.WithdrawService;
@@ -68,6 +69,9 @@ public class AdminController {
 	@Autowired
 	private InquiryService iService;
 	
+	@Autowired
+	private RefundService rService;
+	
 	//관리자홈
 	@GetMapping("/home")
 	public String moveHome() {
@@ -75,13 +79,6 @@ public class AdminController {
 		return "/admin/home";
 	}
 	
-	//테스트 - 삭제예정
-	@GetMapping("/test")
-	public String moveTest() {
-		log.info("moveTest...");
-		return "/admin/test";
-	}
-
 	//FAQ 등록
 	@GetMapping("/faq/register")
 	public String moveFaqregister() {
@@ -416,11 +413,11 @@ public class AdminController {
 	}
 	
 	//새 환불신청 수
-//	@ResponseBody
-//	@GetMapping(value="/newrefund", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-//	public int getNewRefund(){
-//		return .getNewRefund();
-//	}
+	@ResponseBody
+	@GetMapping(value="/newrefund", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public int getNewRefund(){
+		return rService.getNewRefund();
+	}
 	
 	//새 출금신청 수
 	@ResponseBody
@@ -434,5 +431,24 @@ public class AdminController {
 	@GetMapping(value="/newinquiry", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public int getNewInquiry(){
 		return iService.getNewInquiry();
+	}
+	
+	//결제관리
+	@GetMapping("/paymentdetail")
+	public void movePaymentDetail() {
+		log.info("movePaymentDetail...");
+	}
+	
+	//결제관리 리스트
+	@ResponseBody
+	@PostMapping(value="/paymentdetail", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public PageDTO getPaymentList(@RequestBody Criteria cri) {
+		log.info("getPaymentList..." + cri);
+		
+		int total = payService.getAdminPaymentTotal(cri);
+		List<PaymentVO> list = payService.getAdminPaymentList(cri);
+		
+		PageDTO pageMakger = new PageDTO(cri, total, list);
+		return pageMakger;
 	}
 }

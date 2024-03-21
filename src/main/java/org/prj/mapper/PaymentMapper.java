@@ -32,4 +32,13 @@ public interface PaymentMapper {
 	
 	//연간 결제 총액
 	public int getTotalEarning();
+	
+	//결제내역 개수
+	public int getAdminPaymentTotal(Criteria cri);
+	
+	//결제관리
+	public List<PaymentVO> getAdminPaymentList(Criteria cri);
+	
+	//환불신청 pay_status 값 변경
+	public void doPayStatus(String order_no);
 }

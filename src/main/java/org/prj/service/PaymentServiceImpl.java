@@ -199,4 +199,14 @@ public class PaymentServiceImpl implements PaymentService {
 	public int getTotalEarning() {
 		return mapper.getTotalEarning();
 	}
+	
+	@Override
+	public int getAdminPaymentTotal(Criteria cri) {
+		return mapper.getAdminPaymentTotal(cri);
+	}
+	
+	@Override
+	public List<PaymentVO> getAdminPaymentList(Criteria cri) {
+		return mapper.getAdminPaymentList(cri);
+	}
 }

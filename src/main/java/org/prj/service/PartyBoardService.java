@@ -39,6 +39,8 @@ public interface PartyBoardService {
 	public String idSearch(int p_idx);
 	// 파티관리 - 검색 결과에 대한 리스트
 	public List<PartyBoardVO> mainAllParty();
+	//환불 금액 계산을 위해 일금액, 남은 기간 불러오기
+	public PartyBoardVO getCurrentPartyInfo(int p_idx);
 	
 	//================관리자=======================
 	//파티 개수

@@ -5,7 +5,9 @@ import java.util.List;
 import org.prj.domain.Criteria;
 import org.prj.domain.MemberVO;
 import org.prj.domain.PartyBoardVO;
+import org.prj.domain.RefundVO;
 import org.prj.service.PartyBoardService;
+import org.prj.service.RefundService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -28,6 +30,9 @@ import lombok.extern.log4j.Log4j;
 public class ShopController {
 	@Autowired 
 	private PartyBoardService pService;
+	
+	@Autowired
+	private RefundService rService;
 	
 	//카테고리별 리스트
 	@GetMapping("/list/{c1}")
@@ -121,6 +126,20 @@ public class ShopController {
         
 		log.info("participating..." + username);
 		model.addAttribute("list", pService.getParticipating(username));
+	}
+	
+	//환불 금액 계산을 위해 일금액, 남은 기간 불러오기
+	@ResponseBody
+	@PostMapping(value="/reamount", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public PartyBoardVO getCurrentPartyInfo(@RequestBody int p_idx) {
+		return pService.getCurrentPartyInfo(p_idx);
+	}
+	
+	//환불 신청
+	@ResponseBody
+	@PostMapping("/refundregister")
+	public String doRefundRegister(@RequestBody RefundVO vo) {
+		return rService.doRefundRegister(vo) > 0 ? "success" : "fail";
 	}
 }
 

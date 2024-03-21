@@ -41,7 +41,6 @@
 	
 	<!--  참여정보  -->
 	<select id="getPayMemberList" parameterType="org.prj.domain.Criteria" resultType="org.prj.domain.PaymentVO"> 
-	<![CDATA[
 		select * from
 		(select rownum rn, order_no, p_idx, m_idx, title, sub_title, id, name, phone, service_amount, pay_amount, commission, pay_status, approved_at, end_date 
 		from
@@ -50,7 +49,26 @@
 			(select p.p_idx, p.m_idx, p.id from party_board p inner join member m on p.m_idx=m.m_idx) pm 
 			on pay.p_idx = pm.p_idx 
 			where pm.m_idx=#{m_idx} and pay.pay_status = 'B'
-			order by approved_at desc)
+			<if test='searchword != null or searchword != ""'>
+				<choose>
+			        <when test='searchcolumn.equals("p_idx")'>
+			            and pay.p_idx LIKE '%' || #{searchword} || '%'
+			        </when>
+			        <when test='searchcolumn.equals("name")'>
+			            and LOWER(pay.name) LIKE '%' || #{searchword} || '%'
+			        </when>
+			        <when test='searchcolumn.equals("id")'>
+			            and LOWER(pay.id) LIKE '%' || #{searchword} || '%'
+			        </when>
+			    </choose>
+			</if>
+			<if test='sort.equals("latest")'>
+			order by pay.p_idx desc
+ 			</if>
+ 			<if test='sort.equals("period")'>
+			order by (trunc(pay.end_date)-trunc(sysdate)) desc
+ 			</if>)
+	<![CDATA[
 		where rownum <= #{pageNum} * #{amount})
 		where rn > (#{pageNum}-1) * #{amount}
 	]]>
@@ -63,6 +81,19 @@
 		(select p.p_idx, p.m_idx, p.id from party_board p inner join member m on p.m_idx=m.m_idx) pm 
 		on pay.p_idx = pm.p_idx 
 		where pm.m_idx=#{m_idx} and pay.pay_status = 'B'
+		<if test='searchword != null or searchword != ""'>
+			<choose>
+		        <when test='searchcolumn.equals("p_idx")'>
+		            and pay.p_idx LIKE '%' || #{searchword} || '%'
+		        </when>
+		        <when test='searchcolumn.equals("name")'>
+		            and LOWER(pay.name) LIKE '%' || #{searchword} || '%'
+		        </when>
+		        <when test='searchcolumn.equals("id")'>
+		            and LOWER(pay.id) LIKE '%' || #{searchword} || '%'
+		        </when>
+		    </choose>
+		</if>
 	</select>
 	
 	<!-- 월별 결제 총액 -->
@@ -93,4 +124,90 @@
 		WHERE 
 		    EXTRACT(YEAR FROM APPROVED_AT) = EXTRACT(YEAR FROM SYSDATE)
 	</select>
+	
+	<!--  결제관리 개수  -->
+	<select id="getAdminPaymentTotal" parameterType="org.prj.domain.Criteria" resultType="int"> 
+		select count(*)
+		from payment
+		where 1=1
+		<if test='category != "all"'>
+			and title LIKE '%' || #{category} || '%'
+		</if>
+		<choose>
+	        <when test='status.equals("B")'>
+	            and pay_status='B'
+	        </when>
+	        <when test='status.equals("C")'>
+	            and pay_status='C'
+	        </when>
+	        <when test='status.equals("D")'>
+	            and pay_status='D'
+	        </when>
+	    </choose>
+		<if test='searchword != null or searchword != ""'>
+			<choose>
+				<when test='searchcolumn.equals("order_no")'>
+		            and order_no LIKE '%' || #{searchword} || '%'
+		        </when>
+		        <when test='searchcolumn.equals("p_idx")'>
+		            and p_idx LIKE '%' || #{searchword} || '%'
+		        </when>
+		        <when test='searchcolumn.equals("sub_title")'>
+		            and LOWER(sub_title) LIKE '%' || #{searchword} || '%'
+		        </when>
+		        <when test='searchcolumn.equals("id")'>
+		            and LOWER(id) LIKE '%' || #{searchword} || '%'
+		        </when>
+		    </choose>
+		</if>
+	</select>
+	
+	<!--  결제관리  -->
+	<select id="getAdminPaymentList" parameterType="org.prj.domain.Criteria" resultType="org.prj.domain.PaymentVO"> 
+		select * from
+		(select rownum rn, order_no, p_idx, m_idx, title, sub_title, id, name, phone, service_amount, pay_amount, commission, pay_status, approved_at, end_date 
+		from
+			(select * 
+			from payment 
+			where 1=1
+			<if test='category != "all"'>
+				and title LIKE '%' || #{category} || '%'
+			</if>
+			<choose>
+		        <when test='status.equals("B")'>
+		            and pay_status='B'
+		        </when>
+		        <when test='status.equals("C")'>
+		            and pay_status='C'
+		        </when>
+		        <when test='status.equals("D")'>
+		            and pay_status='D'
+		        </when>
+		    </choose>
+			<if test='searchword != null or searchword != ""'>
+				<choose>
+					<when test='searchcolumn.equals("order_no")'>
+			            and order_no LIKE '%' || #{searchword} || '%'
+			        </when>
+			        <when test='searchcolumn.equals("p_idx")'>
+			            and p_idx LIKE '%' || #{searchword} || '%'
+			        </when>
+			        <when test='searchcolumn.equals("sub_title")'>
+			            and LOWER(sub_title) LIKE '%' || #{searchword} || '%'
+			        </when>
+			        <when test='searchcolumn.equals("id")'>
+			            and LOWER(id) LIKE '%' || #{searchword} || '%'
+			        </when>
+			    </choose>
+			</if>
+			order by approved_at desc)
+	<![CDATA[
+		where rownum <= #{pageNum} * #{amount})
+		where rn > (#{pageNum}-1) * #{amount}
+	]]>
+	</select>
+	
+	<update id="doPayStatus" parameterType="String">
+		update payment set pay_status='C' where order_no=#{order_no}
+	</update>
 </mapper>

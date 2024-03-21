@@ -27,4 +27,5 @@ public class Criteria {
 	
 	//파티 상태 & 회원 레벨
 	private String status;
+	
 }
