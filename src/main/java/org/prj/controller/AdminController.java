@@ -8,14 +8,20 @@ import org.prj.controller.AdminController;
 import org.prj.domain.CategoryVO;
 import org.prj.domain.Criteria;
 import org.prj.domain.FaqVO;
+import org.prj.domain.MemberVO;
 import org.prj.domain.PageDTO;
 import org.prj.domain.PartyBoardVO;
 import org.prj.domain.PointVO;
+import org.prj.domain.PaymentVO;
 import org.prj.domain.VideoVO;
 import org.prj.service.CategoryService;
 import org.prj.service.FaqService;
+import org.prj.service.InquiryService;
+import org.prj.service.MemberService;
 import org.prj.service.PartyBoardService;
 import org.prj.service.PointService;
+import org.prj.service.PaymentService;
+import org.prj.service.RefundService;
 import org.prj.service.VideoService;
 import org.prj.domain.WithdrawVO;
 import org.prj.service.WithdrawService;
@@ -59,6 +65,18 @@ public class AdminController {
 	
 	@Autowired 
 	private PointService poService;
+
+	@Autowired
+	private PaymentService payService;
+	
+	@Autowired
+	private MemberService mService;
+	
+	@Autowired
+	private InquiryService iService;
+	
+	@Autowired
+	private RefundService rService;
 	
 	//관리자홈
 	@GetMapping("/home")
@@ -67,13 +85,6 @@ public class AdminController {
 		return "/admin/home";
 	}
 	
-	//테스트 - 삭제예정
-	@GetMapping("/test")
-	public String moveTest() {
-		log.info("moveTest...");
-		return "/admin/test";
-	}
-
 	//FAQ 등록
 	@GetMapping("/faq/register")
 	public String moveFaqregister() {
@@ -85,7 +96,47 @@ public class AdminController {
 	public String register(FaqVO vo, RedirectAttributes rttr) {
 		log.info("register..." + vo);
 		fService.register(vo);
-		return "redirect:/";
+		return "redirect:/admin/faq/faqlist";
+	}
+	
+	//FAQ 리스트
+	@GetMapping("/faq/faqlist")
+	public String moveFaqList() {
+		log.info("moveFaqlist...");
+		return "/faq/faqlist";
+	}
+	
+	@ResponseBody
+	@PostMapping(value="/faq/faqlist", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public PageDTO getFaqList(@RequestBody Criteria cri) {
+		int total = fService.getAdminFaqTotal(cri);
+		List<FaqVO> list = fService.getAdminFaqList(cri);
+		
+		PageDTO pageMakger = new PageDTO(cri, total, list);
+		return pageMakger;
+	}
+	
+	//FAQ 수정
+	@GetMapping("/faq/modify")
+	public String moveFaqModify(@RequestParam("fn") int f_idx, Model model){
+		log.info("moveFaqModify..." + f_idx);
+		model.addAttribute("vo", fService.getFaq(f_idx));
+		return "/faq/modify";
+	}
+	
+	@PostMapping("/faq/modify")
+	public String doAdminModifyFaq(FaqVO vo) {
+		log.info("doAdminModifyFaq..." + vo);
+		fService.doAdminUpdateFaq(vo);
+		return "redirect:/admin/faq/faqlist";
+	}
+	
+	//FAQ 삭제
+	@GetMapping("/faq/remove")
+	public String doAdminRemoveFaq(@RequestParam("fn") int f_idx) {
+		log.info("doAdminRemoveFaq..." + f_idx);
+		fService.doAdminRemoveFaq(f_idx);
+		return "redirect:/admin/faq/faqlist";
 	}
 	
 	//추천영상
@@ -98,9 +149,13 @@ public class AdminController {
 	//추천영상 불러오기
 	@ResponseBody
 	@GetMapping(value = "/videoListload", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<VideoVO> videoListload() {
+	public List<VideoVO> videoListload( @RequestParam("page") int page) {
 		log.info("videoListload...");
-		List<VideoVO> list = vService.getAllVideos();
+		Criteria cri = new Criteria();
+		List<VideoVO> list = null;
+		
+		cri.setPageNum(page);
+		list = vService.getAllVideos(cri);
 		return list;
 	}
 	
@@ -318,5 +373,129 @@ public class AdminController {
 	@GetMapping("/pointSetting")
 	public void movepointSetting() {
 		log.info("movepointSetting...");
+	}
+
+	//회원관리
+	@GetMapping("/member")
+	public void moveMember() {
+		log.info("moveMember...");
+	}
+	
+	//회원관리 리스트
+	@ResponseBody
+	@PostMapping(value="/member", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public PageDTO getMemberList(@RequestBody Criteria cri) {
+		int total = mService.getMemberTotal(cri);
+		List<MemberVO> list = mService.getAdminMemberList(cri);
+		
+		PageDTO pageMakger = new PageDTO(cri, total, list);
+		return pageMakger;
+	}
+	
+	//회원 수정
+	//회원수정 페이지
+	@GetMapping("/membermodify")
+	public void moveMemberModify(@RequestParam("mn") int m_idx, Model model){
+		log.info("moveMemberModify..." + m_idx);
+		model.addAttribute("vo", mService.getMember(m_idx));
+	}
+	
+	//회원 수정
+	@PostMapping("/membermodify")
+	public void doMemberModify(MemberVO mvo, Model model) {
+		mService.doMemberModify(mvo);
+		moveMemberModify(mvo.getM_idx(), model);
+	}
+	
+	//계정 활성화 비활성화
+	@ResponseBody
+	@PostMapping(value="/lockaccount", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String doLockAccount(@RequestBody MemberVO vo) {
+		return mService.doLockAccount(vo) > 0 ? "success" : "fail";
+	}
+	
+	//sns 연동 해지
+	//네이버 해지
+	@ResponseBody
+	@PostMapping(value="/naverdelete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String doNaveridDelete(@RequestBody int m_idx) {
+		int result = mService.doNaveridDelete(m_idx);
+		return result > 0 ? "success" : "fail";
+	}
+	
+	//카카오 해지
+	@ResponseBody
+	@PostMapping(value="/kakaodelete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String doKakaoidDelete(@RequestBody int m_idx) {
+		int result = mService.doKakaoidDelete(m_idx);
+		return result > 0 ? "success" : "fail";
+	}
+	
+	//파티 생성 비율
+	@ResponseBody
+	@GetMapping(value="/partyratio", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<PartyBoardVO> getPartyRatio(){
+		return pService.getPartyRatio();
+	}
+	
+	//월별 이용자 결제 총액
+	@ResponseBody
+	@GetMapping(value="/totalpayment", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<PaymentVO> getTotalPayment(){
+		return payService.getTotalPayment();
+	}
+	
+	//총 회원 수
+	@ResponseBody
+	@GetMapping(value="/totaluser", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public int getTotalUser(){
+		return mService.getTotalUser();
+	}
+	
+	//연간 결제 총액
+	@ResponseBody
+	@GetMapping(value="/totalearning", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public int getTotalEarning(){
+		return payService.getTotalEarning();
+	}
+	
+	//새 환불신청 수
+	@ResponseBody
+	@GetMapping(value="/newrefund", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public int getNewRefund(){
+		return rService.getNewRefund();
+	}
+	
+	//새 출금신청 수
+	@ResponseBody
+	@GetMapping(value="/newwithdraw", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public int getNewWithdraw(){
+		return wService.getNewWithdraw();
+	}
+	
+	//새 문의글 수
+	@ResponseBody
+	@GetMapping(value="/newinquiry", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public int getNewInquiry(){
+		return iService.getNewInquiry();
+	}
+	
+	//결제관리
+	@GetMapping("/paymentdetail")
+	public void movePaymentDetail() {
+		log.info("movePaymentDetail...");
+	}
+	
+	//결제관리 리스트
+	@ResponseBody
+	@PostMapping(value="/paymentdetail", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public PageDTO getPaymentList(@RequestBody Criteria cri) {
+		log.info("getPaymentList..." + cri);
+		
+		int total = payService.getAdminPaymentTotal(cri);
+		List<PaymentVO> list = payService.getAdminPaymentList(cri);
+		
+		PageDTO pageMakger = new PageDTO(cri, total, list);
+		return pageMakger;
 	}
 }

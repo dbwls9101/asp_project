@@ -1,156 +1,167 @@
-.page-header{
-	text-align: center;
-	margin-top: 20px;
-}
-
-.page-header1{
-	margin-left: auto;
-    margin-right: auto;
-    height: 50px;
-}
-.page-header1_1 {
-	text-align: right;
-	width: 380px;
-	float: left;		/* 한 줄에 두가지 div를 넣기 위해서 작성 아래와 위에 둘다 */
-}
-
-.page-header1_2 {
-	font-size: larger;
-	text-align: right;
-	width: 580px;
-	height: 35px;
-	float: left;
-	
-}
-.line {
-	width: 752px;
-    height: 5px;
-    margin-left: auto;
-    margin-right: auto;
-	
-}
-
-.panel-body{
+.subjecet {
 	width: 100%;
-	margin: auto;
+	height: 120px;
+	background-color: #8EC0E4;
 }
 
-table{
-	width: 750px;
-	border-radius: 5px;
+.mw-800 {
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.h3 {
+	position: relative;
+	margin-top: 50px;
+	margin-bottom: 20px;
+	font-size: 22px;
+	font-weight: 500;
+	color: #333333;
+}
+
+.form-round {
+	position: relative;
+	padding: 25px 40px;
+	border: solid 1px #ade2b7;
+	border-radius: 20px;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.form-list li {
+	position: relative;
+	min-height: 42px;
+	padding: 5px 0 2px 155px;
+	font-size: 16px;
+	color: #333333;
+}
+
+.form-list li:first-child {
+	padding: 10px 0 2px 155px;
+}
+
+.form-list .subject {
+	width: 160px;
+	padding: 6px 0;
+}
+
+.form-list .subject {
+	position: absolute;
+	top: 10;
+	left: 0;
+	display: inline-block;
+	width: 160px;
+	padding: 10px 0;
+}
+
+.form-list input[type='text'], .form-list select {
+	width: 100%;
+	height: 40px;
+	padding: 0 15px;
+	font-size: 14px;
+	color: #333;
+	border: solid 1px #dddddd;
+	background-color: white;
+	outline: none;
+}
+
+.form-list textarea {
+	width: 100%;
+	vertical-align: middle;
+	padding: 10px 15px;
+	margin-top: 10px;
+	font-size: 14px;
+	color: #333;
+	border: solid 1px #dddddd;
+	background-color: white;
+	outline: none;
+}
+
+.form-list input[type="file"] {
+	margin-right: 10px;
+	padding: 12px 0;
+}
+
+.form-list .inline-break {
+	display: block;
+	margin: 6px 0 6px 0;
+}
+
+.button:link, .button:visited {
+	color: white;
+	text-decoration: none;
+}
+
+.uploadResult ul li {
+	padding: 0 !important;
+}
+
+.button.button-point {
+	background-color: #43a051;
+	cursor: pointer;
+}
+
+.button.button-point:hover {
+	background-color: #FFE05C;
+}
+
+.button {
+	position: relative;
+	display: inline-block;
+	min-width: 240px;
+	height: 70px;
+	margin: 1px 0;
+	padding: 0 10px;
+	font-size: 18px;
+	color: white;
 	text-align: center;
-	border-spacing: 0;
-    border-collapse: collapse;
-    margin-left:auto; 
-    margin-right:auto;
+	line-height: 68px;
+	border: 0;
+	border-radius: 5px;
+	background-color: #cecdd4;
+	overflow: hidden;
+	cursor: pointer;
 }
-th, td{
-	border: 1px solid gray;
-	padding: 7px;
+
+.form-list .button {
+	vertical-align: middle;
 }
-th{
-	background-color: transparent;
-	color: black;
+
+/* 개인정보 동의 영역*/
+.page-content {
+	border: 3px solid black;
+	height: 250px;
+	overflow: auto;
+	padding: 25px 40px;
+	border: solid 1px #c8f1cbed;
+	border-radius: 20px;
+	font-size: 14px;
+}
+
+.h3 {
+	position: relative;
+	margin-top: 50px;
+	margin-bottom: 25px;
+	font-size: 22px;
+	font-weight: 500;
+	color: #333333;
+}
+
+.title-point {
+	color: #43a051;
+}
+
+.agreeAll {
 	font-size: 20px;
+	display: flex;
+	justify-content: center;
 }
-input{
-	padding: 5px;
+
+.check-box {
 	width: 100%;
-	border: 1px solid gray;
-	border-radius: 5px;
-}
-textarea {
-	resize: none;
-	border: 1px solid gray;
-	border-radius: 5px;
-}
-
-tr th:nth-of-type(1) {
-	width: 25%
-}
-tr th:nth-of-type(2) {
-	width: 75%
-}
-
-.select1{
-	text-align: justify;
-}
-
-
-.infomation {
-	margin-left: auto;
-	border-style: groove;
-    border-collapse: collapse;
-    margin-right: auto;
-    text-align: unset;
-    width: 750px;
-    border-radius: 5px;
-    background-color: gainsboro;
-    font-style: oblique;
-    color: gray;
-}
-
-.btn{
-	padding: 10px;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.panel-body-btns{
 	text-align: center;
-}
-
-.btn-sec{
-	background-color: purple;
-    border: 1px solid teal;
-    color: #fff;
-    width: 200px;
-    font-size: 20px;
-}
-
-.btn-fir{
-    background-color: gray;
-    border: 1px solid gray;
-    color: #fff;
-    width: 200px;
-    font-size: 20px;
-}
-
-
-/* 파일 업로드 부분*/
-.file-container{
-   border: 1px solid gray;
-   border-radius: 5px;
-   margin-top: 20px;
-   width: 750px;
-   border-radius: 5px;
-   text-align: center;
-   border-spacing: 0;
-   border-collapse: collapse;
-   margin-left:auto; 
-   margin-right:auto;   
-}
-.file-header{
-   height: 40px;
-   padding: 5px;
-   background-color: whitesmoke;
-}
-.file-title{
-   float: left;
-   text-align: left;
-   margin-left: 15px;
-}
-.file-title a{
-   font-size: 15px;
-   font-weight: bold;
-   text-decoration: none;
-   color: #000;
-   line-height: 40px;
-}
-.file-body{
-   padding: 10px;
-}
-.uploadResult{
-   text-align: left;
+	margin: 20px 0;
 }

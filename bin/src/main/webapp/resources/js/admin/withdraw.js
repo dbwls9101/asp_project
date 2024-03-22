@@ -46,7 +46,6 @@ function getList(){
 			msg += 		'<td>' + withdrawList.note +'</td>';
 			msg += 		'<td>'
 			msg +=		'<input type="button" name="approval" id="approval" onclick="approvalEvent('+ withdrawList.w_idx + ')" value="승인"/>'
-			msg +=		'<input type="button" name="Companion" id="Companion" value="반려"/>'	
 			msg +=		'</td>';
 			msg += '</tr>';	
 		})

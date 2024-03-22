@@ -55,4 +55,7 @@
 		SELECT SEQ_INQUIRY.CURRVAL FROM DUAL
 	</select>
 	
+	<select id="getNewInquiry" resultType="int">
+		select count(*) from inquiry_board where status='A'
+	</select>
 </mapper>

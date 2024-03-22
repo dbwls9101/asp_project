@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.prj.mapper.RefundMapper">
+	<!-- 환불 신청 -->
+	<insert id="doRefundRegister" parameterType="org.prj.domain.RefundVO">
+		INSERT INTO refund (order_no, m_idx, p_idx, r_idx, id, name, amount, re_amount, re_status, reg_date, reason)
+		VALUES (#{order_no}, #{m_idx}, #{p_idx}, #{r_idx}, #{id}, #{name}, #{amount}, #{re_amount}, 'A', sysdate, #{reason})
+	</insert>
+	
+	<!-- 새 환불신청 건수 -->
+	<select id="getNewRefund" resultType="int">
+		select count(*) from refund where re_status='A'
+	</select>
+	
+	<!-- 내 정보 수정 시 name 업데이트 -->
+	<update id="updateMyinfo" parameterType="org.prj.domain.MemberVO">
+		update refund set name=#{name} where m_idx=#{m_idx}
+	</update>
+</mapper>

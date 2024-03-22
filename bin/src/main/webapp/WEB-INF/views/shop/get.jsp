@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "sec" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.io.InputStream" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,11 +24,18 @@
 	<div id="title-container">
 		<c:set var="servicecode" value="${vo.codeone }${vo.codetwo}" />
 		<c:choose>
-			<c:when test="${servicecode eq 10100 || servicecode eq 2080 || servicecode eq 3050 || vo.codeone eq 40}">
+			<c:when test="${servicecode eq 100 || servicecode eq 200 || servicecode eq 300 || vo.codeone eq 400}">
 				<img src="/resources/images/sun.png" id="etclogo">
 			</c:when>
 			<c:otherwise>
-				<img src="/resources/images/servicelogo/${servicecode}.jpg" id="servicelogo">
+				<c:set var="imageFileName" value="/resources/images/servicelogo/${servicecode}.jpg" />
+				<c:set var="defaultImageFileName" value="/resources/images/sun.png" />
+				<%
+				    String imageFileName = (String)pageContext.getAttribute("imageFileName");
+				    String defaultImageFileName = (String)pageContext.getAttribute("defaultImageFileName");
+				    InputStream inputStream = request.getServletContext().getResourceAsStream(imageFileName);
+				%>
+				<img src="<%= (inputStream != null) ? imageFileName : defaultImageFileName %>" id="servicelogo">
 			</c:otherwise>
 		</c:choose>
 		<div id="title-area">

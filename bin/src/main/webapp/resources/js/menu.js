@@ -43,30 +43,51 @@ function showCategory(){
     	
     	data.forEach(code => {
             if (code.codeone == 10) {
-				msg10 += '<li>';
-				msg10 += '<a href="/shop/list/' + code.codeone + '/' + code.codetwo + '">#';
-				msg10 += code.c_secondary;
-				msg10 += '</a>';
-				msg10 += '</li>';
+            	if(code.codetwo != 1){
+            		msg10 += '<li>';
+    				msg10 += '<a href="/shop/list/' + code.codeone + '/' + code.codetwo + '">#';
+    				msg10 += code.c_secondary;
+    				msg10 += '</a>';
+    				msg10 += '</li>';
+            	}
 			} else if (code.codeone == 20) {
-				msg20 += '<li>';
-				msg20 += '<a href="/shop/list/' + code.codeone + '/' + code.codetwo + '">#';
-				msg20 += code.c_secondary;
-				msg20 += '</a>';
-				msg20 += '</li>';
+				if(code.codetwo != 1){
+					msg20 += '<li>';
+					msg20 += '<a href="/shop/list/' + code.codeone + '/' + code.codetwo + '">#';
+					msg20 += code.c_secondary;
+					msg20 += '</a>';
+					msg20 += '</li>';
+				}
 			} else if (code.codeone == 30) {
-				msg30 += '<li>';
-				msg30 += '<a href="/shop/list/' + code.codeone + '/' + code.codetwo + '">#';
-				msg30 += code.c_secondary;
-				msg30 += '</a>';
-				msg30 += '</li>';
+				if(code.codetwo != 1){
+					msg30 += '<li>';
+					msg30 += '<a href="/shop/list/' + code.codeone + '/' + code.codetwo + '">#';
+					msg30 += code.c_secondary;
+					msg30 += '</a>';
+					msg30 += '</li>';
+				}
 			} else if (code.codeone == 40) {
-				msg40 += '<li>';
-				msg40 += '<a href="/shop/list/' + code.codeone + '/' + code.codetwo + '">#';
-				msg40 += code.c_secondary;
-				msg40 += '</a>';
-				msg40 += '</li>';
+				if(code.codetwo != 1){
+					msg40 += '<li>';
+					msg40 += '<a href="/shop/list/' + code.codeone + '/' + code.codetwo + '">#';
+					msg40 += code.c_secondary;
+					msg40 += '</a>';
+					msg40 += '</li>';
+				}	
 			}
+		});
+    	
+    	data.forEach(code => {
+            if (code.codetwo == 1) {
+            	if(code.codeone == 10)
+            		msg10 += '<li><a href="/shop/list/' + code.codeone + '/' + code.codetwo + '">#' + code.c_secondary + '</a></li>';
+            	else if(code.codeone == 20)
+            		msg20 += '<li><a href="/shop/list/' + code.codeone + '/' + code.codetwo + '">#' + code.c_secondary + '</a></li>';
+            	else if(code.codeone == 30)
+            		msg30 += '<li><a href="/shop/list/' + code.codeone + '/' + code.codetwo + '">#' + code.c_secondary + '</a></li>';
+            	else if(code.codeone == 40)
+            		msg40 += '<li><a href="/shop/list/' + code.codeone + '/' + code.codetwo + '">#' + code.c_secondary + '</a></li>';
+            }
 		});
     	
 		code10.innerHTML = msg10;
@@ -120,4 +141,15 @@ function mainLogout() {
 	}else {
 		return;
 	}
+}
+
+//1:1 문의 로그인 체크
+function inquiryChk() {
+	if(principal == 'anonymousUser'){
+		alert('로그인 후 이용가능한 서비스입니다.');
+		location.href = '/member/login';
+		return;
+	}
+	
+	location.href = '/inquiry_board/Inquiryregister';
 }

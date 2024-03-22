@@ -124,4 +124,14 @@ public class PartyBoardServiceImpl implements PartyBoardService{
 	public int doPartyOpen(int p_idx) {
 		return pMapper.doPartyOpen(p_idx);
 	}
+
+	@Override
+	public List<PartyBoardVO> getPartyRatio() {
+		return pMapper.getPartyRatio();
+	}
+
+	@Override
+	public PartyBoardVO getCurrentPartyInfo(int p_idx) {
+		return pMapper.getCurrentPartyInfo(p_idx);
+	}
 }

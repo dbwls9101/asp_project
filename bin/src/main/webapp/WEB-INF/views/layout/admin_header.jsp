@@ -34,7 +34,7 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/admin/home">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>관리자 홈</span></a>
@@ -49,14 +49,14 @@
             </div>
 
             <li class="nav-item">
-                <a class="nav-link" href="#" >
+                <a class="nav-link" href="/admin/member" >
                     <i class="fas fa-fw fa-user"></i>
                     <span>회원관리</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/admin/point">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>포인트관리</span>
                 </a>
@@ -71,7 +71,7 @@
             </div>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/admin/paymentdetail">
                     <i class="fas fa-fw fa-credit-card"></i>
                     <span>결제관리</span></a>
             </li>
@@ -103,7 +103,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/admin/category">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>카테고리관리</span></a>
             </li>
@@ -125,7 +125,7 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="#">1:1 문의</a>
-                        <a class="collapse-item" href="#">FAQ</a>
+                        <a class="collapse-item" href="/admin/faq/faqlist">FAQ</a>
                         <a class="collapse-item" href="/admin/videoList">추천영상</a>
                     </div>
                 </div>
@@ -156,7 +156,7 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    <!-- Topbar Search -->
+                    <!-- Topbar Search
                     <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
@@ -168,7 +168,7 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    </form>-->
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">

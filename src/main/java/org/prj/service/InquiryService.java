@@ -28,4 +28,7 @@ public interface InquiryService {
 	
 	// 7. 첨부 파일 리스트를 가지고 오는 것
 	public List<FileInfoVO> getAttachList(int idx);
+	
+	// 새 문의글 개수(status가 A인것)
+	public int getNewInquiry();
 }
