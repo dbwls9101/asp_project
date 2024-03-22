@@ -181,8 +181,8 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public int getPayPartyTotal(int m_idx) {
-		return mapper.getPayPartyTotal(m_idx);
+	public int getPayPartyTotal(Criteria cri) {
+		return mapper.getPayPartyTotal(cri);
 	}
 	
 	@Override
@@ -208,5 +208,15 @@ public class PaymentServiceImpl implements PaymentService {
 	@Override
 	public List<PaymentVO> getAdminPaymentList(Criteria cri) {
 		return mapper.getAdminPaymentList(cri);
+	}
+	
+	@Override
+	public int getPartyCancelTotal(Criteria cri) {
+		return mapper.getPartyCancelTotal(cri);
+	}
+	
+	@Override
+	public List<PaymentVO> getPartyCancelList(Criteria cri) {
+		return mapper.getPartyCancelList(cri);
 	}
 }

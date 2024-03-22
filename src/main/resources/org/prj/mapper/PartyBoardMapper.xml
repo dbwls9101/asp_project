@@ -184,7 +184,7 @@
 	<update id="partyStatusUpdate">
 		update party_board 
 		set status='N' 
-		where status='Y' and <![CDATA[ (trunc(end_date)-trunc(sysdate)) < 0 ]]>
+		where status='Y' and <![CDATA[ (trunc(end_date)-trunc(sysdate)) <= 0 ]]>
 	</update>
 	
 	<select id="getMyPartyTotal" parameterType="int" resultType="int">

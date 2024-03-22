@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.prj.domain.Criteria;
 import org.prj.domain.MemberVO;
+import org.prj.domain.PaymentVO;
 
 public interface MemberMapper {
 
@@ -47,6 +48,12 @@ public interface MemberMapper {
 	//결재 후 member -> with_amount 금액이 증가
 	public void updateWithamount(MemberVO vo);
     
+	//결재 후 member -> point 변경
+	public void updatePoint(MemberVO vo);
+	
+	//결재 취소 member -> point 반환
+	public void pointCancel(PaymentVO vo);
+	
 	//카카오 회원가입
 	public int kakaoIdck(String kakaoid);
 	

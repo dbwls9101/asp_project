@@ -13,7 +13,7 @@
 	<div id="content-container">
 		<div id="service-container">
 		
-			<h3 id="party-tab-title">참여정보</h3>
+			<h3 id="party-tab-title">취소내역</h3>
 		
 			<div id="party-search">
 				<form>
@@ -67,7 +67,7 @@
 	</div>
 	
 	<jsp:include page="../layout/partner_footer.jsp"/>
-	<script type="text/javascript" src="/resources/js/partner/partyinfo.js"></script>
+	<script type="text/javascript" src="/resources/js/partner/partycancel.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
 </html>

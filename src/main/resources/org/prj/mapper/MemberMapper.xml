@@ -135,6 +135,16 @@
 		update member set with_amount = (with_amount + #{serviceamount}) where id=#{id}
 	</update>
 	
+	<!-- point 업데이트 -->
+	<update id="updatePoint" parameterType="org.prj.domain.MemberVO">
+		update member set point = (point - #{point}) where m_idx=#{m_idx}
+	</update>
+	
+	<!-- point 반환 -->
+	<update id="pointCancel" parameterType="org.prj.domain.PaymentVO">
+		update member set point = (point + #{point}) where m_idx=#{m_idx}
+	</update>
+	
 	<!-- 카카오 회원가입 -->
 	<select id="kakaoIdck" parameterType="String" resultType="int">
 		select count(*) from member where kakaoid = #{kakaoid}

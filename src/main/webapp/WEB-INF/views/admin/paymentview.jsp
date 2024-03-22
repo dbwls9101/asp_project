@@ -7,23 +7,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>주문상세내역</title>
-<link rel="stylesheet" href="/resources/css/payment/orderform.css">
-<script type="text/javascript"	src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<title>결제관리</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<link rel="stylesheet" href="/resources/css/admin/paymentview.css">
 </head>
 <body>
-	<jsp:include page="../layout/header.jsp"/>
+	<jsp:include page="../layout/admin_header.jsp"/>
 	
-	<sec:authentication property="principal" var="principal"/>
 	
-	<form method="post">
-		<div class="title-div">
-			<div class="title">결제내역</div>
-		</div>
-		
-		<!-- 진행 정보 -->
-		<div class="sub-title">진행 정보</div>
-		
+	<div class="container-fluid">
+		<div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">결제 상세 내역</h1>
+        </div>
+        
+        <!-- 결제 정보 -->
+        <div class="sub-title">진행 정보</div>
 		<div class="list-payment">
 			<table>
 				<thead>
@@ -54,15 +52,15 @@
 			<div class="form-list">
 				<ul>
 					<li>
-						<div class="subject">ㆍ 결제번호</div>
+						<div class="subject">결제번호</div>
 						<div class="right">${vo.order_no }</div>
 					</li>
 					<li>
-						<div class="subject">ㆍ 결제일시</div>
+						<div class="subject">결제일시</div>
 						<div class="right">${vo.approved_at }</div>
 					</li>
 					<li>
-						<div class="subject">ㆍ 결제방식</div>
+						<div class="subject">결제방식</div>
 						<div class="right">
 							<c:if test="${vo.pay_method eq 'card' }">
 								신용카드
@@ -73,7 +71,7 @@
 						</div>
 					</li>
 					<li>
-						<div class="subject">ㆍ 이름</div>
+						<div class="subject">이름</div>
 						<div class="right">${vo.name }</div>
 					</li>
 				</ul>
@@ -86,27 +84,27 @@
 			<div class="form-list">
 				<ul>
 					<li>
-						<div class="subject">ㆍ 판매가</div>
+						<div class="subject">판매가</div>
 						<div class="right" id="payprice"></div>
 					</li>
 					<li>
-						<div class="subject">ㆍ 수수료(10%)</div>
+						<div class="subject">수수료(10%)</div>
 						<div class="right" id="paycommission"></div>
 					</li>
 					<li>
-						<div class="subject">ㆍ 사용 포인트</div>
+						<div class="subject">사용 포인트</div>
 						<div class="right"><fmt:formatNumber value="${vo.point }"/>P</div>
 					</li>
 					<li>
-						<div class="subject">ㆍ 총 합계</div>
+						<div class="subject">총 합계</div>
 						<div class="right" id="paysum"></div>
 					</li>
 					<li>
-						<div class="subject">ㆍ 환불금액</div>
+						<div class="subject">환불금액</div>
 						<div class="right">${vo.refund_amount }원</div>
 					</li>
 					<li class="total">
-						<div class="subject" style="color: #43a051;">총 결제금액</div>
+						<div class="subject" style="font-weight: 600; color: #006d77;">총 결제금액</div>
 						<div class="right">
 							<span class="total-price" id="paytotal"></span>
 						</div>
@@ -117,11 +115,12 @@
 		
 		<!-- 목록버튼 -->
 		<div class="pay-btn">
-			<a href="/payment/orderinquiry" class="pay-btn-submit" style="display: inline-block;">확인</a>
+			<a href="/admin/paymentdetail" class="pay-btn-submit" style="display: inline-block;">확인</a>
 		</div>
-	</form>
+	</div>
 	
-	<jsp:include page="../layout/footer.jsp"/>
-	<script type="text/javascript" src="/resources/js/payment/orderdetail.js"></script>
+	
+	<jsp:include page="../layout/admin_footer.jsp"/>
+	<script type="text/javascript" src="/resources/js/admin/paymentview.js"></script>
 </body>
 </html>

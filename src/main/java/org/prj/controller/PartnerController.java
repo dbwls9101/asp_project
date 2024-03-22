@@ -217,27 +217,45 @@ public class PartnerController {
 	
 	//정보수정
 	@GetMapping("/partnerinfo")
-	public String movePartnerinfo() {
+	public void movePartnerinfo() {
 		log.info("movePartnerinfo...");
-		return "/partner/partnerinfo";
 	}
 	
 	//참여정보
 	@GetMapping("/partyinfo")
-	public String movePartyinfo() {
+	public void movePartyinfo() {
 		log.info("movePartyinfo...");
-		return "/partner/partyinfo";
 	}
 	
 	//참여정보-리스트
 	@ResponseBody
 	@PostMapping(value = "/partyinfo", produces = MediaType.APPLICATION_JSON_UTF8_VALUE) 
 	public PageDTO getPayMemberList(@RequestBody Criteria cri) { 
-		log.info("getPayMemberList... " + cri.getM_idx() + " / page : " + cri.getPageNum() + " / amount : " + cri.getAmount()); 
+		log.info("getPayMemberList... " + cri); 
 		  
 		//게시글 전체 개수 
-		int total = payservice.getPayPartyTotal(cri.getM_idx());
+		int total = payservice.getPayPartyTotal(cri);
 		List<PaymentVO> list = payservice.getPayMemberList(cri);
+		
+		PageDTO pageMakger = new PageDTO(cri, total, list);
+		return pageMakger;
+	}
+	
+	//취소내역
+	@GetMapping("/partycancel")
+	public void movePartycancel() {
+		log.info("movePartycancel...");
+	}
+	
+	//취소내역-리스트
+	@ResponseBody
+	@PostMapping(value = "/partycancel", produces = MediaType.APPLICATION_JSON_UTF8_VALUE) 
+	public PageDTO getPartycancel(@RequestBody Criteria cri) { 
+		log.info("getPayMemberList... " + cri); 
+		  
+		//게시글 전체 개수 
+		int total = payservice.getPartyCancelTotal(cri);
+		List<PaymentVO> list = payservice.getPartyCancelList(cri);
 		
 		PageDTO pageMakger = new PageDTO(cri, total, list);
 		return pageMakger;

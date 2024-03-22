@@ -36,7 +36,7 @@ function getList(obj){
 	let msg = "";
 	let page = "";
 	
-	fetch('/partner/partyinfo', {
+	fetch('/partner/partycancel', {
 		method : 'post',
 		body : JSON.stringify(obj),
 		headers : {'Content-type' : 'application/json; charset=utf-8'}
