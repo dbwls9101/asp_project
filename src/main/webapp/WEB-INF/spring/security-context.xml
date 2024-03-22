@@ -5,10 +5,10 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="customAccessDenied"
-		class="org.prj.security.CustomAccessDeniedHandler"></bean>
 	<bean id="customLoginSuccess"
 		class="org.prj.security.CustomLoginSuccessHandler"></bean>
+	<bean id="customAccessDenied"
+		class="org.prj.security.CustomAccessDeniedHandler"></bean>
 	<bean id="bcryptPasswordEncoder"
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 	<bean id="customUserDetailService"

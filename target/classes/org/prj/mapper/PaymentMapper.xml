@@ -15,7 +15,7 @@
 	<select id="orderList" parameterType="org.prj.domain.Criteria" resultType="org.prj.domain.PaymentVO"> 
 	<![CDATA[
 		select * from
-        (select rownum rn, order_no, p_idx, m_idx, title, sub_title, id, name, phone, service_amount, pay_amount, commission, pay_status, approved_at, end_date
+        (select rownum rn, order_no, p_idx, m_idx, title, sub_title, id, name, phone, point,service_amount, pay_amount, commission, pay_status, approved_at, end_date
             from (SELECT * FROM payment where m_idx = #{m_idx} ORDER BY approved_at desc)
 		where rownum <= #{pageNum} * #{amount})
 		where rn > (#{pageNum}-1) * #{amount}
@@ -42,9 +42,9 @@
 	<!--  참여정보  -->
 	<select id="getPayMemberList" parameterType="org.prj.domain.Criteria" resultType="org.prj.domain.PaymentVO"> 
 		select * from
-		(select rownum rn, order_no, p_idx, m_idx, title, sub_title, id, name, phone, service_amount, pay_amount, commission, pay_status, approved_at, end_date 
+		(select rownum rn, order_no, p_idx, m_idx, title, sub_title, id, name, phone, service_amount, pay_amount, commission, pay_status, approved_at, end_date
 		from
-			(select pay.order_no, pay.p_idx, pay.m_idx, pay.title, pay.sub_title, pay.id, pay.name, pay.phone, pay.service_amount, pay.pay_amount, pay.commission, pay.pay_status, pay.approved_at, pay.end_date 
+			(select pay.order_no, pay.p_idx, pay.m_idx, pay.title, pay.sub_title, pay.id, pay.name, pay.phone, pay.service_amount, pay.pay_amount, pay.commission, pay.pay_status, pay.approved_at, pay.end_date
 			from payment pay inner join 
 			(select p.p_idx, p.m_idx, p.id from party_board p inner join member m on p.m_idx=m.m_idx) pm 
 			on pay.p_idx = pm.p_idx 
@@ -63,24 +63,87 @@
 			    </choose>
 			</if>
 			<if test='sort.equals("latest")'>
-			order by pay.p_idx desc
+				order by pay.p_idx desc
  			</if>
  			<if test='sort.equals("period")'>
-			order by (trunc(pay.end_date)-trunc(sysdate)) desc
+				order by (trunc(pay.end_date)-trunc(sysdate)) desc
  			</if>)
-	<![CDATA[
-		where rownum <= #{pageNum} * #{amount})
-		where rn > (#{pageNum}-1) * #{amount}
-	]]>
+		<![CDATA[
+			where rownum <= #{pageNum} * #{amount})
+			where rn > (#{pageNum}-1) * #{amount}
+		]]>
 	</select>
 	
 	<!-- 내 파티 참여자 -->
-	<select id="getPayPartyTotal" parameterType="int" resultType="int">
-		select count(*) 
-		from payment pay inner join 
-		(select p.p_idx, p.m_idx, p.id from party_board p inner join member m on p.m_idx=m.m_idx) pm 
-		on pay.p_idx = pm.p_idx 
-		where pm.m_idx=#{m_idx} and pay.pay_status = 'B'
+	<select id="getPayPartyTotal" parameterType="org.prj.domain.Criteria" resultType="int">
+		SELECT COUNT(*)
+		FROM payment pay
+		INNER JOIN (
+		    SELECT p.p_idx, p.m_idx, p.id
+		    FROM party_board p
+		    INNER JOIN member m ON p.m_idx = m.m_idx
+		) pm ON pay.p_idx = pm.p_idx
+		WHERE pm.m_idx = #{m_idx} AND pay.pay_status = 'B'
+		<if test='searchword != null or searchword != ""'>
+			<choose>
+		        <when test='searchcolumn.equals("p_idx")'>
+		            and pay.p_idx LIKE '%' || #{searchword} || '%'
+		        </when>
+		        <when test='searchcolumn.equals("name")'>
+		            and LOWER(pay.name) LIKE '%' || #{searchword} || '%'
+		        </when>
+		        <when test='searchcolumn.equals("id")'>
+		            and LOWER(pay.id) LIKE '%' || #{searchword} || '%'
+		        </when>
+		    </choose>
+		</if>
+	</select>
+	
+	<!--  취소내역  -->
+	<select id="getPartyCancelList" parameterType="org.prj.domain.Criteria" resultType="org.prj.domain.PaymentVO"> 
+		select * from
+		(select rownum rn, order_no, p_idx, m_idx, title, sub_title, id, name, phone, service_amount, pay_amount, commission, pay_status, approved_at, end_date
+		from
+			(select pay.order_no, pay.p_idx, pay.m_idx, pay.title, pay.sub_title, pay.id, pay.name, pay.phone, pay.service_amount, pay.pay_amount, pay.commission, pay.pay_status, pay.approved_at, pay.end_date
+			from payment pay inner join 
+			(select p.p_idx, p.m_idx, p.id from party_board p inner join member m on p.m_idx=m.m_idx) pm 
+			on pay.p_idx = pm.p_idx 
+			where pm.m_idx=#{m_idx} and (pay.pay_status = 'C' or pay.pay_status = 'D')
+			<if test='searchword != null or searchword != ""'>
+				<choose>
+			        <when test='searchcolumn.equals("p_idx")'>
+			            and pay.p_idx LIKE '%' || #{searchword} || '%'
+			        </when>
+			        <when test='searchcolumn.equals("name")'>
+			            and LOWER(pay.name) LIKE '%' || #{searchword} || '%'
+			        </when>
+			        <when test='searchcolumn.equals("id")'>
+			            and LOWER(pay.id) LIKE '%' || #{searchword} || '%'
+			        </when>
+			    </choose>
+			</if>
+			<if test='sort.equals("latest")'>
+				order by pay.p_idx desc
+ 			</if>
+ 			<if test='sort.equals("period")'>
+				order by (trunc(pay.end_date)-trunc(sysdate)) desc
+ 			</if>)
+		<![CDATA[
+			where rownum <= #{pageNum} * #{amount})
+			where rn > (#{pageNum}-1) * #{amount}
+		]]>
+	</select>
+	
+	<!-- 취소 수 -->
+	<select id="getPartyCancelTotal" parameterType="org.prj.domain.Criteria" resultType="int">
+		SELECT COUNT(*)
+		FROM payment pay
+		INNER JOIN (
+		    SELECT p.p_idx, p.m_idx, p.id
+		    FROM party_board p
+		    INNER JOIN member m ON p.m_idx = m.m_idx
+		) pm ON pay.p_idx = pm.p_idx
+		WHERE pm.m_idx = #{m_idx} AND (pay.pay_status = 'C' or pay.pay_status = 'D')
 		<if test='searchword != null or searchword != ""'>
 			<choose>
 		        <when test='searchcolumn.equals("p_idx")'>
@@ -165,7 +228,7 @@
 	<!--  결제관리  -->
 	<select id="getAdminPaymentList" parameterType="org.prj.domain.Criteria" resultType="org.prj.domain.PaymentVO"> 
 		select * from
-		(select rownum rn, order_no, p_idx, m_idx, title, sub_title, id, name, phone, service_amount, pay_amount, commission, pay_status, approved_at, end_date 
+		(select rownum rn, order_no, p_idx, m_idx, title, sub_title, id, name, phone, point, service_amount, pay_amount, commission, pay_status, approved_at, end_date 
 		from
 			(select * 
 			from payment 

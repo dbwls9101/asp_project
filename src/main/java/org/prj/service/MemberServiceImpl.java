@@ -18,6 +18,7 @@ import java.util.Map;
 
 import org.prj.domain.Criteria;
 import org.prj.domain.MemberVO;
+import org.prj.domain.PaymentVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -218,6 +219,18 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void updateWithamount(MemberVO vo) {
 		membermapper.updateWithamount(vo);
+	}
+	
+	//결재 후 member -> point 변경
+	@Override
+	public void updatePoint(MemberVO vo) {
+		membermapper.updatePoint(vo);
+	}
+	
+	//결재 취소 member -> point 반환
+	@Override
+	public void pointCancel(PaymentVO vo) {
+		membermapper.pointCancel(vo);
 	}
 	
 	//카카오 회원가입
