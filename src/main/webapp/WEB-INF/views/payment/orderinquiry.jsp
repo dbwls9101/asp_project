@@ -14,7 +14,7 @@
 	
 	<form method="post">
 		<div class="title-div">
-			<div class="title">결제/환불 내역<span style="font-size: 13px; color: gray;">&nbsp;&nbsp;&nbsp;※ 결제취소는 결제 후 24시간 이내에만 가능합니다.</span></div>
+			<div class="title">결제/환불 내역<span style="font-size: 13px; color: gray;">&nbsp;&nbsp;&nbsp;※ 결제취소는 결제 후 24시간 이내, 환불신청은 파티 종료 기간이 7일 이상 남았을 때에만 가능합니다.</span></div>
 		</div>
 		
 		<div class="list-payment inquiry-list">

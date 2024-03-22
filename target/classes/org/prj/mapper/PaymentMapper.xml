@@ -207,7 +207,13 @@
 	]]>
 	</select>
 	
+	<!-- 환불 신청 -->
 	<update id="doPayStatus" parameterType="String">
 		update payment set pay_status='C' where order_no=#{order_no}
+	</update>
+	
+	<!-- 환불 승인 -->
+	<update id="doRefundApproval" parameterType="org.prj.domain.RefundVO">
+		update payment set pay_status='F', refund_amount=#{re_amount} where m_idx=#{m_idx}
 	</update>
 </mapper>

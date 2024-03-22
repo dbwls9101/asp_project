@@ -1,5 +1,8 @@
 package org.prj.service;
 
+import java.util.List;
+
+import org.prj.domain.Criteria;
 import org.prj.domain.RefundVO;
 import org.prj.mapper.PaymentMapper;
 import org.prj.mapper.RefundMapper;
@@ -17,6 +20,7 @@ public class RefundServiceImpl implements RefundService{
 	
 	@Autowired
 	private PaymentMapper payMapper;
+	
 
 	@Transactional
 	@Override
@@ -31,6 +35,26 @@ public class RefundServiceImpl implements RefundService{
 	public int getNewRefund() {
 		return rMapper.getNewRefund();
 	}
-	
-	
+
+	@Override
+	public int getRefundTotal(Criteria cri) {
+		return rMapper.getRefundTotal(cri);
+	}
+
+	@Override
+	public List<RefundVO> getRefundList(Criteria cri) {
+		return rMapper.getRefundList(cri);
+	}
+
+	@Transactional
+	@Override
+	public int doRefundApproval(RefundVO vo) {
+		//payment - pay_status, refund_amount
+		payMapper.doRefundApproval(vo);
+		
+		//member - point
+		
+		
+		return 0;
+	}
 }

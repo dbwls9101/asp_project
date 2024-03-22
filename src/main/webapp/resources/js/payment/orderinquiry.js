@@ -51,8 +51,12 @@ function getList(m_idx, pageNum, amount){
 	    				status = '결제완료';
 	    			}else if (vo.pay_status == 'C') {
 	    				status = '환불신청';
-	    			}else {
+	    			}else if (vo.pay_status == 'D') {
 	    				status = '결제취소';
+	    			}else if (vo.pay_status == 'E'){
+	    				status = '환불반려';
+	    			}else{
+	    				status = '환불완료';
 	    			}
 	    			
 	    			msg += '<tr>';
@@ -60,7 +64,7 @@ function getList(m_idx, pageNum, amount){
 	    			msg += '<td><a  href="javascript:detailBtn(' + vo.order_no + ');">' + vo.title + '<br><span class="sub-title">' + vo.sub_title + '</span></a></td>';
 	    			msg += '<td>' + vo.pay_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
 	    			msg += '<td>' + (vo.pay_amount - vo.point).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
-	    			msg += '<td>' + vo.point.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
+	    			msg += '<td>' + vo.point.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + 'P</td>';
 	    			msg += '<td><span class="refund-amount">' + vo.refund_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '</span>원</td>';
 
 	                if (vo.pay_status == 'B') {
@@ -176,30 +180,9 @@ function cancelBtn(order_no) {
 
 //환불신청 폼 오픈
 function refundBtn(order_no, p_idx, pay_amount){
-	document.getElementById("modal").style.display = 'flex';
-	document.body.style.overflow = 'hidden';
-	
-	//모달창 close
-	document.querySelector(".close-area").addEventListener('click', ()=>{
-		document.getElementById("modal").style.display = 'none';
-		document.body.style.overflow = '';
-	})
-
-	//모달창 바깥영역 클릭시 close
-	document.getElementById("modal").addEventListener("click", e => {
-	    const evTarget = e.target;
-	    if(evTarget.classList.contains("modal-overlay")) {
-	    	document.getElementById("modal").style.display = "none"
-	    	document.body.style.overflow = '';
-	    }
-	})
-	
-	document.querySelector("#order_no").innerHTML = order_no;
-	document.querySelector("#amount").innerHTML = pay_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + ' 원';
-	
-	document.querySelector("input[name='order_no'").value = order_no;
-	document.querySelector("input[name='p_idx'").value = p_idx;
-	document.querySelector("input[name='amount'").value = pay_amount;
+	//모달 폼 초기화
+	document.querySelectorAll(".radio input[type='radio']")[0].checked = 'checked';
+	document.querySelector("textarea[name='otherreason']").value = '';
 	
 	fetch('/shop/reamount',{
 		method : 'post',
@@ -210,6 +193,36 @@ function refundBtn(order_no, p_idx, pay_amount){
 	.then(json => {
 		document.querySelector("#re_amount").innerHTML = (json.datediff*json.price).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + ' 원';
 		document.querySelector("input[name='re_amount'").value = json.datediff*json.price;
+		
+		if(json.datediff >= 7){
+			document.getElementById("modal").style.display = 'flex';
+			document.body.style.overflow = 'hidden';
+			
+			//모달창 close
+			document.querySelector(".close-area").addEventListener('click', ()=>{
+				document.getElementById("modal").style.display = 'none';
+				document.body.style.overflow = '';
+			})
+
+			//모달창 바깥영역 클릭시 close
+			document.getElementById("modal").addEventListener("click", e => {
+			    const evTarget = e.target;
+			    if(evTarget.classList.contains("modal-overlay")) {
+			    	document.getElementById("modal").style.display = "none"
+			    	document.body.style.overflow = '';
+			    }
+			})
+			
+			document.querySelector("#order_no").innerHTML = order_no;
+			document.querySelector("#amount").innerHTML = pay_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + ' 원';
+			
+			document.querySelector("input[name='order_no'").value = order_no;
+			document.querySelector("input[name='p_idx'").value = p_idx;
+			document.querySelector("input[name='amount'").value = pay_amount;
+		}else{
+			alert('파티 종료일까지 ' + json.datediff + '일 남았습니다. \n환불신청은 파티 종료 기간이 7일 이상 남았을 때에만 가능합니다.');
+			return;
+		}
 	})
 	.catch(err => console.log(err));
 }
