@@ -59,7 +59,11 @@ function getList(m_idx, pageNum, amount){
 	    			msg += '<td>' + vo.approved_at + '</td>';
 	    			msg += '<td><a  href="javascript:detailBtn(' + vo.order_no + ');">' + vo.title + '<br><span class="sub-title">' + vo.sub_title + '</span></a></td>';
 	    			msg += '<td>' + vo.pay_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
-	    			msg += '<td>' + (vo.pay_amount - vo.point).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
+	    			if (vo.pay_amount == 0) {
+	    				msg += '<td>0원</td>';
+					}else {
+						msg += '<td>' + (vo.pay_amount - vo.point).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
+					}
 	    			msg += '<td>' + vo.point.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
 	    			msg += '<td><span class="refund-amount">' + vo.refund_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '</span>원</td>';
 
@@ -69,7 +73,7 @@ function getList(m_idx, pageNum, amount){
 
 	                    if (todayTimestamp < nextDayTimestamp) {
 	                        // 결제 완료 후 24시간 이전
-	                    	msg += '<td><button type="button" class="cancel-btn" onclick="cancelBtn(' + vo.order_no + ')">결제취소</button></td>';
+	                    	msg += '<td><button type="button" class="cancel-btn" onclick="cancelBtn(\'' + vo.order_no + '\', \'' + vo.pay_amount + '\')">결제취소</button></td>';
 	                    } else {
 	                        // 결제 완료 후 24시간 이후
 	                        if (refundAmount <= 0) {
@@ -162,12 +166,19 @@ function pagingEvent(){
 
 // 결제취소 버튼
 const ps = payService;
-function cancelBtn(order_no) {
+function cancelBtn(order_no, pay_amount) {
 	if (confirm('결제 취소하시겠습니까?')) {
-		ps.cancel(order_no, function(result) {
-			console.log(result);
-			location.reload();
-		})
+		if (pay_amount == 0) {
+			ps.zeroCancel(order_no, function(result) {
+				console.log(result);
+				location.reload();
+			})
+		}else {
+			ps.cancel(order_no, function(result) {
+				console.log(result);
+				location.reload();
+			})
+		}
 	}else {
 		alert('결제 취소를 실패하였습니다.');
 		return;

@@ -21,7 +21,8 @@ payBtn.addEventListener('click', () =>{
 		
 		alert('결제가 완료되었습니다.');
 		
-		ps.order({
+		ps.zeroOrder({
+			imp_uid : '0',
 			p_idx: f.p_idx.value,
 			m_idx: principal.member.m_idx,
 			order_no : orderNumber,
@@ -36,7 +37,8 @@ payBtn.addEventListener('click', () =>{
 			pay_status : 'B',
 			title : f.title.value,
 			sub_title : f.sub_title.value,
-			end_date : f.end_date.value
+			end_date : f.end_date.value,
+			token : '0'
 		}, function(result) {
 			//결제 후 해당 게시글로 이동
 			location.href = '/shop/get?c1=' + f.codeone.value + '&c2=' + f.codetwo.value + '&pn=' + f.p_idx.value;
