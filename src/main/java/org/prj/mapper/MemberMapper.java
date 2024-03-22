@@ -2,11 +2,12 @@ package org.prj.mapper;
 
 import org.apache.ibatis.annotations.Param;
 import org.prj.domain.MemberVO;
+import org.prj.domain.PointVO;
 
 public interface MemberMapper {
 
 	//회원가입
-	public void memberJoin(MemberVO member);
+	public int memberJoin(MemberVO member);
 	
 	//아이디 중복 검사
 	public int idCheck(String id);
@@ -66,6 +67,6 @@ public interface MemberMapper {
 	public int kakao_update(MemberVO memeber);
 	
 	//네이버 SNS 계정 연결
-	public int naver_update(MemberVO memeber);	
+	public int naver_update(MemberVO memeber);
 	
 }

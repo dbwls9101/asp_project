@@ -27,9 +27,9 @@ public class MemberServiceImpl implements MemberService{
 	
 	//회원가입
 	@Override
-	public void memberJoin(MemberVO member) throws Exception {
+	public int memberJoin(MemberVO member) throws Exception {
 		
-		membermapper.memberJoin(member);
+		return membermapper.memberJoin(member);
 	}
 	
 	//아이디 중복 검사

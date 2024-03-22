@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.prj.domain.MemberVO;
+import org.prj.domain.PointVO;
 import org.prj.security.CustomUserDetailService;
 import org.prj.security.domain.CustomUser;
 import org.prj.service.MemberService;
+import org.prj.service.PointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +49,8 @@ public class MemberController {
 	private PasswordEncoder pwencoder;
 	@Autowired
     private CustomUserDetailService customUserDetailService;
+	@Autowired 
+	private PointService poService;	
 
 	// 개인정보 동의 페이지 이동
 	@RequestMapping(value = "joinAgree", method = RequestMethod.GET)
@@ -76,7 +80,7 @@ public class MemberController {
 	// 회원가입
 	
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	public String joinPOST(MemberVO member, Model model, HttpSession session) throws Exception {
+	public String joinPOST(MemberVO member, Model model, HttpSession session, PointVO point) throws Exception {
 		// log.info("join 진입");
 		member.setPassword(pwencoder.encode(member.getPassword()));
 		
@@ -87,11 +91,21 @@ public class MemberController {
 			member.setToken(memVo.getToken());
 		}
 		// 회원가입 서비스 실행
-		memberservice.memberJoin(member);
+		int mIdx = memberservice.memberJoin(member);
+		
+		point.setM_idx(member.getM_idx());
+		point.setId(member.getId());
+		point.setName(member.getName());
+		point.setContent("회원가입");
+		point.setBefore_point(0);
+		point.setAfter_point(500);
+		point.setUpdate_point(500);
+		poService.pointInsert(point);
+		
+		
 		model.addAttribute("setText", "회원가입을 축하드립니다! 다시 로그인 해주세요!");
 		model.addAttribute("PopCheck", 4);
     	return "/member/registerAlert";
-//		return "redirect:/";
 	}
 
 	// 아이디 비밀번호 찾기 페이지 이동
@@ -219,7 +233,7 @@ public class MemberController {
 		if (vo != null) {
 			Random r = new Random();
 			int num = r.nextInt(999999); // 랜덤난수설정
-
+			
 			HttpSession session = request.getSession();
 			session.setAttribute("findMemberVo", vo);
 
@@ -352,5 +366,11 @@ public class MemberController {
         // 현재 사용자의 인증 정보를 업데이트된 UserDetails 객체로 교체
         Authentication newAuthentication = new UsernamePasswordAuthenticationToken(updatedUserDetails, authentication.getCredentials(), updatedUserDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(newAuthentication);
+	}
+	
+	//마이포인트 페이지 이동
+	@GetMapping("/myPoint")
+	public void movemyPoint() {
+		log.info("movemyPoint...");
 	}
 }

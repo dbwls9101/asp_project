@@ -60,9 +60,11 @@
 									<ul class="profile-menu">
 										<li>
 											<div class="point">
+												<a href="/myPoint">
 												<span class="icon"><img alt="icon" src="/resources/images/point.png"></span>
 												<span class="point-text">POINT</span>
 												<span class="right">${principal.member.point }P</span>
+												</a>
 											</div>
 										</li>
 									</ul>

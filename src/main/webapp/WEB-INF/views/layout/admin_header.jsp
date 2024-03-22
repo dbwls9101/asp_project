@@ -56,7 +56,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/admin/point">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>포인트관리</span>
                 </a>

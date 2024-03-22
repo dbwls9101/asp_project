@@ -37,6 +37,9 @@
 	
 	<!-- 회원가입 -->
 	<insert id="memberJoin" parameterType="org.prj.domain.MemberVO">
+		<selectKey keyProperty="m_idx" order="BEFORE" resultType="int">
+	        select seq_member.nextval from dual
+	    </selectKey>
 		insert into member 
 		(
 			M_IDX, 
@@ -57,7 +60,7 @@
 		)
 			values 
 		(
-			seq_member.nextval, 
+			#{m_idx}, 
 			#{id}, 
 			#{password}, 
 			#{name}, 
@@ -172,5 +175,5 @@
 	<update id="naver_update" parameterType="org.prj.domain.MemberVO">
 		update member set naverid = #{naverid} where id = #{id}
 	</update>
-	
+
 </mapper>	
