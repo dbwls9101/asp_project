@@ -129,6 +129,9 @@ public class PartyBoardServiceImpl implements PartyBoardService{
 	public List<PartyBoardVO> getPartyRatio() {
 		return pMapper.getPartyRatio();
 	}
-	
-	
+
+	@Override
+	public PartyBoardVO getCurrentPartyInfo(int p_idx) {
+		return pMapper.getCurrentPartyInfo(p_idx);
+	}
 }

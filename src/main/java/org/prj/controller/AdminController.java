@@ -18,6 +18,7 @@ import org.prj.service.InquiryService;
 import org.prj.service.MemberService;
 import org.prj.service.PartyBoardService;
 import org.prj.service.PaymentService;
+import org.prj.service.RefundService;
 import org.prj.service.VideoService;
 import org.prj.domain.WithdrawVO;
 import org.prj.service.WithdrawService;
@@ -67,6 +68,9 @@ public class AdminController {
 	
 	@Autowired
 	private InquiryService iService;
+	
+	@Autowired
+	private RefundService rService;
 	
 	//관리자홈
 	@GetMapping("/home")
@@ -409,11 +413,11 @@ public class AdminController {
 	}
 	
 	//새 환불신청 수
-//	@ResponseBody
-//	@GetMapping(value="/newrefund", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-//	public int getNewRefund(){
-//		return .getNewRefund();
-//	}
+	@ResponseBody
+	@GetMapping(value="/newrefund", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public int getNewRefund(){
+		return rService.getNewRefund();
+	}
 	
 	//새 출금신청 수
 	@ResponseBody

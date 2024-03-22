@@ -2,6 +2,7 @@ package org.prj.service;
 
 import org.prj.mapper.MemberMapper;
 import org.prj.mapper.PartyBoardMapper;
+import org.prj.mapper.RefundMapper;
 import org.prj.mapper.WithdrawMapper;
 
 import java.io.BufferedReader;
@@ -29,16 +30,16 @@ import com.google.gson.JsonObject;
 public class MemberServiceImpl implements MemberService{
 
 	@Autowired
-	MemberMapper membermapper;
+	private MemberMapper membermapper;
 	
 	@Autowired
-	PartyBoardMapper pMapper;
-	
-//	@Autowired
-//	refund rMapper;
+	private PartyBoardMapper pMapper;
 	
 	@Autowired
-	WithdrawMapper wMapper;
+	private RefundMapper rMapper;
+	
+	@Autowired
+	private WithdrawMapper wMapper;
 	
 //	@Autowired
 //	point pointMapper;
@@ -183,8 +184,8 @@ public class MemberServiceImpl implements MemberService{
 			//party_board(name, phone update) - m_idx
 			pMapper.updateMyinfo(member);
 			
-			//refund(name, phone update) - m_idx
-			//rMapper.updateMyinfo(member);
+			//refund(name update) - m_idx
+			rMapper.updateMyinfo(member);
 			
 			//withdraw(name, phone update) - m_idx
 			wMapper.updateMyinfo(member);

@@ -75,7 +75,7 @@
 							<input class="form-control" type="text" name="phone" value="${vo.phone }" aria-label="default input example" readonly>
 						</td>
 						<th>포인트</th>
-						<td><input class="form-control" type="text" name="point" value="${vo.point }" aria-label="default input example"> P</td>
+						<td>${vo.point } P</td>
 					</tr>
 					<tr>
 						<th>이메일</th>

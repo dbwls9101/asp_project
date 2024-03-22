@@ -269,4 +269,8 @@
 		where rn > (#{pageNum}-1) * #{amount}
 	]]>
 	</select>
+	
+	<update id="doPayStatus" parameterType="String">
+		update payment set pay_status='C' where order_no=#{order_no}
+	</update>
 </mapper>

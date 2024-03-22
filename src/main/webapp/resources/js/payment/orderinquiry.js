@@ -37,36 +37,63 @@ function getList(m_idx, pageNum, amount){
 			msg += '<td colspan="8">내역이 없습니다.</td>';
 			msg += '</tr>';
     	}
-		
-		list.forEach(vo => {
-			let status = '';
-			
-			if (vo.pay_status == 'A') {
-				status = '대기';
-			}else if (vo.pay_status == 'B') {
-				status = '완료';
-			}else if (vo.pay_status == 'C') {
-				status = '실패';
-			}else {
-				status = '취소';
-			}
-			
-			
-			msg += '<tr>';
-			msg += '<td>' + vo.approved_at + '</td>';
-			msg += '<td><a  href="javascript:detailBtn(' + vo.order_no + ');">' + vo.title + '<br><span class="sub-title">' + vo.sub_title + '</span></a></td>';
-			msg += '<td>' + vo.pay_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
-			msg += '<td>' + (vo.pay_amount - vo.point).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
-			msg += '<td>' + vo.point.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
-			msg += '<td><span class="refund-amount">' + vo.refund_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '</span>원</td>';
-			if (vo.pay_status == 'B') {
-				msg += '<td>' + '<button type="button" class="cancel-btn" onclick="cancelBtn(' + vo.order_no + ')">결제취소</button>' + '</td>';
-			} else {
-				msg += '<td><span class="complete-btn">취소완료</span></td>';
-			}
-			msg += '<td>' + status + '</td>';
-			msg += '</tr>';
-		})
+
+	    let promises = list.map(vo => {
+	        return getRefundAmount(vo.p_idx)
+	            .then(refundAmount => {
+	            	let status = '';
+	            	let msg = '';
+	            	let buttonHtml = '';
+	    			
+	    			if (vo.pay_status == 'A') {
+	    				status = '결제대기';
+	    			}else if (vo.pay_status == 'B') {
+	    				status = '결제완료';
+	    			}else if (vo.pay_status == 'C') {
+	    				status = '환불신청';
+	    			}else {
+	    				status = '결제취소';
+	    			}
+	    			
+	    			msg += '<tr>';
+	    			msg += '<td>' + vo.approved_at + '</td>';
+	    			msg += '<td><a  href="javascript:detailBtn(' + vo.order_no + ');">' + vo.title + '<br><span class="sub-title">' + vo.sub_title + '</span></a></td>';
+	    			msg += '<td>' + vo.pay_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
+	    			msg += '<td>' + (vo.pay_amount - vo.point).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
+	    			msg += '<td>' + vo.point.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
+	    			msg += '<td><span class="refund-amount">' + vo.refund_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '</span>원</td>';
+
+	                if (vo.pay_status == 'B') {
+	                    let todayTimestamp = new Date(); //오늘 날짜
+	                    let nextDayTimestamp = calculateNextDay(vo.approved_at); //결제일로 부터 24시간 뒤
+
+	                    if (todayTimestamp < nextDayTimestamp) {
+	                        // 결제 완료 후 24시간 이전
+	                    	msg += '<td><button type="button" class="cancel-btn" onclick="cancelBtn(' + vo.order_no + ')">결제취소</button></td>';
+	                    } else {
+	                        // 결제 완료 후 24시간 이후
+	                        if (refundAmount <= 0) {
+	                        	msg += '<td>파티마감</td>';
+	                        } else {
+	                        	msg += '<td><button type="button" class="cancel-btn refund" onclick="refundBtn(\'' + vo.order_no + '\', \'' + vo.p_idx + '\', \'' + vo.pay_amount + '\')">환불신청</button></td>';
+	                        }
+	                    }
+	                } else {
+	                	msg += '<td>-</td>';
+	                }
+	                
+	                msg += '<td>' + status + '</td>';
+	                msg += '</tr>';
+
+	                return msg;
+	            })
+	            .catch(err => console.log(err));
+	    });
+
+	    Promise.all(promises)
+        .then(msg => {
+            document.querySelector("tbody").innerHTML = msg.join('');
+        });
 		
 		//페이징
 		if(json.prev){
@@ -86,12 +113,31 @@ function getList(m_idx, pageNum, amount){
 			page += '<a href="' + (json.endPage+1) + '">&gt;</a>';
 			page += '</li>';
 		}
-		
-		document.querySelector("tbody").innerHTML = msg;
 		document.querySelector(".page-nation").innerHTML = page;
 	})
 	.then(()=>{
 		pagingEvent();
+	})
+	.catch(err => console.log(err));
+}
+
+//24시간 뒤의 시간 반환
+function calculateNextDay(timestampString) {
+    let timestamp = new Date(timestampString);
+    timestamp.setTime(timestamp.getTime() + (24 * 60 * 60 * 1000));
+    return timestamp;
+}
+
+//환불금액
+function getRefundAmount(p_idx){
+	return fetch('/shop/reamount',{
+		method : 'post',
+		body : JSON.stringify(p_idx),
+		headers : {'Content-type' : 'application/json; charset=utf-8'}
+	})
+	.then(response => response.json())
+	.then(json => {
+		return json.datediff * json.price;
 	})
 	.catch(err => console.log(err));
 }
@@ -127,6 +173,86 @@ function cancelBtn(order_no) {
 		return;
 	}
 }
+
+//환불신청 폼 오픈
+function refundBtn(order_no, p_idx, pay_amount){
+	document.getElementById("modal").style.display = 'flex';
+	document.body.style.overflow = 'hidden';
+	
+	//모달창 close
+	document.querySelector(".close-area").addEventListener('click', ()=>{
+		document.getElementById("modal").style.display = 'none';
+		document.body.style.overflow = '';
+	})
+
+	//모달창 바깥영역 클릭시 close
+	document.getElementById("modal").addEventListener("click", e => {
+	    const evTarget = e.target;
+	    if(evTarget.classList.contains("modal-overlay")) {
+	    	document.getElementById("modal").style.display = "none"
+	    	document.body.style.overflow = '';
+	    }
+	})
+	
+	document.querySelector("#order_no").innerHTML = order_no;
+	document.querySelector("#amount").innerHTML = pay_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + ' 원';
+	
+	document.querySelector("input[name='order_no'").value = order_no;
+	document.querySelector("input[name='p_idx'").value = p_idx;
+	document.querySelector("input[name='amount'").value = pay_amount;
+	
+	fetch('/shop/reamount',{
+		method : 'post',
+		body : JSON.stringify(p_idx),
+		headers : {'Content-type' : 'application/json; charset=utf-8'}
+	})
+	.then(response => response.json())
+	.then(json => {
+		document.querySelector("#re_amount").innerHTML = (json.datediff*json.price).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + ' 원';
+		document.querySelector("input[name='re_amount'").value = json.datediff*json.price;
+	})
+	.catch(err => console.log(err));
+}
+
+//환불신청
+let rf = document.forms[1];
+document.querySelector("#refundreq").addEventListener('click', ()=>{
+	let reason = rf.reason.value;
+	
+	if(rf.reason.value == '기타'){
+		if(rf.otherreason.value == ''){
+			alert('기타 사유를 입력해주세요.');
+			return;
+		}else{
+			reason = '기타: ' + rf.otherreason.value;
+		}
+	}
+	
+	let refundObj = {
+			order_no : rf.order_no.value,
+			m_idx : principal.member.m_idx,
+			p_idx : rf.p_idx.value,
+			id : principal.member.id,
+			name : principal.member.name,
+			amount : rf.amount.value,
+			re_amount : rf.re_amount.value,
+			reason : reason
+	};
+	
+	fetch('/shop/refundregister',{
+		method : 'post',
+		body : JSON.stringify(refundObj),
+		headers : {'Content-type' : 'application/json; charset=utf-8'}
+	})
+	.then(response => response.text())
+	.then(data => {
+		if(data == 'success'){
+			alert('환불신청이 완료되었습니다.');
+			location.href = '/payment/orderinquiry';
+		}
+	})
+	.catch(err => console.log(err));
+})
 
 //상세내역 이동
 function detailBtn(order_no) {
