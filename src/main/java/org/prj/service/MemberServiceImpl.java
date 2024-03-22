@@ -2,6 +2,7 @@ package org.prj.service;
 
 import org.prj.mapper.MemberMapper;
 import org.prj.mapper.PartyBoardMapper;
+import org.prj.mapper.PointMapper;
 import org.prj.mapper.RefundMapper;
 import org.prj.mapper.WithdrawMapper;
 
@@ -42,7 +43,7 @@ public class MemberServiceImpl implements MemberService{
 	private WithdrawMapper wMapper;
 	
 //	@Autowired
-//	point pointMapper;
+	private PointMapper poMapper;
 	
 	//회원가입
 	@Override
@@ -191,7 +192,7 @@ public class MemberServiceImpl implements MemberService{
 			wMapper.updateMyinfo(member);
 			
 			//point(name update) - m_idx
-			//pointMapper.updateMyinfo(member);
+			poMapper.updateMyinfo(member);
 			
 		}
 		return membermapper.updateMypage(member);

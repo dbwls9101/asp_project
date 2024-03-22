@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.prj.domain.Criteria;
 import org.prj.domain.MemberVO;
 import org.prj.domain.PaymentVO;
+import org.prj.domain.RefundVO;
 
 
 public interface MemberMapper {
@@ -102,4 +103,7 @@ public interface MemberMapper {
 	
 	//계정 활성화 비활성화
 	public int doLockAccount(MemberVO vo);
+	
+	//환불 승인
+	public void doRefundApproval(RefundVO vo);
 }

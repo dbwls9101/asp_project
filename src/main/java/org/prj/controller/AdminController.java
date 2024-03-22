@@ -13,6 +13,7 @@ import org.prj.domain.PageDTO;
 import org.prj.domain.PartyBoardVO;
 import org.prj.domain.PointVO;
 import org.prj.domain.PaymentVO;
+import org.prj.domain.RefundVO;
 import org.prj.domain.VideoVO;
 import org.prj.service.CategoryService;
 import org.prj.service.FaqService;
@@ -187,6 +188,33 @@ public class AdminController {
 	public String moveRefund() {
 		log.info("moveRefund...");
 		return "/admin/refund";
+	}
+	
+	//환불 관리
+	@ResponseBody
+	@PostMapping(value="/refund", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public PageDTO getRefundList(@RequestBody Criteria cri) {
+		int total = rService.getRefundTotal(cri);
+		List<RefundVO> list = rService.getRefundList(cri);
+		
+		PageDTO pageMakger = new PageDTO(cri, total, list);
+		return pageMakger;
+	}
+	
+	//환불 승인
+	@ResponseBody
+	@PostMapping(value="/refundapproval", produces = MediaType.TEXT_PLAIN_VALUE)
+	public String doRefundApproval(@RequestBody RefundVO vo) {
+		int result = rService.doRefundApproval(vo);
+		return result > 0 ? "success" : "fail";
+	}
+	
+	//환불 반려
+	@ResponseBody
+	@PostMapping(value="/refundreturn", produces = MediaType.TEXT_PLAIN_VALUE)
+	public String doRefundReturn(@RequestBody RefundVO vo) {
+		int result = rService.doRefundReturn(vo);
+		return result > 0 ? "success" : "fail";
 	}
 	
 	// 출금 관리

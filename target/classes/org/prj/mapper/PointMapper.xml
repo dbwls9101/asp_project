@@ -126,4 +126,19 @@
 		    where a.m_idx = b.m_idx and b.id =  #{id} 
 		    order by reg_date desc) where rownum=1
 	</select>
+	
+	<!-- 환불 승인 -->
+	<insert id="doRefundApproval" parameterType="org.prj.domain.RefundVO">
+		<selectKey keyProperty="before_point" order="BEFORE" resultType="int">
+	        select point from member where m_idx=#{m_idx}
+	    </selectKey>
+	    
+		insert into point
+		values(seq_point.nextval, #{m_idx}, #{id}, (#{before_point} + #{re_amount}), #{before_point}, #{re_amount}, '환불', sysdate, #{name})
+	</insert>
+	
+	<!-- 내 정보 변경 -->
+	<update id="updateMyinfo" parameterType="org.prj.domain.MemberVO">
+		update point set name=#{name} where m_idx=#{m_idx}
+	</update>
 </mapper>	

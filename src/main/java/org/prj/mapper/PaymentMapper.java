@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.prj.domain.Criteria;
 import org.prj.domain.PaymentVO;
+import org.prj.domain.RefundVO;
 
 public interface PaymentMapper {
 	// 결제내역 등록
@@ -47,4 +48,10 @@ public interface PaymentMapper {
 	
 	//환불신청 pay_status 값 변경
 	public void doPayStatus(String order_no);
+	
+	//환불 승인
+	public void doRefundApproval(RefundVO vo);
+	
+	//환불 반려
+	public void doRefundReturn(RefundVO vo);
 }

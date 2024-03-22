@@ -3,7 +3,9 @@ package org.prj.mapper;
 import java.util.List;
 
 import org.prj.domain.Criteria;
+import org.prj.domain.MemberVO;
 import org.prj.domain.PointVO;
+import org.prj.domain.RefundVO;
 
 public interface PointMapper {
 
@@ -15,4 +17,8 @@ public interface PointMapper {
 	public int getPointTotal(Criteria cri);
 	//최종 포인트 조회
 	public PointVO pointSearch(String id);
+	//환불 승인
+	public void doRefundApproval(RefundVO vo);
+	//내 정보 변경
+	public void updateMyinfo(MemberVO vo);
 }

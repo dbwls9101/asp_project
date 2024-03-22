@@ -16,5 +16,4 @@ public class PointVO {
 	private String id, name, content, contentDetail;
 	private int p_idx, m_idx, update_point, before_point, after_point, point;
 	private Date reg_date;
-
 }
