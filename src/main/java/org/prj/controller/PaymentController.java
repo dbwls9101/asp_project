@@ -73,6 +73,12 @@ public class PaymentController {
 		mvo.setServiceamount(vo.getService_amount());
 		mService.updateWithamount(mvo); 
 		
+		//포인트 사용 시 회원정보 업데이트
+		mvo.setM_idx(vo.getM_idx());
+		mvo.setPoint(vo.getPoint());
+		System.out.println("pointInfo : " + mvo);
+		mService.updatePoint(mvo);
+		
 		//결제 성공 후 party_board 테이블 참여인원 +1
 		if(insertCount > 0)
 			pService.updateCurrNum(vo.getP_idx());
@@ -127,7 +133,7 @@ public class PaymentController {
 	}
 	
 	
-	// 사용자 결제 취소
+	// 결제 취소
 	@PostMapping("/cancel")
 	@ResponseBody
 	public ResponseEntity<String> orderCancel(@RequestBody String order_no) throws IOException {
@@ -144,6 +150,10 @@ public class PaymentController {
 		log.info("imp_uid : " + imp_uid + " token : " + token + " amount : " + amount + " reason : " + reason);
 		payService.paymentCancel(token, imp_uid, amount, reason);
 		int result = payService.cancelStatus(order_no);
+		
+		//결제 취소 시 포인트 반환
+		System.out.println("pointInfo : " + vo);
+		mService.pointCancel(vo);
 		
 		//결제 취소 후 party_board 테이블 참여인원 -1
 		if(result > 0)

@@ -155,7 +155,7 @@ function getList(obj){
 			msg += '<td>' + vo.name + '</td>';
 			msg += '<td>' + vo.pay_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
 			msg += '<td>' + (vo.pay_amount - vo.point).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
-			msg += '<td>' + vo.point.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
+			msg += '<td>' + vo.point.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + 'P</td>';
 			msg += '<td>' + vo.approved_at + '</td>';
 			msg += '<td>' + status + '</td>';
 			if (vo.pay_status == 'B') {
@@ -236,14 +236,9 @@ function radioEvent(){
 	})
 }
 
-//수정 마감 삭제 버튼 클릭 이벤트
-function modifyBtnEvent(p_idx){
-	
-}
-
-
-function deleteBtnEvent(p_idx){
-	
+//상세내역 이동
+function detailBtn(order_no) {
+	location.href = '/admin/paymentview?order_no=' + order_no;
 }
 
 //결제취소 버튼

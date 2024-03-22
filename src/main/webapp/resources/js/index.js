@@ -36,7 +36,7 @@ let partyinfo = document.querySelectorAll("#partyinfo");
 var itemPartyRow = document.querySelectorAll('.slide-row');
 
 // 메인 슬라이드
-if (itemPartyRow.length >= 8) {
+if (itemPartyRow.length >= 10) {
 	$(document).ready(function() {
 		var $itemSlideParty = $('.slide-container'),
 			$itemPartyList = $itemSlideParty.find('.slide-list'),

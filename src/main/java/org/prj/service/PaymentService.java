@@ -36,7 +36,13 @@ public interface PaymentService {
 	public List<PaymentVO> getPayMemberList(Criteria cri);
 	
 	//내 파티 참여자 수
-	public int getPayPartyTotal(int m_idx);
+	public int getPayPartyTotal(Criteria cri);
+	
+	// 취소내역
+	public List<PaymentVO> getPartyCancelList(Criteria cri);
+	
+	// 취소 수
+	public int getPartyCancelTotal(Criteria cri);
 	
 	//월별 결제 총액
 	public List<PaymentVO> getTotalPayment();

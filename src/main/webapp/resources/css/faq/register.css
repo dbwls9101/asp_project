@@ -26,13 +26,13 @@
 }
 
 #registerform input[name="title"] {
-	width: 480px;
+	width: 100%;
 	font-size: 13px;
 }
 
 #registerform textarea {
 	resize: none;
-	height: 200px;
+	height: 500px;
 	font-size: 13px;
 }
 

@@ -447,4 +447,13 @@ public class AdminController {
 		PageDTO pageMakger = new PageDTO(cri, total, list);
 		return pageMakger;
 	}
+	
+	//관리자 결제 상세 내역
+	@GetMapping("/paymentview")
+	public void movePaymentview(String order_no, Model model) {
+		log.info("movePaymentview...");
+		log.info("get..." + order_no);
+		model.addAttribute("vo", payService.orderGet(order_no));
+	}
+		
 }

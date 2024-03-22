@@ -139,17 +139,7 @@ function multiSearchList(obj){
 			msg += '<td><a href="/shop/get?c1=' + vo.codeone + '&c2=' + vo.codetwo + '&pn=' + vo.p_idx + '">[' + vo.c_secondary + '] ' +  vo.title + '</a></td>';
 			msg += '<td>' + vo.price + '원</td>';
 			msg += '<td>' + vo.curr_party + ' / ' + vo.party_num + '</td>';
-			
-			if(vo.status == 'N'){
-				if(vo.datediff<0){
-					msg += '<td>기간 종료 마감</td>';
-				}else{
-					msg += '<td>관리자 마감</td>';
-				}
-			}else{
-				msg += '<td>' + vo.datediff + '일</td>';
-			}
-			
+			msg += '<td>' + vo.datediff + '일</td>';
 			msg += '<td>' + myTime(vo.end_date) + '</td>';
 			msg += '<td>' + myTime(vo.reg_date) + '</td>';
 			msg += '<td><input type="button" id="partymodify" value="수정" onclick="modifyBtnEvent(' + vo.p_idx + ')">';
