@@ -1,88 +1,100 @@
-.page-header{
+.page-header {
 	text-align: center;
-	margin-top: 20px;
+	padding: 0 10px;
+	font-size: 28px;
+	font-weight: 600;
+	color: #333333;
+	margin: 70px 0 16px 0;
 }
 
-.heading-explanation{
+.heading-explanation {
 	text-align: center;
 	margin-top: 10px;
 }
 
+.text-point {
+	color: #43a051;
+}
+
 .panel-heading {
-	width: 400px;
-	height: 55px;
-	text-align: center;
+	text-align: right;
 }
 
 .btn_inquiry {
-	margin: 15px;
-	background-color: blueviolet;
-	color: white;
-	border-radius:7px;
-	min-height:30px; 
-    min-width: 80px;
-    
+	font-size: 15px;
+    font-weight: 500;
+    border-radius: 17px;
+    width: 116px;
+    height: 32px;
+    background-color: #fff;
+    cursor: pointer;
+    border: 1px solid #258e75;
+    color: #258e75;
+    line-height: 18px;
+    margin-bottom: 10px;
 }
 
-.btn_inquiry:hover {
-	  background-color:#002ead;
-      transition: 0.7s;
+.panel-body {
+	border-top: 2px solid #43a051;
 }
 
-.panel-body{
-	margin: auto;
-}
-
-
-table{
-	width: initial;
-	border-radius: 5px;
-	text-align: center;
+table {
+	width: 100%;
 	border-spacing: 0;
     border-collapse: collapse;
-    margin-left:auto; 
-    margin-right:auto;
 }
 
-tr{
+th, td {
+	text-align: center;
 }
 
-th, td{
-	border: 1px 50px solid gray;
-	padding: 7px;
+th {
+	padding: 19px 0;
+    font-size: 15px;
+    font-weight: bold;
+    color: #333333;
+    background-color: #f9f9f9;
 }
-th{
-	background-color: gainsboro;
-	color: black;
+
+td {
+	padding: 28px 0 27px;
+	font-size: 15px;
+    font-weight: 500;
+    color: #333;
+    line-height: 16px;
+    border-top: 1px solid #ececec;
 }
+
 tr th:nth-of-type(1) {
-	width: 5%
+	width: 10%
 }
+
 tr th:nth-of-type(2) {
 	width: 10%
 }
+
 tr th:nth-of-type(3) {
-	width: 10%
-}
-tr th:nth-of-type(4) {
 	width: 50%
 }
-tr th:nth-of-type(5) {
+
+tr th:nth-of-type(4) {
 	width: 10%
 }
-tr th:nth-of-type(6) {
+
+tr th:nth-of-type(5) {
 	width: 15%
 }
 
 /* 처리결과 색상 3가지 내용은 나중에 변경한다. [대기, 완료, 확인중] [대기중, 처리완료, 확인중] */
-.word-color1{
+.word-color1 {
 	color: green;
 }
-.word-color2{
+
+.word-color2 {
 	color: orange;
 }
-.word-color3{
+
+.word-color3 {
 	color: blue;
 }
-
 

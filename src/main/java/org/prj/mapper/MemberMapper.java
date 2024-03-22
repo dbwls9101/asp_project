@@ -6,11 +6,13 @@ import org.apache.ibatis.annotations.Param;
 import org.prj.domain.Criteria;
 import org.prj.domain.MemberVO;
 import org.prj.domain.PaymentVO;
+import org.prj.domain.RefundVO;
+
 
 public interface MemberMapper {
 
 	//회원가입
-	public void memberJoin(MemberVO member);
+	public int memberJoin(MemberVO member);
 	
 	//아이디 중복 검사
 	public int idCheck(String id);
@@ -76,7 +78,7 @@ public interface MemberMapper {
 	public int kakao_update(MemberVO memeber);
 	
 	//네이버 SNS 계정 연결
-	public int naver_update(MemberVO memeber);	
+	public int naver_update(MemberVO memeber);
 	
 	//총 회원수
 	public int getTotalUser();
@@ -101,4 +103,7 @@ public interface MemberMapper {
 	
 	//계정 활성화 비활성화
 	public int doLockAccount(MemberVO vo);
+	
+	//환불 승인
+	public void doRefundApproval(RefundVO vo);
 }

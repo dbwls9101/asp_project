@@ -76,3 +76,17 @@
 #partymodify, #partydelete{
 	font-size: 13px;
 }
+
+/* 승인 할 때 버튼 */
+#approval{
+	background-color: #00AE68;
+    border: 1px solid teal;
+    color: #fff;
+    width: 100px;
+    height: 35px;
+    font-size: 20px;
+    box-shadow: 0px 5px 0px 0px #007144;
+	padding: 3px;
+	border-radius: 10px;
+
+}

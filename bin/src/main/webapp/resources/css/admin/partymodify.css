@@ -30,9 +30,22 @@
 	font-size: 13px;
 }
 
-#registerform input[name="share_id"], input[name="share_pw"], input[name="phone"]
-	{
+#registerform input[name="share_id"], input[name="share_pw"], input[name="phone"], input[name="name"], input[name="id"], input[name="nickname"]
+, input[name="email"], input[name="bank_number"], input[name="level"]
+{
 	width: 240px;
+	font-size: 13px;
+	display: inline;
+}
+
+input[name="with_amount"], input[name="point"]{
+	width: 150px;
+	font-size: 13px;
+	display: inline;
+}
+
+#registerform input[name="bank"]{
+	width: 100px;
 	font-size: 13px;
 	display: inline;
 }
@@ -78,11 +91,15 @@
 	padding-right: 30px;
 }
 
+#registertable td{
+	padding-right: 70px;
+}
+
 #registerBtn {
 	text-align: center;
 }
 
-#myPartyList, #myPartyRegister, #myPartyModify {
+#myPartyList, #myPartyRegister, #myPartyModify, #memberModify, #memberList {
 	width: 150px;
 	height: 50px;
 	font-size: 15px;
@@ -91,18 +108,31 @@
     border: 0px;
 }
 
-#myPartyModify {
+#myPartyModify, #memberModify {
     background-color: #006D77;
 }
 
-#myPartyModify:hover {
+#myPartyModify:hover, #memberModify:hover {
     background-color: #FFE05C;
 }
 
-#myPartyList {
+#myPartyList, #memberList {
     background-color: #333;
 }
 
-#myPartyList:hover {
+#myPartyList:hover, #memberList:hover {
 	background-color: #111;
+}
+
+#naverDelete, #kakaoDelete{
+	font-size: 11px;
+	color: white;
+    border-radius: 5px;
+    border: 0px;
+    width: 18px;
+    height: 18px;
+    background-color: #006D77;
+    margin-left: 5px;
+    margin-right: 20px;
+    font-weight: bold;
 }

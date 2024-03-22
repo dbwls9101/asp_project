@@ -12,4 +12,6 @@ public interface RefundMapper {
 	public void updateMyinfo(MemberVO vo);
 	public int getRefundTotal(Criteria cri);
 	public List<RefundVO> getRefundList(Criteria cri);
+	public int doRefundApproval(RefundVO vo);
+	public int doRefundReturn(RefundVO vo);
 }

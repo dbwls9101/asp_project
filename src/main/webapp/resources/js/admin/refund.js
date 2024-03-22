@@ -105,7 +105,7 @@ function getList(obj){
 			}
 			
 			msg += '<td><input type="button" id="refundmanage" value="상세" onclick="refundManageBtn(\'' + vo.r_idx + '\', \'' + vo.name 
-				+ '\', \'' + vo.id + '\', \'' + vo.re_amount + '\', \'' + vo.reason + '\', \'' + vo.order_no + '\', \'' + vo.m_idx + '\')"></td>';
+				+ '\', \'' + vo.id + '\', \'' + vo.re_amount + '\', \'' + vo.reason + '\', \'' + vo.order_no + '\', \'' + vo.m_idx + '\', \'' + vo.re_status +  '\')"></td>';
 			msg += '</tr>';
 		})
 		
@@ -180,7 +180,7 @@ function radioEvent(){
 let ref = document.forms[1];
 
 //회원 상세 / 수정
-function refundManageBtn(r_idx, name, id, re_amount, reason, order_no, m_idx){
+function refundManageBtn(r_idx, name, id, re_amount, reason, order_no, m_idx, re_status){
 	document.querySelector("textarea[name='rejection']").value = '';
 	
 	document.getElementById("modal").style.display = 'flex';
@@ -206,6 +206,7 @@ function refundManageBtn(r_idx, name, id, re_amount, reason, order_no, m_idx){
 	document.querySelector("#reason").innerHTML = reason;
 	ref.r_idx.value = r_idx;
 	ref.re_amount.value = re_amount;
+	ref.re_status.value = re_status;
 	ref.order_no.value = order_no;
 	ref.m_idx.value = m_idx;
 	ref.id.value = id;
@@ -213,6 +214,10 @@ function refundManageBtn(r_idx, name, id, re_amount, reason, order_no, m_idx){
 }
 
 document.querySelector("#approval").addEventListener('click', ()=>{
+	if(ref.re_status.value != 'A'){
+		alert('이미 처리된 환불 건입니다.');
+		return;
+	}
 	let robj = {
 			r_idx : ref.r_idx.value,
 			re_amount : ref.re_amount.value,
@@ -221,26 +226,31 @@ document.querySelector("#approval").addEventListener('click', ()=>{
 			id : ref.id.value,
 			name : ref.name.value
 		};
-	
-	fetch('/admin/refundapproval', {
-		method : 'post',
-		body : JSON.stringify(robj),
-		headers : {'Content-type' : 'application/json; charset=utf-8'}
-	})
-	.then(response => response.text())
-	.then(data => {
-		if(data == 'success'){
-			alert('승인되었습니다.');
-			location.href = '/admin/refund';
-		}else{
-			alert('승인에 실패하였습니다.');
-			location.href = '/admin/refund';
-		}
-	})
-	.catch(err => console.log(err));
+	if(confirm('해당 환불 요청 건을 승인하시겠습니까?')){
+		fetch('/admin/refundapproval', {
+			method : 'post',
+			body : JSON.stringify(robj),
+			headers : {'Content-type' : 'application/json; charset=utf-8'}
+		})
+		.then(response => response.text())
+		.then(data => {
+			if(data == 'success'){
+				alert('승인되었습니다.');
+				location.href = '/admin/refund';
+			}else{
+				alert('승인에 실패하였습니다.');
+				location.href = '/admin/refund';
+			}
+		})
+		.catch(err => console.log(err));
+	}
 })
 
 document.querySelector("#return").addEventListener('click', ()=>{
+	if(ref.re_status.value != 'A'){
+		alert('이미 처리된 환불 건입니다.');
+		return;
+	}
 	let robj = {
 			r_idx : ref.r_idx.value,
 			re_amount : ref.re_amount.value,
@@ -254,6 +264,25 @@ document.querySelector("#return").addEventListener('click', ()=>{
 	if(ref.rejection.value == ''){
 		alert('반려사유를 입력해주세요.');
 		return;
+	}
+	
+	if(confirm('해당 환불 요청 건을 반려하시겠습니까?')){
+		fetch('/admin/refundreturn', {
+			method : 'post',
+			body : JSON.stringify(robj),
+			headers : {'Content-type' : 'application/json; charset=utf-8'}
+		})
+		.then(response => response.text())
+		.then(data => {
+			if(data == 'success'){
+				alert('반려되었습니다.');
+				location.href = '/admin/refund';
+			}else{
+				alert('반려 처리에 실패하였습니다.');
+				location.href = '/admin/refund';
+			}
+		})
+		.catch(err => console.log(err));
 	}
 })
 

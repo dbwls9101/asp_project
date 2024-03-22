@@ -20,4 +20,7 @@ public interface RefundService {
 	
 	//환불 승인
 	public int doRefundApproval(RefundVO vo);
+	
+	//환불 반려
+	public int doRefundReturn(RefundVO vo);
 }

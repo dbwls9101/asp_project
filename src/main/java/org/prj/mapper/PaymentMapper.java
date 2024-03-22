@@ -51,4 +51,7 @@ public interface PaymentMapper {
 	
 	//환불 승인
 	public void doRefundApproval(RefundVO vo);
+	
+	//환불 반려
+	public void doRefundReturn(RefundVO vo);
 }

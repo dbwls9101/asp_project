@@ -42,6 +42,10 @@ function register() {
 		alert("내용을 입력하세요.");
 		return;
 	}
+	if(f.agree.checked == false){
+		alert("개인정보 처리방침 내용에 동의해주시기 바랍니다.");
+		return false;
+	}
 	let str = '';
 	document.querySelectorAll('.uploadResult li').forEach( (li, index) => {
 		

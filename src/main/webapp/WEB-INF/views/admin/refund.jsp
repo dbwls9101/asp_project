@@ -113,7 +113,7 @@
 	                			<input type="hidden" name="id" value="">
 	                			<input type="hidden" name="name" value="">
 	                			<input type="hidden" name="re_amount" value="">
-	                			<input type="hidden" name="rejection" value="">
+	                			<input type="hidden" name="re_status" value="">
 								<input type="button" id="approval" value="승인">
 								<input type="button" id="return" value="반려">
 							</td>

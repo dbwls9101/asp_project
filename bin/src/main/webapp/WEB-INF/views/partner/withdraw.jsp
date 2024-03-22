@@ -31,7 +31,7 @@
 									   - 출금 신청에서 지급 요청금액을 작성하게 되면 이 곳에 데이터가 기입되야 한다.  
 									4. 출금 가능 금액 = payment -> service_amount  (3)
 									   - 지금 요청 금액으로 신청이 완료되면 출금 가능 금액은 그만큼 감소해야 한다. 
-								
+									5. 미발생 판매금 = 일일 단위로 값이 쌓여 나간다. 
 								 -->
 									<tr>
 										<th>구분</th>
@@ -41,7 +41,14 @@
 									
 									<tr>
 										<th id="left1">1. 판매총액</th>  
-											<td id="sumamount" name="sumamount">${sumamount }원</td>
+											<c:choose>
+												<c:when test="${sumamount == null}">
+													<td>0원</td>
+												</c:when>
+												<c:otherwise>
+													<td id="sumamount" name="sumamount">${sumamount }원</td>
+												</c:otherwise>
+											</c:choose>
 											<td>총 판매합산 금액(수수료 제외)</td>
 									</tr>
 									
@@ -73,9 +80,32 @@
 									</tr>
 									
 									<tr>
-										<th id="left1">4. 출금 가능 금액</th>
-											<td>${sumamount - withamount}원</td>
-											<td>1 - 3 = 4</td>
+										<th id="left1">4. 미발생 판매금</th>
+											<c:choose>
+												<c:when test="${unsaleslist == null}">
+													<td>0원</td>												
+												</c:when>
+												<c:otherwise>
+													<td id="unsaleslist" name="unsaleslist">${unsaleslist }원</td>
+												</c:otherwise>
+											</c:choose>
+											<td>진행 중 파티의 남은 기간에 해당하는 비용</td>
+									</tr>
+									
+									<tr>
+										<th id="left1">5. 출금 가능 금액</th>
+											<c:choose>
+												<c:when test="${unsaleslist == null}">
+													<td>0원</td>
+												</c:when>
+												<c:when test="${unsaleslist - withamout == null }">
+													<td>0원</td>
+												</c:when>
+												<c:otherwise>
+													<td>${unsaleslist - withamount}원</td>
+												</c:otherwise>
+											</c:choose>
+											<td>4 - 3 = 5</td>
 									</tr>
 								</thead>
 							</table>
@@ -93,7 +123,18 @@
 										</tr>
 										
 										<tr>
-											<td colspan="2"><p3 id="center1">최대 ${sumamount - withamount}원까지 신청할 수 있습니다.</p3></td>										
+											<c:choose>
+												<c:when test="${unsaleslist - withamount == null }">
+													<td colspan="2">
+													<p3 id="center1">최대 0원까지 신청할 수 있습니다.</p3>
+													</td>	
+												</c:when>
+												<c:otherwise>
+													<td colspan="2">
+													<p3 id="center1">최대 ${unsaleslist - withamount}원까지 신청할 수 있습니다.</p3>
+													</td>	
+												</c:otherwise>
+											</c:choose>									
 										</tr>
 										
 										<tr>
@@ -137,8 +178,7 @@
 							<th>신청일</th>
 							<th>출금방법</th>
 							<th>신청금액(수수료)</th>
-							<th>실지급액</th>
-							<th>비고</th>					
+							<th>실지급액</th>	
 						</tr>
 					</thead>
 					<tbody class="aa">
