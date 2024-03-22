@@ -33,7 +33,7 @@
 		        <when test='content.equals("etc")'>
 		            '기타 : '|| #{contentDetail},
 		        </when>
-		    </choose> 
+		    </choose>
 			#{update_point}, 
 			sysdate,
 			nvl((select after_point from(select * from point where m_idx = #{m_idx} order by reg_date desc) where rownum=1),0), 

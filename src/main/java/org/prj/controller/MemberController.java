@@ -96,7 +96,7 @@ public class MemberController {
 		point.setM_idx(member.getM_idx());
 		point.setId(member.getId());
 		point.setName(member.getName());
-		point.setContent("회원가입");
+		point.setContent("join");
 		point.setBefore_point(0);
 		point.setAfter_point(500);
 		point.setUpdate_point(500);
