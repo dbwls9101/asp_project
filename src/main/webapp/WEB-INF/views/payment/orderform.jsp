@@ -93,14 +93,13 @@
 					<li>
 						<div class="subject">ㆍ 합계</div>
 						<div class="right" id="paysum"><fmt:formatNumber value="${vo.totalprice + vo.totalprice*0.1 }" pattern="#,###" />원</div>
-						<input type="hidden" name="pay_amount" value="<fmt:parseNumber value="${vo.totalprice + vo.totalprice*0.1}" integerOnly="true"/>">
 					</li>
 					<li>
 						<div class="subject">ㆍ 사용 포인트</div>
 						<div class="right fill">
-							보유 포인트 <span class="text-point">500P</span>
-							<input type="text" name="point" value="0" class="point" style="text-align: right;">
-							<input type="button" value="전액사용" onclick="" class="point-btn">
+							사용가능 포인트 <span class="text-point" id="remnant_point">${principal.member.point }P</span>
+							<input type="number" name="point" id="point" value="" class="point" onchange="changePoint(${vo.totalprice + vo.totalprice*0.1},${principal.member.point },0,1)" style="text-align: right;">
+							<input type="button" value="전액사용" onclick="chkPoint(${vo.totalprice + vo.totalprice*0.1},${principal.member.point },0,1)" class="point-btn">
 						</div>
 					</li>
 					<li>
@@ -110,12 +109,13 @@
 							<label for="card">신용카드</label>
 							<input type="radio" name="pay_method" value="kakaopay" id="kakaopay">
 							<label for="kakaopay">카카오페이</label>
+							<input type="hidden" name="pay_amount" id="pay_amount" value="<fmt:parseNumber value="${vo.totalprice + vo.totalprice*0.1}" integerOnly="true"/>">
 						</div>
 					</li>
 					<li class="total">
 						<div class="subject" style="color: #43a051;">총 결제금액</div>
 						<div class="right">
-							<span class="total-price"><fmt:formatNumber value="${vo.totalprice + vo.totalprice*0.1 }" pattern="#,###" /></span>
+							<span class="total-price" id="total-price"><fmt:formatNumber value="${vo.totalprice + vo.totalprice*0.1 }" pattern="#,###" /></span>
 							<span>원</span>
 						</div>
 					</li>

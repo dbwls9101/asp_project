@@ -47,5 +47,7 @@ public interface WithdrawService {
 	// 관리자 화면에서 승인 버튼 누를 경우 with_status C로 변경
 	public boolean modifyWithdraw2(int w_idx);
 	
-	
+	//새 출금 신청 수
+	public int getNewWithdraw();
+
 }

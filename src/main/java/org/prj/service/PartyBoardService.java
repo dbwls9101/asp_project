@@ -39,6 +39,10 @@ public interface PartyBoardService {
 	public String idSearch(int p_idx);
 	// 파티관리 - 검색 결과에 대한 리스트
 	public List<PartyBoardVO> mainAllParty();
+	//환불 금액 계산을 위해 일금액, 남은 기간 불러오기
+	public PartyBoardVO getCurrentPartyInfo(int p_idx);
+	//파티장 -파티삭제
+	public void deleteParty(int p_idx);
 	
 	//================관리자=======================
 	//파티 개수
@@ -51,4 +55,6 @@ public interface PartyBoardService {
 	public int doPartyclose(int p_idx);
 	//파티 오픈
 	public int doPartyOpen(int p_idx);
+	//1차 카테고리별 파티 비율
+	public List<PartyBoardVO> getPartyRatio();
 }

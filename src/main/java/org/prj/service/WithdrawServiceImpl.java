@@ -112,11 +112,9 @@ public class WithdrawServiceImpl implements WithdrawService {
 		return result == 1 ? true : false;
 	}
 
-
-	
-
-
-	
-	
+	@Override
+	public int getNewWithdraw() {
+		return mapper.getNewWithdraw();
+	}
 	
 }

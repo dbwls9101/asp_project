@@ -5,6 +5,7 @@ import java.util.List;
 import org.prj.domain.Criteria;
 import org.prj.domain.MemberVO;
 import org.prj.domain.PartyBoardVO;
+import org.prj.domain.RefundVO;
 
 public interface PartyBoardMapper {
 	public void registerParty(PartyBoardVO vo);
@@ -28,4 +29,8 @@ public interface PartyBoardMapper {
 	public void doAdminUpdateParty(PartyBoardVO vo);
 	public int doPartyclose(int p_idx);
 	public int doPartyOpen(int p_idx);
+	public List<PartyBoardVO> getPartyRatio();
+	public void updateMyinfo(MemberVO vo);
+	public PartyBoardVO getCurrentPartyInfo(int p_idx);
+	public void deleteParty(int p_idx);
 }

@@ -18,7 +18,7 @@
 		<ul id="partner-nav">
 			<li><a href="/member/mypage">${principal.member.name }</a></li>
 			<li><a href="/">메인</a></li>
-			<li><a href="/member/logout">로그아웃</a></li>
+			<li><a href="#" onclick="partnerLogout()">로그아웃</a></li>
 		</ul>
 	</div>
 	<div id="partner-menu">
@@ -26,7 +26,7 @@
 		  <li class="list-group-item"><a href="/partner/manage">파티관리</a></li>
 		  <li class="list-group-item"><a href="/partner/replymanage">댓글보기</a></li>
 		  <li class="list-group-item"><a href="/partner/partyinfo">참여정보</a></li>
-		  <li class="list-group-item"><a href="#">취소내역</a></li>
+		  <li class="list-group-item"><a href="/partner/partycancel">취소내역</a></li>
 		  <li class="list-group-item"><a href="/partner/withdraw">출금관리</a></li>
 		  <li class="list-group-item"><a href="/partner/partnerinfo">정보수정</a></li>
 		</ul>

@@ -14,4 +14,8 @@ public class PaymentVO {
 	private String order_no, id, name, phone, pay_method, pay_status, note, title, imp_uid, token, approved_at, sub_title;
 	private Date end_date;
 	
+	//가상컬럼
+	private String month;
+	private int total_revenue;
+	private int before_point;
 }

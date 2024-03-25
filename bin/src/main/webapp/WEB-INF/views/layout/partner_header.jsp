@@ -18,7 +18,7 @@
 		<ul id="partner-nav">
 			<li><a href="/member/mypage">${principal.member.name }</a></li>
 			<li><a href="/">메인</a></li>
-			<li><a href="/member/logout">로그아웃</a></li>
+			<li><a href="#" onclick="partnerLogout()">로그아웃</a></li>
 		</ul>
 	</div>
 	<div id="partner-menu">

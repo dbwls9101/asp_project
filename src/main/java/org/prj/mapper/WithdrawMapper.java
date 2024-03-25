@@ -3,7 +3,7 @@ package org.prj.mapper;
 import java.util.List;
 
 import org.prj.domain.Criteria;
-import org.prj.domain.PaymentVO;
+import org.prj.domain.MemberVO;
 import org.prj.domain.WithdrawVO;
 
 public interface WithdrawMapper {
@@ -44,4 +44,9 @@ public interface WithdrawMapper {
 	// 관리자 화면에서 승인 버튼 누를 경우 with_status C로 변경
 	public int modifyWithdraw2(int w_idx);
 
+	//새 출금 신청 수
+	public int getNewWithdraw();
+	
+	//내 정보 수정
+	public void updateMyinfo(MemberVO vo);
 }

@@ -100,8 +100,8 @@ function doReplyAnswer(c_idx){
 		document.querySelector("#title").innerHTML = '<a href="/shop/get?c1=' + json.codeone + '&c2=' + json.codetwo + '&pn=' + json.p_idx + '">[' + json.c_secondary + '] ' + json.title;
 		document.querySelector("#comment").innerHTML = json.comment;
 		
-		document.querySelector("input[name='comment_to'").value = json.writer;
-		document.querySelector("input[name='p_idx'").value = json.p_idx;
+		document.querySelector("input[name='comment_to']").value = json.writer;
+		document.querySelector("input[name='p_idx']").value = json.p_idx;
 	})
 	.catch(err => console.log(err));
 }

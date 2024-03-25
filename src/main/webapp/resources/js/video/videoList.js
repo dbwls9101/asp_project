@@ -53,13 +53,19 @@ function videoDelete(f) {
 }
 
 //영상 불러오기
-videoList();
+let page = 1;
+
 function videoList() {
 	let msg = '';
+	sendData = '?page=' + page;
 	
-    fetch('/admin/videoListload')
+    fetch('/admin/videoListload' + sendData)
         .then(response => response.json())
         .then(data => {
+        	if(data.length < 8){
+        		document.querySelector("#load-more-btn").style.display = 'none';
+        	}
+        	
             data.forEach(video => {
 				msg += '<div class="video-box"><a href="#" class="thumb" data-toggle="modal" data-target="#moaModal' + video.idx + '">';
 				msg += '<img src="https://img.youtube.com/vi/' + video.videoid + '/mqdefault.jpg">';
@@ -76,10 +82,17 @@ function videoList() {
             })
             
             document.querySelector("#video-container").innerHTML += msg;
+            page++; // 페이지 번호 증가
         })
         .catch(error => console.error('Error:', error));
 }
 
+videoList();
+
+//더보기 버튼 클릭 이벤트 
+document.getElementById('load-more-btn').addEventListener('click', () => {
+	videoList(); // 더보기 버튼 클릭 시 추가 아이템들을 가져옴
+});
 
 var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {

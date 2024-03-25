@@ -18,7 +18,7 @@
 <div class="wrapper">
 	
 <div class="form-signin w-100 m-auto">
-  <form id="login_form" method="post" >
+  <form id="login_form" method="post" onsubmit="return false;" >
   	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     <img class="mb-4" src="/resources/images/prj_logo.png" alt="" width="250px">
 

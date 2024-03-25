@@ -628,7 +628,7 @@
 			</div>
 			<div class="form-round signup">
 				<ul class="form-list">
-					<li><span class="subject">ㆍ 이름</span> <input type="text"
+					<li><span class="subject">ㆍ 이름</span> <input type="text" value = "박박이"
 						id="name" name="name" value="" placeholder="이름" size="10"
 						readonly="readonly">
 						<button type="button" id="certification"
@@ -642,7 +642,7 @@
 						class="email_input" name="email" id="email" placeholder="이메일">
 						<span class="lightgrey inline-break" id="emailText"
 						style="display: none;">이메일 사용이 가능합니다.</span></li>
-					<li><span class="subject">ㆍ 휴대폰 번호</span> <input type="text"
+					<li><span class="subject">ㆍ 휴대폰 번호</span> <input type="text" value = "01012341234"
 						name="phone" id="phone" value="" placeholder="휴대폰 번호"
 						maxlength="20" readonly="readonly"></li>
 				</ul>

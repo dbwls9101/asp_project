@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.List;
 
+import org.prj.domain.Criteria;
 import org.prj.domain.VideoVO;
 import org.prj.mapper.VideoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,12 +77,17 @@ public class VideoServiceImpl implements VideoService {
     }
     
     @Override
-    public List<VideoVO> getAllVideos() {
-    	return vMapper.getAllVideos();
+    public List<VideoVO> getAllVideos(Criteria cri) {
+    	return vMapper.getAllVideos(cri);
     }
     
     @Override
     public List<VideoVO> mainAllVideos() {
     	return vMapper.mainAllVideos();
+    }
+    
+    @Override
+    public List<VideoVO> shopListVideos(int codetwo) {
+    	return vMapper.shopListVideos(codetwo);
     }
 }

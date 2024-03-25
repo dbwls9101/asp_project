@@ -16,8 +16,14 @@
 	</delete>
 	
 	<!-- 전체 조회  -->
-	<select id="getAllVideos" resultType="org.prj.domain.VideoVO">
-		SELECT * FROM video ORDER BY idx desc
+	<select id="getAllVideos" parameterType="org.prj.domain.Criteria" resultType="org.prj.domain.VideoVO">
+		<![CDATA[
+			SELECT * FROM 
+		    (select rownum rn, idx, title, description, videoid, thumbnailurl, channelid, channel, reg_date
+				from (SELECT * FROM video ORDER BY idx desc)
+				where rownum <= #{pageNum} * 8)
+		    where rn > (#{pageNum}-1) * 8
+    	]]>
 	</select>
 	
 	<!-- 메인 추천영상 -->
@@ -35,6 +41,14 @@
 		)
 		WHERE rnum = 1
 		ORDER BY reg_date DESC
+	</select>
+	
+	<!-- 2차 카테고리 추천영상 -->
+	<select id="shopListVideos" resultType="org.prj.domain.VideoVO">
+		SELECT v.*, c.codeone, c.codetwo
+		FROM video v
+		INNER JOIN category c ON v.channel= c.c_secondary
+		where c.codetwo=#{codetwo}
 	</select>
 	
 </mapper>

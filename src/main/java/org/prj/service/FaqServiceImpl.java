@@ -3,6 +3,7 @@ package org.prj.service;
 
 import java.util.List;
 
+import org.prj.domain.Criteria;
 import org.prj.domain.FaqVO;
 import org.prj.mapper.FaqMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,30 @@ public class FaqServiceImpl implements FaqService {
 	@Override
 	public List<FaqVO> userList(String faq_type) {
 		return mapper.userList(faq_type);
+	}
+	
+	@Override
+	public int getAdminFaqTotal(Criteria cri) {
+		return mapper.getAdminFaqTotal(cri);
+	}
+	
+	@Override
+	public List<FaqVO> getAdminFaqList(Criteria cri) {
+		return mapper.getAdminFaqList(cri);
+	}
+	
+	@Override
+	public FaqVO getFaq(int f_idx) {
+		return mapper.getFaq(f_idx);
+	}
+	
+	@Override
+	public void doAdminUpdateFaq(FaqVO vo) {
+		mapper.doAdminUpdateFaq(vo);
+	}
+	
+	@Override
+	public void doAdminRemoveFaq(int f_idx) {
+		mapper.doAdminRemoveFaq(f_idx);
 	}
 }

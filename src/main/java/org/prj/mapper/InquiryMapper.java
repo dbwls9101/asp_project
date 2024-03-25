@@ -47,4 +47,6 @@ public interface InquiryMapper {
 	// 13. 관리자 1:1문의 게시글 수정
 	public int AdminInquiryUpdate(InquiryVO vo);
 	
+	public int getNewInquiry();
+	
 }

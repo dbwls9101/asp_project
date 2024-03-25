@@ -4,33 +4,54 @@ document.querySelector("#makeparty").addEventListener('click', ()=>{
 })
 
 //list 가져오기
-getPrincipal().then(() => {
-let pageData = getStorageData();
-	
-	if(pageData == null){
-		getList(principal.member.m_idx, 1, 10);
-	}else{
-		getList(principal.member.m_idx, pageData.pageNum, pageData.amount);
-	}
-})
-function getList(m_idx, pageNum, amount){
+window.onload = function() {
+	getPrincipal().then(() => {
+		let pageData = getStorageData();
+		let obj;
+		if(pageData == null){
+			document.querySelector("#listbyperiod").classList.remove("activeFont");
+			document.querySelector("#listbylatest").classList.add("activeFont");
+			
+			setStorageData('partyinfo', 1, 10, 'latest', '', 'p_idx', '');
+			obj = makeObject(principal.member.m_idx, 1, 10, 'latest', '', 'p_idx', '');
+		}else{
+			if(pageData.sort == 'latest'){
+				document.querySelector("#listbyperiod").classList.remove("activeFont");
+				document.querySelector("#listbylatest").classList.add("activeFont");
+			}
+			else{
+				document.querySelector("#listbylatest").classList.remove("activeFont");
+				document.querySelector("#listbyperiod").classList.add("activeFont");
+			}
+			
+			selectOptions();
+			obj = makeObject(principal.member.m_idx, pageData.pageNum, pageData.amount, pageData.sort, '', pageData.searchcolumn, pageData.searchword);
+		}
+		
+		getList(obj);
+	})
+}
+
+function getList(obj){
 	let msg = "";
 	let page = "";
 	
 	fetch('/partner/partyinfo', {
 		method : 'post',
-		body : JSON.stringify({
-			m_idx : m_idx,
-			pageNum : pageNum,
-			amount : amount
-		}),
+		body : JSON.stringify(obj),
 		headers : {'Content-type' : 'application/json; charset=utf-8'}
 	})
 	.then(response => response.json())
 	.then(json => {
 		let list = json.list;
 		
-		list.forEach(vo => {
+		if(list.length == 0){
+			msg += '<tr>';
+			msg += '<td colspan="8">참여자가 없습니다.</td>';
+			msg += '</tr>';
+    	}
+		
+ 		list.forEach(vo => {
 			//남은기간
 			//시작날짜
 			let sDate = new Date();
@@ -46,24 +67,25 @@ function getList(m_idx, pageNum, amount){
 			}else if (vo.pay_status == 'B') {
 				status = '결제완료';
 			}else if (vo.pay_status == 'C') {
-				status = '결제실패';
+				status = '환불신청';
 			}else {
 				status = '결제취소';
 			}
 			
 			msg += '<tr>';
 			msg += '<td>' + myTime(vo.approved_at) + '</td>';
+			msg += '<td>' + vo.p_idx + '</td>';
 			msg += '<td>' + vo.title + '</td>';
 			msg += '<td>' + vo.name + '</td>';
 			msg += '<td>' + status + '</td>';
-			if (diffDate < 0) {
+			if(diffDate <= 0){
 				msg += '<td>마감</td>';
-			}else {
+			}else{
 				msg += '<td>' + diffDate + '일</td>';
 			}
 			msg += '<td>' + vo.service_amount + '원</td>';
 			msg += '<td>' + vo.commission + '원</td>';
-			msg += '<td>' + vo.pay_amount + '원</td>';
+			msg += '<td>' + (vo.service_amount+vo.commission) + '원</td>';
 			msg += '</tr>';
 		})
 		
@@ -95,6 +117,47 @@ function getList(m_idx, pageNum, amount){
 	.catch(err => console.log(err));
 }
 
+function selectOptions() {
+	let pageData = getStorageData();
+	
+    document.querySelectorAll("#detailSearch option").forEach(d => {
+        if(d.value == pageData.searchcolumn) {
+            d.selected = 'selected';
+        }
+    });
+    
+    document.querySelector("#searchword").value = pageData.searchword;
+}
+
+//검색
+document.querySelector("#search").addEventListener('click', ()=>{
+	let pageData = getStorageData();
+	
+	let searchcolumn = document.querySelector("#detailSearch").value;
+	let searchword = document.querySelector("#searchword").value;
+	
+	getPrincipal().then(() => {
+		setStorageData('partyinfo', 1, 10, pageData.sort, '', searchcolumn, searchword);
+		let obj = makeObject(principal.member.m_idx, 1, 10, pageData.sort, '', searchcolumn, searchword);
+		getList(obj);
+	})
+})
+
+//객체 생성 후 반환하는 함수
+function makeObject(m_idx, pageNum, amount, sort, category, searchcolumn, searchword){
+	let obj = {
+		m_idx : m_idx,
+		pageNum : pageNum,
+		amount : amount,
+		sort : sort,
+		category : category,
+		searchcolumn : searchcolumn,
+		searchword : searchword
+	};
+	
+	return obj;
+}
+
 //페이지 버튼 클릭 이벤트
 function pagingEvent(){
 	document.querySelectorAll(".page-nation li a").forEach(aEle => {
@@ -105,8 +168,15 @@ function pagingEvent(){
 			let menu = 'partyinfo';
 			let pageNum = this.getAttribute("href");
 			let amount = 10;
+			let sort = document.querySelector("#listbylatest").classList.contains('activeFont') ? 'latest' : 'period';
 			
-			getList(principal.member.m_idx, pageNum, amount);
+			setStorageData(menu, pageNum, amount, sort, '', pageData.searchcolumn, pageData.searchword);
+			
+			getPrincipal().then(() => {
+				let obj = makeObject(principal.member.m_idx, pageNum, amount, sort, '', pageData.searchcolumn, pageData.searchword);
+				getList(obj);
+			})
+			
 		});
 	});
 }
@@ -123,4 +193,31 @@ function myTime(unixTimeStamp){
 	
 	return date;
 }
+
+//최신순, 남은기간순 정렬
+//최신순
+document.querySelector("#listbylatest").addEventListener('click', ()=>{
+	let pageData = getStorageData();
+	
+	//css
+	document.querySelector("#listbyperiod").classList.remove("activeFont");
+	document.querySelector("#listbylatest").classList.add("activeFont");
+	
+	let obj = makeObject(principal.member.m_idx, 1, 10, 'latest', '', pageData.searchcolumn, pageData.searchword);
+	getList(obj);
+	setStorageData('partyinfo', 1, 10, 'latest', '', pageData.searchcolumn, pageData.searchword);
+})
+
+//남은기간순
+document.querySelector("#listbyperiod").addEventListener('click', ()=>{
+	let pageData = getStorageData();
+	
+	//css
+	document.querySelector("#listbylatest").classList.remove("activeFont");
+	document.querySelector("#listbyperiod").classList.add("activeFont");
+	
+	let obj = makeObject(principal.member.m_idx, 1, 10, 'period', '', pageData.searchcolumn, pageData.searchword);
+	getList(obj);
+	setStorageData('partyinfo', 1, 10, 'period', '', pageData.searchcolumn, pageData.searchword);
+})
 

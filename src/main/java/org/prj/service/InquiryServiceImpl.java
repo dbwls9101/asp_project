@@ -182,7 +182,8 @@ public class InquiryServiceImpl implements InquiryService {
 		
 	}
 
-	
-	
-	
+	@Override
+	public int getNewInquiry() {
+		return mapper.getNewInquiry();
+	}
 }

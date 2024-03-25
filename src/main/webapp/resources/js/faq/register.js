@@ -26,7 +26,7 @@ document.querySelector("#faqRegister").addEventListener('click', () => {
 })
 
 
-//파티 관리 목록으로 돌아가기
-document.querySelector("#FaqList").addEventListener('click', ()=>{
-	location.href = '/admin/faq';
+//faq 목록
+document.querySelector("#faqList").addEventListener('click', ()=>{
+	location.href = '/admin/faq/faqlist';
 })

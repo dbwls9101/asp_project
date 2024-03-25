@@ -124,7 +124,7 @@ function partyWriter(){
 		let pageData = getStorageData();
 		
 		if(pageData != null){
-			if(pageData.status != ''){
+			if(pageData.status){
 				location.href = '/admin/' + pageData.menu;
 			}else{
 				location.href = '/partner/' + pageData.menu;
@@ -372,6 +372,8 @@ function modal(){
 	document.querySelector("#partnerInfo").addEventListener('click', ()=>{
 		document.getElementById("modal").style.display = 'flex';
 		document.body.style.overflow = 'hidden';
+		
+		
 	})
 
 	//모달창 close

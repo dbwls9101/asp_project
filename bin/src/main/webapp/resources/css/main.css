@@ -194,6 +194,10 @@ a {
 	background-color: #43a051;
 }
 
+.header-btn:hover {
+	color: #ffffff; 
+}
+
 .header-user {
 	position: relative;
     display: inline-block;
@@ -397,24 +401,3 @@ a {
 	color: #43a051;
 }
 
-/* 삭제할것(test) */
-.test_div1 {
-	margin-top: 50px;
-	width: 100%;
-	height: 200px;
-	background-color: #F7B9D9;
-}
-
-.test_div2 {
-	margin-top: 50px;
-	width: 100%;
-	height: 550px;
-	background-color: #43a051;
-}
-
-.test_div3 {
-	margin-top: 50px;
-	width: 100%;
-	height: 200px;
-	background-color: #FFE05C;
-}

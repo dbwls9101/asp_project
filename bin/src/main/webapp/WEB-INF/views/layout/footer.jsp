@@ -12,7 +12,7 @@
 		   				</a>
 		   			</div>
 		      		<div class="footer-a">
-		      			<a href="/inquiry_board/Inquiryregister">1:1문의하기</a>
+		      			<a href="#" onclick="inquiryChk()">1:1문의하기</a>
 		      			<a href="/page/privacy" style="font-weight: 600; text-decoration: underline !important;">개인정보처리방침</a>
 		      			<a href="/page/provision">서비스 이용약관</a>
 		      			<a href="/page/faq?i_type=A">FAQ</a>

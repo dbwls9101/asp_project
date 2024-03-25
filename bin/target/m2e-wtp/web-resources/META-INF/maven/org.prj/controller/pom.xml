@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.prj</groupId>
-	<artifactId>controller</artifactId>
-	<name>asp_project</name>
-	<packaging>war</packaging>
-	<version>1.0.0-BUILD-SNAPSHOT</version>
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>org.prj</groupId>
+   <artifactId>controller</artifactId>
+   <name>asp_project</name>
+   <packaging>war</packaging>
+   <version>1.0.0-BUILD-SNAPSHOT</version>
    <properties>
       <java-version>11</java-version>
       <org.springframework-version>5.0.7.RELEASE</org.springframework-version>
@@ -229,53 +229,53 @@
          <artifactId>spring-security-taglibs</artifactId>
          <version>5.0.6.RELEASE</version>
       </dependency>
-		<!-- STMP 메일 전송 관련 라이브러리 -->
-	<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
-	<dependency>
-	    <groupId>javax.mail</groupId>
-	    <artifactId>mail</artifactId>
-	    <version>1.4.7</version>
-	</dependency>
+      <!-- STMP 메일 전송 관련 라이브러리 -->
+   <!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
+   <dependency>
+       <groupId>javax.mail</groupId>
+       <artifactId>mail</artifactId>
+       <version>1.4.7</version>
+   </dependency>
 
       <!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-context-support</artifactId>
-		    <version>5.0.7.RELEASE</version>
-		</dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-context-support</artifactId>
+          <version>5.0.7.RELEASE</version>
+      </dependency>
          <dependency>
-		    <groupId>javax.activation</groupId>
-		    <artifactId>activation</artifactId>
-		    <version>1.1</version>
-		</dependency>  
-		<!-- 인증번호 email 보내기 위한 템플릿 -->  
-		<dependency>
-			<groupId>org.thymeleaf</groupId>
-			<artifactId>thymeleaf-spring5</artifactId>
-			<version>3.1.2.RELEASE</version>
-		</dependency>
-		
-		<!-- Google API Client 라이브러리 --> 
-		<dependency>
-		    <groupId>com.google.oauth-client</groupId>
-		    <artifactId>google-oauth-client</artifactId>
-		    <version>1.32.1</version>
-		</dependency>
-		<dependency>
-		    <groupId>com.google.apis</groupId>
-		    <artifactId>google-api-services-youtube</artifactId>
-		    <version>v3-rev210-1.25.0</version>
-		</dependency>
+          <groupId>javax.activation</groupId>
+          <artifactId>activation</artifactId>
+          <version>1.1</version>
+      </dependency>  
+      <!-- 인증번호 email 보내기 위한 템플릿 -->  
+      <dependency>
+         <groupId>org.thymeleaf</groupId>
+         <artifactId>thymeleaf-spring5</artifactId>
+         <version>3.1.2.RELEASE</version>
+      </dependency>
+      
+      <!-- Google API Client 라이브러리 --> 
+      <dependency>
+          <groupId>com.google.oauth-client</groupId>
+          <artifactId>google-oauth-client</artifactId>
+          <version>1.32.1</version>
+      </dependency>
+      <dependency>
+          <groupId>com.google.apis</groupId>
+          <artifactId>google-api-services-youtube</artifactId>
+          <version>v3-rev210-1.25.0</version>
+      </dependency>
         <dependency>
-		    <groupId>com.google.api-client</groupId>
-		    <artifactId>google-api-client</artifactId>
-		    <version>1.31.2</version>
-		</dependency>
-		<dependency>
-		    <groupId>com.google.auth</groupId>
-		    <artifactId>google-auth-library-oauth2-http</artifactId>
-		    <version>0.24.0</version>
-		</dependency>
+          <groupId>com.google.api-client</groupId>
+          <artifactId>google-api-client</artifactId>
+          <version>1.31.2</version>
+      </dependency>
+      <dependency>
+          <groupId>com.google.auth</groupId>
+          <artifactId>google-auth-library-oauth2-http</artifactId>
+          <version>0.24.0</version>
+      </dependency>
 
    </dependencies>
     <build>

@@ -175,4 +175,7 @@
 			I_IDX = #{i_idx}
 	</update>
 	
+	<select id="getNewInquiry" resultType="int">
+		select count(*) from inquiry_board where status='A'
+	</select>
 </mapper>

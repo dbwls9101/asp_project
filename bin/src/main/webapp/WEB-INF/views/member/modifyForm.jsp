@@ -11,6 +11,9 @@
 <meta charset="UTF-8">
 <title>내정보 수정</title>
 <link rel="stylesheet" href="/resources/css/member/modifyForm.css"> 
+<!-- iamport.payment.js -->
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 </head>
 <body>
 <jsp:include page="../layout/header.jsp"/>
@@ -43,7 +46,7 @@
 				<li>
 					<span class="subject">ㆍ 이름</span>
 					<input type="text" class="name" id="name" name="name" value = "${principal.member.name }" placeholder="이름" size="10">
-					<button type="button" id="win_hp_cert" class="button round button-purple phone">휴대폰 본인확인</button>	
+					<button type="button" class="button round button-purple phone" id="certification">휴대폰 본인확인</button>	
 				</li>
 				<li>
 					<span class="subject">ㆍ 닉네임</span>
@@ -72,6 +75,8 @@
 			</ul>
 		</div>
 		<div class="button-align center">
+			<input type="hidden" id="certify" name="certify" value="noncheck">
+			<input type="hidden" id="m_idx" name="m_idx" value = "${principal.member.m_idx }">
 			<button type="submit" id="btn_submit" class="button button-point" accesskey="s" onclick="validate(this.form)">정보 수정</button>
 			<a href="/" class="button">취소</a>
 		</div>

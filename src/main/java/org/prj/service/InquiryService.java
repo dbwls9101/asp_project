@@ -49,4 +49,7 @@ public interface InquiryService {
 	
 	// 14. 첨부파일 수정부분에서 삭제
 	public void delete(String uuid);
+	
+	// 새 문의글 개수(status가 A인것)
+	public int getNewInquiry();
 }

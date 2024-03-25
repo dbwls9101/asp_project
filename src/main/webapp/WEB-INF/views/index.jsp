@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,15 +14,14 @@
 </head>
 <body>
 	<jsp:include page="layout/header.jsp"/>
-	<div class="test_div1">컨텐츠1</div>
 	<div class="container2">
 		<div class="container-title">
-			<span class="text-point">파티</span>
+			<span class="text-point">모여라</span> 파티
 		</div>
 		
 		<div class="container2-box">
 			<div class="slide-container">
-				<c:if test="${party.size() >= 8 }">
+				<c:if test="${party.size() >= 10 }">
 					<a class="slide-prev navi" style="display: inline;"></a>
 					<a class="slide-next navi" style="display: inline;"></a>
 				</c:if>
@@ -63,7 +63,7 @@
 										</div>
 													
 										<div id="enddate">~ ${party.end_date}<span id="period">(${party.datediff}일)</span></div>
-										<div id="price">${party.totalprice}원</div>
+										<div id="price"><fmt:formatNumber value="${party.totalprice}" type="number" />원</div>
 									</div>
 								</c:forEach>
 							</c:when>
