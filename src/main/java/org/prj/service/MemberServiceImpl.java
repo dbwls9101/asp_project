@@ -43,7 +43,7 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private WithdrawMapper wMapper;
 	
-//	@Autowired
+	@Autowired
 	private PointMapper poMapper;
 	
 	//회원가입
@@ -220,14 +220,25 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	//결재 후 member -> point 변경
+	@Transactional
 	@Override
-	public void updatePoint(MemberVO vo) {
+	public void updatePoint(PaymentVO vo) {
+		System.out.println("updatePoint vo : " + vo);
+		//포인트 관리 등록
+		poMapper.updatePoint(vo);
+		
+		//회원정보 업데이트
 		membermapper.updatePoint(vo);
 	}
 	
 	//결재 취소 member -> point 반환
+	@Transactional
 	@Override
 	public void pointCancel(PaymentVO vo) {
+		//포인트 관리 등록
+		poMapper.pointCancel(vo);
+		
+		//회원정보 업데이트
 		membermapper.pointCancel(vo);
 	}
 	

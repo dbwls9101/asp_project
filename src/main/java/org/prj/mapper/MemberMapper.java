@@ -52,7 +52,7 @@ public interface MemberMapper {
 	public void updateWithamount(MemberVO vo);
     
 	//결재 후 member -> point 변경
-	public void updatePoint(MemberVO vo);
+	public void updatePoint(PaymentVO vo);
 	
 	//결재 취소 member -> point 반환
 	public void pointCancel(PaymentVO vo);

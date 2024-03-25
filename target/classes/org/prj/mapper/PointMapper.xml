@@ -154,4 +154,38 @@
 	<update id="updateMyinfo" parameterType="org.prj.domain.MemberVO">
 		update point set name=#{name} where m_idx=#{m_idx}
 	</update>
+	
+	<!-- 결제 시 포인트 등록 -->
+	<insert id="updatePoint" parameterType="org.prj.domain.PaymentVO">
+	    <selectKey keyProperty="before_point" order="BEFORE" resultType="int">
+	        select point from member where m_idx=#{m_idx}
+	    </selectKey>
+	    
+	    insert into point(
+	        p_idx,
+	        m_idx, 
+	        content, 
+	        reg_date, 
+	        update_point, 
+	        before_point, 
+	        after_point)
+	    values(seq_point.nextval, #{m_idx}, '결제', sysdate, (#{point}*-1), #{before_point}, (#{before_point} - #{point}))
+	</insert>
+	
+	<!-- 결제 취소 시 포인트 등록 -->
+	<insert id="pointCancel" parameterType="org.prj.domain.PaymentVO">
+		<selectKey keyProperty="before_point" order="BEFORE" resultType="int">
+	        select point from member where m_idx=#{m_idx}
+	    </selectKey>
+	    
+		insert into point(
+			p_idx,
+			m_idx, 
+			content, 
+			reg_date, 
+			update_point, 
+			before_point, 
+			after_point)
+		values(seq_point.nextval, #{m_idx}, '결제취소', sysdate, #{point}, #{before_point}, (#{before_point} + #{point}))
+	</insert>
 </mapper>	

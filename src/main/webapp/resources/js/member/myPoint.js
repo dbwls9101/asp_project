@@ -1,45 +1,42 @@
 //객체 생성 후 반환하는 함수
-//function makeObject(id, pageNum, amount){
-//	let obj = {
-//		id : id,
-//		pageNum : pageNum,
-//		amount : amount,
-//	};
-//	
-//	return obj;
-//}
+function makeObject(pageNum, amount){
+	let obj = {
+		pageNum : pageNum,
+		amount : amount,
+	};
+	
+	return obj;
+}
 
 // list 가져오기
-getPrincipal().then(() => {
+window.onload = function() {
 	
 	let pageData = getStorageData();
+	let obj;
 	
 	if(pageData == null){
-		setStorageData('mypoint', 1, 10);
-		getMyPointList(principal.member.id, 1, 10);
+		setStorageData('myPoing', 1, 10);
+		obj = makeObject(1, 10);
 	}else{		
-		getMyPointList(principal.member.id, pageData.pageNum, pageData.amount);
+		obj = makeObject(pageData.pageNum, pageData.amount);
 	}
-});
+	
+	getPointList(obj);
+};
 
 // list
-function getMyPointList(id, pageNum, amount){
+function getPointList(obj){
 	let msg = "";
 	let page = "";	
 	
-	fetch('/member/myPoint', {
+	fetch('/member/myPointList', {
 		method : 'post',
-		body : JSON.stringify({
-			id : id,
-			pageNum : pageNum,
-			amount : amount
-		}),
+		body : JSON.stringify(obj),
 		headers : {'Content-type' : 'application/json; charset=utf-8'}
 	})
 	.then(response => response.json())
 	.then(json => {
 		let list = json.list;
-		
 		if(list != null && list.length >0){
 			
 			list.forEach(vo => {
@@ -47,7 +44,7 @@ function getMyPointList(id, pageNum, amount){
 				msg += '<td>' + vo.content + '</td>';
 				msg += '<td>' + vo.update_point + '</td>';
 				msg += '<td>' + vo.before_point + '</td>';
-				msg += '<td>' + vo.update_point + '</td>';
+				msg += '<td>' + vo.after_point + '</td>';
 				msg += '<td>' + myTime(vo.reg_date) + '</td>';
 				msg += '</tr>';
 			})
@@ -80,7 +77,7 @@ function getMyPointList(id, pageNum, amount){
 		}
 		
 		
-		document.querySelector("#mypoint-list tbody").innerHTML = msg;
+		document.querySelector("#pointlist tbody").innerHTML = msg;
 		document.querySelector(".page-nation").innerHTML = page;
 	})
 		.then(()=>{
@@ -89,29 +86,32 @@ function getMyPointList(id, pageNum, amount){
 		.catch(err => console.log(err));
 }
 
-//페이지 버튼 클릭 이벤트
+// 페이지 버튼 클릭 이벤트
 function pagingEvent(){
 	document.querySelectorAll(".page-nation li a").forEach(aEle => {
 		aEle.addEventListener('click', function(e){
-			e.preventDefault(); //href 경로 이동 방지
+			e.preventDefault(); // href 경로 이동 방지
 			
-			//태그 속성 불러오기
-			let menu = 'listpage';
+			let pageData = getStorageData();
+			
+			// 태그 속성 불러오기
 			let pageNum = this.getAttribute("href");
 			let amount = 10;
 			
-			setStorageData(menu, pageNum, amount);
+			setStorageData(pageNum, amount);
 			
-			getList(principal.member.m_idx, pageNum, amount);
+			let obj = makeObject(pageNum, amount);
+			getPointList(obj);
 		});
 	});
 }
 
-//포인트 불러오기
-getPrincipal().then(() => {
-	if(document.getElementById("memberPoint")){
-		let point = principal.member.point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-		document.getElementById("memberPoint").innerHTML = point + 'P';
-	}
-});
-
+// unixTimeStamp 변환
+function myTime(unixTimeStamp){
+	let myDate = new Date(unixTimeStamp);
+	let date = myDate.getFullYear() + "-"
+	+ String(myDate.getMonth() + 1).padStart(2, "0") + "-" 
+	+ String(myDate.getDate()).padStart(2, "0");
+	
+	return date;
+}

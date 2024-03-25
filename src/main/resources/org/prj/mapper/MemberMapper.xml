@@ -139,7 +139,7 @@
 	</update>
 	
 	<!-- point 업데이트 -->
-	<update id="updatePoint" parameterType="org.prj.domain.MemberVO">
+	<update id="updatePoint" parameterType="org.prj.domain.PaymentVO">
 		update member set point = (point - #{point}) where m_idx=#{m_idx}
 	</update>
 	
@@ -348,7 +348,7 @@
 		from (select rownum rn, p_idx, m_idx, after_point, before_point, update_point, content, reg_date 
 		from (select a.p_idx, a.m_idx, a.after_point, a.before_point, a.update_point, a.content, a.reg_date
 			from point a, member b
-			where a.m_idx = b.m_idx and b.id = #{id}
+			where a.m_idx = b.m_idx and a.m_idx = #{m_idx}
 			]]>
 		<![CDATA[
 			order by p_idx desc
@@ -362,7 +362,7 @@
 	<select id="getPointTotal" parameterType="org.prj.domain.Criteria" resultType="int">
 		select count(*)
 		from point a, member b
-		where a.m_idx = b.m_idx and b.id = #{id}
+		where a.m_idx = b.m_idx and a.m_idx = #{m_idx}
 		order by p_idx desc
 	</select>
 	

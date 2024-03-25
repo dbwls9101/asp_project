@@ -43,4 +43,12 @@
 		ORDER BY reg_date DESC
 	</select>
 	
+	<!-- 2차 카테고리 추천영상 -->
+	<select id="shopListVideos" resultType="org.prj.domain.VideoVO">
+		SELECT v.*, c.codeone, c.codetwo
+		FROM video v
+		INNER JOIN category c ON v.channel= c.c_secondary
+		where c.codetwo=#{codetwo}
+	</select>
+	
 </mapper>

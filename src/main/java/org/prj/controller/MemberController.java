@@ -25,7 +25,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -421,12 +420,14 @@ public class MemberController {
 	
 	//포인트 리스트
 	@ResponseBody
-	@PostMapping(value="/pointList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public PageDTO getMyPointList(@RequestBody Criteria cri) {
+	@PostMapping(value="/myPointList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public PageDTO getMyPointList(@RequestBody Criteria cri, Authentication authentication, @RequestParam("m_idx") int m_idx) {
 		
+		CustomUser customVo = (CustomUser)authentication.getPrincipal();
+		MemberVO memberVo = customVo.getMember();
+		cri.setM_idx(memberVo.getM_idx());
 		int total = poService.getPointTotal(cri);
 		List<PointVO> list = poService.getPointList(cri);
-		
 		PageDTO pageMaker = new PageDTO(cri, total, list);
 		return pageMaker;
 	}	

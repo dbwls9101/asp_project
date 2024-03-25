@@ -8,6 +8,7 @@ import org.prj.domain.PartyBoardVO;
 import org.prj.domain.RefundVO;
 import org.prj.service.PartyBoardService;
 import org.prj.service.RefundService;
+import org.prj.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -34,6 +35,9 @@ public class ShopController {
 	@Autowired
 	private RefundService rService;
 	
+	@Autowired 
+	private VideoService vService;
+	
 	//카테고리별 리스트
 	@GetMapping("/list/{c1}")
 	public String getList(Model model, @PathVariable("c1") int codeone) {
@@ -49,6 +53,9 @@ public class ShopController {
 			model.addAttribute("category", "기타");
 		}
 		model.addAttribute("codeone", codeone);
+		
+		//추천영상 조회
+		model.addAttribute("video", vService.mainAllVideos());
 		
 		return "/shop/list";
 	}
@@ -92,6 +99,9 @@ public class ShopController {
 		}
 		model.addAttribute("codeone", codeone);
 		model.addAttribute("codetwo", codetwo);
+		
+		//추천영상 조회
+		model.addAttribute("video", vService.shopListVideos(codetwo));
 		
 		return "/shop/list";
 	}

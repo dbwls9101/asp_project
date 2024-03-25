@@ -138,13 +138,17 @@ function getList(obj){
 			let status = '';
 			
 			if (vo.pay_status == 'A') {
-				status = '대기';
+				status = '결제대기';
 			}else if (vo.pay_status == 'B') {
 				status = '결제완료';
 			}else if (vo.pay_status == 'C') {
 				status = '환불신청';
-			}else {
-				status = '취소완료';
+			}else if (vo.pay_status == 'D') {
+				status = '결제취소';
+			}else if (vo.pay_status == 'E'){
+				status = '환불반려';
+			}else{
+				status = '환불완료';
 			}
 			
 			msg += '<tr>';
@@ -154,12 +158,16 @@ function getList(obj){
 			msg += '<td>' + vo.id + '</td>';
 			msg += '<td>' + vo.name + '</td>';
 			msg += '<td>' + vo.pay_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
-			msg += '<td>' + (vo.pay_amount - vo.point).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
+			if (vo.pay_amount == 0) {
+				msg += '<td>0원</td>';
+			}else {
+				msg += '<td>' + (vo.pay_amount - vo.point).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
+			}
 			msg += '<td>' + vo.point.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + 'P</td>';
 			msg += '<td>' + vo.approved_at + '</td>';
 			msg += '<td>' + status + '</td>';
 			if (vo.pay_status == 'B') {
-				msg += '<td>' + '<button type="button" id="partydelete" onclick="cancelBtn(' + vo.order_no + ')" style="width: 65px;">결제취소</button>' + '</td>';
+				msg += '<td>' + '<button type="button" id="partydelete" onclick="cancelBtn(\'' + vo.order_no + '\', \'' + vo.pay_amount + '\')" style="width: 65px;">결제취소</button>' + '</td>';
 			} else if(vo.pay_status == 'C') {
 				msg += '<td>-</td>';
 			} else {
@@ -243,18 +251,24 @@ function detailBtn(order_no) {
 
 //결제취소 버튼
 const ps = payService;
-function cancelBtn(order_no) {
+function cancelBtn(order_no, pay_amount) {
 	if (confirm('결제 취소하시겠습니까?')) {
-		ps.cancel(order_no, function(result) {
-			console.log(result);
-			location.reload();
-		})
+		if (pay_amount == 0) {
+			ps.zeroCancel(order_no, function(result) {
+				console.log(result);
+				location.reload();
+			})
+		}else {
+			ps.cancel(order_no, function(result) {
+				console.log(result);
+				location.reload();
+			})
+		}
 	}else {
 		alert('결제 취소를 실패하였습니다.');
 		return;
 	}
 }
-
 
 //unixTimeStamp 변환
 function myTime(unixTimeStamp){

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.prj.domain.Criteria;
 import org.prj.domain.MemberVO;
+import org.prj.domain.PaymentVO;
 import org.prj.domain.PointVO;
 import org.prj.domain.RefundVO;
 
@@ -21,4 +22,9 @@ public interface PointMapper {
 	public void doRefundApproval(RefundVO vo);
 	//내 정보 변경
 	public void updateMyinfo(MemberVO vo);
+	//결제 시 포인트 등록
+	public void updatePoint(PaymentVO vo);
+	//결제 취소 시 포인트 등록
+	public void pointCancel(PaymentVO vo);
+	
 }
