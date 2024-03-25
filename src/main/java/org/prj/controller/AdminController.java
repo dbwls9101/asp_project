@@ -31,6 +31,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -370,10 +371,16 @@ public class AdminController {
 	
 	//포인트 적립
 	@ResponseBody
+	@Transactional
 	@PostMapping(value="/pointInsert", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public int setpointInsert(@RequestBody PointVO pointvo) {
 		
 		int result = poService.pointInsert(pointvo);
+		
+		//member table update 
+		if(result == 1) {
+			result= mService.updateMyPoint(pointvo);
+		}
 		
 		return result;
 	}	

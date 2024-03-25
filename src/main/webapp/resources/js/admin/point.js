@@ -42,23 +42,32 @@ function getPointList(obj){
 	.then(response => response.json())
 	.then(json => {
 		let list = json.list;
-	
-		list.forEach(vo => {
-			msg += '<tr>';
-			msg += '<td>' + '<input type="radio" name="pointup" data-id=' + vo.id + ' data-name=' + vo.name + ' data-after_point=' + vo.after_point + '></td>';
-			msg += '<td>' + vo.id + '</td>';
-			msg += '<td>' + vo.name + '</td>';
-			msg += '<td>' + vo.content + '</td>';
-			if(vo.update_point > 0){
-				msg += '<td class="plusPoint">' + '+' + vo.update_point + 'P</td>';
-			}else{
-				msg += '<td class="minusPoint">' + vo.update_point + 'P</td>';
+		if(list != null && list.length >0){
+			
+			list.forEach(vo => {
+				msg += '<tr>';
+				msg += '<td>' + '<input type="radio" name="pointup" data-id=' + vo.id + ' data-name=' + vo.name + ' data-after_point=' + vo.after_point + '></td>';
+				msg += '<td>' + vo.id + '</td>';
+				msg += '<td>' + vo.name + '</td>';
+				msg += '<td>' + vo.content + '</td>';
+				if(vo.update_point > 0){
+					msg += '<td class="plusPoint">' + '+' + vo.update_point + 'P</td>';
+				}else{
+					msg += '<td class="minusPoint">' + vo.update_point + 'P</td>';
+				}
+				msg += '<td>' + vo.before_point + 'P</td>';
+				msg += '<td>' + vo.after_point + 'P</td>';
+				msg += '<td>' + myTime(vo.reg_date) + '</td>';
+				msg += '</tr>';
+			})
+			document.querySelector("#registerOpen").style.display = 'inline-block';
+		}else{
+			document.querySelector("#registerOpen").style.display = 'none';
+				msg += '<tr>';
+				msg += '<td colspan="8">' + '내역이 없습니다.' + '</td>';
+				msg += '</tr>';	
+				
 			}
-			msg += '<td>' + vo.before_point + 'P</td>';
-			msg += '<td>' + vo.after_point + 'P</td>';
-			msg += '<td>' + myTime(vo.reg_date) + '</td>';
-			msg += '</tr>';
-		})
 		
 		// 페이징
 		if(json.prev){

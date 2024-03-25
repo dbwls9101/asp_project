@@ -2,17 +2,23 @@ package org.prj.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.prj.domain.Criteria;
 import org.prj.domain.MemberVO;
+import org.prj.domain.PageDTO;
+import org.prj.domain.PartyBoardVO;
+import org.prj.domain.PaymentVO;
 import org.prj.domain.PointVO;
 import org.prj.security.CustomUserDetailService;
 import org.prj.security.domain.CustomUser;
 import org.prj.service.MemberService;
+import org.prj.service.PartyBoardService;
 import org.prj.service.PointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -51,6 +57,8 @@ public class MemberController {
     private CustomUserDetailService customUserDetailService;
 	@Autowired 
 	private PointService poService;	
+	@Autowired 
+	private PartyBoardService pService;
 
 	// 개인정보 동의 페이지 이동
 	@RequestMapping(value = "joinAgree", method = RequestMethod.GET)
@@ -372,5 +380,35 @@ public class MemberController {
 	@GetMapping("/myPoint")
 	public void movemyPoint() {
 		log.info("movemyPoint...");
+	}
+	
+	
+	// 탈퇴
+	@ResponseBody
+	@PostMapping(value="/deleteMemberCheck", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String deleteMemberCheck( Authentication authentication) {
+		log.info("deleteMemberCheck...");
+		String result = ""; // A,B 탈퇴 가능 / C 탈퇴 불가능
+		CustomUser customVo = (CustomUser)authentication.getPrincipal();
+		MemberVO memberVo = customVo.getMember();
+		
+		if("B".equals(memberVo.getLevel())) { //파티장
+			int partyCnt = pService.getMyPartyTotal(memberVo.getM_idx());
+			if(partyCnt > 0) {
+				result = "C"; //파티장이면서 내가만든 파티가 있는 경우 
+				return result;
+			}
+		}
+		
+		//파티장이든, 파티원이든 판단
+		List<PartyBoardVO> partyList = pService.getParticipating(memberVo.getId());
+		if(partyList.size() > 0) {
+			result = "A"; //참여중인 파티가 존재
+		}else {
+			result = "B"; // 참여중인 파티가 미존재
+		}
+		
+		
+		return result;
 	}
 }

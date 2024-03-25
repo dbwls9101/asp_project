@@ -58,7 +58,7 @@
 									<ul class="profile-menu">
 										<li>
 											<div class="point">
-												<a href="/myPoint">
+												<a href="/member/myPoint">
 												<span class="icon"><img alt="icon" src="/resources/images/point.png"></span>
 												<span class="point-text">POINT</span>
 												</a>

@@ -6,6 +6,9 @@
 	
 	<!-- 포인트 적립 -->
 	<insert id="pointInsert" parameterType="org.prj.domain.PointVO">
+		<selectKey keyProperty="after_point" order="BEFORE" resultType="int">
+	        select nvl((select after_point from(select * from point where m_idx = #{m_idx} order by reg_date desc) where rownum=1),0)+ #{update_point} from dual
+	    </selectKey>
 		insert into point 
 		(
 			p_idx,
@@ -27,9 +30,12 @@
 		        <when test='content.equals("payment")'>
 		            '결제',
 		        </when>
+		        <when test='content.equals("paymentCancel")'>
+		            '결제취소',
+		        </when>		        
 		        <when test='content.equals("refund")'>
 		            '환불',
-		        </when>
+		        </when>		        
 		        <when test='content.equals("etc")'>
 		            '기타 : '|| #{contentDetail},
 		        </when>
@@ -39,6 +45,7 @@
 			nvl((select after_point from(select * from point where m_idx = #{m_idx} order by reg_date desc) where rownum=1),0), 
 			nvl((select after_point from(select * from point where m_idx = #{m_idx} order by reg_date desc) where rownum=1),0)+ #{update_point}
 		)
+		
 	</insert>
 	
 	<!-- 포인트 리스트  -->
@@ -58,6 +65,9 @@
 		        <when test='category.equals("payment")'>
 		            and to_char(a.content) = '결제'
 		        </when>
+		        <when test='category.equals("paymentCancel")'>
+		            and to_char(a.content) = '결제취소'
+		        </when>		        
 		        <when test='category.equals("refund")'>
 		            and to_char(a.content) = '환불'
 		        </when>
@@ -97,6 +107,9 @@
 		        <when test='category.equals("payment")'>
 		            and to_char(a.content) = '결제'
 		        </when>
+		        <when test='category.equals("paymentCancel")'>
+		            and to_char(a.content) = '결제취소'
+		        </when>		        
 		        <when test='category.equals("refund")'>
 		            and to_char(a.content) = '환불'
 		        </when>
@@ -141,4 +154,5 @@
 	<update id="updateMyinfo" parameterType="org.prj.domain.MemberVO">
 		update point set name=#{name} where m_idx=#{m_idx}
 	</update>
+	
 </mapper>	

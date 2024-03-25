@@ -336,4 +336,9 @@
 		update member set point=(point + #{re_amount}) where m_idx=#{m_idx}
 	</update>
 	
+	<!-- 업데이트 마이 포인트 -->
+	<update id="updateMyPoint" parameterType="org.prj.domain.PointVO">
+		update member set point=#{after_point} where m_idx=#{m_idx}
+	</update>
+	
 </mapper>	
