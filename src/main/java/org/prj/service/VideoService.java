@@ -18,4 +18,7 @@ public interface VideoService {
 	
 	//메인 추천영상
 	public List<VideoVO> mainAllVideos();
+	
+	//2차 카테고리 추천영상
+	public List<VideoVO> shopListVideos(int codetwo);
 }

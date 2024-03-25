@@ -2,6 +2,7 @@ package org.prj.service;
 
 import org.prj.mapper.MemberMapper;
 import org.prj.mapper.PartyBoardMapper;
+import org.prj.mapper.PointMapper;
 import org.prj.mapper.RefundMapper;
 import org.prj.mapper.WithdrawMapper;
 
@@ -41,14 +42,14 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private WithdrawMapper wMapper;
 	
-//	@Autowired
-//	point pointMapper;
+	@Autowired
+	private PointMapper poMapper;
 	
 	//회원가입
 	@Override
-	public void memberJoin(MemberVO member) throws Exception {
+	public int memberJoin(MemberVO member) throws Exception {
 		
-		membermapper.memberJoin(member);
+		return membermapper.memberJoin(member);
 	}
 	
 	//아이디 중복 검사
@@ -191,7 +192,7 @@ public class MemberServiceImpl implements MemberService{
 			wMapper.updateMyinfo(member);
 			
 			//point(name update) - m_idx
-			//pointMapper.updateMyinfo(member);
+			poMapper.updateMyinfo(member);
 			
 		}
 		return membermapper.updateMypage(member);
@@ -222,14 +223,25 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	//결재 후 member -> point 변경
+	@Transactional
 	@Override
-	public void updatePoint(MemberVO vo) {
+	public void updatePoint(PaymentVO vo) {
+		System.out.println("updatePoint vo : " + vo);
+		//포인트 관리 등록
+		poMapper.updatePoint(vo);
+		
+		//회원정보 업데이트
 		membermapper.updatePoint(vo);
 	}
 	
 	//결재 취소 member -> point 반환
+	@Transactional
 	@Override
 	public void pointCancel(PaymentVO vo) {
+		//포인트 관리 등록
+		poMapper.pointCancel(vo);
+		
+		//회원정보 업데이트
 		membermapper.pointCancel(vo);
 	}
 	

@@ -11,7 +11,7 @@ import org.prj.domain.PaymentVO;
 public interface MemberService {
 	
 	//회원가입
-	public void memberJoin(MemberVO member) throws Exception;
+	public int memberJoin(MemberVO member) throws Exception;
 	
 	//아이디 중복 검사
 	public int idCheck(String id) throws Exception;
@@ -50,7 +50,7 @@ public interface MemberService {
 	public void updateWithamount(MemberVO vo);
 	
 	//결재 후 member -> point 변경
-	public void updatePoint(MemberVO vo);
+	public void updatePoint(PaymentVO vo);
 	
 	//결재 취소 member -> point 반환
 	public void pointCancel(PaymentVO vo);

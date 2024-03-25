@@ -372,6 +372,8 @@ function modal(){
 	document.querySelector("#partnerInfo").addEventListener('click', ()=>{
 		document.getElementById("modal").style.display = 'flex';
 		document.body.style.overflow = 'hidden';
+		
+		
 	})
 
 	//모달창 close

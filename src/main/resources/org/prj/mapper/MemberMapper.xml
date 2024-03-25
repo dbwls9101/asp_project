@@ -37,6 +37,9 @@
 	
 	<!-- 회원가입 -->
 	<insert id="memberJoin" parameterType="org.prj.domain.MemberVO">
+		<selectKey keyProperty="m_idx" order="BEFORE" resultType="int">
+	        select seq_member.nextval from dual
+	    </selectKey>
 		insert into member 
 		(
 			M_IDX, 
@@ -57,7 +60,7 @@
 		)
 			values 
 		(
-			seq_member.nextval, 
+			#{m_idx}, 
 			#{id}, 
 			#{password}, 
 			#{name}, 
@@ -136,7 +139,7 @@
 	</update>
 	
 	<!-- point 업데이트 -->
-	<update id="updatePoint" parameterType="org.prj.domain.MemberVO">
+	<update id="updatePoint" parameterType="org.prj.domain.PaymentVO">
 		update member set point = (point - #{point}) where m_idx=#{m_idx}
 	</update>
 	
@@ -327,4 +330,10 @@
 	        </otherwise>
 	    </choose>
 	</update>
+	
+	<!-- 환불 승인 -->
+	<update id="doRefundApproval" parameterType="org.prj.domain.RefundVO">
+		update member set point=(point + #{re_amount}) where m_idx=#{m_idx}
+	</update>
+	
 </mapper>	

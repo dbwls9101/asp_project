@@ -3,6 +3,7 @@ package org.prj.controller;
 import java.io.IOException;
 import java.util.List;
 
+
 import org.prj.controller.AdminController;
 import org.prj.domain.CategoryVO;
 import org.prj.domain.Criteria;
@@ -10,13 +11,16 @@ import org.prj.domain.FaqVO;
 import org.prj.domain.MemberVO;
 import org.prj.domain.PageDTO;
 import org.prj.domain.PartyBoardVO;
+import org.prj.domain.PointVO;
 import org.prj.domain.PaymentVO;
+import org.prj.domain.RefundVO;
 import org.prj.domain.VideoVO;
 import org.prj.service.CategoryService;
 import org.prj.service.FaqService;
 import org.prj.service.InquiryService;
 import org.prj.service.MemberService;
 import org.prj.service.PartyBoardService;
+import org.prj.service.PointService;
 import org.prj.service.PaymentService;
 import org.prj.service.RefundService;
 import org.prj.service.VideoService;
@@ -60,6 +64,9 @@ public class AdminController {
 	@Autowired
 	private WithdrawService wService;
 	
+	@Autowired 
+	private PointService poService;
+
 	@Autowired
 	private PaymentService payService;
 	
@@ -181,6 +188,33 @@ public class AdminController {
 	public String moveRefund() {
 		log.info("moveRefund...");
 		return "/admin/refund";
+	}
+	
+	//환불 관리
+	@ResponseBody
+	@PostMapping(value="/refund", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public PageDTO getRefundList(@RequestBody Criteria cri) {
+		int total = rService.getRefundTotal(cri);
+		List<RefundVO> list = rService.getRefundList(cri);
+		
+		PageDTO pageMakger = new PageDTO(cri, total, list);
+		return pageMakger;
+	}
+	
+	//환불 승인
+	@ResponseBody
+	@PostMapping(value="/refundapproval", produces = MediaType.TEXT_PLAIN_VALUE)
+	public String doRefundApproval(@RequestBody RefundVO vo) {
+		int result = rService.doRefundApproval(vo);
+		return result > 0 ? "success" : "fail";
+	}
+	
+	//환불 반려
+	@ResponseBody
+	@PostMapping(value="/refundreturn", produces = MediaType.TEXT_PLAIN_VALUE)
+	public String doRefundReturn(@RequestBody RefundVO vo) {
+		int result = rService.doRefundReturn(vo);
+		return result > 0 ? "success" : "fail";
 	}
 	
 	// 출금 관리
@@ -328,6 +362,47 @@ public class AdminController {
 		return cService.changeCategoryStatus(vo) > 0 ? "success" : "fail";
 	}
 	
+	//포인트 관리 페이지 이동
+	@GetMapping("/point")
+	public void movePoint() {
+		log.info("movePoint...");
+	}
+	
+	//포인트 적립
+	@ResponseBody
+	@PostMapping(value="/pointInsert", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public int setpointInsert(@RequestBody PointVO pointvo) {
+		
+		int result = poService.pointInsert(pointvo);
+		
+		return result;
+	}	
+	//포인트 리스트
+	@ResponseBody
+	@PostMapping(value="/pointList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public PageDTO getpointList(@RequestBody Criteria cri) {
+		
+		int total = poService.getPointTotal(cri);
+		List<PointVO> list = poService.getPointList(cri);
+		
+		PageDTO pageMaker = new PageDTO(cri, total, list);
+		return pageMaker;
+	}	
+	//최종 포인트 조회
+	@ResponseBody
+	@PostMapping(value="/pointSearch", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public PointVO getpointDetail(@RequestBody String id) {
+		
+		PointVO result = poService.pointSearch(id);
+
+		return result;
+	}	
+	//포인트 관리 이동
+	@GetMapping("/pointSetting")
+	public void movepointSetting() {
+		log.info("movepointSetting...");
+	}
+
 	//회원관리
 	@GetMapping("/member")
 	public void moveMember() {

@@ -13,4 +13,7 @@ public class VideoVO {
 	private int idx;
 	private String title, description, videoid, thumbnailurl, channelid, channel;
 	private Date reg_date;
+	
+	//가상컬럼
+	private int codeone, codetwo; 
 }

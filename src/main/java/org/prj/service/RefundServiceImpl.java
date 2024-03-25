@@ -1,7 +1,12 @@
 package org.prj.service;
 
+import java.util.List;
+
+import org.prj.domain.Criteria;
 import org.prj.domain.RefundVO;
+import org.prj.mapper.MemberMapper;
 import org.prj.mapper.PaymentMapper;
+import org.prj.mapper.PointMapper;
 import org.prj.mapper.RefundMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +22,13 @@ public class RefundServiceImpl implements RefundService{
 	
 	@Autowired
 	private PaymentMapper payMapper;
+	
+	@Autowired
+	private PointMapper poMapper;
+	
+	@Autowired
+	private MemberMapper mMapper;
+	
 
 	@Transactional
 	@Override
@@ -31,6 +43,40 @@ public class RefundServiceImpl implements RefundService{
 	public int getNewRefund() {
 		return rMapper.getNewRefund();
 	}
-	
-	
+
+	@Override
+	public int getRefundTotal(Criteria cri) {
+		return rMapper.getRefundTotal(cri);
+	}
+
+	@Override
+	public List<RefundVO> getRefundList(Criteria cri) {
+		return rMapper.getRefundList(cri);
+	}
+
+	@Transactional
+	@Override
+	public int doRefundApproval(RefundVO vo) {
+		//payment - pay_status, refund_amount
+		payMapper.doRefundApproval(vo);
+		
+		//point - insert
+		poMapper.doRefundApproval(vo);
+		
+		//member - point
+		mMapper.doRefundApproval(vo);
+		
+		//refund - re_status, refund_date
+		return rMapper.doRefundApproval(vo);
+	}
+
+	@Transactional
+	@Override
+	public int doRefundReturn(RefundVO vo) {
+		//payment - pay_status, note
+		payMapper.doRefundReturn(vo);
+		
+		//refund - re_status, refund_date, rejection
+		return rMapper.doRefundReturn(vo);
+	}
 }

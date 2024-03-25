@@ -138,13 +138,17 @@ function getList(obj){
 			let status = '';
 			
 			if (vo.pay_status == 'A') {
-				status = '대기';
+				status = '결제대기';
 			}else if (vo.pay_status == 'B') {
 				status = '결제완료';
 			}else if (vo.pay_status == 'C') {
 				status = '환불신청';
-			}else {
-				status = '취소완료';
+			}else if (vo.pay_status == 'D') {
+				status = '결제취소';
+			}else if (vo.pay_status == 'E'){
+				status = '환불반려';
+			}else{
+				status = '환불완료';
 			}
 			
 			msg += '<tr>';

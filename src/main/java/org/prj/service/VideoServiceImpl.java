@@ -85,4 +85,9 @@ public class VideoServiceImpl implements VideoService {
     public List<VideoVO> mainAllVideos() {
     	return vMapper.mainAllVideos();
     }
+    
+    @Override
+    public List<VideoVO> shopListVideos(int codetwo) {
+    	return vMapper.shopListVideos(codetwo);
+    }
 }
