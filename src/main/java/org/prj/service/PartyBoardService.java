@@ -41,6 +41,8 @@ public interface PartyBoardService {
 	public List<PartyBoardVO> mainAllParty();
 	//환불 금액 계산을 위해 일금액, 남은 기간 불러오기
 	public PartyBoardVO getCurrentPartyInfo(int p_idx);
+	//파티장 -파티삭제
+	public void deleteParty(int p_idx);
 	
 	//================관리자=======================
 	//파티 개수

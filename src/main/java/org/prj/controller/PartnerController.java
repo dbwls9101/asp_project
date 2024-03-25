@@ -75,7 +75,6 @@ public class PartnerController {
 		}else if(cri.getCategory().length() == 2) {
 			cri.setCodeone(Integer.valueOf(codeone));
 		}
-		System.out.println(cri);
 		
 		int total = pService.getManageSearchTotal(cri);
 		List<PartyBoardVO> list = pService.getManageSearchList(cri);
@@ -129,6 +128,13 @@ public class PartnerController {
 		log.info("modifyParty..." + vo);
 		pService.updateParty(vo);
 		return "redirect:/partner/manage";
+	}
+	
+	//파티 삭제
+	@GetMapping("/removeparty")
+	public String removeParty(@RequestParam("pn") int p_idx) {
+		pService.deleteParty(p_idx);
+		return "/partner/manage";
 	}
 	
 	//댓글 보기

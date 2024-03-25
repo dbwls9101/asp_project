@@ -12,4 +12,5 @@ public interface PartyReplyMapper {
 	public List<PartyCommentVO> getReplyList(Criteria cri);
 	public PartyCommentVO getReply(int c_idx);
 	public int getMyPartyReplyTotal(String comment_to);
+	public void deleteParty(int p_idx);
 }

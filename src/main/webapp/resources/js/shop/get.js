@@ -61,11 +61,18 @@ const replyf = document.querySelector("#replyform");
 
 //내가 생성한 파티가 아닐 경우
 function notPartyWriter(){
+	let c1 = urlParams.get('c1');
+	let c2 = urlParams.get('c2');
 	let partyMembers = document.querySelectorAll("#mnickname");
 	let partycheck = false;
 	
 	//참여 버튼
 	document.querySelector("#participate").addEventListener('click', function() {
+		if(f.status.value == 'N'){
+			alert('마감된 파티입니다.');
+    		return;
+		}
+		
     	if(principal == 'anonymousUser'){
     		alert('로그인 후 이용가능한 서비스입니다.');
     		return;
@@ -91,7 +98,12 @@ function notPartyWriter(){
     	}
     	
     	if(partycheck == false){
-    		f.action = '/payment/orderform';
+    		f.action = '/payment/orderform?c1=' + c1;
+    		if(c2 != null){
+    			f.action = '/payment/orderform?c1=' + c1 + '&c2=' + c2;
+			}else{
+				f.action = '/payment/orderform?c1=' + c1;
+			}
 	    	f.submit();
     	}
 	});
@@ -107,10 +119,22 @@ function notPartyWriter(){
 				location.href = '/partner/' + pageData.menu;
 			}
 		}else{
-			history.back(-1);
+			let c1 = urlParams.get('c1');
+			let c2 = urlParams.get('c2');
+			let participating = urlParams.get('participating');
+			if(participating == null){
+				if(c2 != null){
+					location.href = '/shop/list/' + c1 + '/' + c2;
+				}else{
+					location.href = '/shop/list/' + c1;
+				}
+			}else{
+				history.back(-1);
+			}
 		}
 	});
 }
+
 
 //내가 생성한 파티일 경우
 function partyWriter(){
@@ -130,7 +154,13 @@ function partyWriter(){
 				location.href = '/partner/' + pageData.menu;
 			}
 		}else{
-			history.back(-1);
+			let c1 = urlParams.get('c1');
+			let c2 = urlParams.get('c2');
+			if(c2 != ''){
+				location.href = '/shop/list/' + c1 + '/' + c2;
+			}else{
+				location.href = '/shop/list/' + c1;
+			}
 		}
 	});
 }

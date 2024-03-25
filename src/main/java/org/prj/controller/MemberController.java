@@ -19,6 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -78,7 +79,6 @@ public class MemberController {
 	}
 
 	// 회원가입
-	
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String joinPOST(MemberVO member, Model model, HttpSession session, PointVO point) throws Exception {
 		// log.info("join 진입");
@@ -278,10 +278,9 @@ public class MemberController {
 	// 비밀번호 변경 (비밀번호 찾기)
 	@Autowired
 	private PasswordEncoder newPwencoder;
-
+	
 	@RequestMapping(value = "/updatePw", method = RequestMethod.POST)
 	public String updatePw(HttpSession session, @RequestParam("newPassword") String password) throws Exception {
-
 		MemberVO vo1 = (MemberVO) session.getAttribute("findMemberVo");
 		vo1.setPassword(newPwencoder.encode(password));
 		memberservice.updatePw(vo1);
@@ -293,7 +292,6 @@ public class MemberController {
 	// 회원정보확인 페이지
 	@GetMapping("/mypage")
 	public String moveMypage() {
-		
 		log.info("moveMypage...");
 		return "/member/mypage";
 	}

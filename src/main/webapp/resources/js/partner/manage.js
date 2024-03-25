@@ -7,7 +7,6 @@ document.querySelector("#makeparty").addEventListener('click', ()=>{
 getAllCategory();
 function getAllCategory(){
 	let msg = "";
-	
 	fetch('/partner/allcategory')
 	.then(response => response.json())
 	.then(json => {
@@ -139,11 +138,21 @@ function multiSearchList(obj){
 			msg += '<td><a href="/shop/get?c1=' + vo.codeone + '&c2=' + vo.codetwo + '&pn=' + vo.p_idx + '">[' + vo.c_secondary + '] ' +  vo.title + '</a></td>';
 			msg += '<td>' + vo.price + '원</td>';
 			msg += '<td>' + vo.curr_party + ' / ' + vo.party_num + '</td>';
-			msg += '<td>' + vo.datediff + '일</td>';
+			
+			if(vo.status == 'N'){
+				if(vo.datediff<0){
+					msg += '<td>기간 종료 마감</td>';
+				}else{
+					msg += '<td>관리자 마감</td>';
+				}
+			}else{
+				msg += '<td>' + vo.datediff + '일</td>';
+			}
+			
 			msg += '<td>' + myTime(vo.end_date) + '</td>';
 			msg += '<td>' + myTime(vo.reg_date) + '</td>';
 			msg += '<td><input type="button" id="partymodify" value="수정" onclick="modifyBtnEvent(' + vo.p_idx + ')">';
-			msg += '&nbsp;<input type="button" id="partydelete" value="삭제"onclick="deleteBtnEvent(' + vo.p_idx + ')"></td>';
+			msg += '&nbsp;<input type="button" id="partydelete" value="삭제"onclick="deleteBtnEvent(' + vo.p_idx + '\,' + vo.curr_party + '\, \'' + vo.status + '\')"></td>';
 			msg += '</tr>';
 		})
 		
@@ -231,8 +240,16 @@ function modifyBtnEvent(p_idx){
 	location.href = '/partner/modify?pn=' + p_idx;
 }
 
-function deleteBtnEvent(p_idx){
+function deleteBtnEvent(p_idx, curr_party, status){
+	if(curr_party > 0 && status == 'Y'){
+		alert('파티원이 있을 경우 파티를 삭제할 수 없습니다.');
+		return;
+	}
 	
+	if(confirm('해당 파티를 삭제하시겠습니까?')){
+		localStorage.clear();
+		location.href = '/partner/removeparty?pn=' + p_idx;
+	}
 }
 
 //unixTimeStamp 변환

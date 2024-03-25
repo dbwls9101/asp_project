@@ -6,8 +6,10 @@ import org.prj.domain.Criteria;
 import org.prj.domain.MemberVO;
 import org.prj.domain.PartyBoardVO;
 import org.prj.mapper.PartyBoardMapper;
+import org.prj.mapper.PartyReplyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.log4j.Log4j;
 
@@ -17,6 +19,9 @@ public class PartyBoardServiceImpl implements PartyBoardService{
 	
 	@Autowired
 	private PartyBoardMapper pMapper;
+	
+	@Autowired
+	private PartyReplyMapper prMapper;
 	
 	@Override
 	public void registerParty(PartyBoardVO vo) {
@@ -133,5 +138,14 @@ public class PartyBoardServiceImpl implements PartyBoardService{
 	@Override
 	public PartyBoardVO getCurrentPartyInfo(int p_idx) {
 		return pMapper.getCurrentPartyInfo(p_idx);
+	}
+
+	@Transactional
+	@Override
+	public void deleteParty(int p_idx) {
+		//댓글 삭제
+		prMapper.deleteParty(p_idx);
+		//게시글 삭제
+		pMapper.deleteParty(p_idx);
 	}
 }

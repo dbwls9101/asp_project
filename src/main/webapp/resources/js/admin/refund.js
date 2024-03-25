@@ -105,7 +105,8 @@ function getList(obj){
 			}
 			
 			msg += '<td><input type="button" id="refundmanage" value="상세" onclick="refundManageBtn(\'' + vo.r_idx + '\', \'' + vo.name 
-				+ '\', \'' + vo.id + '\', \'' + vo.re_amount + '\', \'' + vo.reason + '\', \'' + vo.order_no + '\', \'' + vo.m_idx + '\', \'' + vo.re_status +  '\')"></td>';
+				+ '\', \'' + vo.id + '\', \'' + vo.re_amount + '\', \'' + vo.reason + '\', \'' + vo.order_no + '\', \'' + vo.m_idx 
+				+ '\', \'' + vo.re_status + '\', \'' + vo.p_idx +  '\')"></td>';
 			msg += '</tr>';
 		})
 		
@@ -180,7 +181,7 @@ function radioEvent(){
 let ref = document.forms[1];
 
 //회원 상세 / 수정
-function refundManageBtn(r_idx, name, id, re_amount, reason, order_no, m_idx, re_status){
+function refundManageBtn(r_idx, name, id, re_amount, reason, order_no, m_idx, re_status, p_idx){
 	document.querySelector("textarea[name='rejection']").value = '';
 	
 	document.getElementById("modal").style.display = 'flex';
@@ -211,6 +212,7 @@ function refundManageBtn(r_idx, name, id, re_amount, reason, order_no, m_idx, re
 	ref.m_idx.value = m_idx;
 	ref.id.value = id;
 	ref.name.value = name;
+	ref.p_idx.value = p_idx;
 }
 
 document.querySelector("#approval").addEventListener('click', ()=>{
@@ -224,7 +226,8 @@ document.querySelector("#approval").addEventListener('click', ()=>{
 			order_no : ref.order_no.value,
 			m_idx : ref.m_idx.value,
 			id : ref.id.value,
-			name : ref.name.value
+			name : ref.name.value,
+			p_idx : ref.p_idx.value
 		};
 	if(confirm('해당 환불 요청 건을 승인하시겠습니까?')){
 		fetch('/admin/refundapproval', {

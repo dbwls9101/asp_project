@@ -190,10 +190,6 @@ public class MemberServiceImpl implements MemberService{
 			
 			//withdraw(name, phone update) - m_idx
 			wMapper.updateMyinfo(member);
-			
-			//point(name update) - m_idx
-			poMapper.updateMyinfo(member);
-			
 		}
 		return membermapper.updateMypage(member);
 	}
