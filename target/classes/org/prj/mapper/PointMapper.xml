@@ -134,7 +134,7 @@
 	    </selectKey>
 	    
 		insert into point
-		values(seq_point.nextval, #{m_idx}, #{id}, (#{before_point} + #{re_amount}), #{before_point}, #{re_amount}, '환불', sysdate, #{name})
+		values(seq_point.nextval, #{m_idx}, (#{before_point} + #{re_amount}), #{before_point}, #{re_amount}, '환불', sysdate)
 	</insert>
 	
 	<!-- 내 정보 변경 -->

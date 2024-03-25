@@ -3,6 +3,14 @@ IMP.init("imp45030755");   /* imp~ : 가맹점 식별코드*/
 	
 const f = document.forms[0];
 
+//툴팁 초기화
+window.addEventListener('load', function() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+});
+
 //list 가져오기
 getPrincipal().then(() => {
 	let pageData = getStorageData();
@@ -69,9 +77,9 @@ function getList(m_idx, pageNum, amount){
 						msg += '<td>' + (vo.pay_amount - vo.point).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
 					}
 	    			msg += '<td>' + vo.point.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + 'P</td>';
-	    			msg += '<td><span class="refund-amount">' + vo.refund_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '</span>원</td>';
+	    			msg += '<td><span class="refund-amount">' + vo.refund_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '</span>P</td>';
 
-	                if (vo.pay_status == 'B') {
+	                if (vo.pay_status == 'B' || vo.pay_status == 'E') {
 	                    let todayTimestamp = new Date(); //오늘 날짜
 	                    let nextDayTimestamp = calculateNextDay(vo.approved_at); //결제일로 부터 24시간 뒤
 
@@ -90,9 +98,16 @@ function getList(m_idx, pageNum, amount){
 	                	msg += '<td>-</td>';
 	                }
 	                
-	                msg += '<td>' + status + '</td>';
+	                if(vo.pay_status == 'E'){
+	                	msg += '<td>' + status;
+	                	msg += '<button type="button" class="btn btn-secondary tip" data-bs-toggle="tooltip" data-bs-placement="top" data-html="true" data-original-title="사유 : ' + vo.note + '">'
+	                	msg += '<i class="fas fa-fw fa-question reason" style="margin-right: 1px;"></i></button></td>';
+	                }else{
+	                	msg += '<td>' + status + '</td>';
+	                }
+	                
 	                msg += '</tr>';
-
+	                
 	                return msg;
 	            })
 	            .catch(err => console.log(err));

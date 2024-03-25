@@ -17,7 +17,7 @@ function getDetailInfo(){
 			if(datediff <= 0){
 				alert('이미 마감된 파티입니다.');
 			}else{
-				location.href = '/shop/get?c1=' + codeone + '&c2=' + codetwo + '&pn=' + p_idx;
+				location.href = '/shop/get?c1=' + codeone + '&c2=' + codetwo + '&pn=' + p_idx + '&participating=y';
 			}
 		})
 	})

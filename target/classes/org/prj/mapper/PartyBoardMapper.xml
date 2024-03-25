@@ -113,8 +113,8 @@
 			on p.codeone=c.codeone and p.codetwo=c.codetwo
 			where p.codeone=#{codeone}
 			order by status desc, p_idx desc)
-		where rownum <= #{pageNum} * 4 )
-		where rn > (#{pageNum}-1) * 4
+		where rownum <= #{pageNum} * 12 )
+		where rn > (#{pageNum}-1) * 12
 	]]>
 	</select>
 	
@@ -135,8 +135,8 @@
 			on p.codeone=c.codeone and p.codetwo=c.codetwo
 			where p.codeone=#{codeone} and p.codetwo=#{codetwo}
 			order by status desc, p_idx desc)
-		where rownum <= #{pageNum} * 4 )
-		where rn > (#{pageNum}-1) * 4
+		where rownum <= #{pageNum} * 12 )
+		where rn > (#{pageNum}-1) * 12
 		]]>
 	</select>
 	
@@ -156,7 +156,7 @@
 		update party_board set curr_party=curr_party+1 where p_idx=#{p_idx}
 	</update>
 	
-	<!-- 결제취소 참여인원 업데이트 -->
+	<!-- 결제취소, 환불승인 시 참여인원 업데이트 -->
 	<update id="cancleUpdateCurrNum" parameterType="int">
 		update party_board set curr_party=curr_party-1 where p_idx=#{p_idx}
 	</update>
@@ -164,7 +164,7 @@
 	<!-- 파티 결제한 파티원 닉네임 리스트 -->
 	<select id="getPaymentMemberList" parameterType="int" resultType="org.prj.domain.MemberVO">
 		select m.nickname, p.approved_at
-		from payment p inner join member m
+		from (select * from payment where pay_status='B' OR pay_status='C' OR pay_status='E') p inner join member m
 		on p.id=m.id
 		where p_idx=#{p_idx} and (p.pay_status = 'B' or p.pay_status = 'C')
 	</select>
@@ -175,9 +175,9 @@
 		, p.share_id, p.share_pw, p.phone, p.start_date, p.end_date, p.price, p."RULE", p."COMMENT", p.status
 		, p.reg_date, p.update_date, p.curr_party, c.c_primary, c.c_secondary, trunc(end_date)-trunc(sysdate) as datediff, 
 	 	((trunc(end_date)-trunc(sysdate)) * price) as totalprice
-		from party_board p inner join category c 
+		from (select * from party_board where <![CDATA[ (trunc(end_date)-trunc(sysdate)) >= 0 ]]>) p inner join category c 
 		on p.codeone=c.codeone and p.codetwo=c.codetwo
-        where p_idx in (select p_idx from payment where id=#{id})
+        where p_idx in (select p_idx from payment where id=#{id} and (pay_status='B' OR pay_status='C' OR pay_status='E'))
 	</select>
 	
 	<!-- 마감 파티 상태 변경 -->
@@ -337,4 +337,9 @@
 	<select id="getCurrentPartyInfo" parameterType="int" resultType="org.prj.domain.PartyBoardVO">
 		select price, trunc(end_date)-trunc(sysdate) as datediff from party_board where p_idx=#{p_idx}
 	</select>
+	
+	<!-- 파티 삭제 -->
+	<delete id="deleteParty" parameterType="int">
+		delete from party_board where p_idx=#{p_idx}
+	</delete>
 </mapper>

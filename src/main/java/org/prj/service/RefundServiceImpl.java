@@ -5,6 +5,7 @@ import java.util.List;
 import org.prj.domain.Criteria;
 import org.prj.domain.RefundVO;
 import org.prj.mapper.MemberMapper;
+import org.prj.mapper.PartyBoardMapper;
 import org.prj.mapper.PaymentMapper;
 import org.prj.mapper.PointMapper;
 import org.prj.mapper.RefundMapper;
@@ -28,6 +29,9 @@ public class RefundServiceImpl implements RefundService{
 	
 	@Autowired
 	private MemberMapper mMapper;
+	
+	@Autowired
+	private PartyBoardMapper pMapper;
 	
 
 	@Transactional
@@ -65,6 +69,9 @@ public class RefundServiceImpl implements RefundService{
 		
 		//member - point
 		mMapper.doRefundApproval(vo);
+		
+		//party_board - curr_party-1 update
+		pMapper.cancleUpdateCurrNum(vo.getP_idx());
 		
 		//refund - re_status, refund_date
 		return rMapper.doRefundApproval(vo);

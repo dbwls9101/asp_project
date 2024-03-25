@@ -100,8 +100,10 @@ function showCategory(){
 
 //포인트 불러오기
 getPrincipal().then(() => {
-	let point = principal.member.point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    document.getElementById("memberPoint").innerHTML = point + 'P';
+	if(document.getElementById("memberPoint")){
+		let point = principal.member.point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		document.getElementById("memberPoint").innerHTML = point + 'P';
+	}
 });
 
 // 1:1문의 헤더에서 적용되는 부분 ( 제이슨 형태로 저장 ) // 처음 2page에서 목록에 갔다가 다시 돌아올때 2page로 떠야 하는 것 ****
