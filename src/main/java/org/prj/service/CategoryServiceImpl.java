@@ -20,14 +20,31 @@ public class CategoryServiceImpl implements CategoryService {
 	public List<CategoryVO> getSecondCategory(int codeone) {
 		return cMapper.getSecondCategory(codeone);
 	}
-	
-	@Override
-	public List<CategoryVO> showCategory() {
-		return cMapper.showCategory();
-	}
 
 	@Override
 	public List<CategoryVO> getAllCategory() {
 		return cMapper.getAllCategory();
 	}
+
+	@Override
+	public int checkCategory(CategoryVO vo) {
+		return cMapper.checkCategory(vo);
+	}
+
+	@Override
+	public int addCategory(CategoryVO vo) {
+		return cMapper.addCategory(vo);
+	}
+
+	@Override
+	public int changeCategoryStatus(CategoryVO vo) {
+		return cMapper.changeCategoryStatus(vo);
+	}
+
+	@Override
+	public List<CategoryVO> getAllSecondCategory(int codeone) {
+		return cMapper.getAllSecondCategory(codeone);
+	}
+	
+	
 }

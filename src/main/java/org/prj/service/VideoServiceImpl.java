@@ -49,6 +49,8 @@ public class VideoServiceImpl implements VideoService {
         SearchListResponse searchResponse = search.execute();
         List<SearchResult> searchResults = searchResponse.getItems();
         
+        int addCount = 0;
+        
         for (SearchResult searchResult : searchResults) {
             VideoVO video = new VideoVO();
             log.warn("searchResult..." + searchResult);
@@ -62,9 +64,10 @@ public class VideoServiceImpl implements VideoService {
             
             log.warn("video..." + video);
             vMapper.add(video);
+            addCount++;
         }
 
-        return vMapper.listCount(vo.getChannelid());
+        return addCount;
     }
     
     @Override
@@ -75,5 +78,10 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public List<VideoVO> getAllVideos() {
     	return vMapper.getAllVideos();
+    }
+    
+    @Override
+    public List<VideoVO> mainAllVideos() {
+    	return vMapper.mainAllVideos();
     }
 }

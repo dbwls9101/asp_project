@@ -24,7 +24,9 @@ document.querySelectorAll('.panel-body-btns button').forEach( btn => {
 			modify();
 		} else if(type === 'indexBtn') {
 			location.href = '/inquiry_board/Inquirylist';
-		}
+		} else if(type === 'removeBtn') {
+			remove()
+		} 
 	});
 });
 
@@ -34,13 +36,31 @@ function modify() {
 	location.href = '/inquiry_board/Inquirymodify?i_idx=' + i_idx;
 }
 
+//게시글 삭제
+function remove() {
+	if(confirm("정말 삭제 하시겠습니까?")) {
+		
+		let i_idxValue = f.i_idx.value;
+		
+		let i_idxEle = document.createElement('input');		
+		i_idxEle.setAttribute('type', 'hidden');
+        i_idxEle.setAttribute('name', 'i_idx');
+        i_idxEle.setAttribute('value', i_idxValue);
+		
+		f.action = '/inquiry_board/Inquiryremove';
+		f.method = 'POST';
+		f.submit();
+	}
+}
+
+
 //---------------------------------- 업로드 다운로드 view 기능 ------------------
 showCommList();
 function showCommList() {
 	let msg = '';
-	let idx = f.i_idx.value;
+	let i_idx = f.i_idx.value;
 	
-	fetch('/inquiry_board/getAttachList/' + idx )
+	fetch('/inquiry_board/getAttachList/' + i_idx)
 		.then( response => response.json() )
 		.then( json => {
 			console.log(json);
@@ -80,8 +100,8 @@ function getUpdateComment(c_idx, content){
 			updateForm += '<form><input type="text" id="updateComment" name="content" class="form-control" value="'+ content + '">';
 			updateForm += '<input type="hidden" name="c_idx" value="'+ c_idx + '">';
 			updateForm += '<input type="button" class="commentbtn" onclick="update_comment(this.form)" value="등록" style="margin-top:10px; margin-left: 620px">';
-			updateForm += '<input type="button" class="commentbtn" onclick="notUpdate_comment(' + c_idx + ')" value="취소" style="margin-top:10px; margin-left: 5px;">';
-			updateForm += '</form>';
+			updateForm += '<input type="hidden" class="btn-b" onclick="notUpdate_comment(' + c_idx + ')" value="취소" style="margin-top:10px; margin-left: 5px;">';
+			updateForm += '</form>';		// 98번줄 - 취소 버튼을 사용하지 않는 걸로 생각하게 되었다.
 			commentArea[i].innerHTML = updateForm;
 		}
 		else{
@@ -106,32 +126,27 @@ function showList() {						// 나중에 여기가 더 보기가 될것같다....
 			msg += '<li data-c_idx="'+ reply.c_idx +'">';
 			msg += 		'<div>';
 			msg +=			'<div>';
-			msg +=				'<strong class="primary-font">' + reply.writer + '</strong>';
-			msg +=				'<small class="pull-right">' + myTime(reply.reg_date) + '</small>';
+			msg +=				'<strong class="primary-font">작성자 : ' + reply.writer + '</strong>';
+
+							if(principal.member.nickname == reply.writer) {
+			msg += 				'<div style="float: right;"><input type="button" class="commentbtn" value="수정" onclick="getUpdateComment(' + reply.c_idx + ', \'' + reply.content + '\')">';
+			msg += 				'&nbsp;<input type="button" class="btn-b" value="삭제" onclick="removeComm(' + reply.c_idx + ')" id="removeReplyBtn"></div>';
+							}
+
+			msg +=				'<small class="pull-right" style="float: right; margin: 5px 10px;">' + myTime(reply.reg_date) + '</small>';
 			msg += 			'</div>';
-			msg +=			'<div>';
-			msg += '&nbsp;<input type="button" class="commentbtn" value="수정" onclick="getUpdateComment(' + reply.c_idx + ', \'' + reply.content + '\')">';
-			msg += '&nbsp;<input type="button" class="btn-b1" value="삭제" onclick="removeComm(' + reply.c_idx + ')" id="removeReplyBtn">';			
-			msg +=				'<div class="chat-header"';
-			msg +=					'<c:choose>';
-					if(reply.status == "A"){
-						msg +=	'<strong class="word-color1">' + "진행 : 대기" + '</strong>';
-					}else if(reply.status == "B"){
-						msg +=	'<strong class="word-color2">' + "진행 : 완료" + '</strong>';
-					}else {
-						msg +=	'<strong class="word-color3">' + "진행 : 확인중" + '</strong>';
-					}
-			msg +=					'</c:choose>';	
-			msg +=				'</div>'	
-			msg += '<div class="contentTd" c_idx=\"' + reply.c_idx + '\" content=\"' + reply.content + '\">';
-			msg += reply.content;	
-			msg += 			'</div>';			
-			msg += 		'</div>';
+			msg +=			'<div style="margin-top: 10px;">';
+			msg += 				'<div class="contentTd" c_idx=\"' + reply.c_idx + '\" content=\"' + reply.content + '\" style="word-break: break-word;">';
+			msg += 					reply.content;	
+			msg += 				'</div>';		
+			msg += 			'</div>';
 			msg += '</li>';
 
 			console.log(reply);
 		});		// end forEach
-		
+		if(msg == '') {
+			msg += '<li colspan="2"> 현재 관리자가 확인중입니다. </li>';
+		}	
 		replyUL.innerHTML = msg;
 		
 	});	// end getList
@@ -151,15 +166,13 @@ function myTime(unixTimeStamp) {
 
 //------------------------ 하단부 비동기식 방식으로 댓글 처리 -------------------------------------
 const inputStatus = document.querySelector('.status-st');
-const inputReply = document.querySelector('.text11');
+const inputReply = document.querySelector('.btn-b');
 const inputReplyer = document.querySelector('input[name="id"]');
 const inputReplydate = document.querySelector('input[name="reg_date"]');
+const idx = document.querySelector('input[name="i_idx"]');
 const addReplyBtn = document.querySelector('#addReplyBtn');				
 
-function clearChat() {				// 댓글 내용 초기화
-	inputReply.value = '';
-}
-
+/*
 // 댓글 등록
 addReplyBtn.addEventListener('click', () => {
 	
@@ -181,7 +194,7 @@ addReplyBtn.addEventListener('click', () => {
 			clearChat();
 		}
 	);
-});
+}); */
 
 // 댓글 수정
 function update_comment(f) {
@@ -215,3 +228,8 @@ function removeComm(c_idx) {
 			}
 	);
 }
+
+
+
+
+

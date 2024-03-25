@@ -12,6 +12,17 @@ document.head.appendChild(linkEle);
 // form 객체를 가지고 오자
 const f = document.forms[0];
 
+//list 가져오기
+getPrincipal().then(() => {
+	let pageData = getStorageData();
+	
+	if(pageData == null){
+		setStorageData(1, 10);
+	}else{
+		setStorageData(1, 10);
+	}
+})
+
 // 각 버튼 클릭 이벤트
 document.querySelectorAll('.panel-body-btns button').forEach( btn => {
 	btn.addEventListener('click', () => {
@@ -20,9 +31,9 @@ document.querySelectorAll('.panel-body-btns button').forEach( btn => {
 		
 		if(type === 'modifyBtn') {
 			modify()
-		} else if(type === 'removeBtn') {
-			remove()
-		} else if(type === 'indexBtn') {
+		}else if(type === 'removeBtn'){
+			remove();
+		}else if(type === 'indexBtn') {
 			let pageData = getStorageData();
 			let sendData = "pageNum=" + pageData.pageNum + "&amount=" + pageData.amount;
 			location.href = '/inquiry_board/Inquirylist?' + sendData;
@@ -32,29 +43,40 @@ document.querySelectorAll('.panel-body-btns button').forEach( btn => {
 
 // 게시글 수정
 function modify() {
+	let i_idx = f.i_idx.value;
 	if(!f.title.value) {
-		alert("제목을 입력해 주세요.")
+		alert("제목을 입력해 주세요.");
 		return;
 	}
 	if(!f.content.value) {
-		alert("내용을 입력해주세요.")
+		alert("내용을 입력해주세요.");
 		return;
 	}
 	
-	f.action = '/inquiry_board/Inquirymodify';
+	let str = '';
+	document.querySelectorAll('.uploadResult li').forEach((li, index) => {
+		let path = li.getAttribute('path');
+		let uuid = li.getAttribute('uuid');
+		let fileName = li.getAttribute('fileName');
+		let inquiry_board = li.getAttribute('inquiry_board');
+		
+		str += '<input type ="hidden", name="attachList['+index+'].uploadPath" value="'+path+'"/>';
+		str += '<input type ="hidden", name="attachList['+index+'].uuid" value="'+uuid+'"/>';
+		str += '<input type ="hidden", name="attachList['+index+'].fileName" value="'+fileName+'"/>';
+		str += '<input type ="hidden", name="attachList['+index+'].boradname" value="'+inquiry_board+'" />';	
+		
+	});
+	f.insertAdjacentHTML('beforeend', str);
+	f.action = '/inquiry_board/Inquirymodify?i_idx=' + i_idx;
 	f.submit();
 }
 
-// 게시글 삭제
 function remove() {
-	if(confirm("정말 삭제 하시겠습니까?")) {
-		
-		let i_idxEle = f.i_idx;
-		f.innerHTML = '';
-		f.appendChild(i_idxEle);
-		
+	if(confirm('게시글을 삭제하시겠습니까?')){
 		f.action = '/inquiry_board/Inquiryremove';
 		f.submit();
+	} else {
+		return;
 	}
 }
 
@@ -63,18 +85,19 @@ function remove() {
 showCommList();
 function showCommList() {
 	let msg = '';
-	let idx = f.i_idx.value;
+	let i_idx = f.i_idx.value;
 	
-	fetch('/inquiry_board/getAttachList/' + idx )
+	fetch('/inquiry_board/getAttachList/' + i_idx )
 		.then( response => response.json() )
 		.then( json => {
 			console.log(json);
 			
 			json.forEach( file => {
-				let fileCallPath = encodeURIComponent(file.uploadPath + "/" + file.uuid + "_" + file.fileName);
+				let fileCallPath = encodeURIComponent(file.uploadPath + "/" + file.uuid + "_" + file.fileName + "_" + file.inquiry_board);
 
-				msg += '<li path="'+file.uploadPath+'" uuid="'+ file.uuid +'" fileName="' + file.fileName+'">';
-				msg += '<a href="/download?fileName='+ fileCallPath  +'">' + file.fileName  + '</a>';
+				msg += '<li path="'+file.uploadPath+'" uuid="'+ file.uuid +'" fileName="' + file.fileName+'" inquiry_board="' + file.inquiry_board+'">';
+				msg += 		'<a href="/download?fileName='+ fileCallPath  +'">' + file.fileName  + '</a>';
+				msg += 		'<span data-file="' + fileCallPath + '"> X </span>';
 				msg += '</li>';
 				
 			});
@@ -87,7 +110,12 @@ function showCommList() {
 }
 
 
-
-
-
+uploadResult.addEventListener('click', function(e){
+	if(e.target.tagName == 'SPAN'){
+		if(confirm('첨부파일을 삭제하시겠습니까?')){
+			let li = e.target.closest("li");
+			li.remove();
+		}
+	}
+}); 
 

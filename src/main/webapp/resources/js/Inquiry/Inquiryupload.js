@@ -26,8 +26,6 @@ document.querySelector("input[type='file']").addEventListener('change', () =>{
 	const inputFile = document.querySelector('input[type="file"]');
 	const files = inputFile.files;
 	
-	console.log(files);
-	
 	for(let i=0; i<files.length; i++) {
 		
 		if(!checkExtenstion(files[i].name, files[i].size)) {
@@ -44,7 +42,6 @@ document.querySelector("input[type='file']").addEventListener('change', () =>{
 		)
 		.then( response => response.json() )
 		.then( json => {
-			console.log(json);
 			
 			showUploadedFile(json);
 		})
@@ -67,14 +64,14 @@ function showUploadedFile(uploadResultArr) {
 		
 		msg += '<li path="'+file.uploadPath+'" uuid="'+ file.uuid +'" fileName="' + file.fileName+'">';		// 동적으로 바인딩
 		msg += 		'<a>' + file.fileName  + '</a>';
-		msg += 		'<span data-file="' + fileCallPath + '"> X </span>';
+		msg += 		'<span data-file="' + fileCallPath + '" style="cursor: pointer;"> X </span>';
 		msg += '</li>';
 		
-	})
+	});
 	uploadResult.innerHTML = msg;
 	
 }
-
+/*
 uploadResult.addEventListener('click', function(e) {
 	
 	if(e.target.tagName === 'SPAN') {
@@ -84,7 +81,7 @@ uploadResult.addEventListener('click', function(e) {
 		
 		fetch('/deleteFile',
 			{
-				method : "post",
+				method : 'post',
 				body : targetFile,
 				headers : {'content-type' : 'text/plain'}
 			}
@@ -102,9 +99,37 @@ uploadResult.addEventListener('click', function(e) {
 		});
 		
 	}
-});
+}); */
 
-
+/*
+uploadResult.addEventListener('click', function(e) {
+	
+	if(e.target.tagName === 'SPAN') {
+		
+		let targetFile = e.target.getAttribute("data-file");
+		console.log(targetFile);
+		
+		fetch('/deleteFile',
+			{
+				method : 'post',
+				body : targetFile,
+				headers : {'content-type' : 'text/plain'}
+			}
+		)
+		.then( response => response.text()) 
+		.then( data => {
+			console.log(data);
+			
+			let targetLi = e.target.closest('li');
+			targetLi.parentNode.removeChild(targetLi);
+			
+		})
+		.catch( err => {
+			console.log('err : ' + err);
+		});
+		
+	}
+}); */
 
 
 

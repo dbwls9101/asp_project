@@ -196,6 +196,23 @@
 		SELECT id FROM party_board where p_idx = #{p_idx }
 	</select>
 	
+	<!-- 메인 파티조회 -->
+	<select id="mainAllParty" resultType="org.prj.domain.PartyBoardVO">
+		SELECT *
+		FROM (
+		    SELECT p.p_idx, p.m_idx, p.codeone, p.codetwo, p.title, p."NAME", p.nickname, p.id, p.party_num
+		        , p.share_id, p.share_pw, p.phone, p.start_date, p.end_date, p.price, p."RULE", p."COMMENT", p.status
+		        , p.reg_date, p.update_date, p.curr_party, c.c_primary, c.c_secondary, trunc(p.end_date)-trunc(sysdate) as datediff, 
+		        ((trunc(p.end_date)-trunc(sysdate)) * p.price) as totalprice,
+		        ROW_NUMBER() OVER (ORDER BY p.reg_date DESC) AS row_num
+		    FROM party_board p 
+		    INNER JOIN category c 
+		    ON p.codeone=c.codeone and p.codetwo=c.codetwo
+		    WHERE p.status = 'Y' and (trunc(p.end_date)-trunc(sysdate)) > 0
+		)
+		WHERE row_num BETWEEN 1 AND 16
+	</select>
+	
 	<!-- ===================관리자====================== -->
 	<!-- 파티 개수 -->
 	<select id="getAdminPartyTotal" parameterType="org.prj.domain.Criteria" resultType="int">

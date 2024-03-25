@@ -2,6 +2,7 @@ package org.prj.mapper;
 
 import java.util.List;
 
+import org.prj.domain.Criteria;
 import org.prj.domain.PaymentVO;
 import org.prj.domain.WithdrawVO;
 
@@ -29,10 +30,18 @@ public interface WithdrawMapper {
 	public int unsaleslist(String username);	
 	
 	// 관리자 화면 출금 관리 리스트 업
-	public List<WithdrawVO> withdrawList();
+//	public List<WithdrawVO> withdrawList();
+	
+	// * 관리자 화면에서 출금관리 페이지 처리를 위해 리스트 나오는 갯수
+	public int getWithdrawTotal(Criteria cri);
+	
+	// * 관리자 화면에서 출금관리 페이지 처리를 위해 리스트 불러오기 
+	public List<WithdrawVO> withdrawList(Criteria cri);
 	
 	// 관리자 화면에서 승인 버튼 누를 경우 with_status C로 변경
 	public int modifyWithdraw(int w_idx);
 
+	// 관리자 화면에서 승인 버튼 누를 경우 with_status C로 변경
+	public int modifyWithdraw2(int w_idx);
 
 }

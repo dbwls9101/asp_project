@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class InquiryVO {
 	private int i_idx, m_idx;
-	private String inquiry_type, writer, phone, title, content, filename, password, status; 
+	private String inquiry_type, writer, title, content, filename, status; 
 	private Date reg_date, update_date;
 	
 	private List<FileInfoVO> attachList;

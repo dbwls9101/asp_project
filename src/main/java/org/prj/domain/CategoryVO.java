@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class CategoryVO {
 	private int codeone, codetwo;
 	private String c_primary, c_secondary;
+	private char status;
 }

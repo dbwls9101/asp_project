@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class RefundVO {
 	private int order_no, m_idx, p_idx, r_idx, amount, re_amount;
-	private String id, name, phone, re_status, note;
-	private Date reg_date;
+	private String id, name, re_status, reason, rejection;
+	private Date reg_date, refund_date;
 }

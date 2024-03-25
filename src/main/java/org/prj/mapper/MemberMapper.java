@@ -52,5 +52,20 @@ public interface MemberMapper {
 	
 	//회원가입 중복확인
 	public int joinCheck(@Param("name") String name, @Param("phone") String phone);
+	
+	//회원번호 찾기
+	public int findMidx(String id);
 
+	//네이버 회원가입
+	public int naverIdck(String naverid);
+	
+	//네이버 로그인
+	public MemberVO naverRead(String naverid);
+	
+	//카카오 SNS 계정 연결
+	public int kakao_update(MemberVO memeber);
+	
+	//네이버 SNS 계정 연결
+	public int naver_update(MemberVO memeber);	
+	
 }

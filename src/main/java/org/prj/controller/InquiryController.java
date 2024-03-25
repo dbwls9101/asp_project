@@ -1,16 +1,25 @@
 package org.prj.controller;
 
+import java.io.File;
+import java.net.URLDecoder;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.prj.domain.Criteria;
 import org.prj.domain.FileInfoVO;
 import org.prj.domain.InquiryVO;
+import org.prj.domain.MemberVO;
 import org.prj.domain.PageDTO;
 import org.prj.service.InquiryService;
+import org.prj.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,9 +40,22 @@ public class InquiryController {
 	@Autowired
 	private InquiryService service;
 	
+	@Autowired
+	private MemberService mservice;
+	
 	@GetMapping("/Inquirylist")
 	public String list(Model model, Criteria cri) {		// 1:1문의 게시판 페이지 처리
 		log.info("list...");
+		
+		// 현재 사용자 회원번호 가져오기
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    String username = authentication.getName();
+	    log.info("userDetails..." + username);
+	    
+	    int memberIdx = mservice.findMidx(username);
+	    log.info("memberIdx..." + memberIdx);
+	    
+	    cri.setM_idx(memberIdx);
 		
 		if(cri.getPageNum() == 0 && cri.getAmount() == 0) {
 			cri.setPageNum(1);	// 한개 페이지
@@ -59,11 +81,12 @@ public class InquiryController {
 	@PostMapping("/Inquiryregister")
 	public String register(InquiryVO vo, RedirectAttributes rttr) {
 		log.info("register..." + vo);
-		service.register(vo);
 		
 		if (vo.getAttachList() != null) {
 			vo.getAttachList().forEach(attach -> log.info(attach));
 		}
+		
+		service.register(vo);
 		rttr.addFlashAttribute("result", "success");
 		return "redirect:/inquiry_board/Inquirylist";
 	}
@@ -87,8 +110,9 @@ public class InquiryController {
 	public String modify(InquiryVO vo, RedirectAttributes rttr) {
 		log.info("modify..." + vo);
 		
-		if(service.modify(vo)) {
-			rttr.addFlashAttribute("result", "success");
+		List<FileInfoVO> attachList = service.getAttachList(vo.getI_idx());
+		if (service.modify(vo)){
+			deleteFiles(attachList);
 		}
 		
 		return "redirect:/inquiry_board/Inquirylist";
@@ -98,37 +122,42 @@ public class InquiryController {
 	public String remove(@RequestParam("i_idx") int i_idx, RedirectAttributes rttr) {
 		log.info("remove...." + i_idx);
 		
-//		List<FileInfoVO> attachList = service.getAttachList(i_idx);
+		List<FileInfoVO> attachList = service.getAttachList(i_idx);
 		
 		if(service.remove(i_idx)) {
+			deleteFiles(attachList);
 			rttr.addFlashAttribute("result", "success");
-		}
+		}; 
 		
 		return "redirect:/inquiry_board/Inquirylist";
-		
-//		return "redirect:/inquiry_board/list";
 	}
 	
 	@ResponseBody
-	@GetMapping(value = "/getAttachList/{idx}",
-			produces = {
-			MediaType.APPLICATION_JSON_UTF8_VALUE	
-			})
+	@GetMapping(value = "/getAttachList/{i_idx}", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<List<FileInfoVO>> getAttachList(
-		@PathVariable("idx") int idx
+		@PathVariable("i_idx") int i_idx
 		){
-		log.info("getAttachList..." + idx);
+		log.info("getAttachList..." + i_idx);
 		
-		return new ResponseEntity<List<FileInfoVO>>(service.getAttachList(idx), HttpStatus.OK);
+		return new ResponseEntity<List<FileInfoVO>>(service.getAttachList(i_idx), HttpStatus.OK);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
+	public void deleteFiles(List<FileInfoVO> attachList) {
+		if(attachList == null || attachList.size() == 0) {
+			return;}
+		log.info(attachList);
+		
+		attachList.forEach(attach ->{
+			try{
+				File file = null;
+				String fileName = attach.getUploadPath() + "\\" + attach.getUuid() + "_" + attach.getFileName();
+				file = new File("C:\\upload\\", URLDecoder.decode(fileName, "utf-8"));
+				file.delete();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		});
+	}
 	
 	
 }

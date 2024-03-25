@@ -2,6 +2,7 @@ package org.prj.service;
 
 import java.util.List;
 
+import org.prj.domain.Criteria;
 import org.prj.domain.PaymentVO;
 import org.prj.domain.WithdrawVO;
 import org.prj.mapper.WithdrawMapper;
@@ -70,14 +71,28 @@ public class WithdrawServiceImpl implements WithdrawService {
 	}
 
 	// 관리자 화면!! 출금 관리 리스트업
-	@Override
+/*	@Override
 	public List<WithdrawVO> withdrawList() {
 		log.info("withdrawList...");
 		return mapper.withdrawList();
+	} */
+	
+	// * 관리자 화면에서 출금관리 페이지 처리를 위해 리스트 나오는 갯수
+	@Override
+	public int getWithdrawTotal(Criteria cri) {
+		
+		return mapper.getWithdrawTotal(cri);
+	}
+
+	// * 관리자 화면에서 출금관리 페이지 처리를 위해 리스트 불러오기 
+	@Override
+	public List<WithdrawVO> withdrawList(Criteria cri) {
+
+		return mapper.withdrawList(cri);
 	}
 
 
-	// 관리자 화면에서 승인 버튼 누를 경우 with_status C로 변경
+	// 관리자 화면에서 승인 버튼 누를 경우 with_status B로 변경
 	@Override
 	public boolean modifyWithdraw(int w_idx) {
 		log.info("modifyWithdraw..." + w_idx);
@@ -86,6 +101,19 @@ public class WithdrawServiceImpl implements WithdrawService {
 		
 		return result == 1 ? true : false;
 	}
+
+	// 관리자 화면에서 승인 버튼 누를 경우 with_status C로 변경
+	@Override
+	public boolean modifyWithdraw2(int w_idx) {
+		log.info("modifyWithdraw..." + w_idx);
+		
+		int result = mapper.modifyWithdraw2(w_idx);
+		
+		return result == 1 ? true : false;
+	}
+
+
+	
 
 
 	

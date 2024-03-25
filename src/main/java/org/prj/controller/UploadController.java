@@ -3,6 +3,9 @@ package org.prj.controller;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -59,14 +62,18 @@ public class UploadController {
 		
 		log.info("upload async post...");
 		
+		// 폴더를 만든다.------------
 		File uploadPath = new File("c:\\upload", getFolder());
 		log.info("uploadPath : " + uploadPath);
-		
 		if(!uploadPath.exists()) {
 			uploadPath.mkdirs();				// mkdir() 지정한 경로에 폴더가 있어야지만 새로운 폴더 생성
 		}
 		
 		for(MultipartFile file : uploadFile) {
+			
+			// 객체 생성
+			FileInfoVO fileVO = new FileInfoVO();
+			
 			log.info("------------------");
 			log.info("Upload File Name : " + file.getOriginalFilename());
 			log.info("Upload File Size : " + file.getSize());
@@ -79,24 +86,27 @@ public class UploadController {
 			UUID uuid = UUID.randomUUID();
 			uploadFileName = uuid.toString() + "_" + uploadFileName;
 			log.info("uuid : " + uuid);
-			File saveFile = new File(uploadPath, uploadFileName); 
-			
-			// 객체 생성
-			FileInfoVO fileVO = new FileInfoVO();
-			
+					
 			try {
+				
+				// 기존 파일이 이미 존재하면 삭제
+				String existingFilePath = uploadPath + File.pathSeparator + uploadFileName;
+				deleteFiles(existingFilePath);
+				
+				File saveFile = new File(uploadPath, uploadFileName); 
 				file.transferTo(saveFile);
 				
 				fileVO.setFileName(file.getOriginalFilename());
 				fileVO.setUploadPath(getFolder());
-				log.info("getFolder() : " + getFolder());
 				fileVO.setUuid(uuid.toString());
+				
+				log.info("getFolder() : " + getFolder());
 				list.add(fileVO);
 				
 			} catch (Exception e) {
 				log.error(e.getMessage());
 			}
-			log.info(fileVO);
+			log.info("fileVO..." + fileVO);
 			
 			
 		}  // end loop
@@ -146,7 +156,7 @@ public class UploadController {
 		}
 		return new ResponseEntity<String> ("delete", HttpStatus.OK);
 	}
-
+	
 	// 오늘 날짜의 경로를 문자열로 생성
 	private String getFolder() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -154,5 +164,21 @@ public class UploadController {
 		String str = sdf.format(date);
 		return str.replace("-", File.separator);
 	}
+	
+	// 기존 파일을 삭제하는 메서드 추가
+	private void deleteFiles(String filePath) {
+		try {
+			File file = new File(filePath);
+			if(file.exists()) {
+				file.delete();
+				log.info("File delete : " + filePath);
+			} else {
+				log.warn("File not found : " + filePath);
+			}
+		} catch(Exception e) {
+			log.error("Failed to delete file: " + filePath, e);
+		}
+	}
+	
 	
 }

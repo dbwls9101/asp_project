@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @Data
 public class FileInfoVO {
 	private String uuid, uploadPath, fileName, fileType, boradname;
-	private int idx;
+	private int i_idx;
 }

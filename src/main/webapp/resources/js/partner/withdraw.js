@@ -141,6 +141,3 @@ withDrawal.addEventListener('click', () => {
 		getList(principal.member.m_idx);	
 	});
 }); 
-
-// 3. 출금 취소
-

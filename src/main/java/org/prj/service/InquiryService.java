@@ -27,5 +27,26 @@ public interface InquiryService {
 	public boolean remove(int i_idx);
 	
 	// 7. 첨부 파일 리스트를 가지고 오는 것
-	public List<FileInfoVO> getAttachList(int idx);
+	public List<FileInfoVO> getAttachList(int i_idx);
+	
+	// 8. 리스트 나오는 갯수
+	public int getInquiryBoardTotal(Criteria cri);
+	
+	// 9. 관리자 1:1문의 불러 오는 내용
+	public List<InquiryVO> inquiryboardList(Criteria cri);
+	
+	// 10. 관리자 1:1문의 댓글 가지고 오기
+	public InquiryVO getReply(int i_idx);
+	
+	// 11. 관리자 1:1문의 상태 변경
+	public void statusUpdate(InquiryVO vo);
+	
+	// 12. 관리자 1:1문의 게시글 가지고 오기
+	public InquiryVO getInquiry(int i_idx);
+	
+	// 13. 관리자 1:1문의 게시글 수정
+	public boolean AdminInquiryUpdate(InquiryVO vo);
+	
+	// 14. 첨부파일 수정부분에서 삭제
+	public void delete(String uuid);
 }

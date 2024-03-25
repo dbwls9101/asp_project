@@ -9,27 +9,38 @@ function getAllCategory(){
 		msg += '<option value="10">영상</option>';
 		json.forEach(vo => {
 			if(vo.codeone == 10){
-				msg += '<option value="' + vo.codeone.toString() + vo.codetwo.toString() + '">&nbsp;&nbsp;#' + vo.c_secondary + '</option>';
+				if(vo.codetwo != 1)
+					msg += '<option value="' + vo.codeone.toString() + vo.codetwo.toString() + '">&nbsp;&nbsp;#' + vo.c_secondary + '</option>';
 			}
 		})
+		msg += '<option value="101">&nbsp;&nbsp;#기타(영상)</option>';
+			
 		msg += '<option value="20" codetwo="">도서/음악</option>';
 		json.forEach(vo => {
 			if(vo.codeone == 20){
-				msg += '<option value="' + vo.codeone.toString() + vo.codetwo.toString() + '">&nbsp;&nbsp;#' + vo.c_secondary + '</option>';
+				if(vo.codetwo != 1)
+					msg += '<option value="' + vo.codeone.toString() + vo.codetwo.toString() + '">&nbsp;&nbsp;#' + vo.c_secondary + '</option>';
 			}
 		})
+		msg += '<option value="201">&nbsp;&nbsp;#기타(도서/음악)</option>';
+		
 		msg += '<option value="30" codetwo="">게임</option>';
 		json.forEach(vo => {
 			if(vo.codeone == 30){
-				msg += '<option value="' + vo.codeone.toString() + vo.codetwo.toString() + '">&nbsp;&nbsp;#' + vo.c_secondary + '</option>';
+				if(vo.codetwo != 1)
+					msg += '<option value="' + vo.codeone.toString() + vo.codetwo.toString() + '">&nbsp;&nbsp;#' + vo.c_secondary + '</option>';
 			}
 		})
+		msg += '<option value="301">&nbsp;&nbsp;#기타(게임)</option>';
+		
 		msg += '<option value="40" codetwo="">기타</option>';
 		json.forEach(vo => {
 			if(vo.codeone == 40){
-				msg += '<option value="' + vo.codeone.toString() + vo.codetwo.toString() + '">&nbsp;&nbsp;#' + vo.c_secondary + '</option>';
+				if(vo.codetwo != 1)
+					msg += '<option value="' + vo.codeone.toString() + vo.codetwo.toString() + '">&nbsp;&nbsp;#' + vo.c_secondary + '</option>';
 			}
 		})
+		msg += '<option value="401">&nbsp;&nbsp;#기타</option>';
 		
 		document.querySelector("#category").innerHTML += msg;
 	})
