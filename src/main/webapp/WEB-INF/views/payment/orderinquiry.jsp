@@ -7,6 +7,10 @@
 <title>결제/환불 내역</title>
 <link rel="stylesheet" href="/resources/css/payment/orderform.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+<link href="/resources/css/admin/all.min.css" rel="stylesheet" type="text/css">
 <script type="text/javascript"	src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 </head>
 <body>
@@ -117,5 +121,9 @@
 	<jsp:include page="../layout/footer.jsp"/>
 	<script type="text/javascript" src="/resources/js/payment/payservice.js"></script>
 	<script type="text/javascript" src="/resources/js/payment/orderinquiry.js"></script>
+	
+	<!-- Bootstrap core JavaScript-->
+	<script src="/resources/js/admin/jquery.min.js"></script>
+	<script src="/resources/js/admin/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,49 +1,53 @@
+//객체 생성 후 반환하는 함수
+//function makeObject(id, pageNum, amount){
+//	let obj = {
+//		id : id,
+//		pageNum : pageNum,
+//		amount : amount,
+//	};
+//	
+//	return obj;
+//}
+
 // list 가져오기
-window.onload = function() {
+getPrincipal().then(() => {
 	
 	let pageData = getStorageData();
-	let obj;
 	
 	if(pageData == null){
-		setStorageData('point', 1, 10, '', 'all', 'all', '', '');
-		obj = makeObject(1, 10, 'all', 'all', '');
-	}else{
-		//selectOptions();
-		
-		obj = makeObject(pageData.pageNum, pageData.amount, pageData.category, pageData.searchcolumn, pageData.searchword);
+		setStorageData('mypoint', 1, 10);
+		getMyPointList(principal.member.id, 1, 10);
+	}else{		
+		getMyPointList(principal.member.id, pageData.pageNum, pageData.amount);
 	}
-	
-	getPointList(obj);
-};
+});
 
 // list
-function getPointList(obj){
+function getMyPointList(id, pageNum, amount){
 	let msg = "";
 	let page = "";	
 	
-	fetch('/admin/pointList', {
+	fetch('/member/myPoint', {
 		method : 'post',
-		body : JSON.stringify(obj),
+		body : JSON.stringify({
+			id : id,
+			pageNum : pageNum,
+			amount : amount
+		}),
 		headers : {'Content-type' : 'application/json; charset=utf-8'}
 	})
 	.then(response => response.json())
 	.then(json => {
 		let list = json.list;
+		
 		if(list != null && list.length >0){
 			
 			list.forEach(vo => {
 				msg += '<tr>';
-				msg += '<td>' + '<input type="radio" name="pointup" data-id=' + vo.id + ' data-name=' + vo.name + ' data-after_point=' + vo.after_point + '></td>';
-				msg += '<td>' + vo.id + '</td>';
-				msg += '<td>' + vo.name + '</td>';
 				msg += '<td>' + vo.content + '</td>';
-				if(vo.update_point > 0){
-					msg += '<td class="plusPoint">' + '+' + vo.update_point + 'P</td>';
-				}else{
-					msg += '<td class="minusPoint">' + vo.update_point + 'P</td>';
-				}
-				msg += '<td>' + vo.before_point + 'P</td>';
-				msg += '<td>' + vo.after_point + 'P</td>';
+				msg += '<td>' + vo.update_point + '</td>';
+				msg += '<td>' + vo.before_point + '</td>';
+				msg += '<td>' + vo.update_point + '</td>';
 				msg += '<td>' + myTime(vo.reg_date) + '</td>';
 				msg += '</tr>';
 			})
@@ -76,7 +80,7 @@ function getPointList(obj){
 		}
 		
 		
-		document.querySelector("#pointlist tbody").innerHTML = msg;
+		document.querySelector("#mypoint-list tbody").innerHTML = msg;
 		document.querySelector(".page-nation").innerHTML = page;
 	})
 		.then(()=>{
@@ -102,4 +106,12 @@ function pagingEvent(){
 		});
 	});
 }
+
+//포인트 불러오기
+getPrincipal().then(() => {
+	if(document.getElementById("memberPoint")){
+		let point = principal.member.point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		document.getElementById("memberPoint").innerHTML = point + 'P';
+	}
+});
 

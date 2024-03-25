@@ -11,7 +11,6 @@
 </head>
 <body>
 	<jsp:include page="../layout/header.jsp"/>
-	
 	<form method="post">
 		<div class="title-div">
 			<div class="title">나의 포인트 내역</div>

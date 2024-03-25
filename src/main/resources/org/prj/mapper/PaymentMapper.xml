@@ -15,7 +15,7 @@
 	<select id="orderList" parameterType="org.prj.domain.Criteria" resultType="org.prj.domain.PaymentVO"> 
 	<![CDATA[
 		select * from
-        (select rownum rn, order_no, p_idx, m_idx, title, sub_title, id, name, phone, point,service_amount, pay_amount, commission, pay_status, approved_at, end_date
+        (select rownum rn, order_no, p_idx, m_idx, title, sub_title, id, name, phone, point,service_amount, pay_amount, commission, pay_status, approved_at, end_date, refund_amount, note
             from (SELECT * FROM payment where m_idx = #{m_idx} ORDER BY approved_at desc)
 		where rownum <= #{pageNum} * #{amount})
 		where rn > (#{pageNum}-1) * #{amount}

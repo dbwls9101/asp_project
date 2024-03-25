@@ -60,8 +60,15 @@
 		</sec:authorize>
 		
 		<div>
-			<span id="end-date">종료일 : ${vo.end_date } (${vo.datediff }일 / 1일 ${vo.price }원)</span>
-			<span id="price">&nbsp; | &nbsp;&nbsp;참여비용 : <fmt:formatNumber value="${vo.totalprice }" pattern="#,###" />원</span>
+			<c:choose>
+				<c:when test="${vo.datediff <= 0 || vo.status=='N' }">
+					<span style="font-weight: bold; color:red;">모집 마감</span>
+				</c:when>
+				<c:otherwise>
+					<span id="end-date">종료일 : ${vo.end_date } (${vo.datediff }일 / 1일 ${vo.price }원)</span>
+					<span id="price">&nbsp; | &nbsp;&nbsp;참여비용 : <fmt:formatNumber value="${vo.totalprice }" pattern="#,###" />원</span>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 	
@@ -142,6 +149,7 @@
 				<input type="hidden" name="pn" value="${vo.p_idx }">
 				<input type="hidden" name="party_num" value="${vo.party_num }">
 				<input type="hidden" name="curr_party" value="${vo.curr_party }">
+				<input type="hidden" name="status" value="${vo.status }">
 				
 				<input type="button" value="참여" id="participate">
 				<input type="button" value="목록" id="getpartylist">
@@ -168,6 +176,7 @@
 						<input type="hidden" name="pn" value="${vo.p_idx }">
 						<input type="hidden" name="party_num" value="${vo.party_num }">
 						<input type="hidden" name="curr_party" value="${vo.curr_party }">
+						<input type="hidden" name="status" value="${vo.status }">
 						
 						<input type="button" value="참여" id="participate">
 						<input type="button" value="목록" id="getpartylist">

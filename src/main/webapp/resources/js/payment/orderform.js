@@ -3,10 +3,13 @@ IMP.init("imp45030755");   /* imp~ : 가맹점 식별코드*/
 	
 const f = document.forms[0];
 const payBtn = document.querySelector('#pay-btn');
+const urlParams = new URL(location.href).searchParams;
 
 //주문하기 버튼 클릭 시 
 const ps = payService;
 payBtn.addEventListener('click', () =>{
+	let c1 = urlParams.get('c1');
+	let c2 = urlParams.get('c2');
 	
 	const orderNumber = createOrderNum();
 	let pg = '';
@@ -39,7 +42,11 @@ payBtn.addEventListener('click', () =>{
 			end_date : f.end_date.value
 		}, function(result) {
 			//결제 후 해당 게시글로 이동
-			location.href = '/shop/get?c1=' + f.codeone.value + '&c2=' + f.codetwo.value + '&pn=' + f.p_idx.value;
+			if(c2 != null){
+				location.href = '/shop/get?c1=' + f.codeone.value + '&c2=' + f.codetwo.value + '&pn=' + f.p_idx.value;
+			}else{
+				location.href = '/shop/get?c1=' + f.codeone.value + '&pn=' + f.p_idx.value;
+			}
 		});
 	}else {
 		IMP.request_pay({
@@ -87,7 +94,11 @@ payBtn.addEventListener('click', () =>{
 					end_date : f.end_date.value
 				}, function(result) {
 					//결제 후 해당 게시글로 이동
-					location.href = '/shop/get?c1=' + f.codeone.value + '&c2=' + f.codetwo.value + '&pn=' + f.p_idx.value;
+					if(c2 != null){
+						location.href = '/shop/get?c1=' + f.codeone.value + '&c2=' + f.codetwo.value + '&pn=' + f.p_idx.value;
+					}else{
+						location.href = '/shop/get?c1=' + f.codeone.value + '&pn=' + f.p_idx.value;
+					}
 				});
 				
 			} else {

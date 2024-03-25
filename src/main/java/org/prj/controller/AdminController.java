@@ -305,6 +305,13 @@ public class AdminController {
 		return "redirect:/admin/party";
 	}
 	
+	//파티 삭제
+	@GetMapping("/removeparty")
+	public String removeParty(@RequestParam("pn") int p_idx) {
+		pService.deleteParty(p_idx);
+		return "/admin/party";
+	}
+	
 	//파티 마감
 	@ResponseBody
 	@GetMapping(value="/partyclose", produces = MediaType.TEXT_PLAIN_VALUE)

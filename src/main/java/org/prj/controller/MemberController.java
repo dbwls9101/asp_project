@@ -25,6 +25,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -86,7 +87,6 @@ public class MemberController {
 	}
 
 	// 회원가입
-	
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String joinPOST(MemberVO member, Model model, HttpSession session, PointVO point) throws Exception {
 		// log.info("join 진입");
@@ -286,10 +286,9 @@ public class MemberController {
 	// 비밀번호 변경 (비밀번호 찾기)
 	@Autowired
 	private PasswordEncoder newPwencoder;
-
+	
 	@RequestMapping(value = "/updatePw", method = RequestMethod.POST)
 	public String updatePw(HttpSession session, @RequestParam("newPassword") String password) throws Exception {
-
 		MemberVO vo1 = (MemberVO) session.getAttribute("findMemberVo");
 		vo1.setPassword(newPwencoder.encode(password));
 		memberservice.updatePw(vo1);
@@ -301,7 +300,6 @@ public class MemberController {
 	// 회원정보확인 페이지
 	@GetMapping("/mypage")
 	public String moveMypage() {
-		
 		log.info("moveMypage...");
 		return "/member/mypage";
 	}
@@ -315,15 +313,24 @@ public class MemberController {
 	
 	// 회원 수정 페이지
 	@PostMapping("/modifyForm")
-	public String move(@RequestParam("password") String password, Authentication authentication, Model model) {
+	public String move(@RequestParam("password") String password, Authentication authentication, Model model, @RequestParam("deletechk") String deletechk) {
 		log.info("moveModifyForm...");
 		CustomUser customVo = (CustomUser)authentication.getPrincipal();
 		MemberVO memberVo = customVo.getMember();
 		
 		boolean isPasswordMatch = newPwencoder.matches(password, memberVo.getPassword());
+
 		
 		log.info("isPasswordMatch : [" + isPasswordMatch + "]");
 		if(isPasswordMatch) {
+			if("Y".equals(deletechk)) {
+				int result = memberservice.doLockAccount(memberVo);
+				if( result > 0 ) {
+					model.addAttribute("setText", "정상적으로 탈퇴처리가 되었습니다. 감사합니다.");
+					model.addAttribute("PopCheck", 6);
+					return "/member/registerAlert";
+				}
+			}
 			return "/member/modifyForm";
 		}else {
 			model.addAttribute("isPasswordMatch", isPasswordMatch);
@@ -411,4 +418,16 @@ public class MemberController {
 		
 		return result;
 	}
+	
+	//포인트 리스트
+	@ResponseBody
+	@PostMapping(value="/pointList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public PageDTO getMyPointList(@RequestBody Criteria cri) {
+		
+		int total = poService.getPointTotal(cri);
+		List<PointVO> list = poService.getPointList(cri);
+		
+		PageDTO pageMaker = new PageDTO(cri, total, list);
+		return pageMaker;
+	}	
 }
