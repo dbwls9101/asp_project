@@ -3,6 +3,15 @@ window.onload = function(){
 	getDetailInfo();
 }
 
+//1차 카테고리가 영상일 때만 video 표시
+var video = document.querySelector('#video');
+var pathname = window.location.pathname;
+if (pathname.includes('/shop/list/10')) {
+	video.style.display = 'block';
+} else {
+	video.style.display = 'none'; // 다른 경우에는 비디오를 숨깁니다.
+}
+
 //파티 리스트
 let page = 1;
 
@@ -98,7 +107,6 @@ document.querySelector("#makeparty").addEventListener('click', ()=>{
 
 
 //게시글 상세
-var pathname = window.location.pathname;
 function getDetailInfo(){
 let partyinfo = document.querySelectorAll("#partyinfo");
 	partyinfo.forEach(party => {

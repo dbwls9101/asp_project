@@ -34,10 +34,6 @@
 								<input type="text" name="writer" style="background-color: #e9ecef;" value="${vo.writer }" readonly="readonly">
 							</li>
 							<li>
-								<span class="subject">ㆍ 연락처</span>
-								<input type="text" name="phone" style="background-color: #e9ecef;" value="${vo.phone }" readonly="readonly">
-							</li>
-							<li>
 								<span class="subject">ㆍ 제목</span> 
 								<input type="text" name="title" value="${vo.title }">
 							</li>
@@ -58,6 +54,7 @@
 					
 				<div class="panel-body-btns">
 					<button type="button" class="button button-point btn" id="modifyBtn">수정</button>
+					<button type="button" class="btn btn-sec" id="removeBtn">삭제</button>
 					<button type="button" class="button btn" id="indexBtn">목록으로 이동</button>
 				</div>
 			</div>

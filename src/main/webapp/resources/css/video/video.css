@@ -63,6 +63,11 @@
     padding: 0;
     border-radius: 20px;
     margin-bottom: 2px;
+    position: relative;
+}
+
+.tooltip {
+	left: 18px !important;
 }
 
 .tooltip-inner {

@@ -7,6 +7,7 @@ import java.util.List;
 import org.prj.domain.Criteria;
 import org.prj.domain.MemberVO;
 import org.prj.domain.PaymentVO;
+import org.prj.domain.PointVO;
 
 public interface MemberService {
 	
@@ -50,7 +51,7 @@ public interface MemberService {
 	public void updateWithamount(MemberVO vo);
 	
 	//결재 후 member -> point 변경
-	public void updatePoint(MemberVO vo);
+	public void updatePoint(PaymentVO vo);
 	
 	//결재 취소 member -> point 반환
 	public void pointCancel(PaymentVO vo);
@@ -102,4 +103,13 @@ public interface MemberService {
 	
 	//계정 활성화 비활성화
 	public int doLockAccount(MemberVO vo);
+	
+	//업데이트 마이 포인트
+	public int updateMyPoint(PointVO vo);
+	
+	// 포인트 리스트
+	public List<PointVO> getPointList(Criteria cri);
+	
+	// 게시글 전체 개수
+	public int getPointTotal(Criteria cri);
 }

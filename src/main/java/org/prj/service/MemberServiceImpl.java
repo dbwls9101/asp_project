@@ -20,6 +20,7 @@ import java.util.Map;
 import org.prj.domain.Criteria;
 import org.prj.domain.MemberVO;
 import org.prj.domain.PaymentVO;
+import org.prj.domain.PointVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,7 +43,7 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private WithdrawMapper wMapper;
 	
-//	@Autowired
+	@Autowired
 	private PointMapper poMapper;
 	
 	//회원가입
@@ -219,14 +220,25 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	//결재 후 member -> point 변경
+	@Transactional
 	@Override
-	public void updatePoint(MemberVO vo) {
+	public void updatePoint(PaymentVO vo) {
+		System.out.println("updatePoint vo : " + vo);
+		//포인트 관리 등록
+		poMapper.updatePoint(vo);
+		
+		//회원정보 업데이트
 		membermapper.updatePoint(vo);
 	}
 	
 	//결재 취소 member -> point 반환
+	@Transactional
 	@Override
 	public void pointCancel(PaymentVO vo) {
+		//포인트 관리 등록
+		poMapper.pointCancel(vo);
+		
+		//회원정보 업데이트
 		membermapper.pointCancel(vo);
 	}
 	
@@ -324,5 +336,23 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int doLockAccount(MemberVO vo) {
 		return membermapper.doLockAccount(vo);
+	}
+	
+	//업데이트 마이 포인트
+	@Override
+	public int updateMyPoint(PointVO vo) {
+		return membermapper.updateMyPoint(vo);
+	}
+	
+	// 포인트 리스트
+	@Override
+	public List<PointVO> getPointList(Criteria cri) {
+		return membermapper.getPointList(cri);
+	}
+	
+	// 게시글 전체 개수
+	@Override
+	public int getPointTotal(Criteria cri) {
+		return membermapper.getPointTotal(cri);
 	}
 }

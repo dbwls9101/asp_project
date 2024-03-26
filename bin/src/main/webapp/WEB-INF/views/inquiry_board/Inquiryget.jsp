@@ -45,10 +45,6 @@
 						<span class="text">${vo.writer}</span> 
 					</li>				
 					<li>
-						<span class="subject">ㆍ 연락처</span>
-						<span class="text">${vo.phone }</span> 
-					</li>
-					<li>
 						<span class="subject">ㆍ 제목</span>
 						<span class="text">${vo.title }</span> 
 					</li>
@@ -83,7 +79,7 @@
 
 	<div class="panel-footer">
 		<from method="post">
-			<div class="mw-800 form-signup">
+<%-- 		<div class="mw-800 form-signup">
 				<div class="h3">
 					<span class="title-point">댓글 등록</span>
 				</div>
@@ -108,12 +104,12 @@
 							<input type="hidden" name="reg_date" value="${vo.reg_date }"> 
 						</li>				
 					</ul>
-				</div>
+				</div> 
 				
 				<div class="panel-body-btns">
 					<input type="button" value="등록" class="btn-a" id="addReplyBtn">
 				</div>
-			</div>
+			</div> --%>
 		
 			<!-- 화면에 나타나는 영역 -->
 			<div class="mw-800 form-signup">

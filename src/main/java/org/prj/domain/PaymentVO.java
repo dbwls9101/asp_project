@@ -17,4 +17,5 @@ public class PaymentVO {
 	//가상컬럼
 	private String month;
 	private int total_revenue;
+	private int before_point;
 }

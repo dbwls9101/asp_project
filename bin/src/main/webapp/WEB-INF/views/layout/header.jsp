@@ -17,8 +17,6 @@
 		    <div class="width-menu">
 			    <div class="top-menu">
 				    <a href="#" onclick="inquiryChk()">1:1 문의</a>
-				    <a href="#">이벤트</a>
-				    <a href="#">공지사항</a>
 			    </div>
 		    </div>
 	    </div>
@@ -60,11 +58,11 @@
 									<ul class="profile-menu">
 										<li>
 											<div class="point">
-												<a href="/myPoint">
+												<a href="/member/myPoint">
 												<span class="icon"><img alt="icon" src="/resources/images/point.png"></span>
 												<span class="point-text">POINT</span>
-												<span class="right">${principal.member.point }P</span>
 												</a>
+												<span class="right" id="memberPoint"></span>
 											</div>
 										</li>
 									</ul>

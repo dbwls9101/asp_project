@@ -48,4 +48,8 @@
 	<select id="getMyPartyReplyTotal" parameterType="String" resultType="int">
 		select count(*) from party_comment where comment_to=#{comment_to}
 	</select>
+	
+	<delete id="deleteParty" parameterType="int">
+		delete from party_comment where p_idx=#{p_idx}
+	</delete>
 </mapper>

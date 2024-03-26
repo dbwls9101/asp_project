@@ -20,20 +20,25 @@
 			
 			<div id="withdraw-search">
 				<form method="post" id="withdrawform">
-					<select class="form-select" aria-label="Default select example">
-					  <option selected>출금상태</option>
-					  <option value="1">신청</option>
-					  <option value="2">승인</option>
-					  <option value="3">반려</option>					
-					</select>
-					
-					<select class="form-select" aria-label="Default select example">
-					  <option value="1" selected>회원번호</option>
-					  <option value="2">아이디</option>
-					</select>
-					
-					<input class="form-control" type="text" placeholder="검색어를 입력하세요." aria-label="default input example">				
-					<input type="button" id="search" value="검색">
+			        <div class="radio">
+						<div class="form-check form-check-inline">
+						  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="all" checked>
+						  <label class="form-check-label" for="inlineRadio1">전체</label>
+						</div>
+						<div class="form-check form-check-inline">
+						  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="approval">
+						  <label class="form-check-label" for="inlineRadio2">신청</label>
+						</div>
+						<div class="form-check form-check-inline">
+						  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="application">
+						  <label class="form-check-label" for="inlineRadio3">승인</label>
+						</div>
+						<div class="form-check form-check-inline">
+						  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="Companion">
+						  <label class="form-check-label" for="inlineRadio4">반려</label>
+						</div>
+					</div>
+
 					<input type="hidden" name="id" value="${principal.member.id}">
 					<input type="hidden" name="with_status" value="${vo.with_status }">
 					<input type="hidden" name="m_idx" value="${vo.m_idx }">
@@ -45,18 +50,26 @@
 					<thead>
 						<tr>
 							<th>출금상태</th>
-							<th>접수번호(NO.)</th>
-							<th>신청일</th>
 							<th>출금방법</th>
+							<th>아이디</th>
+							<th>예금주</th>
 							<th>실지급액(출금액)</th>
-							<th>비고(계좌번호)</th>
-							<th>승인여부</th>					
+							<th>계좌번호</th>
+							<th>신청일</th>
+							<th>관리</th>					
 						</tr>
 					</thead>
 					<tbody class="aa">
 						
 					</tbody>
 				</table>
+			</div>
+			
+			<!-- page -->
+			<div class="page-wrap">
+				<ul class="page-nation">
+				
+				</ul>
 			</div>
 			
 		</div>

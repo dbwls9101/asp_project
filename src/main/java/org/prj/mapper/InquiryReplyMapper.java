@@ -21,5 +21,8 @@ public interface InquiryReplyMapper {
 	// 5. 댓글 수정
 	public int update(InquiryCommentVO vo);
 	
+	// 6. 관리자에서 댓글 삭제
+	public int allDelete(int i_idx);
+	
 	// 댓글 삭제 부분은 추후
 }

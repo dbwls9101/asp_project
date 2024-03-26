@@ -2,24 +2,29 @@ package org.prj.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.prj.domain.Criteria;
 import org.prj.domain.MemberVO;
+import org.prj.domain.PageDTO;
+import org.prj.domain.PartyBoardVO;
+import org.prj.domain.PaymentVO;
 import org.prj.domain.PointVO;
 import org.prj.security.CustomUserDetailService;
 import org.prj.security.domain.CustomUser;
 import org.prj.service.MemberService;
+import org.prj.service.PartyBoardService;
 import org.prj.service.PointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -52,6 +57,8 @@ public class MemberController {
     private CustomUserDetailService customUserDetailService;
 	@Autowired 
 	private PointService poService;	
+	@Autowired 
+	private PartyBoardService pService;
 
 	// 개인정보 동의 페이지 이동
 	@RequestMapping(value = "joinAgree", method = RequestMethod.GET)
@@ -96,7 +103,7 @@ public class MemberController {
 		point.setM_idx(member.getM_idx());
 		point.setId(member.getId());
 		point.setName(member.getName());
-		point.setContent("회원가입");
+		point.setContent("join");
 		point.setBefore_point(0);
 		point.setAfter_point(500);
 		point.setUpdate_point(500);
@@ -305,15 +312,24 @@ public class MemberController {
 	
 	// 회원 수정 페이지
 	@PostMapping("/modifyForm")
-	public String move(@RequestParam("password") String password, Authentication authentication, Model model) {
+	public String move(@RequestParam("password") String password, Authentication authentication, Model model, @RequestParam("deletechk") String deletechk) {
 		log.info("moveModifyForm...");
 		CustomUser customVo = (CustomUser)authentication.getPrincipal();
 		MemberVO memberVo = customVo.getMember();
 		
 		boolean isPasswordMatch = newPwencoder.matches(password, memberVo.getPassword());
+
 		
 		log.info("isPasswordMatch : [" + isPasswordMatch + "]");
 		if(isPasswordMatch) {
+			if("Y".equals(deletechk)) {
+				int result = memberservice.doLockAccount(memberVo);
+				if( result > 0 ) {
+					model.addAttribute("setText", "정상적으로 탈퇴처리가 되었습니다. 감사합니다.");
+					model.addAttribute("PopCheck", 6);
+					return "/member/registerAlert";
+				}
+			}
 			return "/member/modifyForm";
 		}else {
 			model.addAttribute("isPasswordMatch", isPasswordMatch);
@@ -371,4 +387,48 @@ public class MemberController {
 	public void movemyPoint() {
 		log.info("movemyPoint...");
 	}
+	
+	
+	// 탈퇴
+	@ResponseBody
+	@PostMapping(value="/deleteMemberCheck", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String deleteMemberCheck( Authentication authentication) {
+		log.info("deleteMemberCheck...");
+		String result = ""; // A,B 탈퇴 가능 / C 탈퇴 불가능
+		CustomUser customVo = (CustomUser)authentication.getPrincipal();
+		MemberVO memberVo = customVo.getMember();
+		
+		if("B".equals(memberVo.getLevel())) { //파티장
+			int partyCnt = pService.getMyPartyTotal(memberVo.getM_idx());
+			if(partyCnt > 0) {
+				result = "C"; //파티장이면서 내가만든 파티가 있는 경우 
+				return result;
+			}
+		}
+		
+		//파티장이든, 파티원이든 판단
+		List<PartyBoardVO> partyList = pService.getParticipating(memberVo.getId());
+		if(partyList.size() > 0) {
+			result = "A"; //참여중인 파티가 존재
+		}else {
+			result = "B"; // 참여중인 파티가 미존재
+		}
+		
+		
+		return result;
+	}
+	
+	//포인트 리스트
+	@ResponseBody
+	@PostMapping(value="/myPointList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public PageDTO getMyPointList(@RequestBody Criteria cri, Authentication authentication) {
+		
+		CustomUser customVo = (CustomUser)authentication.getPrincipal();
+		MemberVO memberVo = customVo.getMember();
+		cri.setM_idx(memberVo.getM_idx());
+		int total = memberservice.getPointTotal(cri);
+		List<PointVO> list = memberservice.getPointList(cri);
+		PageDTO pageMaker = new PageDTO(cri, total, list);
+		return pageMaker;
+	}	
 }

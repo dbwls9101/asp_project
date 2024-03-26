@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,6 +23,7 @@
 			  <option value="all" selected>전체</option>
 			  <option value="join">회원가입</option>
 			  <option value="payment">결제</option>
+			  <option value="paymentCancel">결제취소</option>
 			  <option value="refund">환불</option>
 			  <option value="etc">기타</option>
 			</select>		
@@ -35,7 +37,7 @@
 			<input class="form-control" type="text" id="searchword" aria-label="default input example">			
 			<input type="button" id="search" value="검색">
 			<input type="button" id="reset" value="초기화">
-			<input type="button" id="registerOpen" value="포인트 관리">
+			<input type="button" id="registerOpen" value="포인트 관리" style="display: inline-block;">
 			<div id="registerContainer" class="hidden">
 		        <div id="registerContent" class="modal-window">
 					<div class="close-area">Ⅹ</div>

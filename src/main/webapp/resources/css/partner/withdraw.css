@@ -1,123 +1,134 @@
-#service-container{
-	margin:auto;
-	width: 1200px;
-	margin-top: 50px;
+#service-container {
 	margin-bottom: 80px;
+	padding: 40px 50px;
 }
 
-#withdraw-tab-title{
+}
+#withdraw-tab-title {
+	font-size: 25px;
+	margin-bottom: 20px;
+}
+
+#withdraw-search table {
+	text-align: center;
+	width: 100%;
+}
+
+#withdraw-search table tr {
+	border-top: 1px solid #ececec;
+}
+
+#withdraw-search table th {
+	padding: 18px 0;
+	font-size: 14px;
+	font-weight: bold;
+	color: #333333;
+	background-color: #f9f9f9;
+}
+
+#withdraw-search table td {
+	padding: 15px 0;
+	font-size: 14px;
+	font-weight: 500;
+	color: #333;
+	line-height: 16px;
+}
+
+#withdraw-search input[type='text'] {
+    width: 300px;
+    height: 38px;
+    padding: 0 15px;
+    font-size: 14px;
+    color: #333;
+    border: solid 1px #dddddd;
+    background-color: white;
+    border-radius: 5px;
+}
+
+#withdraw-search input[type="button"] {
+    padding: 0 20px;
+    min-width: 100px;
+    height: 50px;
+    font-size: 16px;
+    border: 0px;
+    background-color: #43a051;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#withdraw-search input[type="button"]:hover {
+	background-color: #FFE05C;
+}
+
+#withdraw-tab-title {
 	font-size: 25px;
     margin-bottom: 20px;
 }
 
-#withdraw-search table{
+#withdraw-search {
 	text-align: center;
-	height: 462px;
-	width: 100%;
-}
-
-#withdraw-search table th{
-	padding: 18px 0;
-    font-size: 14px;
-    font-weight: bold;
-    color: #333333;
-    background-color: #f9f9f9;
-}
-
-#withdraw-search table td{
-	padding: 15px 0;
-    font-size: 14px;
-    font-weight: 500;
-    color: #333;
-    line-height: 16px;
-    border-top: 1px solid #ececec;
-}
-
-#withdraw-search input[type="button"]{
-	font-size: 25px;
-	border-radius: 10px;
-	width: 200px;
-	height: 60px;
-	background-color: #43a051;
-    color: white;
-    border: 0;
-}
-
-#withdraw-search input[type="button"]#withDrawal{
-	background-color: #258e75;
-}
-
-#withdraw-search{
-	border-radius: 20px;
-	height: 530px;
-	border: 1px solid #43a051;
-	text-align: center;
-	padding-top: 22px;
 	margin-bottom: 30px;
 }
 
-#withdrawlist{
+#withdrawlist {
 	margin-top: 10px;
 	border-top: 1px solid #333333;
-    border-bottom: 1px solid #ececec;
+	border-bottom: 1px solid #ececec;
 }
 
-#withdrawlist table{
+#withdrawlist table {
 	text-align: center;
 	width: 100%;
 }
 
-#withdrawlist table th{
+#withdrawlist table th {
 	padding: 18px 0;
-    font-size: 14px;
-    font-weight: bold;
-    color: #333333;
-    background-color: #f9f9f9;
+	font-size: 14px;
+	font-weight: bold;
+	color: #333333;
+	background-color: #f9f9f9;
 }
 
-#withdrawlist table td{
+#withdrawlist table td {
 	padding: 15px 0;
-    font-size: 14px;
-    font-weight: 500;
-    color: #333;
-    line-height: 16px;
-    border-top: 1px solid #ececec;
+	font-size: 14px;
+	font-weight: 500;
+	color: #333;
+	line-height: 16px;
+	border-top: 1px solid #ececec;
 }
 
-#partymodify, #partydelete{
+#partymodify, #partydelete {
 	font-size: 13px;
 }
 
-#left1{
-	text-align: left;
+#withdrawCheckA {
+	border-top: 1px solid #333333;
+	margin-right: 40px;
+	display: inline-block;
+	width: calc(50% - 22px);
+	vertical-align: top;
 }
 
-#withdrawform{
-	width: 650px;
-    padding: 10px;
-    display: block;
+#withdrawCheckB {
+	border-top: 1px solid #333333;
+	display: inline-block;
+	width: calc(50% - 22px);
+	vertical-align: top;
 }
 
-#containerA{
-	width: 1165px;
-    height: 480px;
-}
-
-#withdrawCheckA{
-	float: left;
-	width: 550px;
-;
-}
-
-#withdrawCheckB{
-	width: 570px;
-    float: right;
-}
-
-#center1{
+#center1 {
 	text-align: center;
+	color: #fff;
+	font-size: 16px;
 }
 
-#center2{
-	width: 260px;
+#center1 b {
+	color: #ffff00;
+}
+
+#center2 {
+	text-align: left;
+    padding: 15px 20px !important;
 }

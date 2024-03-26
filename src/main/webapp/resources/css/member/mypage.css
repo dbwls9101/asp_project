@@ -245,6 +245,7 @@ ul {
 	border-radius: 5px;
 	background-color: #cecdd4;
 	overflow: hidden;
+	cursor: pointer;
 }
 
 .form-list .button {

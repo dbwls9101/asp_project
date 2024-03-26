@@ -1,5 +1,10 @@
 package org.prj.controller;
 
+import java.io.File;
+import java.net.URLDecoder;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.prj.domain.Criteria;
@@ -105,8 +110,9 @@ public class InquiryController {
 	public String modify(InquiryVO vo, RedirectAttributes rttr) {
 		log.info("modify..." + vo);
 		
-		if(service.modify(vo)) {
-			rttr.addFlashAttribute("result", "success");
+		List<FileInfoVO> attachList = service.getAttachList(vo.getI_idx());
+		if (service.modify(vo)){
+			deleteFiles(attachList);
 		}
 		
 		return "redirect:/inquiry_board/Inquirylist";
@@ -116,26 +122,41 @@ public class InquiryController {
 	public String remove(@RequestParam("i_idx") int i_idx, RedirectAttributes rttr) {
 		log.info("remove...." + i_idx);
 		
-//		List<FileInfoVO> attachList = service.getAttachList(i_idx);
+		List<FileInfoVO> attachList = service.getAttachList(i_idx);
 		
 		if(service.remove(i_idx)) {
+			deleteFiles(attachList);
 			rttr.addFlashAttribute("result", "success");
-		}
+		}; 
 		
 		return "redirect:/inquiry_board/Inquirylist";
 	}
 	
 	@ResponseBody
-	@GetMapping(value = "/getAttachList/{idx}",
-			produces = {
-			MediaType.APPLICATION_JSON_UTF8_VALUE	
-			})
+	@GetMapping(value = "/getAttachList/{i_idx}", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<List<FileInfoVO>> getAttachList(
-		@PathVariable("idx") int idx
+		@PathVariable("i_idx") int i_idx
 		){
-		log.info("getAttachList..." + idx);
+		log.info("getAttachList..." + i_idx);
 		
-		return new ResponseEntity<List<FileInfoVO>>(service.getAttachList(idx), HttpStatus.OK);
+		return new ResponseEntity<List<FileInfoVO>>(service.getAttachList(i_idx), HttpStatus.OK);
+	}
+	
+	public void deleteFiles(List<FileInfoVO> attachList) {
+		if(attachList == null || attachList.size() == 0) {
+			return;}
+		log.info(attachList);
+		
+		attachList.forEach(attach ->{
+			try{
+				File file = null;
+				String fileName = attach.getUploadPath() + "\\" + attach.getUuid() + "_" + attach.getFileName();
+				file = new File("C:\\upload\\", URLDecoder.decode(fileName, "utf-8"));
+				file.delete();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		});
 	}
 	
 	

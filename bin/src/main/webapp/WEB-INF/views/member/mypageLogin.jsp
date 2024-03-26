@@ -23,6 +23,7 @@
 <div class="form-signin w-100 m-auto">
   <form id="mypageLogin_form" method="post" >
   	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+    <input type="hidden" name="deletechk" value="${param.deletechk}">
     <h2>비밀번호 확인</h2>
     <div class="form-floating">
       <input type="text" class="form-control" name="id" id="id" value="${principal.member.id }" readonly>

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "sec" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,7 +95,7 @@
 					</li>
 					<li>
 						<div class="subject">ㆍ 사용 포인트</div>
-						<div class="right">${vo.point }P</div>
+						<div class="right"><fmt:formatNumber value="${vo.point }"/>P</div>
 					</li>
 					<li>
 						<div class="subject">ㆍ 총 합계</div>

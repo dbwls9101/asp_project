@@ -80,7 +80,6 @@ const replyService = (function() {
 		.catch( err => console.log(json));
 	}
 	
-	
 	return {
 		add : add,
 		getList : getList,

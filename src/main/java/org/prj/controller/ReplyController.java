@@ -3,11 +3,14 @@ package org.prj.controller;
 import java.util.List;
 
 import org.prj.domain.InquiryCommentVO;
+import org.prj.domain.InquiryVO;
 import org.prj.service.InquiryReplyService;
+import org.prj.service.InquiryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,9 +28,13 @@ import lombok.extern.log4j.Log4j;
 public class ReplyController {
 	
 	@Autowired
+	private InquiryService iService; 
+	
+	@Autowired
 	private InquiryReplyService service;
 	
 	// 1. 댓글 등록
+	@Transactional
 	@PostMapping(value = "/new",
 			consumes = "application/json",
 			produces = MediaType.TEXT_PLAIN_VALUE )
@@ -35,19 +42,20 @@ public class ReplyController {
 		log.info("InquiryCommentVO : " + vo);
 		
 		int insertCount = service.register(vo);
-		
 		log.info("insertCount : " + insertCount);
 		
+		InquiryVO ivo = new InquiryVO();
+		ivo.setI_idx(vo.getI_idx());
+		ivo.setStatus(vo.getStatus());
+		log.info("statusUpdate : " + ivo);
+		iService.statusUpdate(ivo);
 		return insertCount == 1 ?
 				new ResponseEntity<String>("success", HttpStatus.OK) :
 					new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	// 2. 댓글 목록
-	@GetMapping(value = "/pages/{i_idx}",
-			produces = {
-			MediaType.APPLICATION_JSON_UTF8_VALUE,
-			MediaType.APPLICATION_XML_VALUE
+	@GetMapping(value = "/pages/{i_idx}", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_XML_VALUE
 			})
 	public ResponseEntity<List<InquiryCommentVO>> getList(
 			@PathVariable("i_idx") int i_idx
