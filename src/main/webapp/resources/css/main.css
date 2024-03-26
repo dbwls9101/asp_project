@@ -185,7 +185,7 @@ a {
 	height: 34px;
 	margin-top: 35px;
 	font-size: 16px;
-	color: #ffffff;
+	color: #ffffff !important;
 	text-align: center;
 	font-weight: bold;
 	line-height: 32px;
@@ -363,6 +363,11 @@ a {
     color: #222;
 }
 
+/* 알림 */
+#liveToast{
+	
+}
+
 /* footer */
 .footer {
 	position: relative;
@@ -395,9 +400,9 @@ a {
 
 .footer-a a {
 	margin-right: 20px;
+	color: #666666;
 }
 
 .footer-a a:hover {
 	color: #43a051;
-}
-
+} 

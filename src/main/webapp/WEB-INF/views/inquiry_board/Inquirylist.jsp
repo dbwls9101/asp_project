@@ -35,7 +35,7 @@
 	
 	<!-- 4. 표 -->
 	<div class="panel-body">
-		<table>
+		<table style="text-align: center;">
 			<thead>
 				<tr>
 					<th>상담유형</th>
