@@ -7,7 +7,6 @@ document.querySelector("#makeparty").addEventListener('click', ()=>{
 getAllCategory();
 function getAllCategory(){
 	let msg = "";
-	
 	fetch('/partner/allcategory')
 	.then(response => response.json())
 	.then(json => {
@@ -153,7 +152,7 @@ function multiSearchList(obj){
 			msg += '<td>' + myTime(vo.end_date) + '</td>';
 			msg += '<td>' + myTime(vo.reg_date) + '</td>';
 			msg += '<td><input type="button" id="partymodify" value="수정" onclick="modifyBtnEvent(' + vo.p_idx + ')">';
-			msg += '&nbsp;<input type="button" id="partydelete" value="삭제"onclick="deleteBtnEvent(' + vo.p_idx + ')"></td>';
+			msg += '&nbsp;<input type="button" id="partydelete" value="삭제"onclick="deleteBtnEvent(' + vo.p_idx + '\,' + vo.curr_party + '\, \'' + vo.status + '\')"></td>';
 			msg += '</tr>';
 		})
 		
@@ -241,8 +240,16 @@ function modifyBtnEvent(p_idx){
 	location.href = '/partner/modify?pn=' + p_idx;
 }
 
-function deleteBtnEvent(p_idx){
+function deleteBtnEvent(p_idx, curr_party, status){
+	if(curr_party > 0 && status == 'Y'){
+		alert('파티원이 있을 경우 파티를 삭제할 수 없습니다.');
+		return;
+	}
 	
+	if(confirm('해당 파티를 삭제하시겠습니까?')){
+		localStorage.clear();
+		location.href = '/partner/removeparty?pn=' + p_idx;
+	}
 }
 
 //unixTimeStamp 변환

@@ -1,13 +1,17 @@
 package org.prj.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.List;
 
-
+import org.apache.ibatis.annotations.Param;
 import org.prj.controller.AdminController;
 import org.prj.domain.CategoryVO;
 import org.prj.domain.Criteria;
 import org.prj.domain.FaqVO;
+import org.prj.domain.FileInfoVO;
+import org.prj.domain.InquiryVO;
 import org.prj.domain.MemberVO;
 import org.prj.domain.PageDTO;
 import org.prj.domain.PartyBoardVO;
@@ -65,6 +69,10 @@ public class AdminController {
 	@Autowired
 	private WithdrawService wService;
 	
+	// 1:1문의
+	@Autowired
+	private InquiryService iService;
+
 	@Autowired 
 	private PointService poService;
 
@@ -73,9 +81,6 @@ public class AdminController {
 	
 	@Autowired
 	private MemberService mService;
-	
-	@Autowired
-	private InquiryService iService;
 	
 	@Autowired
 	private RefundService rService;
@@ -227,13 +232,19 @@ public class AdminController {
 	
 	//출금관리 리스트
 	@ResponseBody
-	@GetMapping(value="/withdrawList", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public ResponseEntity<List<WithdrawVO>> withdrawList() {
+	@PostMapping(value="/withdrawList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public PageDTO withdrawList(@RequestBody Criteria cri) {
 		log.info("withdrawList...");
-		return new ResponseEntity<List<WithdrawVO>> (wService.withdrawList(), HttpStatus.OK);
+		log.info("cri..." + cri);
+		
+		int total = wService.getWithdrawTotal(cri);
+		List<WithdrawVO> list = wService.withdrawList(cri);
+		
+		PageDTO pageMaker = new PageDTO(cri, total, list);
+		return pageMaker;
 	} 
 	
-	//출금관리 승인, DB with_status A -> C로 변경
+	//출금관리 승인, DB with_status A -> B로 변경
 	@ResponseBody
 	@PostMapping(value = "/modifyWithdraw", produces = MediaType.TEXT_PLAIN_VALUE)
 	public String modifyWithdraw(@RequestBody int w_idx) {
@@ -246,6 +257,19 @@ public class AdminController {
 	    }
 	}
 	
+	// 출금관리 반려, DB with_status A -> C로 변경
+	@ResponseBody
+	@PostMapping(value = "/modifyWithdraw2", produces = MediaType.TEXT_PLAIN_VALUE)
+	public String modifyWithdraw2(@RequestBody int w_idx) {
+	    log.info("modifyWithdraw... :" + w_idx);
+
+	    if (wService.modifyWithdraw2(w_idx)) {
+	        return "success";
+	    }else {
+	    	return "fail";
+	    }
+	}
+
 	//파티 관리
 	@GetMapping("/party")
 	public void moveParty() {
@@ -368,6 +392,102 @@ public class AdminController {
 	@PostMapping(value="/categorystatus", produces = MediaType.TEXT_PLAIN_VALUE)
 	public String changeCategoryStatus(@RequestBody CategoryVO vo) {
 		return cService.changeCategoryStatus(vo) > 0 ? "success" : "fail";
+	}
+	
+	// 1:1문의 
+	@GetMapping("/admin_inquiry_board")
+	public String admin_inquiry_board() {
+		log.info("admin_inquiry_board...");
+		return "/admin/admin_inquiry_board";
+	}
+	
+	// 1:1문의 리스트
+	@ResponseBody
+	@PostMapping(value="/inquiryboardList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public PageDTO inquiryboardList(@RequestBody Criteria cri) {
+		log.info("inquiryboardList...");
+		log.info("cri..." + cri);
+		
+		int total = iService.getInquiryBoardTotal(cri);
+		List<InquiryVO> list = iService.inquiryboardList(cri);
+		
+		PageDTO pageMaker = new PageDTO(cri, total, list);
+		return pageMaker;
+	}
+	
+	// 1:1 문의 댓글(모달창) 가지고 오기
+	@ResponseBody
+	@GetMapping(value = "/page/{i_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public InquiryVO getReply(@PathVariable("i_idx") int i_idx) {
+		log.info("getReply..." + i_idx);
+		
+		return iService.getReply(i_idx);
+	}
+	
+/*	// 1:1 문의 게시글 삭제
+	@PostMapping("/Inquiryremove")
+	public String remove(@RequestParam("i_idx") int i_idx, RedirectAttributes rttr ) {
+	    log.info("remove...." + i_idx);
+	    
+	    List<FileInfoVO> attachList = iService.getAttachList(i_idx);
+	    
+		if(iService.remove(i_idx)) {
+			deleteFiles(attachList);
+			rttr.addFlashAttribute("result", "success");
+		}; 
+	    	    
+	    return "redirect:/admin/admin_inquiry_board";
+	} */
+	
+	// 1:1 문의 게시글 삭제
+	@ResponseBody
+	@PostMapping(value="/Inquiryremove", produces = MediaType.TEXT_PLAIN_VALUE)
+	public String remove(@RequestBody int i_idx) {
+	    log.info("remove...." + i_idx);
+	    
+	    boolean result = iService.remove(i_idx);
+	    
+    	List<FileInfoVO> attachList = iService.getAttachList(i_idx);
+	    
+		if(result) {
+			deleteFiles(attachList);
+		}; 
+	    
+	    return result ? "success" : "fail";
+	}
+	
+	public void deleteFiles(List<FileInfoVO> attachList) {
+		if(attachList == null || attachList.size() == 0) {
+			return;}
+		log.info(attachList);
+		
+		attachList.forEach(attach ->{
+			try{
+				File file = null;
+				String fileName = attach.getUploadPath() + "\\" + attach.getUuid() + "_" + attach.getFileName();
+				file = new File("C:\\upload\\", URLDecoder.decode(fileName, "utf-8"));
+				file.delete();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		});
+	}
+	
+	
+	
+	// 1:1 문의 게시글 수정 페이지로 이동
+	@GetMapping("/inquirymodify")
+	public void inquiryModify(@RequestParam("pn") int i_idx, Model model){
+		log.info("inquiryModify..." + i_idx);
+		model.addAttribute("vo", iService.getInquiry(i_idx));
+	}
+	
+	// 1:1 문의 게시글 수정
+	@PostMapping("/admininquirymodify")
+	public String AdminInquiryModify(InquiryVO vo) {
+		log.info("AdminInquiryModify..." + vo);
+		iService.AdminInquiryUpdate(vo);
+		return "redirect:/admin/admin_inquiry_board";
 	}
 	
 	//포인트 관리 페이지 이동

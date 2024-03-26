@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<sec:authorize access="isAuthenticated()">
+   <sec:authentication property="principal" var="principal"/>
+</sec:authorize>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +18,26 @@
 <body>
 	<jsp:include page="../layout/header.jsp"/>
 	<form method="post">
+		<div class="title-div">
+			<div class="title"><span class="come">모여라</span> 포인트</div>
+		</div>
+		
+		<div class="list-member mypoint-list">
+			<table>
+				<colgroup>
+					<col width="20%"  />
+					<col width="60%"  />
+					<col width="%"  />
+				</colgroup>
+				<thead>
+					<tr>
+						<th><img alt="picture" class="picture" src="/resources/images/get_sun.png"><span class="ft20 lmg20">${principal.member.nickname }</span></th>
+						<th></th>
+						<th><img alt="picture" class="picture2" src="/resources/images/coin.png"><span class="ft20 lmg20" id="myPoint"></span></th>
+					</tr>
+				</thead>
+			</table>
+		</div>
 		<div class="title-div">
 			<div class="title">나의 포인트 내역</div>
 		</div>

@@ -106,4 +106,10 @@ public interface MemberService {
 	
 	//업데이트 마이 포인트
 	public int updateMyPoint(PointVO vo);
+	
+	// 포인트 리스트
+	public List<PointVO> getPointList(Criteria cri);
+	
+	// 게시글 전체 개수
+	public int getPointTotal(Criteria cri);
 }

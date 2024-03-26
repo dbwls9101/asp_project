@@ -343,4 +343,16 @@ public class MemberServiceImpl implements MemberService{
 	public int updateMyPoint(PointVO vo) {
 		return membermapper.updateMyPoint(vo);
 	}
+	
+	// 포인트 리스트
+	@Override
+	public List<PointVO> getPointList(Criteria cri) {
+		return membermapper.getPointList(cri);
+	}
+	
+	// 게시글 전체 개수
+	@Override
+	public int getPointTotal(Criteria cri) {
+		return membermapper.getPointTotal(cri);
+	}
 }

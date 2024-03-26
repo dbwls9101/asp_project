@@ -67,11 +67,11 @@ function showUploadedFile(uploadResultArr) {
 		msg += 		'<span data-file="' + fileCallPath + '" style="cursor: pointer;"> X </span>';
 		msg += '</li>';
 		
-	})
+	});
 	uploadResult.innerHTML = msg;
 	
 }
-
+/*
 uploadResult.addEventListener('click', function(e) {
 	
 	if(e.target.tagName === 'SPAN') {
@@ -81,7 +81,7 @@ uploadResult.addEventListener('click', function(e) {
 		
 		fetch('/deleteFile',
 			{
-				method : "post",
+				method : 'post',
 				body : targetFile,
 				headers : {'content-type' : 'text/plain'}
 			}
@@ -99,9 +99,37 @@ uploadResult.addEventListener('click', function(e) {
 		});
 		
 	}
-});
+}); */
 
-
+/*
+uploadResult.addEventListener('click', function(e) {
+	
+	if(e.target.tagName === 'SPAN') {
+		
+		let targetFile = e.target.getAttribute("data-file");
+		console.log(targetFile);
+		
+		fetch('/deleteFile',
+			{
+				method : 'post',
+				body : targetFile,
+				headers : {'content-type' : 'text/plain'}
+			}
+		)
+		.then( response => response.text()) 
+		.then( data => {
+			console.log(data);
+			
+			let targetLi = e.target.closest('li');
+			targetLi.parentNode.removeChild(targetLi);
+			
+		})
+		.catch( err => {
+			console.log('err : ' + err);
+		});
+		
+	}
+}); */
 
 
 

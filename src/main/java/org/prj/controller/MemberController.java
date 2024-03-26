@@ -421,13 +421,13 @@ public class MemberController {
 	//포인트 리스트
 	@ResponseBody
 	@PostMapping(value="/myPointList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public PageDTO getMyPointList(@RequestBody Criteria cri, Authentication authentication, @RequestParam("m_idx") int m_idx) {
+	public PageDTO getMyPointList(@RequestBody Criteria cri, Authentication authentication) {
 		
 		CustomUser customVo = (CustomUser)authentication.getPrincipal();
 		MemberVO memberVo = customVo.getMember();
 		cri.setM_idx(memberVo.getM_idx());
-		int total = poService.getPointTotal(cri);
-		List<PointVO> list = poService.getPointList(cri);
+		int total = memberservice.getPointTotal(cri);
+		List<PointVO> list = memberservice.getPointList(cri);
 		PageDTO pageMaker = new PageDTO(cri, total, list);
 		return pageMaker;
 	}	

@@ -168,7 +168,7 @@ function getList(obj){
 				}
 			}
 		
-			msg += '&nbsp;<input type="button" id="partydelete" value="삭제"onclick="deleteBtnEvent(' + vo.p_idx + ')"></td>';
+			msg += '&nbsp;<input type="button" id="partydelete" value="삭제"onclick="deleteBtnEvent(' + vo.p_idx + '\,' + vo.curr_party + '\, \'' + vo.status + '\')"></td>';
 			msg += '</tr>';
 		})
 		
@@ -289,10 +289,16 @@ function openBtnEvent(p_idx){
 	}
 }
 
-
-
-function deleteBtnEvent(p_idx){
+function deleteBtnEvent(p_idx, curr_party, status){
+	if(curr_party > 0 && status == 'Y'){
+		alert('파티원이 있을 경우 파티를 삭제할 수 없습니다.');
+		return;
+	}
 	
+	if(confirm('해당 파티를 삭제하시겠습니까?')){
+		localStorage.clear();
+		location.href = '/admin/removeparty?pn=' + p_idx;
+	}
 }
 
 

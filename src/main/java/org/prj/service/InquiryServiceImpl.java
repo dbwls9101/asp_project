@@ -7,6 +7,7 @@ import org.prj.domain.FileInfoVO;
 import org.prj.domain.InquiryVO;
 import org.prj.mapper.InquiryAttachMapper;
 import org.prj.mapper.InquiryMapper;
+import org.prj.mapper.InquiryReplyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,8 +21,13 @@ public class InquiryServiceImpl implements InquiryService {
 	@Autowired
 	private InquiryMapper mapper;
 	
+	@Autowired 
+	private InquiryReplyMapper imapper;
+	
 	@Autowired
 	private InquiryAttachMapper AttachMapper;
+
+	private long i_idx;
 	
 	// 1. 1:1문의 게시판 전체 리스트
 	@Override
@@ -54,7 +60,7 @@ public class InquiryServiceImpl implements InquiryService {
 			return;
 		}
 		vo.getAttachList().forEach(attach -> {
-			attach.setIdx(i_idx);
+			attach.setI_idx(i_idx);
 			AttachMapper.insert(attach);
 		});
 	}
@@ -67,30 +73,113 @@ public class InquiryServiceImpl implements InquiryService {
 	}
 	
 	// 5. 게시글 수정
+	@Transactional
 	@Override
 	public boolean modify(InquiryVO vo) {
 		log.info("modify..." + vo);
 		
-		int result = mapper.update(vo);
+		AttachMapper.deleteAll(vo.getI_idx());
 		
-		return result == 1 ? true : false;
+		boolean modifyResult = mapper.update(vo) == 1;
+		
+		if(modifyResult && vo.getAttachList() != null && vo.getAttachList().size() > 0) {
+			vo.getAttachList().forEach(attach -> {
+				attach.setI_idx(vo.getI_idx());
+				AttachMapper.insert(attach);
+			});
+		}	
+		
+//		int result = mapper.update(vo);
+		
+		return modifyResult;
 	}
 	
 	// 6. 게시글 삭제
+	@Transactional
 	@Override
 	public boolean remove(int i_idx) {
-//		replymapper.Alldelte(i_idx);	// 게시글 삭제하면 댓글 부분도 삭제 추후 조치	
-		
+		log.info("remove..." + i_idx);
+		// 댓글 전체를 삭제
+		imapper.allDelete(i_idx);	// 게시글 삭제하면 댓글 부분도 삭제 추후 조치
+		// 파일 데이터 삭제
+		AttachMapper.deleteAll(i_idx);
+		// 게시글 삭제
 		int result = mapper.delete(i_idx);
-		
-		return result == 1 ? true : false;
+		return result > 0 ? true : false ;
 	}
 
 	// 7. 첨부 파일 목록을 가지고 온다.
 	@Override
-	public List<FileInfoVO> getAttachList(int idx) {
-		log.info("AttachList : " + idx);
-		return AttachMapper.findByIdx(idx);
+	public List<FileInfoVO> getAttachList(int i_idx) {
+		log.info("AttachList : " + i_idx);
+		return AttachMapper.findByIdx(i_idx);
+	}
+	
+	// + 추가 업로드한 파일을 수정 부분에서 삭제	이것도 잠시 대기!!
+	@Override
+	public void delete(String uuid) {
+		log.info("delete : " + uuid);
+		
+		AttachMapper.delete(uuid);
+	}
+		
+	
+	// 8. 리스트 나오는 갯수
+	@Override
+	public int getInquiryBoardTotal(Criteria cri) {
+		
+		return mapper.getInquiryBoardTotal(cri);
+	}
+
+	// 9. 관리자 1:1문의 불러 오는 내용
+	@Override
+	public List<InquiryVO> inquiryboardList(Criteria cri) {
+		
+		return mapper.inquiryboardList(cri);
+	}
+
+	// 10. 관리자 1:1문의 댓글 가지고 오기
+	@Override
+	public InquiryVO getReply(int i_idx) {
+		
+		return mapper.getReply(i_idx);
+	}
+
+	// 11. 관리자 1:1 문의 상태 변경
+	@Override
+	public void statusUpdate(InquiryVO vo) {
+		log.info("statusUpdate..." + vo);
+		mapper.statusUpdate(vo);
+	}
+
+	// 12. 관리자 1:1문의 게시글 가지고 오기
+	@Override
+	public InquiryVO getInquiry(int i_idx) {
+		
+		return mapper.getInquiry(i_idx);
+	}
+
+	// 13. 관리자 1:1문의 게시글 수정
+	@Transactional
+	@Override
+	public boolean AdminInquiryUpdate(InquiryVO vo) {
+		log.info("AdminInquiryUpdate..." + vo);
+		
+		AttachMapper.deleteAll(vo.getI_idx());
+		
+		boolean modifyResult = mapper.AdminInquiryUpdate(vo) == 1;
+		
+		if(modifyResult && vo.getAttachList() != null && vo.getAttachList().size() > 0) {
+			vo.getAttachList().forEach(attach -> {
+				attach.setI_idx(vo.getI_idx());
+				AttachMapper.insert(attach);
+			});
+		}	
+			
+		return modifyResult;	
+		
+//		mapper.AdminInquiryUpdate(vo);
+		
 	}
 
 	@Override

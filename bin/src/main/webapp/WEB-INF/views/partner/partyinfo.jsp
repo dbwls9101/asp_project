@@ -40,8 +40,9 @@
 				<table>
 					<thead>
 						<tr>
-							<th>판매일</th>
-							<th>서비스명</th>
+							<th width="200">판매일</th>
+							<th>파티번호</th>
+							<th width="200">서비스명</th>
 							<th>구매자</th>
 							<th>상태</th>
 							<th>남은기간</th>
@@ -66,8 +67,7 @@
 	</div>
 	
 	<jsp:include page="../layout/partner_footer.jsp"/>
-	
+	<script type="text/javascript" src="/resources/js/partner/partyinfo.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/resources/js/partner/partyinfo.js"></script>
 </html>

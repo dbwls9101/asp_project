@@ -42,15 +42,17 @@ function getPointList(obj){
 			list.forEach(vo => {
 				msg += '<tr>';
 				msg += '<td>' + vo.content + '</td>';
-				msg += '<td>' + vo.update_point + '</td>';
-				msg += '<td>' + vo.before_point + '</td>';
-				msg += '<td>' + vo.after_point + '</td>';
+				if(vo.update_point > 0){
+					msg += '<td class="plusPoint">' + '+' + vo.update_point + 'P</td>';
+				}else{
+					msg += '<td class="minusPoint">' + vo.update_point + 'P</td>';
+				}
+				msg += '<td>' + vo.before_point + 'P</td>';
+				msg += '<td>' + vo.after_point + 'P</td>';
 				msg += '<td>' + myTime(vo.reg_date) + '</td>';
 				msg += '</tr>';
 			})
-			document.querySelector("#registerOpen").style.display = 'inline-block';
 		}else{
-			document.querySelector("#registerOpen").style.display = 'none';
 				msg += '<tr>';
 				msg += '<td colspan="8">' + '내역이 없습니다.' + '</td>';
 				msg += '</tr>';	
@@ -77,7 +79,7 @@ function getPointList(obj){
 		}
 		
 		
-		document.querySelector("#pointlist tbody").innerHTML = msg;
+		document.querySelector("tbody").innerHTML = msg;
 		document.querySelector(".page-nation").innerHTML = page;
 	})
 		.then(()=>{
@@ -86,22 +88,20 @@ function getPointList(obj){
 		.catch(err => console.log(err));
 }
 
-// 페이지 버튼 클릭 이벤트
+//페이지 버튼 클릭 이벤트
 function pagingEvent(){
 	document.querySelectorAll(".page-nation li a").forEach(aEle => {
 		aEle.addEventListener('click', function(e){
-			e.preventDefault(); // href 경로 이동 방지
+			e.preventDefault(); //href 경로 이동 방지
 			
-			let pageData = getStorageData();
-			
-			// 태그 속성 불러오기
+			//태그 속성 불러오기
+			let menu = 'listpage';
 			let pageNum = this.getAttribute("href");
 			let amount = 10;
 			
-			setStorageData(pageNum, amount);
+			setStorageData(menu, pageNum, amount);
 			
-			let obj = makeObject(pageNum, amount);
-			getPointList(obj);
+			getPointList(makeObject(pageNum,amount));
 		});
 	});
 }
@@ -115,3 +115,10 @@ function myTime(unixTimeStamp){
 	
 	return date;
 }
+//포인트 불러오기
+getPrincipal().then(() => {
+	if(document.getElementById("myPoint")){
+		let point = principal.member.point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		document.getElementById("myPoint").innerHTML = point + 'P';
+	}
+});

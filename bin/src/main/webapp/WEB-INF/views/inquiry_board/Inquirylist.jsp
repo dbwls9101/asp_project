@@ -10,6 +10,8 @@
 <body>
 	<jsp:include page="../layout/header.jsp"/>
 	
+	<sec:authentication property="principal" var="principal"/>
+	
 	<!-- 1. 문의하기 -->
 	<div>
 		<h1 class="page-header"> <span class="text-point">1:1</span> 문의 </h1>
@@ -24,7 +26,11 @@
 	
 	<!-- 3. 문의하기 버튼 -->
 	<div class="panel-heading">
-		<button type="button" class="btn_inquiry" id="registerBtn">문의하기</button>
+		<sec:authorize access="isAuthenticated()">
+			<c:if test="${principal.member.nickname eq vo.writer}">
+				<button type="button" class="btn_inquiry" id="registerBtn">문의하기</button>
+			</c:if>	
+		</sec:authorize>		
 	</div>
 	
 	<!-- 4. 표 -->

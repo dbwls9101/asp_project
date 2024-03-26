@@ -138,6 +138,16 @@
 		update member set with_amount = (with_amount + #{serviceamount}) where id=#{id}
 	</update>
 	
+	<!-- point 업데이트 -->
+	<update id="updatePoint" parameterType="org.prj.domain.PaymentVO">
+		update member set point = (point - #{point}) where m_idx=#{m_idx}
+	</update>
+	
+	<!-- point 반환 -->
+	<update id="pointCancel" parameterType="org.prj.domain.PaymentVO">
+		update member set point = (point + #{point}) where m_idx=#{m_idx}
+	</update>
+	
 	<!-- 카카오 회원가입 -->
 	<select id="kakaoIdck" parameterType="String" resultType="int">
 		select count(*) from member where kakaoid = #{kakaoid}
@@ -320,5 +330,40 @@
 	        </otherwise>
 	    </choose>
 	</update>
+	
+	<!-- 환불 승인 -->
+	<update id="doRefundApproval" parameterType="org.prj.domain.RefundVO">
+		update member set point=(point + #{re_amount}) where m_idx=#{m_idx}
+	</update>
+	
+	<!-- 업데이트 마이 포인트 -->
+	<update id="updateMyPoint" parameterType="org.prj.domain.PointVO">
+		update member set point=#{after_point} where m_idx=#{m_idx}
+	</update>
+	
+	<!-- 포인트 리스트  -->
+	<select id="getPointList" parameterType="org.prj.domain.Criteria" resultType="org.prj.domain.PointVO"> 
+		<![CDATA[	
+		select p_idx, m_idx, after_point, before_point, update_point, content, reg_date
+		from (select rownum rn, p_idx, m_idx, after_point, before_point, update_point, content, reg_date 
+		from (select a.p_idx, a.m_idx, a.after_point, a.before_point, a.update_point, a.content, a.reg_date
+			from point a, member b
+			where a.m_idx = b.m_idx and a.m_idx = #{m_idx}
+			]]>
+		<![CDATA[
+			order by p_idx desc
+			)
+	       	where rownum <= #{pageNum} * #{amount} )
+	       	where rn > (#{pageNum}-1) * #{amount}	
+		]]>
+	</select>
+	
+	<!-- 게시글 전체 개수 -->
+	<select id="getPointTotal" parameterType="org.prj.domain.Criteria" resultType="int">
+		select count(*)
+		from point a, member b
+		where a.m_idx = b.m_idx and a.m_idx = #{m_idx}
+		order by p_idx desc
+	</select>
 	
 </mapper>	

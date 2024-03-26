@@ -11,13 +11,6 @@
     font-weight: bold;
 }
 
-.sub-title {
-	margin-top: 56px;
-    margin-bottom: 20px;
-    font-size: 18px;
-    font-weight: 500;
-    color: #333333;
-}
 
 table {
 	border-spacing: 0;
@@ -74,59 +67,6 @@ table {
     color: #aaaaaa;
 }
 
-.form-half {
-	display: inline-block;
-    width: calc(50% - 22px);
-    vertical-align: top;
-}
-
-.form-half.left {
-	margin-right: 40px;
-}
-
-.form-list {
-	border-top: 1px solid #333333;
-}
-
-.form-list li {
-	font-size: 14px;
-    color: #333333;
-    border-top: 1px solid #ececec;
-    position: relative;
-}
-
-.form-list li .subject {
-	width: 120px;
-    padding:  18px 0;
-    text-indent: -5px;
-    display: inline-block;
-}
-
-.form-list li .right {
-	position: absolute;
-    top: 0;
-    right: 0;
-	width: calc(100% - 88px);
-    padding: 18px 0;
-    text-align: right;
-    font-size: 16px;
-}
-
-.form-list li .right.fill {
-	padding: 12px 0;
-}
-
-.form-list input[type='text'], .form-list input[type='number']{
-	width: 180px;
-	height: 32px;
-    margin-right: 0;
-    padding: 0 10px;
-    font-size: 13px;
-    font-weight: 300;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    border: solid 1px #dddddd;
-}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -134,51 +74,6 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input[type='number'] {
-  -moz-appearance: textfield;
-}
-
-.form-list .text-point {
-	color: #43a051 !important;
-}
-
-.form-list .point {
-	width: 86px !important;
-    margin: 0 2px 0 12px;
-}
-
-.form-list .point-btn {
-	width: 70px;
-    min-width: 50px;
-    height: 32px;
-    font-size: 14px;
-    line-height: 30px;
-    background-color: #43a051;
-    color: white;
-    border: 0;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.form-list .total {
-	position: relative;
-    padding: 0 20px !important;
-    border: 1px solid #43a051 !important;
-    background-color: #f9f9f9;
-    margin-top: 20px;
-}
-
-.form-list .total .right {
-	right: 15px;
-}
-
-.form-list .total .right .total-price {
-	font-size: 24px;
-    font-weight: 700;
-    line-height: 0;
-    vertical-align: -2px;
-    color: #43a051;
-}
 .mypoint-list {
 	border-top: 0;
 }
@@ -222,5 +117,39 @@ input[type='number'] {
 	background-color: #43a051;
 	color: #fff;
 }
-
-
+.come{
+	color: #43a051;
+}
+.picture {
+    display: inline-block;
+    width: 85px;
+    height: 85px;
+    vertical-align: middle;
+}
+.picture2 {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    vertical-align: middle;
+}
+.ft20{
+	font-size: 20px;
+}
+.ft30{
+	font-size: 30px;
+}
+.ft40{
+	font-size: 40px;
+}
+.lmg20{
+	margin-left: 20px;
+}
+.lmg30{
+	margin-left: 30px;
+}
+.plusPoint{
+	color: blue !important;
+}
+.minusPoint{
+	color: red !important;
+}
