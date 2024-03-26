@@ -48,6 +48,10 @@ th, td {
 	text-align: center;
 }
 
+td a{
+	color: #333;
+}
+
 th {
 	padding: 19px 0;
     font-size: 15px;

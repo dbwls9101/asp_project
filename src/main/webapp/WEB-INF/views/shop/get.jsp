@@ -46,7 +46,7 @@
 	</div>
 	
 	<div id="partyinfo">
-		<span id="nick" nick="${vo.nickname }">${vo.nickname }</span>
+		<span id="nick" nick="${vo.nickname }" pid="${vo.id }">${vo.nickname }</span>
 		<!-- 파티장, 파티원들만 보이게 함 -->
 		<sec:authorize access="isAuthenticated()">
 			<c:if test="${principal.member.nickname eq vo.nickname}">
@@ -221,5 +221,4 @@
 	<script type="text/javascript" src="/resources/js/shop/partyreply.js"></script>
 	<script type="text/javascript" src="/resources/js/shop/get.js"></script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </html>

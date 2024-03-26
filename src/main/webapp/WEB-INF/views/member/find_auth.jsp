@@ -14,8 +14,8 @@
 	<input type="hidden" name="num" value="${num}">
 	<div class="mw-800 form-signup mg-top-minus">
 		<div class="h4"><span class="text-purple">비밀번호</span> 찾기</div>
-		<h4>이메일로 받으신 인증번호를 입력해 주세요.</h4> 
-		<h4>비밀번호 변경을 안내해드립니다.</h4>
+		<div class="divbold">이메일로 받으신 인증번호를 입력해 주세요.</div> 
+		<div class="divbold">비밀번호 변경을 안내해드립니다.</div>
 		<div class="form-round signup">
 			<ul class="form-list">
 				<li id="li_AuthenticationNumber">

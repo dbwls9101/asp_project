@@ -29,6 +29,9 @@
     <script src="/resources/js/admin/sb-admin-2.min.js"></script>
     
     <script src="/resources/js/admin/admin.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+	<script type="text/javascript" src="/resources/js/alarm.js"></script>
 
 </body>
 </html>

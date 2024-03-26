@@ -37,8 +37,8 @@
 		<input class="form-check-input" type="checkbox" id="remember-me" name="remember-me">
 		<label class="form-check-label" for="remember-me">자동 로그인</label>
 		<span class="float-end">
-			<a href="/member/joinAgree" class="find-info-text" >회원가입</a> &nbsp;|&nbsp;
-			<a href="/member/find" class="find-info-text">아이디/비밀번호 찾기</a>
+			<a href="/member/joinAgree" class="find-info-text" style="color: #666666 !important;" >회원가입</a> &nbsp;|&nbsp;
+			<a href="/member/find" class="find-info-text" style="color: #666666 !important;">아이디/비밀번호 찾기</a>
 		</span>
     </div>
     <button class="btn btn-primary w-100 py-2 fs-3" id="login_button" type="submit" style="font-size: 22px !important;">로그인</button>
