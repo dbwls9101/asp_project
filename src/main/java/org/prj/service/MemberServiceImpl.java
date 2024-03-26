@@ -20,6 +20,7 @@ import java.util.Map;
 import org.prj.domain.Criteria;
 import org.prj.domain.MemberVO;
 import org.prj.domain.PaymentVO;
+import org.prj.domain.PointVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -335,5 +336,23 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int doLockAccount(MemberVO vo) {
 		return membermapper.doLockAccount(vo);
+	}
+	
+	//업데이트 마이 포인트
+	@Override
+	public int updateMyPoint(PointVO vo) {
+		return membermapper.updateMyPoint(vo);
+	}
+	
+	// 포인트 리스트
+	@Override
+	public List<PointVO> getPointList(Criteria cri) {
+		return membermapper.getPointList(cri);
+	}
+	
+	// 게시글 전체 개수
+	@Override
+	public int getPointTotal(Criteria cri) {
+		return membermapper.getPointTotal(cri);
 	}
 }

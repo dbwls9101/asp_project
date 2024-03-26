@@ -61,6 +61,9 @@
 		</c:if>
 		<c:if test = "${PopCheck == 4 }">
 			location.href='/member/login';		
+		</c:if>	
+		<c:if test = "${PopCheck == 6 }">
+		location.href='/member/logout';		
 		</c:if>		
 	</c:otherwise>
 </c:choose>

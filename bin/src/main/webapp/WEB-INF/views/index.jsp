@@ -21,7 +21,7 @@
 		
 		<div class="container2-box">
 			<div class="slide-container">
-				<c:if test="${party.size() >= 8 }">
+				<c:if test="${party.size() >= 10 }">
 					<a class="slide-prev navi" style="display: inline;"></a>
 					<a class="slide-next navi" style="display: inline;"></a>
 				</c:if>

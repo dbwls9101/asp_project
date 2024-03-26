@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.prj.domain.Criteria;
 import org.prj.domain.MemberVO;
 import org.prj.domain.PaymentVO;
+import org.prj.domain.PointVO;
 import org.prj.domain.RefundVO;
 
 
@@ -106,4 +107,13 @@ public interface MemberMapper {
 	
 	//환불 승인
 	public void doRefundApproval(RefundVO vo);
+	
+	//업데이트 마이 포인트
+	public int updateMyPoint(PointVO vo);
+	
+	// 포인트 리스트
+	public List<PointVO> getPointList(Criteria cri);
+	
+	// 게시글 전체 개수
+	public int getPointTotal(Criteria cri);
 }

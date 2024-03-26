@@ -43,6 +43,11 @@
 			C_IDX = #{c_idx }	
 	</update>
 	
+	<!-- 6. 관리자에서 게시글 삭제 전 댓글 삭제 -->
+	<delete id="allDelete" parameterType="int">
+		DELETE FROM inquiry_comment WHERE i_IDX = #{i_idx }
+	</delete>
+	
 	<!-- 게시글 삭제하면서 댓글까지 전부 삭제하는 기능 -->
 	
 </mapper>

@@ -21,7 +21,7 @@ function fetchList() {
     fetch('/shop/items?' + sendData)
         .then(response => response.json())
         .then(data => {
-        	if(data.length < 4){
+        	if(data.length < 12){
         		document.querySelector("#load-more-btn").style.display = 'none';
         	}
         	
@@ -98,11 +98,11 @@ document.querySelector("#makeparty").addEventListener('click', ()=>{
 
 
 //게시글 상세
+var pathname = window.location.pathname;
 function getDetailInfo(){
 let partyinfo = document.querySelectorAll("#partyinfo");
 	partyinfo.forEach(party => {
 		party.addEventListener('click', () => {
-			
 			let codeone = party.getAttribute('codeone');
 			let codetwo = party.getAttribute('codetwo');
 			let p_idx = party.getAttribute('p_idx');
@@ -111,7 +111,10 @@ let partyinfo = document.querySelectorAll("#partyinfo");
 			if(status == 'N'){
 				alert('이미 마감된 파티입니다.');
 			}else{
-				location.href = '/shop/get?c1=' + codeone + '&c2=' + codetwo + '&pn=' + p_idx;
+				if(pathname.length == 13)
+					location.href = '/shop/get?c1=' + codeone + '&pn=' + p_idx;
+				else
+					location.href = '/shop/get?c1=' + codeone + '&c2=' + codetwo + '&pn=' + p_idx;
 			}
 		})
 	})

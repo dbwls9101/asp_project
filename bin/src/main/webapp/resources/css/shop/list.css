@@ -128,3 +128,79 @@
 	cursor: pointer;
 	display: block;
 }
+
+/* video */
+.container-title {
+    margin-top: 50px;
+    margin-bottom: 25px;
+    font-size: 22px;
+    color: #333333;
+    line-height: 32px;
+}
+
+.text-point {
+	color: #43a051;
+}
+
+.video {
+	width: 100%;
+}
+
+.video-container {
+	position: relative;
+    width: calc(100% + 26px);
+    margin-left: -13px;
+    margin-top: -13px;
+    font-size: 0;
+}
+
+.video-box {
+	position: relative;
+    display: inline-block;
+    width: calc(25% - 26px);
+    margin: 13px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.video-box img {
+	width: 100%;
+}
+
+.modal-dialog {
+	max-width: 1200px !important;
+}
+
+.modal-content {
+	background-color: transparent !important;
+	border: none !important;
+}
+
+.modal-body {
+	padding-bottom: 56.25% !important; /* 16:9 */
+    height: 0;
+}
+
+.modal-body iframe {
+	position: absolute;
+    top: 0;
+    left: 0;
+	width: 100%;
+  	height: 100%;
+}
+
+.modal-header {
+	padding: 0 !important;
+	border-bottom: none !important;
+	justify-content: flex-end !important;
+}
+
+.fa-xmark:before {
+	content: "\f00d";
+}
+
+.video-close {
+	color: #fff !important;
+    font-size: 25px !important;
+    padding: 0 !important;
+}

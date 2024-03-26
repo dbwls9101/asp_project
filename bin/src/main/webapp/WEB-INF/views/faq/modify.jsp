@@ -23,7 +23,7 @@
 				<table id="registertable">
 					<tr>
 						<th>유형</th>
-						<td>
+						<td width="700">
 							<select id="primary-category" name="faq_type" class="form-select" aria-label="Default select example">
 							  <option value="">질문유형 선택</option>
 							  <option value="A" ${vo.faq_type == 'A' ? 'selected' : ''}>이용안내</option>
