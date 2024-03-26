@@ -45,11 +45,10 @@ function getList(m_idx){
 			msg +=		'</c:choose>';		
 			msg +=      '</td>';
 			msg +=		'</div>';
-			msg += 		'<td>' + withdraw.w_idx +'</td>';
-			msg += 		'<td>' + myTime(withdraw.reg_date) +'</td>';	
 			msg += 		'<td>' + withdraw.with_method +'</td>';
-			msg += 		'<td>' + withdraw.commission +'</td>';
-			msg += 		'<td>' + (withdraw.with_amount - withdraw.commission) + '</td>';
+			msg += 		'<td>' + withdraw.commission.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") +'원</td>';
+			msg += 		'<td>' + (withdraw.with_amount - withdraw.commission).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
+			msg += 		'<td>' + myTime(withdraw.reg_date) +'</td>';	
 			msg += '</tr>';	
 		})
 			document.querySelector("tbody").innerHTML = msg;

@@ -83,9 +83,9 @@ function getList(obj){
 			}else{
 				msg += '<td>' + diffDate + '일</td>';
 			}
-			msg += '<td>' + vo.service_amount + '원</td>';
-			msg += '<td>' + vo.commission + '원</td>';
-			msg += '<td>' + (vo.service_amount+vo.commission) + '원</td>';
+			msg += '<td>' + vo.service_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
+			msg += '<td>' + vo.commission.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
+			msg += '<td>' + (vo.service_amount+vo.commission).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
 			msg += '</tr>';
 		})
 		

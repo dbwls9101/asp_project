@@ -16,7 +16,7 @@
 	<jsp:include page="../layout/header.jsp"/>
 	
 	<c:if test="${not empty video }">
-		<div class="video">
+		<div class="video" id="video">
 			<div class="container-title">
 				추천 <span class="text-point">영상</span>
 			</div>

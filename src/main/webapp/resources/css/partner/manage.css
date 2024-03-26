@@ -1,8 +1,6 @@
 #service-container {
-	margin: auto;
-	width: 1200px;
-	margin-top: 50px;
 	margin-bottom: 80px;
+	padding: 40px 50px;
 }
 
 #party-search select {

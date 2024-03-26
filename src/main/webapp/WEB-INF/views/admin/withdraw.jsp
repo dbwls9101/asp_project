@@ -50,12 +50,13 @@
 					<thead>
 						<tr>
 							<th>출금상태</th>
-							<th>접수번호(NO.)</th>
-							<th>신청일</th>
 							<th>출금방법</th>
+							<th>아이디</th>
+							<th>예금주</th>
 							<th>실지급액(출금액)</th>
-							<th>비고(계좌번호)</th>
-							<th>승인여부</th>					
+							<th>계좌번호</th>
+							<th>신청일</th>
+							<th>관리</th>					
 						</tr>
 					</thead>
 					<tbody class="aa">

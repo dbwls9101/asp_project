@@ -19,7 +19,7 @@
 			<form>
 				<div style="display: inline-block; margin-right: 20px;">
 					<button type="button" class="btn btn-secondary tip" data-bs-toggle="tooltip" data-bs-placement="top" data-html="true"
-					data-original-title="등록하는 방법  &#10;유튜브 채널 접속 -> 프로필 '채널 자세히 알아보기' 클릭 -> &#10;채널 공유 -> 채널 ID 복사 후 입력박스에 입력 -> 등록">
+					data-original-title="등록하는 방법  &#10;채널 선택 -> 등록  &#10;※ 해당 채널에서 4분 이상 20분 미만의 동영상이 검색되어 최신 영상 4건을 등록합니다.">
 						<i class="fas fa-fw fa-question"></i> 
 					</button>
 					<select id="channel" name="channel" class="form-select">
@@ -27,6 +27,7 @@
 						<option value="넷플릭스">넷플릭스</option>
 						<option value="웨이브">웨이브</option>
 						<option value="유튜브">유튜브</option>
+						<option value="티빙">티빙</option>
 						<option value="디즈니">디즈니</option>
 						<option value="왓챠">왓챠</option>
 						<option value="라프텔">라프텔</option>
@@ -47,6 +48,7 @@
 						<option value="넷플릭스">넷플릭스</option>
 						<option value="웨이브">웨이브</option>
 						<option value="유튜브">유튜브</option>
+						<option value="티빙">티빙</option>
 						<option value="디즈니">디즈니</option>
 						<option value="왓챠">왓챠</option>
 						<option value="라프텔">라프텔</option>
