@@ -83,11 +83,12 @@ function getList(obj){
 
 			msg +=      '</td>';
 			msg +=		'</div>';
-			msg += 		'<td>' + vo.w_idx +'</td>';
-			msg += 		'<td>' + myTime(vo.reg_date) +'</td>';	
 			msg += 		'<td>' + vo.with_method +'</td>';
-			msg += 		'<td>' + (vo.with_amount - vo.commission) + '</td>';
+			msg += 		'<td>' + vo.id +'</td>';
+			msg += 		'<td>' + vo.name +'</td>';
+			msg += 		'<td>' + (vo.with_amount - vo.commission).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
 			msg += 		'<td>' + vo.note +'</td>';
+			msg += 		'<td>' + myTime(vo.reg_date) +'</td>';	
 			msg += 		'<td>'
 			msg +=		'<input type="button" name="approval" id="approval" onclick="approvalEvent('+ vo.w_idx + ')" value="승인"/>'
 			msg +=		'&nbsp;&nbsp;<input type="button" name="companion" id="companion" onclick="companionEvent('+ vo.w_idx + ')" value="반려"/>'

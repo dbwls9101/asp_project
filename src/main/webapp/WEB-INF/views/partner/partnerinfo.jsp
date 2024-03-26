@@ -14,7 +14,7 @@
 	<div id="content-container">
 		<div id="service-container">
 			<form method="POST">
-				<div class="application" style="border-top: 2px solid #43a051; margin-bottom: 80px;">
+				<div class="application" style="border-top: 2px solid #43a051; margin: 40px 50px; display: inline-block;">
 					<sec:authentication property="principal" var="principal"/>
 					<div class="app-title"><span class="title-point">파트너</span> 정보수정</div>
 					

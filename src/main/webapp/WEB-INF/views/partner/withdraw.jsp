@@ -40,7 +40,7 @@
 									</tr>
 									
 									<tr>
-										<th id="left1">1. 판매총액</th>  
+										<th>1. 판매총액</th>  
 											<c:choose>
 												<c:when test="${sumamount == null}">
 													<td>0원</td>
@@ -53,7 +53,7 @@
 									</tr>
 									
 									<tr>
-										<th id="left1">2. 지급금액</th> 
+										<th>2. 지급금액</th> 
 											<c:choose>
 												<c:when test="${currentamount == null}">
 													<td>0원</td>
@@ -66,7 +66,7 @@
 									</tr>
 									
 									<tr>
-										<th id="left1">3. 지급 요청 금액</th>
+										<th>3. 지급 요청 금액</th>
 											<c:choose>
 												<c:when test="${withamount == null}">
 													<td>0원</td>												
@@ -80,7 +80,7 @@
 									</tr>
 									
 									<tr>
-										<th id="left1">4. 미발생 판매금</th>
+										<th>4. 미발생 판매금</th>
 											<c:choose>
 												<c:when test="${unsaleslist == null}">
 													<td>0원</td>												
@@ -92,8 +92,8 @@
 											<td>진행 중 파티의 남은 기간에 해당하는 비용</td>
 									</tr>
 									
-									<tr>
-										<th id="left1">5. 출금 가능 금액</th>
+									<tr style="border: 1px solid #43a051;">
+										<th>5. 출금 가능 금액</th>
 											<c:choose>
 												<c:when test="${unsaleslist == null}">
 													<td>0원</td>
@@ -118,20 +118,20 @@
 										</tr>
 											
 										<tr>
-											<th>입금계좌</th>
-											<td id="center2"><input type="text" name="bank_number" value="${principal.member.bank_number }" readonly></td>
+											<th width="230">입금계좌</th>
+											<td id="center2"><input type="text" name="bank_number" value="${principal.member.bank_number }" readonly="readonly" style="background-color: #ececec;"></td>
 										</tr>
 										
 										<tr>
 											<c:choose>
 												<c:when test="${unsaleslist - withamount == null }">
-													<td colspan="2">
-													<p3 id="center1">최대 0원까지 신청할 수 있습니다.</p3>
+													<td colspan="2" style="background-color: #43a051">
+													<p3 id="center1">최대 <b>0원</b> 까지 신청할 수 있습니다.</p3>
 													</td>	
 												</c:when>
 												<c:otherwise>
-													<td colspan="2">
-													<p3 id="center1">최대 ${unsaleslist - withamount}원까지 신청할 수 있습니다.</p3>
+													<td colspan="2" style="background-color: #43a051">
+													<p3 id="center1">최대 <b>${unsaleslist - withamount}원</b> 까지 신청할 수 있습니다.</p3>
 													</td>	
 												</c:otherwise>
 											</c:choose>									
@@ -139,14 +139,13 @@
 										
 										<tr>
 											<th>통장입금</th>
-											<td id="center2"><input type="text" name="with_amount" placeholder="금액을 입력하세요." ></td>
+											<td id="center2"><input type="text" name="with_amount" placeholder="금액을 입력하세요." > 원</td>
 										</tr>
 										
 										<tr>
-											<th colspan="2" id="left1">
-											<p2>* 하루에 한번만 신청 할 수 있습니다.</p2><br><br>
-											<p3>* 모든 은행 출금 수수료는 1,000원으로 동일하게 부과됩니다.</p3><br><br>
-											<p3>* 하루 최대 5,000,000원(오백만원)만 출금 가능합니다.</p3><br><br>
+											<th colspan="2" id="center2" style="padding: 21px 20px !important;">
+											<p2>* 하루에 한번만 신청 할 수 있고 최대 5,000,000원(오백만원)만 출금 가능합니다.</p2><br>
+											<p3>* 모든 은행 출금 수수료는 1,000원으로 동일하게 부과됩니다.</p3><br>
 											<p3>* 출금 신청 시 영업일 기준 최대 3일이 소요 될 수 있습니다.(토요일, 일요일, 공유일 제외)</p3>
 											</th>
 										</tr>
@@ -174,11 +173,10 @@
 					<thead>
 						<tr>
 							<th>출금상태</th>
-							<th>접수번호(NO.)</th>
-							<th>신청일</th>
 							<th>출금방법</th>
 							<th>신청금액(수수료)</th>
-							<th>실지급액</th>	
+							<th width="500">실지급액</th>	
+							<th>신청일</th>
 						</tr>
 					</thead>
 					<tbody class="aa">

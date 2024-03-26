@@ -13,6 +13,8 @@ function videoSave(f) {
 		channelId = 'UCym5538xAEEppbridXozfgw';
 	}else if (f.channel.value == '유튜브') {
 		channelId = 'UCOH52Yqq4-rdLvpt2Unsqsw';
+	}else if (f.channel.value == '티빙') {
+		channelId = 'UCNIiH_4ArJNd_cDZApZ7AFg';
 	}else if (f.channel.value == '디즈니') {
 		channelId = 'UCtdz9LWNNQKUg4Xpma_40Ug';
 	}else if (f.channel.value == '왓챠') {
