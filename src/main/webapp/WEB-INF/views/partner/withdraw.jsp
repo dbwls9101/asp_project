@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "sec" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,7 +47,7 @@
 													<td>0원</td>
 												</c:when>
 												<c:otherwise>
-													<td id="sumamount" name="sumamount">${sumamount }원</td>
+													<td id="sumamount" name="sumamount"><fmt:formatNumber value="${sumamount }" type="number" />원</td>
 												</c:otherwise>
 											</c:choose>
 											<td>총 판매합산 금액(수수료 제외)</td>
@@ -59,7 +60,7 @@
 													<td>0원</td>
 												</c:when>
 												<c:otherwise>
-													<td id="currentamount" name="currentamount">${currentamount }원</td>
+													<td id="currentamount" name="currentamount"><fmt:formatNumber value="${currentamount }" type="number" />원</td>
 												</c:otherwise>
 											</c:choose>
 											<td>신청금액 기준(수수료 포함)</td>
@@ -72,7 +73,7 @@
 													<td>0원</td>												
 												</c:when>
 												<c:otherwise>
-													<td id="withamount" name="withamount">${withamount }원</td>
+													<td id="withamount" name="withamount"><fmt:formatNumber value="${withamount }" type="number" />원</td>
 												</c:otherwise>
 											</c:choose>
 											<input type="hidden" name="with_amount3" value="${withamount }">
@@ -86,7 +87,7 @@
 													<td>0원</td>												
 												</c:when>
 												<c:otherwise>
-													<td id="unsaleslist" name="unsaleslist">${unsaleslist }원</td>
+													<td id="unsaleslist" name="unsaleslist"><fmt:formatNumber value="${unsaleslist }" type="number" />원</td>
 												</c:otherwise>
 											</c:choose>
 											<td>진행 중 파티의 남은 기간에 해당하는 비용</td>
@@ -102,7 +103,7 @@
 													<td>0원</td>
 												</c:when>
 												<c:otherwise>
-													<td>${unsaleslist - withamount}원</td>
+													<td><fmt:formatNumber value="${unsaleslist - withamount}" type="number" />원</td>
 												</c:otherwise>
 											</c:choose>
 											<td>4 - 3 = 5</td>
@@ -131,7 +132,7 @@
 												</c:when>
 												<c:otherwise>
 													<td colspan="2" style="background-color: #43a051">
-													<p3 id="center1">최대 <b>${unsaleslist - withamount}원</b> 까지 신청할 수 있습니다.</p3>
+													<p3 id="center1">최대 <b><fmt:formatNumber value="${unsaleslist - withamount}" type="number" />원</b> 까지 신청할 수 있습니다.</p3>
 													</td>	
 												</c:otherwise>
 											</c:choose>									
@@ -139,7 +140,7 @@
 										
 										<tr>
 											<th>통장입금</th>
-											<td id="center2"><input type="text" name="with_amount" placeholder="금액을 입력하세요." > 원</td>
+											<td id="center2"><input type="text" name="with_amount" placeholder="금액을 입력하세요." ><input type="button" id="withDrawal" value="출금신청"></td>
 										</tr>
 										
 										<tr>
@@ -151,15 +152,16 @@
 										</tr>
 										
 										<tr>
-											<input type="hidden" name="m_idx" value="${principal.member.m_idx }">
-											<input type="hidden" name="name" value="${principal.member.name }">
-									        <input type="hidden" name="id" value="${principal.member.id}">
-									        <input type="hidden" name="phone" value="${principal.member.phone}">
-									        <input type="hidden" name="with_amount2" value="${principal.member.with_amount}">
-									        <input type="hidden" name="with_status" value="A">
-									        <input type="hidden" name="with_method" value="통장입금">
-									        <input type="hidden" name="note" value="${principal.member.bank_number }">					
-											<td colspan="2"><input type="button" id="withDrawal" value="출금신청"></td>										
+											<td colspan="2">
+												<input type="hidden" name="m_idx" value="${principal.member.m_idx }">
+												<input type="hidden" name="name" value="${principal.member.name }">
+										        <input type="hidden" name="id" value="${principal.member.id}">
+										        <input type="hidden" name="phone" value="${principal.member.phone}">
+										        <input type="hidden" name="with_amount2" value="${principal.member.with_amount}">
+										        <input type="hidden" name="with_status" value="A">
+										        <input type="hidden" name="with_method" value="통장입금">
+										        <input type="hidden" name="note" value="${principal.member.bank_number }">	
+									        </td>										
 										</tr>
 								</thead>
 							</table>			
@@ -174,8 +176,9 @@
 						<tr>
 							<th>출금상태</th>
 							<th>출금방법</th>
+							<th>예금주</th>
 							<th>신청금액(수수료)</th>
-							<th width="500">실지급액</th>	
+							<th>실지급액</th>	
 							<th>신청일</th>
 						</tr>
 					</thead>
@@ -187,6 +190,7 @@
 		</div>
 	</div>
 	
+	<jsp:include page="../layout/partner_footer.jsp"/>
 
 </body>
 <script type="text/javascript" src="/resources/js/partner/withdraw.js"></script>

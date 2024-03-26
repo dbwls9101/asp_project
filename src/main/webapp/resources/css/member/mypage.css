@@ -165,13 +165,9 @@ ul {
 .form-list li {
 	position: relative;
 	min-height: 42px;
-	padding: 5px 0 2px 155px;
+	padding: 10px 0 2px 155px;
 	font-size: 19px;
 	color: #333333;
-}
-
-.form-list li:first-child {
-	padding: 0 0 2px 155px;
 }
 
 .form-list .subject {
