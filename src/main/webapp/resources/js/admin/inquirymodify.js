@@ -12,7 +12,7 @@ document.head.appendChild(linkEle);
 // form 객체를 가지고 오자
 let f = document.querySelector("#registerform");
 
-// 각 버튼 클릭 이벤트
+// 각 버튼 클릭 이벤트(수정 / 목록으로)
 document.querySelectorAll('.panel-body-btns button').forEach( btn => {
 	btn.addEventListener('click', () => {
 		
@@ -59,26 +59,6 @@ function modify() {
 	f.action = '/admin/admininquirymodify';
 	f.submit();
 }
-/*
-// 1:1 문의 게시글 관리자가 직접 수정 (가능)
-document.querySelector("#modifyBtn").addEventListener('click', ()=>{
-	if(!f.title.value) {
-		alert("제목을 입력해 주세요.")
-		return;
-	}
-	if(!f.content.value) {
-		alert("내용을 입력해주세요.")
-		return;
-	}
-	
-	f.action = '/admin/admininquirymodify';
-	f.submit();
-})
-
-// 목록으로 이동
-document.querySelector("#indexBtn").addEventListener('click', ()=>{
-	location.href = '/admin/admin_inquiry_board';
-}) */
 
 //  -------------- 업로드 관련 내용 --------------
 
@@ -117,8 +97,3 @@ uploadResult.addEventListener('click', function(e){
 		}
 	}
 }); 
-
-
-
-
-

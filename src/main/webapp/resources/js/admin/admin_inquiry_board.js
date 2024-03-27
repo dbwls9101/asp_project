@@ -25,10 +25,8 @@ function makeObject(pageNum, amount, status, category) {
 		pageNum : pageNum,
 		amount : amount,
 		status : status,
-		category : category
-		
-	};
-	
+		category : category	
+	};	
 	return obj;
 }
 
@@ -225,13 +223,13 @@ function doReplyAnswer(i_idx) {
 	.catch(err => console.log(err));
 }
 
-//모달창 close
+// 모달창 close
 document.querySelector(".close-area").addEventListener('click', ()=>{
 	document.getElementById("modal").style.display = 'none';
 	document.body.style.overflow = 'auto';
 })
 
-//모달창 바깥영역 클릭시 close
+// 모달창 바깥영역 클릭시 close
 document.getElementById("modal").addEventListener("click", e => {
   const evTarget = e.target;
   if(evTarget.classList.contains("modal-overlay")) {
@@ -242,7 +240,7 @@ document.getElementById("modal").addEventListener("click", e => {
 
 
 // 모달창을 통해서 댓글을 등록한다.
-const rs = replyService;
+const rs = replyService;		// inquiry_board 의 JS 내에서 가지고 온다. 
 // const answer = document.forms[2];
 const answer = document.getElementById("replyfrom");
 const inputReplyer = document.querySelector('input[name="writer"]');
@@ -267,29 +265,6 @@ document.querySelector("#answerRegister").addEventListener('click', ()=>{
 	
 });
 const h = document.forms[2];
-
-/*
-function deleteBtn() {
-	if(confirm("삭제 하게 됩니다. 삭제 하시겠습니까?")) {
-
-		let i_idxValue = h.i_idx.value;
-		
-		let i_idxEle = document.createElement('input');		
-		i_idxEle.setAttribute('type', 'hidden');
-        i_idxEle.setAttribute('name', 'i_idx');
-        i_idxEle.setAttribute('value', i_idxValue); 
-		
-		h.action = '/admin/Inquiryremove';
-		h.method = 'POST';
-		h.submit();
-	}
-} */
-
-
-
-
-
-
 
 // 버튼을 누르게 되면 게시글이 삭제 된다.
 function deleteBtn(i_idx){

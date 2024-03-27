@@ -166,7 +166,6 @@ function radioEvent(){
 	})
 }
 
-
 //unixTimeStamp 변환
 function myTime(unixTimeStamp) {
 	
@@ -187,16 +186,6 @@ function approvalEvent() {
 	const btnElement = document.getElementById('approval');
 	btnElement.value = "완료";
 }
-
-// --------------- 승인완료 버튼을 누르면 변경되는 내용 -------------------------
-// 1. 내용을 확인 하고 해당 되는 계좌에 입금을 한다.
-// 2. 입금하면서 승인 버튼을 누르면 
-// 2-1. 승인 버튼은 -> 승인 완료 버튼으로 변경된다.
-// 2-2. 동시에 with_staus가 "A"에서 -> "C" 승인 완료로 변경 된다.
-// 3. 위 내용중에 2번 내용을 처리 하기 위해서 해야 할 일
-// -- 1. 쿼리문 작성 -> 내용을 변경해야 하기 때문에 update 문을 이용 하자
-// -- 2. adminController 에서 update 관련된 내용을 작성 -> withdraw.xml에 까지 작성
-// -- 3. 그리고 여기 스크립트에서 처리 해줄까??
 
 
 function approvalEvent(w_idx){
@@ -238,7 +227,6 @@ function companionEvent(w_idx){
 				alert('승인에 실패하였습니다.');
 			}
 			location.href = '/admin/withdraw';
-//			changeBtnName();
 		});
 	}
 }

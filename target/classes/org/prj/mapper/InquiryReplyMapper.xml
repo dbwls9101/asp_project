@@ -48,7 +48,5 @@
 		DELETE FROM inquiry_comment WHERE i_IDX = #{i_idx }
 	</delete>
 	
-	<!-- 게시글 삭제하면서 댓글까지 전부 삭제하는 기능 -->
-	
 </mapper>
 

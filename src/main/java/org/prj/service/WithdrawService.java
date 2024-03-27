@@ -8,25 +8,25 @@ import org.prj.domain.WithdrawVO;
 
 public interface WithdrawService {
 
-	// 출금 신청 리스트
+	// 1. 출금 신청 리스트
 	public List<WithdrawVO> getWithList(int m_idx);
 	
-	// 출금 신청
+	// 2. 출금 신청
 	public int register(WithdrawVO vo);
 	
-	// 판매총액을 만드는 과정
+	// 3. 판매총액을 만드는 과정
 	public int getp_idx(String username);
 	
-	// 지급 요청 금액
+	// 4. 지급 요청 금액
 	public int withamount(String username);
 	
-	// 지급 금액
+	// 5. 지급 금액
 	public Integer currentamount(String username);
 	
-	// 미발생 판매금 업데이트
+	// 6. 미발생 판매금 업데이트
 	public int unsales(String username);
 	
-	// 미발생 판매금 불러오는 것 
+	// 7. 미발생 판매금 불러오는 것 
 	public int unsaleslist(String username);
 	
 	// * 관리자 화면에서 출금관리 페이지 처리를 위해 리스트 나오는 갯수
