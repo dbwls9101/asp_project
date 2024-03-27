@@ -75,8 +75,10 @@ public class PaymentController {
 		mService.updateWithamount(mvo); 
 		
 		//포인트 사용 시 회원정보 업데이트
-		System.out.println("pointInfo : " + vo);
-		mService.updatePoint(vo);
+		if (vo.getPoint() != 0) {
+			System.out.println("pointInfo : " + vo);
+			mService.updatePoint(vo);
+		}
 		
 		//결제 성공 후 party_board 테이블 참여인원 +1
 		if(insertCount > 0)
@@ -185,8 +187,10 @@ public class PaymentController {
 		int result = payService.cancelStatus(order_no);
 		
 		//결제 취소 시 포인트 반환
-		System.out.println("pointInfo : " + vo);
-		mService.pointCancel(vo);
+		if (vo.getPoint() != 0) {
+			System.out.println("pointInfo : " + vo);
+			mService.pointCancel(vo);
+		}
 		
 		//결제 취소 후 party_board 테이블 참여인원 -1
 		if(result > 0)

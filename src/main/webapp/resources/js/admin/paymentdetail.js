@@ -132,8 +132,6 @@ function getList(obj){
 	.then(response => response.json())
 	.then(json => {
 		let list = json.list;
-		console.log(list);
-		console.log(json);
 		list.forEach(vo => {
 			let status = '';
 			
@@ -157,11 +155,11 @@ function getList(obj){
 			msg += '<td><a href="javascript:detailBtn(' + vo.order_no + ');">' + vo.title + '<br><span class="sub-title">' + vo.sub_title + '</span></a></td>';
 			msg += '<td>' + vo.id + '</td>';
 			msg += '<td>' + vo.name + '</td>';
-			msg += '<td>' + vo.pay_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
+			msg += '<td>' + (vo.pay_amount + vo.point).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
 			if (vo.pay_amount == 0) {
 				msg += '<td>0원</td>';
 			}else {
-				msg += '<td>' + (vo.pay_amount - vo.point).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
+				msg += '<td>' + vo.pay_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
 			}
 			msg += '<td>' + vo.point.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + 'P</td>';
 			msg += '<td>' + vo.approved_at + '</td>';
@@ -255,12 +253,12 @@ function cancelBtn(order_no, pay_amount) {
 	if (confirm('결제 취소하시겠습니까?')) {
 		if (pay_amount == 0) {
 			ps.zeroCancel(order_no, function(result) {
-				console.log(result);
+				alert(result);
 				location.reload();
 			})
 		}else {
 			ps.cancel(order_no, function(result) {
-				console.log(result);
+				alert(result);
 				location.reload();
 			})
 		}
