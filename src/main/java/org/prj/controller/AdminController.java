@@ -424,21 +424,6 @@ public class AdminController {
 		return iService.getReply(i_idx);
 	}
 	
-/*	// 1:1 문의 게시글 삭제
-	@PostMapping("/Inquiryremove")
-	public String remove(@RequestParam("i_idx") int i_idx, RedirectAttributes rttr ) {
-	    log.info("remove...." + i_idx);
-	    
-	    List<FileInfoVO> attachList = iService.getAttachList(i_idx);
-	    
-		if(iService.remove(i_idx)) {
-			deleteFiles(attachList);
-			rttr.addFlashAttribute("result", "success");
-		}; 
-	    	    
-	    return "redirect:/admin/admin_inquiry_board";
-	} */
-	
 	// 1:1 문의 게시글 삭제
 	@ResponseBody
 	@PostMapping(value="/Inquiryremove", produces = MediaType.TEXT_PLAIN_VALUE)
@@ -565,6 +550,7 @@ public class AdminController {
 	//회원 수정
 	@PostMapping("/membermodify")
 	public void doMemberModify(MemberVO mvo, Model model) {
+		System.out.println("mvo : " + mvo);
 		mService.doMemberModify(mvo);
 		moveMemberModify(mvo.getM_idx(), model);
 	}

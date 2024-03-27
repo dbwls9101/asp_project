@@ -14,7 +14,7 @@ function getDetailInfo(){
 			let p_idx = party.getAttribute('p_idx');
 			let datediff = party.getAttribute('datediff');
 			
-			if(datediff <= 0){
+			if(datediff < 0){
 				alert('이미 마감된 파티입니다.');
 			}else{
 				location.href = '/shop/get?c1=' + codeone + '&c2=' + codetwo + '&pn=' + p_idx + '&participating=y';

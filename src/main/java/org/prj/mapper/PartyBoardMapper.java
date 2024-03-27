@@ -33,4 +33,5 @@ public interface PartyBoardMapper {
 	public void updateMyinfo(MemberVO vo);
 	public PartyBoardVO getCurrentPartyInfo(int p_idx);
 	public void deleteParty(int p_idx);
+	public String getPartnerId(int p_idx);
 }

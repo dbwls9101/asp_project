@@ -1,7 +1,4 @@
-window.onload = function(){
-	//게시글 클릭이벤트
-	getDetailInfo();
-}
+getDetailInfo();
 
 //1차 카테고리가 영상일 때만 video 표시
 var video = document.querySelector('#video');

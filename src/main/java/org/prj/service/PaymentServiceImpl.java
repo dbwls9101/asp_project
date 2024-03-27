@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.net.ssl.HttpsURLConnection;
 
 import org.prj.domain.Criteria;
+import org.prj.domain.MemberVO;
 import org.prj.domain.PaymentVO;
 import org.prj.mapper.PaymentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -219,4 +220,11 @@ public class PaymentServiceImpl implements PaymentService {
 	public List<PaymentVO> getPartyCancelList(Criteria cri) {
 		return mapper.getPartyCancelList(cri);
 	}
+
+	@Override
+	public List<PaymentVO> getPaymentUsers(int p_idx) {
+		return mapper.getPaymentUsers(p_idx);
+	}
+	
+	
 }

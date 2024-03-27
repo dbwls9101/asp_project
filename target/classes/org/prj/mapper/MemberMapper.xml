@@ -304,7 +304,7 @@
 	<!-- 회원 정보 수정 -->
 	<update id="doMemberModify" parameterType="org.prj.domain.MemberVO">
 		update member set name=#{name}, phone=#{phone}, email=#{email}, "LEVEL"=#{level}, bank=#{bank}, bank_number=#{bank_number},
-							with_amount=#{with_amount}, point=#{point}, 
+							with_amount=#{with_amount}, 
 							<choose>
 						        <when test='level.equals("A")'>
 						            auth='ROLE_ADMIN'
