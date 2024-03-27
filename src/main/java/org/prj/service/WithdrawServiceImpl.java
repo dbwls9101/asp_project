@@ -69,13 +69,6 @@ public class WithdrawServiceImpl implements WithdrawService {
 		log.info("unsales...");
 		return mapper.unsales(username);
 	}
-
-	// 관리자 화면!! 출금 관리 리스트업
-/*	@Override
-	public List<WithdrawVO> withdrawList() {
-		log.info("withdrawList...");
-		return mapper.withdrawList();
-	} */
 	
 	// * 관리자 화면에서 출금관리 페이지 처리를 위해 리스트 나오는 갯수
 	@Override
@@ -90,7 +83,6 @@ public class WithdrawServiceImpl implements WithdrawService {
 
 		return mapper.withdrawList(cri);
 	}
-
 
 	// 관리자 화면에서 승인 버튼 누를 경우 with_status B로 변경
 	@Override

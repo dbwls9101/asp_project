@@ -351,6 +351,7 @@ a {
 	position: absolute;
     right: 0;
     color: #43a051;
+    line-height: 26px;
 }
 
 .header-profile .profile-menu a {

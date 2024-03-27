@@ -16,8 +16,9 @@
 	
 	<div id="content-container">
 		<div id="service-container">
-			<h3 id="withdraw-tab-title">관리자 출금 관리</h3>
-			
+			<div>
+				<h3 id="withdraw-tab-title">관리자 출금 관리</h3>
+			</div>
 			<div id="withdraw-search">
 				<form method="post" id="withdrawform">
 			        <div class="radio">
