@@ -69,7 +69,7 @@ function getList(m_idx, pageNum, amount){
 	    			
 	    			msg += '<tr>';
 	    			msg += '<td>' + vo.approved_at + '</td>';
-	    			msg += '<td><a  href="javascript:detailBtn(' + vo.order_no + ');">' + vo.title + '<br><span class="sub-title">' + vo.sub_title + '</span></a></td>';
+	    			msg += '<td><a href="javascript:detailBtn(' + vo.order_no + ');" style="color:#666666">' + vo.title + '<br><span class="sub-title">' + vo.sub_title + '</span></a></td>';
 	    			msg += '<td>' + vo.pay_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
 	    			if (vo.pay_amount == 0) {
 	    				msg += '<td>0원</td>';

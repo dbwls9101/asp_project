@@ -163,7 +163,7 @@
 	
 	<!-- 파티 결제한 파티원 닉네임 리스트 -->
 	<select id="getPaymentMemberList" parameterType="int" resultType="org.prj.domain.MemberVO">
-		select m.nickname, p.approved_at
+		select m.nickname, p.approved_at, m.id
 		from (select * from payment where pay_status='B' OR pay_status='C' OR pay_status='E') p inner join member m
 		on p.id=m.id
 		where p_idx=#{p_idx} and (p.pay_status = 'B' or p.pay_status = 'C')

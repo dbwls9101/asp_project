@@ -183,7 +183,7 @@ function partnerMentionList(){
 		if(json != ''){
 			msg += '<option value="모든파티원" selected>파티원들에게</option>';
 			json.forEach(partymember => {
-				msg += '<option value="' + partymember.nickname + '">@' + partymember.nickname + '</option>';
+				msg += '<option value="' + partymember.nickname + '" pid="' + partymember.id + '">@' + partymember.nickname + '</option>';
 			})
 			msg += '<option value="일반">일반</option>';
 		}else{
@@ -204,8 +204,9 @@ function defaultMemtionList(){
 	return new Promise((resolve, reject) => {
         let msg = '';
         let partnerNick = document.querySelector("#nick").getAttribute("nick");
+        let partnerId = document.querySelector("#nick").getAttribute("pid");
 
-        msg += '<option value="' + partnerNick + '" selected>파티장에게</option>';
+        msg += '<option value="' + partnerNick + '" pid="' + partnerId + '" selected>파티장에게</option>';
         msg += '<option value="일반">일반</option>';
 
         document.querySelector("#comment-to").innerHTML = msg;
@@ -351,6 +352,9 @@ function showList(){
 
 //댓글 등록 버튼
 document.querySelector("#replyregister").addEventListener('click', ()=>{
+	var selectedOption = document.getElementById("comment-to");
+	var pidValue = selectedOption.options[selectedOption.selectedIndex].getAttribute("pid");
+	
 	if(principal == 'anonymousUser'){
 		alert('로그인 후 이용가능한 서비스입니다.');
 		replyf.comment.value = '';
@@ -379,6 +383,25 @@ document.querySelector("#replyregister").addEventListener('click', ()=>{
 		function(result){
 			replyf.comment.value = '';
 			showList();
+			
+			//알림
+			fetch('/alarm/savenotify', {
+				method:'post',
+				body: JSON.stringify({
+					to_id : pidValue,
+					from_id : principal.member.nickname,
+					content : '님이 댓글을 남겼습니다.',
+					url : window.location.href
+				}),
+				headers : {'Content-type' : 'application/json; charset=utf-8'}
+			})
+			.then(response => response.text())
+			.then(data => {
+				if(data == 'success'){
+					socket.send(pidValue + "," + principal.member.nickname + "," + '님이 댓글을 남겼습니다.' + "," + window.location.href);
+				}
+			})
+			.catch(err => console.log(err));
 		}
 	);
 })

@@ -13,8 +13,8 @@
 <form class="findForm" id="findForm" name="findForm" action="#" method="post" onsubmit="return false">
 	<div class="mw-800 form-signup mg-top-minus">
 		<div class="h4"><span class="text-purple">아이디</span> 찾기</div>
-		<h4>회원가입 시 등록하신 이름 및 이메일 주소를 입력해 주세요.</h4> 
-		<h4>가입하신 아이디 정보를 안내해드립니다.</h4>
+		<div class="divbold">회원가입 시 등록하신 이름 및 이메일 주소를 입력해 주세요.</div> 
+		<div class="divbold">가입하신 아이디 정보를 안내해드립니다.</div>
 		<div class="form-round signup">
 			<ul class="form-list">
 				<c:if test ="${result == 1 }">
@@ -53,8 +53,8 @@
 <form class="form-horizontal register-form" role="form" id="fregisterform" name="fregisterform" autocomplete="off" action="#" method="post" onsubmit="return false">
 	<div class="mw-800 form-signup mg-top-minus">
 		<div class="h4"><span class="text-purple">비밀번호</span> 찾기</div>
-		<h4>회원가입 시 등록하신 아이디, 이름 및 이메일 주소를 입력해 주세요.</h4> 
-		<h4>비밀번호 변경을 안내해드립니다.</h4>
+		<div class="divbold">회원가입 시 등록하신 아이디, 이름 및 이메일 주소를 입력해 주세요.</div> 
+		<div class="divbold">비밀번호 변경을 안내해드립니다.</div>
 		<div class="form-round signup">
 			<ul class="form-list">
 				<li>
