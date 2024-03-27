@@ -46,6 +46,7 @@ function getList(m_idx){
 			msg +=      '</td>';
 			msg +=		'</div>';
 			msg += 		'<td>' + withdraw.with_method +'</td>';
+			msg += 		'<td>' + withdraw.name +'</td>';
 			msg += 		'<td>' + withdraw.commission.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") +'원</td>';
 			msg += 		'<td>' + (withdraw.with_amount - withdraw.commission).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
 			msg += 		'<td>' + myTime(withdraw.reg_date) +'</td>';	

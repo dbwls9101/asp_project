@@ -47,7 +47,7 @@ function getList(obj){
 		
 		if(list.length == 0){
 			msg += '<tr>';
-			msg += '<td colspan="8">참여자가 없습니다.</td>';
+			msg += '<td colspan="9">참여자가 없습니다.</td>';
 			msg += '</tr>';
     	}
 		
@@ -163,6 +163,8 @@ function pagingEvent(){
 	document.querySelectorAll(".page-nation li a").forEach(aEle => {
 		aEle.addEventListener('click', function(e){
 			e.preventDefault(); //href 경로 이동 방지
+			
+			let pageData = getStorageData();
 			
 			//태그 속성 불러오기
 			let menu = 'partyinfo';

@@ -15,8 +15,9 @@
 <body>
 	<jsp:include page="../layout/header.jsp"/>
 	
-	<c:if test="${not empty video }">
-		<div class="video" id="video">
+	
+	<div class="video" id="video">
+		<c:if test="${not empty video }">
 			<div class="container-title">
 				추천 <span class="text-point">영상</span>
 			</div>
@@ -53,8 +54,9 @@
 					</c:choose>
 				</div>
 			</div>
-		</div>
-	</c:if>
+		</c:if>
+	</div>
+
 	
 	<div id="menu-title">
 		<span id="category" c1="${codeone }" c2="${codetwo }">${category }</span>

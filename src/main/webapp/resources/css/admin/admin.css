@@ -7,6 +7,10 @@ body {
 	font-family: 'Noto Sans KR', Sans-Serif !important;
 }
 
+table td a {
+	color: #006D77 !important;
+}
+
 #wrapper #content-wrapper #content {
 	position: relative;
 }
