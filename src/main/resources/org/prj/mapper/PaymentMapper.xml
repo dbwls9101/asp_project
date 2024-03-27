@@ -63,7 +63,7 @@
 			    </choose>
 			</if>
 			<if test='sort.equals("latest")'>
-				order by pay.p_idx desc
+				order by pay.approved_at desc
  			</if>
  			<if test='sort.equals("period")'>
 				order by (trunc(pay.end_date)-trunc(sysdate)) desc
@@ -123,7 +123,7 @@
 			    </choose>
 			</if>
 			<if test='sort.equals("latest")'>
-				order by pay.p_idx desc
+				order by pay.approved_at desc
  			</if>
  			<if test='sort.equals("period")'>
 				order by (trunc(pay.end_date)-trunc(sysdate)) desc
@@ -206,6 +206,12 @@
 	        <when test='status.equals("D")'>
 	            and pay_status='D'
 	        </when>
+         	<when test='status.equals("E")'>
+	            and pay_status='E'
+	        </when>
+	        <when test='status.equals("F")'>
+	            and pay_status='F'
+	        </when>
 	    </choose>
 		<if test='searchword != null or searchword != ""'>
 			<choose>
@@ -245,6 +251,12 @@
 		        </when>
 		        <when test='status.equals("D")'>
 		            and pay_status='D'
+		        </when>
+		        <when test='status.equals("E")'>
+		            and pay_status='E'
+		        </when>
+		        <when test='status.equals("F")'>
+		            and pay_status='F'
 		        </when>
 		    </choose>
 			<if test='searchword != null or searchword != ""'>

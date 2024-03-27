@@ -87,6 +87,14 @@
 	border-top: 1px solid #ececec;
 }
 
+#partylist table a {
+	color: #43a051;
+}
+
+#partylist table a:hover {
+	text-decoration: underline !important;
+}
+
 #partymodify, #partydelete, #replyanswer, #answerRegister {
 	font-size: 12px;
 	color: white;
