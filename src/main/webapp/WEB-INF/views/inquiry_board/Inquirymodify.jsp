@@ -54,7 +54,7 @@
 					
 				<div class="panel-body-btns">
 					<button type="button" class="button button-point btn" id="modifyBtn">수정</button>
-					<button type="button" class="btn btn-sec" id="removeBtn">삭제</button>
+					<button type="button" class="button button-point-1 btn" id="removeBtn">삭제</button>
 					<button type="button" class="button btn" id="indexBtn">목록으로 이동</button>
 				</div>
 			</div>

@@ -166,7 +166,6 @@ public class PartnerController {
 		return prService.getReply(c_idx);
 	}
 	
-	// ------------- 민병우 담당 부분 -----------------------
 	
 	//출금관리
 	@GetMapping("/withdraw")
@@ -179,10 +178,15 @@ public class PartnerController {
 		String username = authentication.getName();
 		log.info("participating..." + username);
 		model.addAttribute("unsales", wService.unsales(username));
+		log.info("unsales..." + username);
 		model.addAttribute("unsaleslist", wService.unsaleslist(username));
+		log.info("unsaleslist..." + username);
 		model.addAttribute("sumamount", wService.getp_idx(username));
+		log.info("sumamount..." + username);
 		model.addAttribute("withamount", wService.withamount(username));
+		log.info("withamount..." + username);
 		model.addAttribute("currentamount", wService.currentamount(username));
+		log.info("currentamount..." + username);
 		
 		} catch(Exception e) {
 			log.error("An error occurred in movewithdraw", e);

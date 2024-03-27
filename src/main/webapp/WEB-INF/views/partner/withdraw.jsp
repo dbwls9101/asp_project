@@ -49,7 +49,7 @@
 													<td id="sumamount" name="sumamount">${sumamount }원</td>
 												</c:otherwise>
 											</c:choose>
-											<td>총 판매합산 금액(수수료 제외)</td>
+											<td>총 판매합산 금액</td>
 									</tr>
 									
 									<tr>
@@ -62,7 +62,7 @@
 													<td id="currentamount" name="currentamount">${currentamount }원</td>
 												</c:otherwise>
 											</c:choose>
-											<td>신청금액 기준(수수료 포함)</td>
+											<td>신청금액 기준</td>
 									</tr>
 									
 									<tr>
@@ -76,7 +76,7 @@
 												</c:otherwise>
 											</c:choose>
 											<input type="hidden" name="with_amount3" value="${withamount }">
-											<td>수수료 포함</td>
+											<td></td>
 									</tr>
 									
 									<tr>
@@ -95,17 +95,17 @@
 									<tr style="border: 1px solid #43a051;">
 										<th>5. 출금 가능 금액</th>
 											<c:choose>
-												<c:when test="${unsaleslist == null}">
+												<c:when test="${unsaleslist == 0}">
 													<td>0원</td>
 												</c:when>
-												<c:when test="${unsaleslist - withamout == null }">
+												<c:when test="${unsaleslist - withamout == 0 }">
 													<td>0원</td>
 												</c:when>
 												<c:otherwise>
-													<td>${unsaleslist - withamount}원</td>
+													<td>${(currentamount + withamount) - unsaleslist}원</td>
 												</c:otherwise>
 											</c:choose>
-											<td>4 - 3 = 5</td>
+											<td></td>
 									</tr>
 								</thead>
 							</table>
@@ -131,7 +131,7 @@
 												</c:when>
 												<c:otherwise>
 													<td colspan="2" style="background-color: #43a051">
-													<p3 id="center1">최대 <b>${unsaleslist - withamount}원</b> 까지 신청할 수 있습니다.</p3>
+													<p3 id="center1">최대 <b>${(currentamount + withamount) - unsaleslist}원</b> 까지 신청할 수 있습니다.</p3>
 													</td>	
 												</c:otherwise>
 											</c:choose>									
