@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <title>관리자 출금 관리</title>
 </head>
 <body>
@@ -14,10 +15,11 @@
 	
 	<sec:authentication property="principal" var="principal"/>
 	
-	<div id="content-container">
+	<div id="content-container" class="container-fluid">
 		<div id="service-container">
-			<h3 id="withdraw-tab-title">관리자 출금 관리</h3>
-			
+			<div class="d-sm-flex align-items-center justify-content-between mb-4">
+				<h1 class="h3 mb-0 text-gray-800">관리자 출금 관리</h1>
+			</div>
 			<div id="withdraw-search">
 				<form method="post" id="withdrawform">
 			        <div class="radio">

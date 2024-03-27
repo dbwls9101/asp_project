@@ -113,6 +113,15 @@ ul {
 	background-color: #FFE05C;
 }
 
+.button.button-point-1 {
+	background-color: red;
+	cursor: pointer;
+}
+
+.button.button-point-1:hover {
+	background-color: #FFE05C;
+}
+
 .button {
 	position: relative;
 	display: inline-block;

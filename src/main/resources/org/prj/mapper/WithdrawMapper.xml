@@ -20,10 +20,11 @@
        				 #{with_amount }, #{with_status }, 1000, sysdate, #{note })
 	</insert>
 	
-	<!-- p_idx를 가지고와 판매 총액을 확인 -->
+	<!-- p_idx를 가지고와 판매 총액을 확인 / 상태값 B(결재완료) 된 내용만 가지고와서 총 판매합산 금액에 넣어주었다. -->
 	<select id="getp_idx" parameterType="String" resultType="int">
-		select sum(service_amount) from payment where p_idx in (
-			select p_idx from party_board where id = #{username } )
+ 		select sum(service_amount) from payment where (pay_status = 'B' or pay_status = 'C' or pay_status = 'E') and p_idx in(
+			select p_idx from party_board where id = #{username })
+			
 	</select>
 	
 	<!-- 지금 요청 금액 -->
@@ -33,18 +34,40 @@
 		and with_status  = 'A'
 	</select>
 	
-	<!-- 미발생 판매금 -->
+	<!-- 미발생 판매금 member에 업데이트-->	
 	<update id="unsales" parameterType="String">
-		update member
-		set with_amount = (select sum(service_amount / round(end_date - trunc(approved_at)) * round(trunc(sysdate) - trunc(approved_at))) from payment where p_idx in (
-			select p_idx from party_board where id=#{username } ))
-		where id=#{username }
+	    update member
+	    set with_amount = (
+	        SELECT (
+	            (SELECT SUM(service_amount / ROUND(end_date - TRUNC(approved_at)) * ROUND(TRUNC(SYSDATE) - TRUNC(approved_at))) 
+	             FROM payment 
+	             WHERE (pay_status = 'B' or pay_status = 'C' or pay_status = 'E') AND p_idx IN (SELECT p_idx FROM party_board WHERE id = #{username })
+	            )
+	            +
+	            (SELECT SUM(service_amount - refund_amount) 
+	             FROM payment 
+	             WHERE pay_status = 'F' AND p_idx IN (SELECT p_idx FROM party_board WHERE id = #{username })
+	            )
+	        ) AS result
+	        FROM dual
+	    )
+	    where id=#{username }
 	</update>
-	
+
 	<!-- 미발생 판매금 -->
 	<select id="unsaleslist" parameterType="String" resultType="int">
-		select sum(service_amount / round(end_date - trunc(approved_at)) * round(trunc(sysdate) - trunc(approved_at))) from payment where p_idx in (
-			select p_idx from party_board where id = #{username } )
+		SELECT (
+		    (SELECT SUM(service_amount / ROUND(end_date - TRUNC(approved_at)) * ROUND(TRUNC(SYSDATE) - TRUNC(approved_at))) 
+		     FROM payment 
+		     WHERE (pay_status = 'B' or pay_status = 'C' or pay_status = 'E') AND p_idx IN (SELECT p_idx FROM party_board WHERE id = #{username })
+		    )
+		    +
+		    (SELECT SUM(service_amount - refund_amount) 
+		     FROM payment 
+		     WHERE pay_status = 'F' AND p_idx IN (SELECT p_idx FROM party_board WHERE id = #{username })
+		    )
+		) AS result
+		FROM dual
 	</select>
 	
 	
