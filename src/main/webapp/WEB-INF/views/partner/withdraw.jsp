@@ -103,11 +103,7 @@
 													<td>0원</td>
 												</c:when>
 												<c:otherwise>
-<<<<<<< HEAD
-													<td><fmt:formatNumber value="${unsaleslist - withamount}" type="number" />원</td>
-=======
 													<td>${(currentamount + withamount) - unsaleslist}원</td>
->>>>>>> 2173df4d361a5163ac0c63df55cbe7a95c1385b7
 												</c:otherwise>
 											</c:choose>
 											<td></td>

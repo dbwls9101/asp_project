@@ -16,6 +16,10 @@
 	
 	<div class="list-payment inquiry-list">
 		<table>
+			<tr>
+				<th>일시</th>
+				<th>내용</th>
+			</tr>
 		</table>
 	</div>
 		
