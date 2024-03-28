@@ -103,11 +103,11 @@
 													<td>0원</td>
 												</c:when>
 												<c:otherwise>
-<<<<<<< HEAD
-													<td><fmt:formatNumber value="${unsaleslist - withamount}" type="number" />원</td>
-=======
-													<td>${(currentamount + withamount) - unsaleslist}원</td>
->>>>>>> 2173df4d361a5163ac0c63df55cbe7a95c1385b7
+
+													<td><fmt:formatNumber value="${unsaleslist - (currentamount + withamount)}" type="number" />원</td>
+
+													<td></td>
+
 												</c:otherwise>
 											</c:choose>
 											<td></td>
@@ -136,7 +136,7 @@
 												</c:when>
 												<c:otherwise>
 													<td colspan="2" style="background-color: #43a051">
-													<p3 id="center1">최대 <b><fmt:formatNumber value="${(currentamount + withamount) - unsaleslist}" type="number" />원</b> 까지 신청할 수 있습니다.</p3>
+													<p3 id="center1">최대 <b><fmt:formatNumber value="${unsaleslist - (currentamount + withamount)}" type="number" />원</b> 까지 신청할 수 있습니다.</p3>
 													</td>	
 												</c:otherwise>
 											</c:choose>									
