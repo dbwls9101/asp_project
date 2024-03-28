@@ -223,14 +223,14 @@ public class AdminController {
 		return result > 0 ? "success" : "fail";
 	}
 	
-	// 출금 관리
+	// 출금 관리(화면 이동)
 	@GetMapping("/withdraw")
 	public String moveWithdraw() {
 		log.info("Withdraw...");
 		return "/admin/withdraw";
 	}
 	
-	//출금관리 리스트
+	// 출금관리 리스트
 	@ResponseBody
 	@PostMapping(value="/withdrawList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public PageDTO withdrawList(@RequestBody Criteria cri) {
@@ -244,7 +244,7 @@ public class AdminController {
 		return pageMaker;
 	} 
 	
-	//출금관리 승인, DB with_status A -> B로 변경
+	// 출금관리 승인, DB with_status A(신청) -> B(승인)으로 변경
 	@ResponseBody
 	@PostMapping(value = "/modifyWithdraw", produces = MediaType.TEXT_PLAIN_VALUE)
 	public String modifyWithdraw(@RequestBody int w_idx) {
@@ -257,7 +257,7 @@ public class AdminController {
 	    }
 	}
 	
-	// 출금관리 반려, DB with_status A -> C로 변경
+	// 출금관리 반려, DB with_status A -> C(반려)로 변경(불확실한 상황의 경우 반려 할 수 있다.)
 	@ResponseBody
 	@PostMapping(value = "/modifyWithdraw2", produces = MediaType.TEXT_PLAIN_VALUE)
 	public String modifyWithdraw2(@RequestBody int w_idx) {
@@ -394,14 +394,14 @@ public class AdminController {
 		return cService.changeCategoryStatus(vo) > 0 ? "success" : "fail";
 	}
 	
-	// 1:1문의 
+	// 1:1문의 = 관리자 화면에서 1:1문으로 이동 
 	@GetMapping("/admin_inquiry_board")
 	public String admin_inquiry_board() {
 		log.info("admin_inquiry_board...");
 		return "/admin/admin_inquiry_board";
 	}
 	
-	// 1:1문의 리스트
+	// 1:1문의 리스트 = 리스트를 불러온다.
 	@ResponseBody
 	@PostMapping(value="/inquiryboardList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public PageDTO inquiryboardList(@RequestBody Criteria cri) {
@@ -415,7 +415,7 @@ public class AdminController {
 		return pageMaker;
 	}
 	
-	// 1:1 문의 댓글(모달창) 가지고 오기
+	// 관리자 측면에서 1:1 문의 댓글(모달창) 으로 내용을 가지고 오고 댓글을 달아 줄수 있게 준비
 	@ResponseBody
 	@GetMapping(value = "/page/{i_idx}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public InquiryVO getReply(@PathVariable("i_idx") int i_idx) {
@@ -423,21 +423,6 @@ public class AdminController {
 		
 		return iService.getReply(i_idx);
 	}
-	
-/*	// 1:1 문의 게시글 삭제
-	@PostMapping("/Inquiryremove")
-	public String remove(@RequestParam("i_idx") int i_idx, RedirectAttributes rttr ) {
-	    log.info("remove...." + i_idx);
-	    
-	    List<FileInfoVO> attachList = iService.getAttachList(i_idx);
-	    
-		if(iService.remove(i_idx)) {
-			deleteFiles(attachList);
-			rttr.addFlashAttribute("result", "success");
-		}; 
-	    	    
-	    return "redirect:/admin/admin_inquiry_board";
-	} */
 	
 	// 1:1 문의 게시글 삭제
 	@ResponseBody
@@ -456,6 +441,7 @@ public class AdminController {
 	    return result ? "success" : "fail";
 	}
 	
+	// 1:1 문의 파일 삭제 메소드
 	public void deleteFiles(List<FileInfoVO> attachList) {
 		if(attachList == null || attachList.size() == 0) {
 			return;}
@@ -565,6 +551,7 @@ public class AdminController {
 	//회원 수정
 	@PostMapping("/membermodify")
 	public void doMemberModify(MemberVO mvo, Model model) {
+		System.out.println("mvo : " + mvo);
 		mService.doMemberModify(mvo);
 		moveMemberModify(mvo.getM_idx(), model);
 	}
@@ -668,5 +655,18 @@ public class AdminController {
 		log.info("get..." + order_no);
 		model.addAttribute("vo", payService.orderGet(order_no));
 	}
-		
+	
+	//유저 닉네임 조회
+	@ResponseBody
+	@PostMapping(value = "/usernickname", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String getUserNick(@RequestBody String id) {
+		return mService.getUserNick(id);
+	}
+	
+	//유저 아이디 조회
+	@ResponseBody
+	@PostMapping(value = "/inquiryuserid", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String getUserID(@RequestBody String nickname) {
+		return mService.getUserID(nickname);
+	}
 }

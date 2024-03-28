@@ -1,3 +1,24 @@
+//새로고침 시 알림 배지 업데이트
+getPrincipal()
+.then(()=>{
+	if(principal != 'anonymousUser'){
+		fetch('/alarm/alarmnumber',{
+			method: 'post',
+			body: principal.member.id,
+			headers : {'Content-type' : 'application/json; charset=utf-8'}
+		})
+		.then(response => response.json())
+		.then(data => {
+			if(data == 0){
+				document.querySelector("#badge").style.display = 'none';
+			}else{
+				document.querySelector('#badge').innerHTML = data;
+			}
+		})
+		.catch(err => console.log(err));
+	}
+})
+
 // 헤더 스크롤 시 fixed 클래스 추가
 window.addEventListener('scroll', function() {
 	var header = document.querySelector('.header-menu');

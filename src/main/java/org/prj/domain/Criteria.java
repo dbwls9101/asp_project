@@ -28,4 +28,7 @@ public class Criteria {
 	//파티 상태 & 회원 레벨
 	private String status;
 	
+	//알림페이지 - 더보기
+	private String id;
+	
 }

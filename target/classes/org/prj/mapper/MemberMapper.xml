@@ -304,7 +304,7 @@
 	<!-- 회원 정보 수정 -->
 	<update id="doMemberModify" parameterType="org.prj.domain.MemberVO">
 		update member set name=#{name}, phone=#{phone}, email=#{email}, "LEVEL"=#{level}, bank=#{bank}, bank_number=#{bank_number},
-							with_amount=#{with_amount}, point=#{point}, 
+							with_amount=#{with_amount}, 
 							<choose>
 						        <when test='level.equals("A")'>
 						            auth='ROLE_ADMIN'
@@ -366,4 +366,13 @@
 		order by p_idx desc
 	</select>
 	
+	<!-- 유저 닉네임 -->
+	<select id="getUserNick" parameterType="String" resultType="String">
+		select nickname from member where id=#{id}
+	</select>
+	
+	<!-- 유저 아이디 -->
+	<select id="getUserID" parameterType="String" resultType="String">
+		select id from member where nickname=#{nickname}
+	</select>
 </mapper>	

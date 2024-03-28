@@ -43,6 +43,7 @@ public class InquiryController {
 	@Autowired
 	private MemberService mservice;
 	
+	// 1:1 문의 화면 
 	@GetMapping("/Inquirylist")
 	public String list(Model model, Criteria cri) {		// 1:1문의 게시판 페이지 처리
 		log.info("list...");
@@ -73,11 +74,13 @@ public class InquiryController {
 		return "/inquiry_board/Inquirylist";
 	}
 	
+	// 1:1문의 게시글 등록 화면으로 이동
 	@GetMapping("/Inquiryregister") 
 	public String moveRegister() {
 		return "/inquiry_board/Inquiryregister";
 	}
-
+	
+	// 1:1문의 게시글 작성 
 	@PostMapping("/Inquiryregister")
 	public String register(InquiryVO vo, RedirectAttributes rttr) {
 		log.info("register..." + vo);
@@ -91,6 +94,7 @@ public class InquiryController {
 		return "redirect:/inquiry_board/Inquirylist";
 	}
 	
+	// 1:1문의 게시글을 누르고 들어가면 세부사항이 나오는 화면
 	@GetMapping("/Inquiryget")
 	public String get(Model model, @RequestParam("i_idx") int i_idx) {
 		log.info("get..." + i_idx);
@@ -98,7 +102,7 @@ public class InquiryController {
 		return "/inquiry_board/Inquiryget";
 	}
 	
-	// 내용 수정
+	// 1:1문의 수정 : 페이지 이동 + 화면
 	@GetMapping("/Inquirymodify")
 	public String moveModify(Model model, @RequestParam("i_idx") int i_idx) {
 		log.info("get..." + i_idx);
@@ -106,6 +110,7 @@ public class InquiryController {
 		return "/inquiry_board/Inquirymodify";
 	}
 	
+	// 1:1문의 수정 
 	@PostMapping("/Inquirymodify")
 	public String modify(InquiryVO vo, RedirectAttributes rttr) {
 		log.info("modify..." + vo);
@@ -118,6 +123,7 @@ public class InquiryController {
 		return "redirect:/inquiry_board/Inquirylist";
 	}
 	
+	// 1:1문의 게시글 삭제
 	@PostMapping("/Inquiryremove")
 	public String remove(@RequestParam("i_idx") int i_idx, RedirectAttributes rttr) {
 		log.info("remove...." + i_idx);
@@ -132,6 +138,7 @@ public class InquiryController {
 		return "redirect:/inquiry_board/Inquirylist";
 	}
 	
+	// 파일 업로드 불러오기 위해 사용
 	@ResponseBody
 	@GetMapping(value = "/getAttachList/{i_idx}", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<List<FileInfoVO>> getAttachList(
@@ -142,6 +149,7 @@ public class InquiryController {
 		return new ResponseEntity<List<FileInfoVO>>(service.getAttachList(i_idx), HttpStatus.OK);
 	}
 	
+	// 파일 삭제 메소드 
 	public void deleteFiles(List<FileInfoVO> attachList) {
 		if(attachList == null || attachList.size() == 0) {
 			return;}

@@ -32,7 +32,11 @@
 	   				<sec:authentication property="principal" var="principal"/>
 					<sec:authorize access="isAuthenticated()">			
 						<div class="header-user">
-							<span class="picture"><img alt="picture" src="/resources/images/get_sun.png"></span>
+							<span class="picture">
+								<a href="/alarm/alarm"><img alt="picture" src="/resources/images/get_sun.png">
+								<span id="badge" class="position-absolute translate-middle badge rounded-pill bg-danger" style="top: 32px; right: 10px;">
+								</span></a>
+  							</span>
 							<span class="arrow"><img alt="arrow" src="/resources/images/mymenu-arrow.png"></span>
 							<div class="header-profile">
 								<div class="block">

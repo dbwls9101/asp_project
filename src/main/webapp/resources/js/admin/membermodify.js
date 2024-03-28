@@ -67,8 +67,6 @@ document.querySelector("#memberModify").addEventListener('click', ()=>{
 			f.auth.value = 'ROLE_USER';
 		    break;
 		  default:
-		    alert('회원 등급은 A/B/C로 입력해주세요.');
-		    f.level.focus();
 		    return;
 		}
 		
@@ -97,12 +95,6 @@ document.querySelector("#memberModify").addEventListener('click', ()=>{
 		if(Number.isNaN(Number(f.with_amount.value))) {
 			alert('출금 가능 금액은 숫자만 입력가능합니다.');
 			f.with_amount.focus();
-			return;
-		}
-		
-		if(Number.isNaN(Number(f.point.value))) {
-			alert('포인트는 숫자만 입력가능합니다.');
-			f.point.focus();
 			return;
 		}
 		

@@ -89,8 +89,8 @@ function getList(obj){
 			msg += 		'<td>' + vo.note +'</td>';
 			msg += 		'<td>' + myTime(vo.reg_date) +'</td>';	
 			msg += 		'<td>'
-			msg +=		'<input type="button" class="button-change" name="approval" id="approval" onclick="approvalEvent('+ vo.w_idx + ')" value="승인"/>'
-			msg +=		'&nbsp;&nbsp;<input type="button" class="button-change" name="companion" id="companion" onclick="companionEvent('+ vo.w_idx + ')" value="반려"/>'
+			msg +=		'<input type="button" class="button-change" name="approval" id="approval" onclick="approvalEvent('+ vo.w_idx + ', \'' + vo.id + '\')" value="승인"/>'
+			msg +=		'&nbsp;&nbsp;<input type="button" class="button-change" name="companion" id="companion" onclick="companionEvent('+ vo.w_idx + ', \'' + vo.id + '\')" value="반려"/>'
 			msg +=		'</td>';
 			msg += '</tr>';	
 
@@ -166,7 +166,6 @@ function radioEvent(){
 	})
 }
 
-
 //unixTimeStamp 변환
 function myTime(unixTimeStamp) {
 	
@@ -188,18 +187,8 @@ function approvalEvent() {
 	btnElement.value = "완료";
 }
 
-// --------------- 승인완료 버튼을 누르면 변경되는 내용 -------------------------
-// 1. 내용을 확인 하고 해당 되는 계좌에 입금을 한다.
-// 2. 입금하면서 승인 버튼을 누르면 
-// 2-1. 승인 버튼은 -> 승인 완료 버튼으로 변경된다.
-// 2-2. 동시에 with_staus가 "A"에서 -> "C" 승인 완료로 변경 된다.
-// 3. 위 내용중에 2번 내용을 처리 하기 위해서 해야 할 일
-// -- 1. 쿼리문 작성 -> 내용을 변경해야 하기 때문에 update 문을 이용 하자
-// -- 2. adminController 에서 update 관련된 내용을 작성 -> withdraw.xml에 까지 작성
-// -- 3. 그리고 여기 스크립트에서 처리 해줄까??
 
-
-function approvalEvent(w_idx){
+function approvalEvent(w_idx, id){
 	if(confirm('승인하시겠습니까?')){
 		fetch("/admin/modifyWithdraw", {
 			method : 'post',
@@ -209,6 +198,9 @@ function approvalEvent(w_idx){
 		.then( response => response.text() )
 		.then( data => {
 			if(data == 'success'){
+				//알림
+				sendNotification(id, '출금 신청이 승인되었습니다.');
+				
 				const btnElement = document.getElementById('approval');
 				btnElement.value = "완료";
 				getList();
@@ -222,7 +214,7 @@ function approvalEvent(w_idx){
 	}
 }
 
-function companionEvent(w_idx){
+function companionEvent(w_idx, id){
 	if(confirm('반려하시겠습니까?')){
 		fetch("/admin/modifyWithdraw2", {
 			method : 'post',
@@ -232,18 +224,41 @@ function companionEvent(w_idx){
 		.then( response => response.text() )
 		.then( data => {
 			if(data == 'success'){
+				//알림
+				sendNotification(id, '출금 신청이 반려되었습니다.');
+				
 				getList();
 			}
 			else{
 				alert('승인에 실패하였습니다.');
 			}
 			location.href = '/admin/withdraw';
-//			changeBtnName();
 		});
 	}
 }
 
-
+//알림
+function sendNotification(to_id, content) {
+    fetch('/alarm/savenotify', {
+            method: 'post',
+            body: JSON.stringify({
+                to_id: to_id,
+                from_id: principal.member.nickname,
+                content: content,
+                url: '/partner/withdraw'
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(response => response.text())
+        .then(data => {
+            if (data == 'success') {
+                socket.send(to_id + "," + principal.member.nickname + "," + content + "," + '/partner/withdraw');
+            }
+        })
+        .catch(err => console.log(err));
+}
 
 
 

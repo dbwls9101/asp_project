@@ -103,7 +103,7 @@
 													<td>0원</td>
 												</c:when>
 												<c:otherwise>
-													<td><fmt:formatNumber value="${(currentamount + withamount) - unsaleslist}" type="number" />원</td>
+													<td><fmt:formatNumber value="${unsaleslist - (currentamount + withamount)}" type="number" />원</td>
 												</c:otherwise>
 											</c:choose>
 											<td></td>
@@ -127,12 +127,12 @@
 											<c:choose>
 												<c:when test="${unsaleslist - withamount == null }">
 													<td colspan="2" style="background-color: #43a051">
-													<p3 id="center1">최대 <b>0원</b> 까지 신청할 수 있습니다.</p3>
+													<p id="center1">최대 <b>0원</b> 까지 신청할 수 있습니다.</p>
 													</td>	
 												</c:when>
 												<c:otherwise>
 													<td colspan="2" style="background-color: #43a051">
-													<p3 id="center1">최대 <b><fmt:formatNumber value="${(currentamount + withamount) - unsaleslist}" type="number" />원</b> 까지 신청할 수 있습니다.</p3>
+													<p id="center1" style="font-size: 16px !important;">최대 <b><fmt:formatNumber value="${unsaleslist - (currentamount + withamount)}" type="number" />원</b> 까지 신청할 수 있습니다.</p>
 													</td>	
 												</c:otherwise>
 											</c:choose>									
@@ -145,9 +145,9 @@
 										
 										<tr>
 											<th colspan="2" id="center2" style="padding: 21px 20px !important;">
-											<p2>* 하루에 한번만 신청 할 수 있고 최대 5,000,000원(오백만원)만 출금 가능합니다.</p2><br>
-											<p3>* 모든 은행 출금 수수료는 1,000원으로 동일하게 부과됩니다.</p3><br>
-											<p3>* 출금 신청 시 영업일 기준 최대 3일이 소요 될 수 있습니다.(토요일, 일요일, 공유일 제외)</p3>
+											<p>* 하루에 한번만 신청 할 수 있고 최대 5,000,000원(오백만원)만 출금 가능합니다.</p>
+											<p>* 모든 은행 출금 수수료는 1,000원으로 동일하게 부과됩니다.</p>
+											<p>* 출금 신청 시 영업일 기준 최대 3일이 소요 될 수 있습니다.(토요일, 일요일, 공유일 제외)</p>
 											</th>
 										</tr>
 										

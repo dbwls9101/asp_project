@@ -178,7 +178,9 @@ public class PaymentController {
 		log.info("orderGet : " + vo);
 		
 		String imp_uid = vo.getImp_uid();
+		log.info("imp_uid : " + imp_uid);
 		String token = vo.getToken();
+		log.info("token : " + token);
 		int amount = payService.paymentInfo(imp_uid, token);
 		String reason = "사용자 취소";
 		
@@ -200,7 +202,7 @@ public class PaymentController {
 			new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	// 결제 취소
+	// 포인트 전액 취소
 	@PostMapping("/zeroCancel")
 	@ResponseBody
 	public ResponseEntity<String> zeroCancel(@RequestBody String order_no) throws IOException {

@@ -148,4 +148,9 @@ public class PartyBoardServiceImpl implements PartyBoardService{
 		//게시글 삭제
 		pMapper.deleteParty(p_idx);
 	}
+
+	@Override
+	public String getPartnerId(int p_idx) {
+		return pMapper.getPartnerId(p_idx);
+	}
 }

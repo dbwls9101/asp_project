@@ -112,4 +112,10 @@ public interface MemberService {
 	
 	// 게시글 전체 개수
 	public int getPointTotal(Criteria cri);
+	
+	//유저 닉네임
+	public String getUserNick(String id);
+	
+	//유저 아이디
+	public String getUserID(String nickname);
 }

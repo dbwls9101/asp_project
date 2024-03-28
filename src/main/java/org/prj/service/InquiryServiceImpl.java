@@ -49,13 +49,13 @@ public class InquiryServiceImpl implements InquiryService {
 	public void register(InquiryVO vo) {
 		log.info("register..." + vo);
 		
-		// 1. 테이블 게시글 등록
+		// 3-1. 테이블 게시글 등록
 		mapper.insert(vo);
 		
-		// 2. 1번에 등록된 게시글의 번호 가져오기
+		// 3-2. 1번에 등록된 게시글의 번호 가져오기
 		int i_idx = mapper.getIdx();
 				
-		// 3. 파일 업로드
+		// 3-3. 파일 업로드
 		if (vo.getAttachList() == null || vo.getAttachList().size() <= 0) {
 			return;
 		}
@@ -78,6 +78,7 @@ public class InquiryServiceImpl implements InquiryService {
 	public boolean modify(InquiryVO vo) {
 		log.info("modify..." + vo);
 		
+		// 5-1. 수정하면서 파일이 삭제가 될 수 있게
 		AttachMapper.deleteAll(vo.getI_idx());
 		
 		boolean modifyResult = mapper.update(vo) == 1;
@@ -85,12 +86,9 @@ public class InquiryServiceImpl implements InquiryService {
 		if(modifyResult && vo.getAttachList() != null && vo.getAttachList().size() > 0) {
 			vo.getAttachList().forEach(attach -> {
 				attach.setI_idx(vo.getI_idx());
-				AttachMapper.insert(attach);
+				AttachMapper.insert(attach);	// 새로운 파일이 추가 될때
 			});
-		}	
-		
-//		int result = mapper.update(vo);
-		
+		}		
 		return modifyResult;
 	}
 	
@@ -99,11 +97,11 @@ public class InquiryServiceImpl implements InquiryService {
 	@Override
 	public boolean remove(int i_idx) {
 		log.info("remove..." + i_idx);
-		// 댓글 전체를 삭제
+		// 6-1. 댓글 전체를 삭제
 		imapper.allDelete(i_idx);	// 게시글 삭제하면 댓글 부분도 삭제 추후 조치
-		// 파일 데이터 삭제
+		// 6-2. 파일 데이터 삭제
 		AttachMapper.deleteAll(i_idx);
-		// 게시글 삭제
+		// 6-3. 게시글 삭제
 		int result = mapper.delete(i_idx);
 		return result > 0 ? true : false ;
 	}
@@ -115,7 +113,7 @@ public class InquiryServiceImpl implements InquiryService {
 		return AttachMapper.findByIdx(i_idx);
 	}
 	
-	// + 추가 업로드한 파일을 수정 부분에서 삭제	이것도 잠시 대기!!
+	// + 추가 업로드한 파일을 수정 부분에서 삭제
 	@Override
 	public void delete(String uuid) {
 		log.info("delete : " + uuid);
@@ -123,7 +121,6 @@ public class InquiryServiceImpl implements InquiryService {
 		AttachMapper.delete(uuid);
 	}
 		
-	
 	// 8. 리스트 나오는 갯수
 	@Override
 	public int getInquiryBoardTotal(Criteria cri) {
@@ -159,7 +156,7 @@ public class InquiryServiceImpl implements InquiryService {
 		return mapper.getInquiry(i_idx);
 	}
 
-	// 13. 관리자 1:1문의 게시글 수정
+	// 13. 관리자 1:1문의 게시글 수정 (위에 5번과 상동)
 	@Transactional
 	@Override
 	public boolean AdminInquiryUpdate(InquiryVO vo) {
@@ -175,10 +172,7 @@ public class InquiryServiceImpl implements InquiryService {
 				AttachMapper.insert(attach);
 			});
 		}	
-			
 		return modifyResult;	
-		
-//		mapper.AdminInquiryUpdate(vo);
 		
 	}
 

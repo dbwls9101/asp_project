@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class AlarmVO {
 	private int a_idx;
 	private String to_id, from_id, content, url;
-	private char checked;
-	private String timestamp;
+	private String checked;
+	private String reg_date;
 }

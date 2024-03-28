@@ -156,7 +156,7 @@ function partyWriter(){
 		}else{
 			let c1 = urlParams.get('c1');
 			let c2 = urlParams.get('c2');
-			if(c2 != ''){
+			if(c2 != null){
 				location.href = '/shop/list/' + c1 + '/' + c2;
 			}else{
 				location.href = '/shop/list/' + c1;
@@ -381,30 +381,68 @@ document.querySelector("#replyregister").addEventListener('click', ()=>{
 			private_chk: replyf.private_chk.value
 		},
 		function(result){
-			replyf.comment.value = '';
-			showList();
-			
-			//알림
-			fetch('/alarm/savenotify', {
-				method:'post',
-				body: JSON.stringify({
-					to_id : pidValue,
-					from_id : principal.member.nickname,
-					content : '님이 댓글을 남겼습니다.',
-					url : window.location.href
-				}),
-				headers : {'Content-type' : 'application/json; charset=utf-8'}
-			})
-			.then(response => response.text())
-			.then(data => {
-				if(data == 'success'){
-					socket.send(pidValue + "," + principal.member.nickname + "," + '님이 댓글을 남겼습니다.' + "," + window.location.href);
-				}
-			})
-			.catch(err => console.log(err));
+		    replyf.comment.value = '';
+		    showList();
+		    
+		    if (replyf.comment_to.value == '모든파티원') {
+		        paymentUsers()
+		            .then(users => {
+		                for (let i = 0; i < users.length; i++) {
+		                    sendNotification(users[i]);
+		                }
+		            })
+		            .catch(err => console.log(err));
+		    } else {
+		        sendNotification(pidValue);
+		    }
 		}
 	);
 })
+
+//참여중인 회원 아이디
+function paymentUsers() {
+    return new Promise((resolve, reject) => {
+        let usersArr = [];
+        fetch('/shop/paymentusers', {
+                method: 'post',
+                body: replyf.p_idx.value,
+                headers: {
+                    'Content-type': 'application/json; charset=utf-8'
+                }
+            })
+            .then(response => response.json())
+            .then(json => {
+                json.forEach(user => {
+                    usersArr.push(user.id);
+                });
+                resolve(usersArr); 
+            })
+            .catch(err => reject(err)); 
+    });
+}
+
+//알림
+function sendNotification(to_id) {
+    fetch('/alarm/savenotify', {
+            method: 'post',
+            body: JSON.stringify({
+                to_id: to_id,
+                from_id: principal.member.nickname,
+                content: '님이 댓글을 남겼습니다.',
+                url: window.location.href
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(response => response.text())
+        .then(data => {
+            if (data == 'success') {
+                socket.send(to_id + "," + principal.member.nickname + "," + '님이 댓글을 남겼습니다.' + "," + window.location.href);
+            }
+        })
+        .catch(err => console.log(err));
+}
 
 //댓글 삭제
 function replyDelete(c_idx){
