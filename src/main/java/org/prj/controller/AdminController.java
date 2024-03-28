@@ -654,5 +654,18 @@ public class AdminController {
 		log.info("get..." + order_no);
 		model.addAttribute("vo", payService.orderGet(order_no));
 	}
-		
+	
+	//유저 닉네임 조회
+	@ResponseBody
+	@PostMapping(value = "/usernickname", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String getUserNick(@RequestBody String id) {
+		return mService.getUserNick(id);
+	}
+	
+	//유저 아이디 조회
+	@ResponseBody
+	@PostMapping(value = "/inquiryuserid", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String getUserID(@RequestBody String nickname) {
+		return mService.getUserID(nickname);
+	}
 }

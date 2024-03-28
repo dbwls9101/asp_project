@@ -84,7 +84,6 @@ function pagingEvent(){
 	});
 }
 
-
 //답댓글 모달
 function doReplyAnswer(c_idx){
 	//모달창 open
@@ -126,6 +125,7 @@ const rs = replyService;
 const answer = document.forms[0];
 
 document.querySelector("#answerRegister").addEventListener('click', ()=>{
+	let url = document.querySelector("#title a").getAttribute("href");
 	if(principal == 'anonymousUser'){
 		alert('로그인 후 이용가능한 서비스입니다.');
 		answer.comment.value = '';
@@ -152,7 +152,56 @@ document.querySelector("#answerRegister").addEventListener('click', ()=>{
 			private_chk: answer.private_chk.value
 		},
 		function(result){
-			location.href='/partner/replymanage';
+			//알림
+			CommentToUserId(answer.comment_to.value)
+            .then(to_id => {
+            	sendNotification(to_id, url);
+            	location.href='/partner/replymanage';
+            })
+            .catch(err => console.log(err));
 		}
 	);
 })
+
+//comment_to 아이디
+function CommentToUserId(nickname) {
+    return new Promise((resolve, reject) => {
+        fetch('/partner/inquiryuserid', {
+                method: 'post',
+                body: nickname,
+                headers: {
+                    'Content-type': 'application/json; charset=utf-8'
+                }
+            })
+            .then(response => response.text())
+            .then(data => {
+                resolve(data); 
+            })
+            .catch(err => reject(err)); 
+    });
+}
+
+//알림
+function sendNotification(to_id, url) {
+    fetch('/alarm/savenotify', {
+            method: 'post',
+            body: JSON.stringify({
+                to_id: to_id,
+                from_id: principal.member.nickname,
+                content: '님이 댓글을 남겼습니다.',
+                url: url
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(response => response.text())
+        .then(data => {
+        	if (data == 'success') {
+                socket.send(to_id + "," + principal.member.nickname + "," + '님이 댓글을 남겼습니다.' + "," + url);
+            }
+        })
+        .catch(err => console.log(err));
+}
+
+

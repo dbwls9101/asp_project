@@ -366,4 +366,13 @@
 		order by p_idx desc
 	</select>
 	
+	<!-- 유저 닉네임 -->
+	<select id="getUserNick" parameterType="String" resultType="String">
+		select nickname from member where id=#{id}
+	</select>
+	
+	<!-- 유저 아이디 -->
+	<select id="getUserID" parameterType="String" resultType="String">
+		select id from member where nickname=#{nickname}
+	</select>
 </mapper>	

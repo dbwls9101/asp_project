@@ -132,8 +132,6 @@ function getList(obj){
 	.then(response => response.json())
 	.then(json => {
 		let list = json.list;
-		console.log(list);
-		console.log(json);
 		list.forEach(vo => {
 			let status = '';
 			
@@ -157,17 +155,17 @@ function getList(obj){
 			msg += '<td><a href="javascript:detailBtn(' + vo.order_no + ');">' + vo.title + '<br><span class="sub-title">' + vo.sub_title + '</span></a></td>';
 			msg += '<td>' + vo.id + '</td>';
 			msg += '<td>' + vo.name + '</td>';
-			msg += '<td>' + vo.pay_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
+			msg += '<td>' + (vo.pay_amount + vo.point).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
 			if (vo.pay_amount == 0) {
 				msg += '<td>0원</td>';
 			}else {
-				msg += '<td>' + (vo.pay_amount - vo.point).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
+				msg += '<td>' + vo.pay_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
 			}
 			msg += '<td>' + vo.point.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + 'P</td>';
 			msg += '<td>' + vo.approved_at + '</td>';
 			msg += '<td>' + status + '</td>';
 			if (vo.pay_status == 'B') {
-				msg += '<td>' + '<button type="button" id="partydelete" onclick="cancelBtn(\'' + vo.order_no + '\', \'' + vo.pay_amount + '\')" style="width: 65px;">결제취소</button>' + '</td>';
+				msg += '<td>' + '<button type="button" id="partydelete" onclick="cancelBtn(\'' + vo.order_no + '\', \'' + vo.p_idx + '\', \'' + vo.title + '\', \'' + vo.pay_amount + '\', \'' + vo.id + '\')" style="width: 65px;">결제취소</button>' + '</td>';
 			} else if(vo.pay_status == 'C') {
 				msg += '<td>-</td>';
 			} else {
@@ -251,23 +249,43 @@ function detailBtn(order_no) {
 
 //결제취소 버튼
 const ps = payService;
-function cancelBtn(order_no, pay_amount) {
+function cancelBtn(order_no, p_idx, title, pay_amount, id) {
+	console.log(id);
 	if (confirm('결제 취소하시겠습니까?')) {
-		if (pay_amount == 0) {
-			ps.zeroCancel(order_no, function(result) {
-				console.log(result);
-				location.reload();
-			})
-		}else {
-			ps.cancel(order_no, function(result) {
-				console.log(result);
-				location.reload();
-			})
-		}
+		getUserNickname(id)
+		.then(nickname =>{
+			if (pay_amount == 0) {
+				ps.zeroCancel(order_no, p_idx, title, nickname, function(result) {
+					location.reload();
+				})
+			}else {
+				ps.cancel(order_no, p_idx, title, nickname, function(result) {
+					location.reload();
+				})
+			}
+		})
 	}else {
 		alert('결제 취소를 실패하였습니다.');
 		return;
 	}
+}
+
+function getUserNickname(id){
+	return new Promise((resolve, reject) => {
+        fetch('/admin/usernickname', {
+            method: 'post',
+            body: id,
+            headers: {
+                'Content-type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(response => response.text())
+        .then(data => {
+        	console.log('data: ' + data);
+            resolve(data); 
+        })
+        .catch(err => reject(err)); 
+    });
 }
 
 //unixTimeStamp 변환

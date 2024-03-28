@@ -63,7 +63,7 @@
 				</li>
 				<li>
 					<span class="subject">ㆍ SNS 관리</span>
-					<div class="input-checkbox">
+					<div class="input-checkbox" style="padding-top: 7px;">
 						<div class="reg-form sns-wrap-reg">
 						    <div class="sns-wrap">
 						    <a href="javascript:;" id="sns-naver" class="sns-icon social_link sns-naver <c:if test = "${principal.member.naverid == null or principal.member.naverid eq ''}" >sns-icon-not </c:if>" onclick="naver_update('${principal.member.naverid}');" title="naver 계정을 연결 합니다." data-provider="naver"><span class="ico"></span><span class="txt">네이버 로그인</span></a>

@@ -261,35 +261,63 @@ document.querySelector("#answerRegister").addEventListener('click', ()=>{
 			writer: inputReplyer.value
 		},
 		function(result) {
-			location.href = '/admin/admin_inquiry_board';
+			//알림
+			inquiryUserId(document.querySelector(".writer").innerHTML)
+            .then(to_id => {
+            	sendNotification(to_id, idx.value);
+            	location.href = '/admin/admin_inquiry_board';
+            })
+            .catch(err => console.log(err));
+			
 		}
 	);
 	
 });
+
+//문의 회원 아이디
+function inquiryUserId(nickname) {
+    return new Promise((resolve, reject) => {
+        fetch('/admin/inquiryuserid', {
+                method: 'post',
+                body: nickname,
+                headers: {
+                    'Content-type': 'application/json; charset=utf-8'
+                }
+            })
+            .then(response => response.text())
+            .then(data => {
+                resolve(data); 
+            })
+            .catch(err => reject(err)); 
+    });
+}
+
+//알림
+function sendNotification(to_id, i_idx) {
+	let url = '/inquiry_board/Inquiryget?i_idx=' + i_idx;
+    fetch('/alarm/savenotify', {
+            method: 'post',
+            body: JSON.stringify({
+                to_id: to_id,
+                from_id: principal.member.nickname,
+                content: '문의하신 내용에 대한 답변이 완료되었습니다.',
+                url: url
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(response => response.text())
+        .then(data => {
+            if (data == 'success') {
+                socket.send(to_id + "," + principal.member.nickname + "," + '문의하신 내용에 대한 답변이 완료되었습니다.' + "," + url);
+            }
+        })
+        .catch(err => console.log(err));
+}
+
+
 const h = document.forms[2];
-
-/*
-function deleteBtn() {
-	if(confirm("삭제 하게 됩니다. 삭제 하시겠습니까?")) {
-
-		let i_idxValue = h.i_idx.value;
-		
-		let i_idxEle = document.createElement('input');		
-		i_idxEle.setAttribute('type', 'hidden');
-        i_idxEle.setAttribute('name', 'i_idx');
-        i_idxEle.setAttribute('value', i_idxValue); 
-		
-		h.action = '/admin/Inquiryremove';
-		h.method = 'POST';
-		h.submit();
-	}
-} */
-
-
-
-
-
-
 
 // 버튼을 누르게 되면 게시글이 삭제 된다.
 function deleteBtn(i_idx){

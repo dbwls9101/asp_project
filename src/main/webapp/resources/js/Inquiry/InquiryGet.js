@@ -145,7 +145,7 @@ function showList() {						// 나중에 여기가 더 보기가 될것같다....
 			console.log(reply);
 		});		// end forEach
 		if(msg == '') {
-			msg += '<li colspan="2"> 현재 관리자가 확인중입니다. </li>';
+			msg += '<li colspan="2" style="padding: 0;">현재 관리자가 확인 중 입니다.</li>';
 		}	
 		replyUL.innerHTML = msg;
 		

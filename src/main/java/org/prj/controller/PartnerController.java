@@ -11,6 +11,7 @@ import org.prj.domain.PartyCommentVO;
 import org.prj.domain.PaymentVO;
 import org.prj.domain.WithdrawVO;
 import org.prj.service.CategoryService;
+import org.prj.service.MemberService;
 import org.prj.service.PartyBoardService;
 import org.prj.service.PartyReplyService;
 import org.prj.service.PaymentService;
@@ -53,6 +54,9 @@ public class PartnerController {
 	// 출금 관리
 	@Autowired
 	private WithdrawService wService;
+	
+	@Autowired
+	private MemberService mService;
 	
 	//파티관리
 	@GetMapping("/manage")
@@ -166,7 +170,6 @@ public class PartnerController {
 		return prService.getReply(c_idx);
 	}
 	
-	// ------------- 민병우 담당 부분 -----------------------
 	
 	//출금관리
 	@GetMapping("/withdraw")
@@ -179,10 +182,15 @@ public class PartnerController {
 		String username = authentication.getName();
 		log.info("participating..." + username);
 		model.addAttribute("unsales", wService.unsales(username));
+		log.info("unsales..." + username);
 		model.addAttribute("unsaleslist", wService.unsaleslist(username));
+		log.info("unsaleslist..." + username);
 		model.addAttribute("sumamount", wService.getp_idx(username));
+		log.info("sumamount..." + username);
 		model.addAttribute("withamount", wService.withamount(username));
+		log.info("withamount..." + username);
 		model.addAttribute("currentamount", wService.currentamount(username));
+		log.info("currentamount..." + username);
 		
 		} catch(Exception e) {
 			log.error("An error occurred in movewithdraw", e);
@@ -265,5 +273,12 @@ public class PartnerController {
 		
 		PageDTO pageMakger = new PageDTO(cri, total, list);
 		return pageMakger;
+	}
+	
+	//유저 아이디 조회
+	@ResponseBody
+	@PostMapping(value = "/inquiryuserid", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String getUserID(@RequestBody String nickname) {
+		return mService.getUserID(nickname);
 	}
 }

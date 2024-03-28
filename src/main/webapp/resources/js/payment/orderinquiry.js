@@ -70,11 +70,11 @@ function getList(m_idx, pageNum, amount){
 	    			msg += '<tr>';
 	    			msg += '<td>' + vo.approved_at + '</td>';
 	    			msg += '<td><a href="javascript:detailBtn(' + vo.order_no + ');" style="color:#666666">' + vo.title + '<br><span class="sub-title">' + vo.sub_title + '</span></a></td>';
-	    			msg += '<td>' + vo.pay_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
+	    			msg += '<td>' + (vo.pay_amount + vo.point).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
 	    			if (vo.pay_amount == 0) {
 	    				msg += '<td>0원</td>';
 					}else {
-						msg += '<td>' + (vo.pay_amount - vo.point).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
+						msg += '<td>' + vo.pay_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '원</td>';
 					}
 	    			msg += '<td>' + vo.point.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + 'P</td>';
 	    			msg += '<td><span class="refund-amount">' + vo.refund_amount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + '</span>P</td>';
@@ -188,12 +188,12 @@ const ps = payService;
 function cancelBtn(order_no, p_idx, title, pay_amount) {
 	if (confirm('결제 취소하시겠습니까?')) {
 		if (pay_amount == 0) {
-			ps.zeroCancel(order_no, p_idx, title, function(result) {
+			ps.zeroCancel(order_no, p_idx, title, principal.member.nickname, function(result) {
 				console.log(result);
 				location.reload();
 			})
 		}else {
-			ps.cancel(order_no, p_idx, title, function(result) {
+			ps.cancel(order_no, p_idx, title, principal.member.nickname, function(result) {
 				console.log(result);
 				location.reload();
 			})

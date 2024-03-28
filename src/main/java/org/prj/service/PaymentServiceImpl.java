@@ -104,15 +104,13 @@ public class PaymentServiceImpl implements PaymentService {
 	    HttpsURLConnection conn = null;
 	    
 	    URL url = new URL("https://api.iamport.kr/payments/" + imp_uid);
-	 
+	    
 	    conn = (HttpsURLConnection) url.openConnection();
 	 
 	    conn.setRequestMethod("GET");
 	    conn.setRequestProperty("Authorization", access_token);
 	    conn.setDoOutput(true);
-	 
 	    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
-	    
 	    Gson gson = new Gson();
 	    
 	    Response response = gson.fromJson(br.readLine(), Response.class);
@@ -126,10 +124,6 @@ public class PaymentServiceImpl implements PaymentService {
 	@Override
 	public void paymentCancel(String access_token, String imp_uid, int amount, String reason) throws IOException {
 		System.out.println("결제 취소");
-		
-		System.out.println(access_token);
-		
-		System.out.println(imp_uid);
 		
 		HttpsURLConnection conn = null;
 		URL url = new URL("https://api.iamport.kr/payments/cancel");

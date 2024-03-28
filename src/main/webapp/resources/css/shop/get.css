@@ -90,6 +90,8 @@
 	width: 1200px;
     padding: 50px 20px;
     margin: auto;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 #announcement{

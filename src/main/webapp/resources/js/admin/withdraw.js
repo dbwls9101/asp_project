@@ -65,7 +65,6 @@ function getList(obj){
 	})
 	.then( response => response.json() )
 	.then( json => {
-		console.log(json)
 		let list = json.list
 		list.forEach(vo => {
 			
@@ -90,8 +89,8 @@ function getList(obj){
 			msg += 		'<td>' + vo.note +'</td>';
 			msg += 		'<td>' + myTime(vo.reg_date) +'</td>';	
 			msg += 		'<td>'
-			msg +=		'<input type="button" name="approval" id="approval" onclick="approvalEvent('+ vo.w_idx + ')" value="승인"/>'
-			msg +=		'&nbsp;&nbsp;<input type="button" name="companion" id="companion" onclick="companionEvent('+ vo.w_idx + ')" value="반려"/>'
+			msg +=		'<input type="button" class="button-change" name="approval" id="approval" onclick="approvalEvent('+ vo.w_idx + ')" value="승인"/>'
+			msg +=		'&nbsp;&nbsp;<input type="button" class="button-change" name="companion" id="companion" onclick="companionEvent('+ vo.w_idx + ')" value="반려"/>'
 			msg +=		'</td>';
 			msg += '</tr>';	
 
@@ -184,13 +183,9 @@ function myTime(unixTimeStamp) {
 
 // 나중에 버튼을 누르면 승인 -> 승인완료 로 변경
 // 버튼 클릭시 버튼 이름 변경
-const btnElement = document.querySelector('approval');
-
-// 작업중 버튼 변경되는거;;;
-function changeBtnName() {
-	const subs = document.getElementById('approval');
-	subs.innerText = '완료';
-	//btnElement.value = "승인완료";
+function approvalEvent() {
+	const btnElement = document.getElementById('approval');
+	btnElement.value = "완료";
 }
 
 // --------------- 승인완료 버튼을 누르면 변경되는 내용 -------------------------
@@ -214,19 +209,21 @@ function approvalEvent(w_idx){
 		.then( response => response.text() )
 		.then( data => {
 			if(data == 'success'){
+				const btnElement = document.getElementById('approval');
+				btnElement.value = "완료";
 				getList();
+				location.href = '/admin/withdraw';
 			}
 			else{
 				alert('승인에 실패하였습니다.');
+				location.href = '/admin/withdraw';
 			}
-			location.href = '/admin/withdraw';
-//			changeBtnName();
 		});
 	}
 }
 
 function companionEvent(w_idx){
-	if(confirm('승인하시겠습니까?')){
+	if(confirm('반려하시겠습니까?')){
 		fetch("/admin/modifyWithdraw2", {
 			method : 'post',
 			headers : {'Content-type' : 'application/json; charset=utf-8'},

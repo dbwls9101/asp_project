@@ -1,5 +1,14 @@
+<<<<<<< Updated upstream
 #content-container {
 	margin: auto;
+=======
+#content-container{
+	
+}
+
+#service-container{
+	margin:auto;
+>>>>>>> Stashed changes
 	width: 1200px;
 	margin-top: 50px;
 	margin-bottom: 80px;	
@@ -36,6 +45,43 @@
     margin-bottom: 20px;
 }
 
+<<<<<<< Updated upstream
+=======
+#withdraw-search select{
+	width: 300px;
+	display: inline;
+	font-size: 13px;
+}
+
+#withdraw-search input[type="text"]{
+	width: 350px;
+	font-size: 13px;
+	display: inline;
+}
+
+#withdraw-search input[type="button"]{
+	font-size: 15px;
+	border-radius: 10px;
+	width: 120px;
+	height: 32px;
+	background-color: #43a051;
+    color: white;
+    border: 0;
+}
+
+#withdraw-search input[type="button"]#withDrawal{
+	background-color: #258e75;
+}
+
+#withdraw-search{
+	border-radius: 20px;
+	height: 80px;
+	border: 1px solid #43a051;
+	text-align: center;
+	padding-top: 22px;
+	margin-bottom: 30px;
+}
+>>>>>>> Stashed changes
 
 #withdrawlist{
 	margin-top: 30px;

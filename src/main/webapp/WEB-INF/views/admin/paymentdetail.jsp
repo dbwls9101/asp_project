@@ -34,6 +34,14 @@
 			  <input class="form-check-input" type="radio" name="pay_status" id="pay_status4" value="D">
 			  <label class="form-check-label" for="pay_status4">결제취소</label>
 			</div>
+			<div class="form-check form-check-inline">
+			  <input class="form-check-input" type="radio" name="pay_status" id="pay_status5" value="E">
+			  <label class="form-check-label" for="pay_status5">환불반려</label>
+			</div>
+			<div class="form-check form-check-inline">
+			  <input class="form-check-input" type="radio" name="pay_status" id="pay_status6" value="F">
+			  <label class="form-check-label" for="pay_status6">환불완료</label>
+			</div>
 		</div>
 		
 		<div>

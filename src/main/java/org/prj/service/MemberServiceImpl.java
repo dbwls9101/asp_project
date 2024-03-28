@@ -355,4 +355,14 @@ public class MemberServiceImpl implements MemberService{
 	public int getPointTotal(Criteria cri) {
 		return membermapper.getPointTotal(cri);
 	}
+
+	@Override
+	public String getUserNick(String id) {
+		return membermapper.getUserNick(id);
+	}
+
+	@Override
+	public String getUserID(String nickname) {
+		return membermapper.getUserID(nickname);
+	}
 }
