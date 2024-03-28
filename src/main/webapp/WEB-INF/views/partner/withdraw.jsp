@@ -103,11 +103,7 @@
 													<td>0원</td>
 												</c:when>
 												<c:otherwise>
-<<<<<<< HEAD
-													<td><fmt:formatNumber value="${unsaleslist - withamount}" type="number" />원</td>
-=======
-													<td>${(currentamount + withamount) - unsaleslist}원</td>
->>>>>>> 2173df4d361a5163ac0c63df55cbe7a95c1385b7
+													<td><fmt:formatNumber value="${(currentamount + withamount) - unsaleslist}" type="number" />원</td>
 												</c:otherwise>
 											</c:choose>
 											<td></td>
@@ -123,7 +119,7 @@
 										</tr>
 											
 										<tr>
-											<th width="230">입금계좌</th>
+											<th width="25%">입금계좌</th>
 											<td id="center2"><input type="text" name="bank_number" value="${principal.member.bank_number }" readonly="readonly" style="background-color: #ececec;"></td>
 										</tr>
 										

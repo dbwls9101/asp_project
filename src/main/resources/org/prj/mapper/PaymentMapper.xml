@@ -48,7 +48,7 @@
 			from payment pay inner join 
 			(select p.p_idx, p.m_idx, p.id from party_board p inner join member m on p.m_idx=m.m_idx) pm 
 			on pay.p_idx = pm.p_idx 
-			where pm.m_idx=#{m_idx} and pay.pay_status = 'B'
+			where pm.m_idx=#{m_idx} and (pay.pay_status = 'B' or pay.pay_status = 'C' or pay.pay_status = 'E')
 			<if test='searchword != null or searchword != ""'>
 				<choose>
 			        <when test='searchcolumn.equals("p_idx")'>
@@ -83,7 +83,7 @@
 		    FROM party_board p
 		    INNER JOIN member m ON p.m_idx = m.m_idx
 		) pm ON pay.p_idx = pm.p_idx
-		WHERE pm.m_idx = #{m_idx} AND pay.pay_status = 'B'
+		WHERE pm.m_idx = #{m_idx} AND (pay.pay_status = 'B' or pay.pay_status = 'C' or pay.pay_status = 'E')
 		<if test='searchword != null or searchword != ""'>
 			<choose>
 		        <when test='searchcolumn.equals("p_idx")'>
@@ -108,7 +108,7 @@
 			from payment pay inner join 
 			(select p.p_idx, p.m_idx, p.id from party_board p inner join member m on p.m_idx=m.m_idx) pm 
 			on pay.p_idx = pm.p_idx 
-			where pm.m_idx=#{m_idx} and (pay.pay_status = 'C' or pay.pay_status = 'D')
+			where pm.m_idx=#{m_idx} and (pay.pay_status = 'D' or pay.pay_status = 'F')
 			<if test='searchword != null or searchword != ""'>
 				<choose>
 			        <when test='searchcolumn.equals("p_idx")'>
@@ -143,7 +143,7 @@
 		    FROM party_board p
 		    INNER JOIN member m ON p.m_idx = m.m_idx
 		) pm ON pay.p_idx = pm.p_idx
-		WHERE pm.m_idx = #{m_idx} AND (pay.pay_status = 'C' or pay.pay_status = 'D')
+		WHERE pm.m_idx = #{m_idx} AND (pay.pay_status = 'D' or pay.pay_status = 'F')
 		<if test='searchword != null or searchword != ""'>
 			<choose>
 		        <when test='searchcolumn.equals("p_idx")'>
