@@ -167,7 +167,7 @@ public class PartnerController {
 	}
 	
 	
-	//출금관리
+	//출금관리(출금 관리 해당되는 항목을 불러오느 위해 출금관리 화면이 시작되는 부분에 작성)
 	@GetMapping("/withdraw")
 	public void movewithdraw(Model model) {
 		log.info("movewithdraw...");

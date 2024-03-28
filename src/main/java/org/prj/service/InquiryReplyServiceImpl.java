@@ -25,11 +25,7 @@ public class InquiryReplyServiceImpl implements InquiryReplyService {
 	@Transactional
 	@Override
 	public int register(InquiryCommentVO vo) {
-		log.info("register : " + vo);
-		
-		//replycnt 컴럼값 증가
-	//	inquiryMapper.updateReplyCnt(vo.getI_idx(), 1);		// 나중에 다시 작업
-		
+		log.info("register : " + vo);	
 		return mapper.insert(vo);
 	}
 	
@@ -60,8 +56,6 @@ public class InquiryReplyServiceImpl implements InquiryReplyService {
 		log.info("remove..." + c_idx);
 		
 		InquiryCommentVO vo = mapper.read(c_idx);
-		
-	//	inquiryMapper.updateReplyCnt(vo.getI_idx(), -1);		// 나중에 다시 작업
 		
 		return mapper.delete(c_idx);
 	}

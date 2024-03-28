@@ -19,14 +19,14 @@ public class WithdrawServiceImpl implements WithdrawService {
 	@Autowired
 	private WithdrawMapper mapper;
 
-	// 출금 신청 리스트
+	// 1. 출금 신청 리스트
 	@Override
 	public List<WithdrawVO> getWithList(int m_idx) {
 		log.info("getWithList..." + m_idx);	
 		return mapper.getList(m_idx);
 	}
 	
-	// 출금신청
+	// 2. 출금신청
 	@Override
 	public int register(WithdrawVO vo) {
 		log.info("register..." + vo);
@@ -34,28 +34,28 @@ public class WithdrawServiceImpl implements WithdrawService {
 		return mapper.insert(vo);
 	}
 
-	// p_idx를 가지고와서 판매총액을 만드는 과정	
+	// 3. p_idx를 가지고와서 판매총액을 만드는 과정	
 	@Override
 	public int getp_idx(String username) {
 		log.info("getp_idx..." + username);
 		return mapper.getp_idx(username);
 	}
 
-	// 지급 요청 금액
+	// 4. 지급 요청 금액
 	@Override
 	public int withamount(String username) {
 		log.info("withamount..." + username);
 		return mapper.withamount(username);
 	}
 
-	// 지금 금액
+	// 5. 지금 금액
 	@Override
 	public Integer currentamount(String username) {
 		log.info("currentamount...");
 		return mapper.currentamount(username);
 	}
 	
-	// 미발생 금액 리스트
+	// 6. 미발생 금액 리스트
 	@Override
 	public int unsaleslist(String username) {
 		log.info("unsaleslist...");
@@ -63,7 +63,7 @@ public class WithdrawServiceImpl implements WithdrawService {
 	}
 	
 	
-	// 미발생 판매금 업데이트
+	// 7. 미발생 판매금 업데이트
 	@Override
 	public int unsales(String username) {
 		log.info("unsales...");
@@ -84,7 +84,7 @@ public class WithdrawServiceImpl implements WithdrawService {
 		return mapper.withdrawList(cri);
 	}
 
-	// 관리자 화면에서 승인 버튼 누를 경우 with_status B로 변경
+	// * 관리자 화면에서 승인 버튼 누를 경우 with_status B로 변경
 	@Override
 	public boolean modifyWithdraw(int w_idx) {
 		log.info("modifyWithdraw..." + w_idx);
@@ -94,7 +94,7 @@ public class WithdrawServiceImpl implements WithdrawService {
 		return result == 1 ? true : false;
 	}
 
-	// 관리자 화면에서 승인 버튼 누를 경우 with_status C로 변경
+	// * 관리자 화면에서 승인 버튼 누를 경우 with_status C로 변경
 	@Override
 	public boolean modifyWithdraw2(int w_idx) {
 		log.info("modifyWithdraw..." + w_idx);

@@ -15,6 +15,7 @@ function cssBinding(cssFiles) {
 
 const f = document.forms[0]; 
 
+// 버튼 목록
 document.querySelectorAll('.panel-body-btns button').forEach( btn => {
 	btn.addEventListener('click', () => {
 	
@@ -30,13 +31,13 @@ document.querySelectorAll('.panel-body-btns button').forEach( btn => {
 	});
 });
 
-// 수정되는 jsp로 이동
+// 수정되는 화면으로 이동
 function modify() {
 	let i_idx = f.i_idx.value;
 	location.href = '/inquiry_board/Inquirymodify?i_idx=' + i_idx;
 }
 
-//게시글 삭제
+// 게시글 삭제
 function remove() {
 	if(confirm("정말 삭제 하시겠습니까?")) {
 		
@@ -173,7 +174,7 @@ const idx = document.querySelector('input[name="i_idx"]');
 const addReplyBtn = document.querySelector('#addReplyBtn');				
 
 /*
-// 댓글 등록
+// 댓글 등록 ( 일반 상황에서 사용되는 댓글 등록)
 addReplyBtn.addEventListener('click', () => {
 	
 									// 추후 처리 필요
