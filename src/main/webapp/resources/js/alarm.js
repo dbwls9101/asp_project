@@ -4,7 +4,6 @@ let socket = null;
 document.addEventListener("DOMContentLoaded", function() {
     // 웹소켓 연결
 	socket = new SockJS('http://localhost:8081/echo-ws');
-	console.log('소켓연결');
     // 데이터를 전달 받았을 때 
 	socket.onmessage = onMessage;
 });
@@ -12,7 +11,6 @@ document.addEventListener("DOMContentLoaded", function() {
 //toast생성 및 추가
 function onMessage(evt) {
     var data = evt.data;
-    console.log(evt.data);
     // toast
     var toast = '<div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">';
     toast += "<div class='toast-header'>";

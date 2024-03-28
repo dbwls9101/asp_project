@@ -157,12 +157,6 @@ public class ShopController {
 		return rService.doRefundRegister(vo) > 0 ? "success" : "fail";
 	}
 	
-	//알림 페이지
-	@GetMapping("/alarm")
-	public void getAlarmPage() {
-		log.info("alarm...");
-	}
-	
 	//파티 결제 회원 ID
 	@ResponseBody
 	@PostMapping(value = "/paymentusers", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

@@ -246,10 +246,6 @@ document.querySelector("#approval").addEventListener('click', ()=>{
 				location.href = '/admin/refund';
 			}
 		})
-		.then(()=>{
-			//알림
-			
-		})
 		.catch(err => console.log(err));
 	}
 })

@@ -18,7 +18,7 @@ public interface WithdrawMapper {
 	public int getp_idx(String username);
 	
 	// 4. 지금 요청 금액
-	public int withamount(String username);
+	public Integer withamount(String username);
 	
 	// 5. 지급 금액
 	public Integer currentamount(String username);

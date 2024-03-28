@@ -177,21 +177,14 @@ public class PartnerController {
 		log.info("movewithdraw...");
 		
 		try {
-		// 현재 사용자 아이디 가져오기
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String username = authentication.getName();
-		log.info("participating..." + username);
-		model.addAttribute("unsales", wService.unsales(username));
-		log.info("unsales..." + username);
-		model.addAttribute("unsaleslist", wService.unsaleslist(username));
-		log.info("unsaleslist..." + username);
-		model.addAttribute("sumamount", wService.getp_idx(username));
-		log.info("sumamount..." + username);
-		model.addAttribute("withamount", wService.withamount(username));
-		log.info("withamount..." + username);
-		model.addAttribute("currentamount", wService.currentamount(username));
-		log.info("currentamount..." + username);
-		
+			// 현재 사용자 아이디 가져오기
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String username = authentication.getName();
+			model.addAttribute("unsales", wService.unsales(username));
+			model.addAttribute("unsaleslist", wService.unsaleslist(username));
+			model.addAttribute("sumamount", wService.getp_idx(username));
+			model.addAttribute("withamount", wService.withamount(username));
+			model.addAttribute("currentamount", wService.currentamount(username));
 		} catch(Exception e) {
 			log.error("An error occurred in movewithdraw", e);
 		}
@@ -203,7 +196,6 @@ public class PartnerController {
 	public ResponseEntity<List<WithdrawVO>> withList(
 			@PathVariable("m_idx") int m_idx
 			) {
-			log.info("m_idx...." + m_idx);
 		
 		List<WithdrawVO> withdrawList = wService.getWithList(m_idx);
 		

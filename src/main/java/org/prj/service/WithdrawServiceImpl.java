@@ -43,9 +43,10 @@ public class WithdrawServiceImpl implements WithdrawService {
 
 	// 4. 지급 요청 금액
 	@Override
-	public int withamount(String username) {
+	public Integer withamount(String username) {
 		log.info("withamount..." + username);
-		return mapper.withamount(username);
+		Integer result = mapper.withamount(username);
+	    return result == null ? 0 : result;
 	}
 
 	// 5. 지금 금액
