@@ -43,6 +43,8 @@ public interface PartyBoardService {
 	public PartyBoardVO getCurrentPartyInfo(int p_idx);
 	//파티장 -파티삭제
 	public void deleteParty(int p_idx);
+	//파티장 아이디
+	public String getPartnerId(int p_idx);
 	
 	//================관리자=======================
 	//파티 개수

@@ -239,6 +239,7 @@ document.querySelector("#approval").addEventListener('click', ()=>{
 		.then(data => {
 			if(data == 'success'){
 				alert('승인되었습니다.');
+				sendNotification(ref.id.value, '환불 신청이 승인되었습니다.');
 				location.href = '/admin/refund';
 			}else{
 				alert('승인에 실패하였습니다.');
@@ -279,6 +280,7 @@ document.querySelector("#return").addEventListener('click', ()=>{
 		.then(data => {
 			if(data == 'success'){
 				alert('반려되었습니다.');
+				sendNotification(ref.id.value, '환불 신청이 반려되었습니다.');
 				location.href = '/admin/refund';
 			}else{
 				alert('반려 처리에 실패하였습니다.');
@@ -288,6 +290,29 @@ document.querySelector("#return").addEventListener('click', ()=>{
 		.catch(err => console.log(err));
 	}
 })
+
+//알림
+function sendNotification(to_id, content) {
+    fetch('/alarm/savenotify', {
+            method: 'post',
+            body: JSON.stringify({
+                to_id: to_id,
+                from_id: principal.member.nickname,
+                content: content,
+                url: '/payment/orderinquiry'
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(response => response.text())
+        .then(data => {
+            if (data == 'success') {
+                socket.send(to_id + "," + principal.member.nickname + "," + content + "," + '/payment/orderinquiry');
+            }
+        })
+        .catch(err => console.log(err));
+}
 
 //unixTimeStamp 변환
 function myTime(unixTimeStamp){

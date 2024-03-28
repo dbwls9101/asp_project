@@ -85,7 +85,7 @@ function getList(m_idx, pageNum, amount){
 
 	                    if (todayTimestamp < nextDayTimestamp) {
 	                        // 결제 완료 후 24시간 이전
-	                    	msg += '<td><button type="button" class="cancel-btn" onclick="cancelBtn(\'' + vo.order_no + '\', \'' + vo.pay_amount + '\')">결제취소</button></td>';
+	                    	msg += '<td><button type="button" class="cancel-btn" onclick="cancelBtn(\'' + vo.order_no + '\', \'' + vo.p_idx + '\', \'' + vo.title + '\', \'' + vo.pay_amount + '\')">결제취소</button></td>';
 	                    } else {
 	                        // 결제 완료 후 24시간 이후
 	                        if (refundAmount <= 0) {
@@ -185,15 +185,15 @@ function pagingEvent(){
 
 // 결제취소 버튼
 const ps = payService;
-function cancelBtn(order_no, pay_amount) {
+function cancelBtn(order_no, p_idx, title, pay_amount) {
 	if (confirm('결제 취소하시겠습니까?')) {
 		if (pay_amount == 0) {
-			ps.zeroCancel(order_no, function(result) {
+			ps.zeroCancel(order_no, p_idx, title, principal.member.nickname, function(result) {
 				console.log(result);
 				location.reload();
 			})
 		}else {
-			ps.cancel(order_no, function(result) {
+			ps.cancel(order_no, p_idx, title, principal.member.nickname, function(result) {
 				console.log(result);
 				location.reload();
 			})

@@ -116,4 +116,8 @@ public interface MemberMapper {
 	
 	// 게시글 전체 개수
 	public int getPointTotal(Criteria cri);
+	
+	public String getUserNick(String id);
+	
+	public String getUserID(String nickname);
 }

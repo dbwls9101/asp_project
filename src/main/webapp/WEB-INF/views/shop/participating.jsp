@@ -51,7 +51,7 @@
 					</c:if>
 				</div>
 				<c:choose>
-					<c:when test="${vo.datediff > 0 }">
+					<c:when test="${vo.datediff >= 0 }">
 						<div id="enddate">~ ${vo.end_date } <span id="period">(${vo.datediff }일)</span></div>
 						<div id="price"><fmt:formatNumber value="${vo.totalprice }" pattern="#,###" />원</div>
 					</c:when>

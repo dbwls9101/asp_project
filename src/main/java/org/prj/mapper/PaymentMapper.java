@@ -3,6 +3,7 @@ package org.prj.mapper;
 import java.util.List;
 
 import org.prj.domain.Criteria;
+import org.prj.domain.MemberVO;
 import org.prj.domain.PaymentVO;
 import org.prj.domain.RefundVO;
 
@@ -54,4 +55,7 @@ public interface PaymentMapper {
 	
 	//환불 반려
 	public void doRefundReturn(RefundVO vo);
+	
+	//파티 참여 회원 아이디 리스트
+	public List<PaymentVO> getPaymentUsers(int p_idx);
 }

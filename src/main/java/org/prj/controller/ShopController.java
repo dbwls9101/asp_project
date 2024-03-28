@@ -5,8 +5,10 @@ import java.util.List;
 import org.prj.domain.Criteria;
 import org.prj.domain.MemberVO;
 import org.prj.domain.PartyBoardVO;
+import org.prj.domain.PaymentVO;
 import org.prj.domain.RefundVO;
 import org.prj.service.PartyBoardService;
+import org.prj.service.PaymentService;
 import org.prj.service.RefundService;
 import org.prj.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ public class ShopController {
 	
 	@Autowired 
 	private VideoService vService;
+	
+	@Autowired
+	private PaymentService payService;
 	
 	//카테고리별 리스트
 	@GetMapping("/list/{c1}")
@@ -150,6 +155,20 @@ public class ShopController {
 	@PostMapping("/refundregister")
 	public String doRefundRegister(@RequestBody RefundVO vo) {
 		return rService.doRefundRegister(vo) > 0 ? "success" : "fail";
+	}
+	
+	//파티 결제 회원 ID
+	@ResponseBody
+	@PostMapping(value = "/paymentusers", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<PaymentVO> getPaymentUsers(@RequestBody int p_idx) {
+		return payService.getPaymentUsers(p_idx);
+	}
+	
+	//파티장 아이디
+	@ResponseBody
+	@PostMapping(value = "/partnerid", produces = MediaType.TEXT_PLAIN_VALUE)
+	public String getPartnerId(@RequestBody int p_idx) {
+		return pService.getPartnerId(p_idx);
 	}
 }
 

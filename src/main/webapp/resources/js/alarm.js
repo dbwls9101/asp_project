@@ -4,9 +4,6 @@ let socket = null;
 document.addEventListener("DOMContentLoaded", function() {
     // 웹소켓 연결
 	socket = new SockJS('http://localhost:8081/echo-ws');
-
-	console.log('웹소켓 연결');
-	
     // 데이터를 전달 받았을 때 
 	socket.onmessage = onMessage;
 });

@@ -424,7 +424,7 @@ public class AdminController {
 		return iService.getReply(i_idx);
 	}
 	
-	// 1:1 문의 게시글 삭제  = 이때는 파일도 같이 삭제 해주기 때문에 같이 삭제해 준다.
+	// 1:1 문의 게시글 삭제
 	@ResponseBody
 	@PostMapping(value="/Inquiryremove", produces = MediaType.TEXT_PLAIN_VALUE)
 	public String remove(@RequestBody int i_idx) {
@@ -551,6 +551,7 @@ public class AdminController {
 	//회원 수정
 	@PostMapping("/membermodify")
 	public void doMemberModify(MemberVO mvo, Model model) {
+		System.out.println("mvo : " + mvo);
 		mService.doMemberModify(mvo);
 		moveMemberModify(mvo.getM_idx(), model);
 	}
@@ -654,5 +655,18 @@ public class AdminController {
 		log.info("get..." + order_no);
 		model.addAttribute("vo", payService.orderGet(order_no));
 	}
-		
+	
+	//유저 닉네임 조회
+	@ResponseBody
+	@PostMapping(value = "/usernickname", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String getUserNick(@RequestBody String id) {
+		return mService.getUserNick(id);
+	}
+	
+	//유저 아이디 조회
+	@ResponseBody
+	@PostMapping(value = "/inquiryuserid", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String getUserID(@RequestBody String nickname) {
+		return mService.getUserID(nickname);
+	}
 }

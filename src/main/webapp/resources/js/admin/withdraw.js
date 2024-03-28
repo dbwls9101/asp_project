@@ -89,8 +89,8 @@ function getList(obj){
 			msg += 		'<td>' + vo.note +'</td>';
 			msg += 		'<td>' + myTime(vo.reg_date) +'</td>';	
 			msg += 		'<td>'
-			msg +=		'<input type="button" class="button-change" name="approval" id="approval" onclick="approvalEvent('+ vo.w_idx + ')" value="승인"/>'
-			msg +=		'&nbsp;&nbsp;<input type="button" class="button-change" name="companion" id="companion" onclick="companionEvent('+ vo.w_idx + ')" value="반려"/>'
+			msg +=		'<input type="button" class="button-change" name="approval" id="approval" onclick="approvalEvent('+ vo.w_idx + ', \'' + vo.id + '\')" value="승인"/>'
+			msg +=		'&nbsp;&nbsp;<input type="button" class="button-change" name="companion" id="companion" onclick="companionEvent('+ vo.w_idx + ', \'' + vo.id + '\')" value="반려"/>'
 			msg +=		'</td>';
 			msg += '</tr>';	
 
@@ -188,7 +188,7 @@ function approvalEvent() {
 }
 
 
-function approvalEvent(w_idx){
+function approvalEvent(w_idx, id){
 	if(confirm('승인하시겠습니까?')){
 		fetch("/admin/modifyWithdraw", {
 			method : 'post',
@@ -198,6 +198,9 @@ function approvalEvent(w_idx){
 		.then( response => response.text() )
 		.then( data => {
 			if(data == 'success'){
+				//알림
+				sendNotification(id, '출금 신청이 승인되었습니다.');
+				
 				const btnElement = document.getElementById('approval');
 				btnElement.value = "완료";
 				getList();
@@ -211,7 +214,7 @@ function approvalEvent(w_idx){
 	}
 }
 
-function companionEvent(w_idx){
+function companionEvent(w_idx, id){
 	if(confirm('반려하시겠습니까?')){
 		fetch("/admin/modifyWithdraw2", {
 			method : 'post',
@@ -221,6 +224,9 @@ function companionEvent(w_idx){
 		.then( response => response.text() )
 		.then( data => {
 			if(data == 'success'){
+				//알림
+				sendNotification(id, '출금 신청이 반려되었습니다.');
+				
 				getList();
 			}
 			else{
@@ -231,7 +237,28 @@ function companionEvent(w_idx){
 	}
 }
 
-
+//알림
+function sendNotification(to_id, content) {
+    fetch('/alarm/savenotify', {
+            method: 'post',
+            body: JSON.stringify({
+                to_id: to_id,
+                from_id: principal.member.nickname,
+                content: content,
+                url: '/partner/withdraw'
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=utf-8'
+            }
+        })
+        .then(response => response.text())
+        .then(data => {
+            if (data == 'success') {
+                socket.send(to_id + "," + principal.member.nickname + "," + content + "," + '/partner/withdraw');
+            }
+        })
+        .catch(err => console.log(err));
+}
 
 
 
