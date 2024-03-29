@@ -62,14 +62,10 @@ function getList(obj){
 			
 			//상태값
 			let status = '';
-			if (vo.pay_status == 'A') {
-				status = '결제대기';
-			}else if (vo.pay_status == 'B') {
-				status = '결제완료';
-			}else if (vo.pay_status == 'C') {
-				status = '환불신청';
-			}else {
+			if (vo.pay_status == 'D') {
 				status = '결제취소';
+			}else {
+				status = '환불완료';
 			}
 			
 			msg += '<tr>';

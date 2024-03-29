@@ -60,24 +60,12 @@ function getList(obj){
 			let eDate = new Date(eArr);
 			let diffDate = Math.abs(Math.round((sDate - eDate) / (1000*60*60*24)));
 			
-			//상태값
-			let status = '';
-			if (vo.pay_status == 'A') {
-				status = '결제대기';
-			}else if (vo.pay_status == 'B') {
-				status = '결제완료';
-			}else if (vo.pay_status == 'C') {
-				status = '환불신청';
-			}else {
-				status = '결제취소';
-			}
-			
 			msg += '<tr>';
 			msg += '<td>' + myTime(vo.approved_at) + '</td>';
 			msg += '<td>' + vo.p_idx + '</td>';
 			msg += '<td>' + vo.title + '</td>';
 			msg += '<td>' + vo.name + '</td>';
-			msg += '<td>' + status + '</td>';
+			msg += '<td>결제완료</td>';
 			if(diffDate <= 0){
 				msg += '<td>마감</td>';
 			}else{

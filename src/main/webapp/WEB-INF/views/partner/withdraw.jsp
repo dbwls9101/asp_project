@@ -119,7 +119,7 @@
 										</tr>
 											
 										<tr>
-											<th width="230">입금계좌</th>
+											<th width="25%">입금계좌</th>
 											<td id="center2"><input type="text" name="bank_number" value="${principal.member.bank_number }" readonly="readonly" style="background-color: #ececec;"></td>
 										</tr>
 										
@@ -132,7 +132,7 @@
 												</c:when>
 												<c:otherwise>
 													<td colspan="2" style="background-color: #43a051">
-													<p id="center1">최대 <b><fmt:formatNumber value="${unsaleslist - (currentamount + withamount)}" type="number" />원</b> 까지 신청할 수 있습니다.</p>
+													<p id="center1" style="font-size: 16px !important;">최대 <b><fmt:formatNumber value="${unsaleslist - (currentamount + withamount)}" type="number" />원</b> 까지 신청할 수 있습니다.</p>
 													</td>	
 												</c:otherwise>
 											</c:choose>									
